@@ -1,0 +1,94 @@
+{
+  "name": "User Login Flow",
+  "description": "Automated login flow for a web application with user management navigation",
+  "continueOnError": false,
+  "steps": [
+    {
+      "stepId": "1",
+      "action": "navigate",
+      "enabled": true,
+      "url": "https://example.com/login",
+      "waitUntil": "domcontentloaded",
+      "description": "Navigate to login page"
+    },
+    {
+      "stepId": "2",
+      "action": "waitForSelector",
+      "enabled": true,
+      "selector": "#username",
+      "state": "visible",
+      "timeout": 10000,
+      "description": "Wait for username field to be visible"
+    },
+    {
+      "stepId": "3",
+      "action": "fill",
+      "enabled": true,
+      "selector": "#username",
+      "text": "testuser@example.com",
+      "description": "Enter username"
+    },
+    {
+      "stepId": "4",
+      "action": "fill",
+      "enabled": true,
+      "selector": "#password",
+      "text": "SecurePassword123!",
+      "description": "Enter password"
+    },
+    {
+      "stepId": "5",
+      "action": "click",
+      "enabled": true,
+      "selector": "button[type='submit']",
+      "description": "Click login button"
+    },
+    {
+      "stepId": "6",
+      "action": "waitForNavigation",
+      "enabled": true,
+      "waitUntil": "networkidle",
+      "timeout": 30000,
+      "description": "Wait for navigation after login"
+    },
+    {
+      "stepId": "7",
+      "action": "waitForSelector",
+      "enabled": true,
+      "selector": ".dashboard",
+      "state": "visible",
+      "description": "Wait for dashboard to load"
+    },
+    {
+      "stepId": "8",
+      "action": "click",
+      "enabled": true,
+      "selector": "nav a[href='/users']",
+      "description": "Navigate to User Management"
+    },
+    {
+      "stepId": "9",
+      "action": "wait",
+      "enabled": true,
+      "duration": 2000,
+      "description": "Wait for page to settle"
+    },
+    {
+      "stepId": "10",
+      "action": "extractText",
+      "enabled": true,
+      "selector": ".user-profile .username",
+      "storeAs": "loggedInUser",
+      "description": "Extract logged-in username"
+    },
+    {
+      "stepId": "11",
+      "action": "screenshot",
+      "enabled": true,
+      "filename": "user-management-page.png",
+      "fullPage": true,
+      "description": "Capture screenshot of user management page"
+    }
+  ]
+}
+

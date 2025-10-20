@@ -1,0 +1,101 @@
+{
+  "name": "Validation Demo",
+  "description": "Demonstrates various validation types with visual notifications",
+  "continueOnError": false,
+  "steps": [
+    {
+      "stepId": "1",
+      "action": "navigate",
+      "enabled": true,
+      "url": "https://snackoverflowdemo.dev1.reliaslearning.com",
+      "waitUntil": "domcontentloaded",
+      "description": "Navigate to login page"
+    },
+    {
+      "stepId": "2",
+      "action": "waitForSelector",
+      "enabled": true,
+      "selector": "#Username",
+      "state": "visible",
+      "timeout": 10000,
+      "description": "Wait for username field"
+    },
+    {
+      "stepId": "3",
+      "action": "validate",
+      "enabled": true,
+      "validationType": "exists",
+      "selector": "#Username",
+      "onFailure": "visual",
+      "failureMessage": "Username field not found on login page!",
+      "description": "Validate username field exists"
+    },
+    {
+      "stepId": "4",
+      "action": "validate",
+      "enabled": true,
+      "validationType": "exists",
+      "selector": "#Password",
+      "onFailure": "visual",
+      "failureMessage": "Password field not found on login page!",
+      "description": "Validate password field exists"
+    },
+    {
+      "stepId": "5",
+      "action": "fill",
+      "enabled": true,
+      "selector": "#Username",
+      "text": "praksah444499",
+      "description": "Enter username"
+    },
+    {
+      "stepId": "6",
+      "action": "fill",
+      "enabled": true,
+      "selector": "#Password",
+      "text": "Demo@12345",
+      "description": "Enter password"
+    },
+    {
+      "stepId": "7",
+      "action": "click",
+      "enabled": true,
+      "selector": "button[type='submit']",
+      "description": "Click submit button"
+    },
+    {
+      "stepId": "8",
+      "action": "wait",
+      "enabled": true,
+      "duration": 3000,
+      "description": "Wait for page transition"
+    },
+    {
+      "stepId": "9",
+      "action": "validate",
+      "enabled": true,
+      "validationType": "notExists",
+      "selector": ".error-message",
+      "onFailure": "visual",
+      "failureMessage": "Login failed - error message detected!",
+      "continueOnFailure": true,
+      "description": "Validate no error message (optional check)"
+    },
+    {
+      "stepId": "10",
+      "action": "screenshot",
+      "enabled": true,
+      "filename": "after-login-validation.png",
+      "fullPage": true,
+      "description": "Capture page after login validation"
+    },
+    {
+      "stepId": "11",
+      "action": "wait",
+      "enabled": true,
+      "duration": 3000,
+      "description": "Wait to see validation results"
+    }
+  ]
+}
+

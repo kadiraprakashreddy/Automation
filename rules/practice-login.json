@@ -1,0 +1,295 @@
+{
+  "name": "Login Test",
+  "description": "Working login example using a practice test site",
+  "continueOnError": false,
+  "steps": [
+    {
+      "stepId": "1",
+      "action": "navigate",
+      "enabled": true,
+      "url": "https://snackoverflowdemo.dev1.reliaslearning.com",
+      "waitUntil": "domcontentloaded",
+      "description": "Navigate to login page"
+    },
+    {
+      "stepId": "2",
+      "action": "waitForSelector",
+      "enabled": true,
+      "selector": "#Username",
+      "state": "visible",
+      "timeout": 10000,
+      "description": "Wait for username field"
+    },
+    {
+      "stepId": "3",
+      "action": "screenshot",
+      "enabled": false,
+      "filename": "01-login-page.png",
+      "fullPage": true,
+      "description": "Capture login page"
+    },
+    {
+      "stepId": "4",
+      "action": "fill",
+      "enabled": true,
+      "selector": "#Username",
+      "text": "praksah444499",
+      "description": "Enter username"
+    },
+    {
+      "stepId": "5",
+      "action": "fill",
+      "enabled": true,
+      "selector": "#Password",
+      "text": "Demo@12345",
+      "description": "Enter password"
+    },
+    {
+      "stepId": "6",
+      "action": "screenshot",
+      "enabled": false,
+      "filename": "02-filled-form.png",
+      "fullPage": false,
+      "description": "Capture filled form"
+    },
+    {
+      "stepId": "7",
+      "action": "click",
+      "enabled": true,
+      "selector": "button[type='submit']",
+      "description": "Click submit button"
+    },
+    {
+      "stepId": "8",
+      "action": "wait",
+      "enabled": true,
+      "duration": 2000,
+      "description": "Wait for page transition"
+    },
+    {
+      "stepId": "8a",
+      "action": "click",
+      "enabled": true,
+      "selector": "button[type='button'][aria-controls='learningMenu']",
+      "description": "Click Learning Menu button on left side"
+    },
+    {
+      "stepId": "8b",
+      "action": "wait",
+      "enabled": true,
+      "duration": 1000,
+      "description": "Wait for menu to expand"
+    },
+    {
+      "stepId": "8c",
+      "action": "click",
+      "enabled": true,
+      "selector": "#FormContentPlaceHolder_LeftHandNav_ModulesLink",
+      "description": "Click Modules Link button"
+    },
+    {
+      "stepId": "8d",
+      "action": "wait",
+      "enabled": true,
+      "duration": 1500,
+      "description": "Wait for modules page to load"
+    },
+    {
+      "stepId": "8e",
+      "action": "click",
+      "enabled": true,
+      "selector": "[data-cy='lhn-module-list']",
+      "description": "Click Module List"
+    },
+    {
+      "stepId": "8f",
+      "action": "wait",
+      "enabled": true,
+      "duration": 1000,
+      "description": "Wait after selecting module list"
+    },
+    {
+      "stepId": "8g",
+      "action": "navigate",
+      "enabled": true,
+      "url": "https://snackoverflowdemo.dev1.reliaslearning.com/new/en/content-library",
+      "waitUntil": "domcontentloaded",
+      "description": "Navigate to Content Library page"
+    },
+    {
+      "stepId": "8h",
+      "action": "wait",
+      "enabled": true,
+      "duration": 3000,
+      "description": "Wait for Content Library page to load"
+    },
+    {
+      "stepId": "8i",
+      "action": "screenshot",
+      "enabled": true,
+      "filename": "content-library-page.png",
+      "fullPage": true,
+      "description": "Capture Content Library page"
+    },
+    {
+      "stepId": "8j",
+      "action": "waitForSelector",
+      "enabled": true,
+      "selector": "[placeholder='Search courses']",
+      "state": "visible",
+      "description": "Wait for search courses field (disabled for now)"
+    },
+    {
+      "stepId": "8k",
+      "action": "fill",
+      "enabled": true,
+      "selector": "[placeholder='Search courses']",
+      "text": "reddy",
+      "description": "Type 'reddy' in search courses field (disabled for now)"
+    },
+    {
+      "stepId": "8l",
+      "action": "wait",
+      "enabled": true,
+      "duration": 2000,
+      "description": "Wait before clicking course card"
+    },
+    {
+      "stepId": "8m",
+      "action": "click",
+      "enabled": true,
+      "selector": "[data-testid='course-card']",
+      "description": "Click on course card from search results"
+    },
+    {
+      "stepId": "8n",
+      "action": "wait",
+      "enabled": true,
+      "duration": 3000,
+      "description": "Wait for course details page to load"
+    },
+    {
+      "stepId": "8n1",
+      "action": "screenshot",
+      "enabled": true,
+      "filename": "course-details-page.png",
+      "fullPage": true,
+      "description": "Capture course details page"
+    },
+    {
+      "stepId": "8n2",
+      "action": "evaluate",
+      "enabled": true,
+      "script": "window.location.href",
+      "storeAs": "courseDetailsUrl",
+      "description": "Get course details URL"
+    },
+    {
+      "stepId": "8o",
+      "action": "waitForSelector",
+      "enabled": true,
+      "selector": "[data-testid='outline-tab']",
+      "state": "visible",
+      "timeout": 5000,
+      "description": "Wait for outline tab to appear"
+    },
+    {
+      "stepId": "8o-click",
+      "action": "click",
+      "enabled": true,
+      "selector": "[data-testid='outline-tab']",
+      "description": "Click on outline tab"
+    },
+    {
+      "stepId": "8o1",
+      "action": "wait",
+      "enabled": true,
+      "duration": 2000,
+      "description": "Wait for outline content to load"
+    },
+    {
+      "stepId": "8o2",
+      "action": "validate",
+      "enabled": true,
+      "validationType": "exists",
+      "selector": "[data-testid='outline-lesson-section']",
+      "onFailure": "visual",
+      "failureMessage": "Outline lesson section not found!",
+      "description": "Validate outline lesson section exists"
+    },
+    {
+      "stepId": "8o3",
+      "action": "validate",
+      "enabled": true,
+      "validationType": "count",
+      "selector": "[data-testid='outline-lesson-section'] li",
+      "expectedValue": "2",
+      "onFailure": "visual",
+      "failureMessage": "Expected 2 lesson items but found different count!",
+      "description": "Validate there are 2 lesson items"
+    },
+    {
+      "stepId": "8o4",
+      "action": "validate",
+      "enabled": true,
+      "validationType": "textContains",
+      "selector": "[data-testid='outline-lesson-section'] li:nth-child(1)",
+      "expectedValue": "Prakash123_title (Optional)",
+      "onFailure": "visual",
+      "failureMessage": "First lesson item 'Prakash123_title (Optional)' not found!",
+      "description": "Validate first lesson is 'Prakash123_title (Optional)'"
+    },
+    {
+      "stepId": "8o5",
+      "action": "validate",
+      "enabled": true,
+      "validationType": "textContains",
+      "selector": "[data-testid='outline-lesson-section'] li:nth-child(2)",
+      "expectedValue": "reddyzip (Optional)",
+      "onFailure": "visual",
+      "failureMessage": "Second lesson item 'reddyzip (Optional)' not found!",
+      "description": "Validate second lesson is 'reddyzip (Optional)'"
+    },
+    {
+      "stepId": "8p",
+      "action": "screenshot",
+      "enabled": true,
+      "filename": "outline-validation-complete.png",
+      "fullPage": true,
+      "description": "Capture screen after outline validation"
+    },
+    {
+      "stepId": "9",
+      "action": "waitForSelector",
+      "enabled": false,
+      "selector": ".post-title",
+      "state": "visible",
+      "timeout": 10000,
+      "description": "Wait for success page"
+    },
+    {
+      "stepId": "10",
+      "action": "extractText",
+      "enabled": false,
+      "selector": ".post-title",
+      "storeAs": "successMessage",
+      "description": "Extract success message"
+    },
+    {
+      "stepId": "11",
+      "action": "screenshot",
+      "enabled": false,
+      "filename": "03-logged-in.png",
+      "fullPage": true,
+      "description": "Capture success page"
+    },
+    {
+      "stepId": "12",
+      "action": "wait",
+      "enabled": true,
+      "duration": 600000,
+      "description": "Wait for manual browser close (10 minutes timeout)"
+    }
+  ]
+}
+

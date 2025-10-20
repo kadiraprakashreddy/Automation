@@ -1,0 +1,235 @@
+╔══════════════════════════════════════════════════════════════════════════╗
+║                                                                          ║
+║              PLAYWRIGHT AUTOMATION ENGINE - START HERE                   ║
+║                                                                          ║
+║              A Rule-Driven Browser Automation Framework                  ║
+║                                                                          ║
+╚══════════════════════════════════════════════════════════════════════════╝
+
+🎯 WHAT IS THIS?
+─────────────────
+A complete Node.js automation framework that lets you automate browser
+interactions by writing simple JSON files instead of code.
+
+No programming required - just define steps in JSON and run!
+
+
+📦 INSTALLATION (First Time Setup)
+────────────────────────────────────
+1. Open terminal in this directory
+2. Run: npm install
+3. Run: npm run install-browsers
+4. Done! (Takes 2-5 minutes)
+
+
+🚀 QUICK START
+────────────────
+Run the demo (no configuration needed):
+
+    npm run demo
+
+This will:
+- Open a browser
+- Search Google
+- Take screenshots
+- Show you a complete automation in action!
+
+
+📚 DOCUMENTATION
+─────────────────
+Read these files in order:
+
+1. GETTING_STARTED.md  ⭐ Start here! (Step-by-step guide)
+2. QUICKSTART.md       ⭐ 5-minute quick guide
+3. README.md           📖 Complete documentation
+4. ACTIONS.md          📋 All available actions
+5. ARCHITECTURE.md     🏗️ System design (advanced)
+
+
+💡 EXAMPLES
+────────────
+5 ready-to-run examples in the 'rules/' folder:
+
+├── demo-google.json              (Google search - works immediately!)
+├── example-login.json            (Login workflow)
+├── example-data-extraction.json  (Web scraping)
+├── example-form-filling.json     (Form automation)
+└── example-advanced.json         (Advanced features)
+
+Run any example:
+    node src/index.js rules/demo-google.json
+
+
+🎨 CREATE YOUR AUTOMATION
+──────────────────────────
+1. Copy an example rule file
+2. Modify the steps (URLs, selectors, actions)
+3. Run: node src/index.js rules/your-file.json
+4. Check screenshots/ and logs/ folders for results
+
+
+🛠️ AVAILABLE COMMANDS
+───────────────────────
+npm run demo          Run Google search demo
+npm run install-browsers    Install browser binaries
+npm run validate <file>     Validate a rule file
+npm run run-all      Run all example files
+node src/index.js <rule>    Run a specific automation
+
+
+📁 FOLDER STRUCTURE
+────────────────────
+rules/          Your automation rule files (JSON)
+screenshots/    Generated screenshots appear here
+logs/          Execution logs appear here
+src/           Source code (don't modify unless extending)
+scripts/       Helper utilities
+
+
+⚙️ CONFIGURATION (Optional)
+─────────────────────────────
+Create a '.env' file to customize:
+
+HEADLESS=false         (Show browser window)
+BROWSER_TYPE=chromium  (or firefox, webkit)
+VIEWPORT_WIDTH=1920
+VIEWPORT_HEIGHT=1080
+
+See .env.example for all options (if available)
+
+
+🎯 WHAT CAN YOU AUTOMATE?
+───────────────────────────
+✅ Login to websites
+✅ Fill and submit forms
+✅ Extract data from pages
+✅ Take screenshots
+✅ Test user workflows
+✅ Monitor website changes
+✅ Automate repetitive tasks
+✅ Web scraping
+
+
+🔧 SUPPORTED ACTIONS (15 Total)
+─────────────────────────────────
+Navigation:    navigate, waitForNavigation
+Interaction:   click, hover, check, uncheck
+Input:         type, fill, select
+Waiting:       wait, waitForSelector
+Extraction:    extractText, extractAttribute
+Other:         screenshot, evaluate
+
+See ACTIONS.md for complete details and examples
+
+
+💾 HOW IT WORKS
+────────────────
+1. You create a JSON file with automation steps
+2. Each step defines an action (click, type, etc.)
+3. Run the engine with your JSON file
+4. Engine executes steps in order
+5. Results are logged and screenshots captured
+6. Done!
+
+Example step:
+{
+  "stepId": "1",
+  "action": "navigate",
+  "enabled": true,
+  "url": "https://example.com"
+}
+
+
+🎓 LEARNING PATH
+─────────────────
+Beginner:
+1. Run 'npm run demo'
+2. Read GETTING_STARTED.md
+3. Modify demo-google.json
+4. Create your first rule
+
+Intermediate:
+1. Study example rule files
+2. Read ACTIONS.md
+3. Create multi-step automations
+4. Use data extraction
+
+Advanced:
+1. Read ARCHITECTURE.md
+2. Understand action handlers
+3. Extend with custom actions
+4. Integrate with CI/CD
+
+
+🆘 TROUBLESHOOTING
+───────────────────
+Browser doesn't open?
+→ Set HEADLESS=false in .env file
+
+"Element not found" error?
+→ Add waitForSelector before interacting
+→ Verify selector in browser DevTools
+
+Navigation timeout?
+→ Increase NAVIGATION_TIMEOUT in .env
+
+Browsers not installed?
+→ Run: npm run install-browsers
+
+
+📖 DOCUMENTATION FILES
+───────────────────────
+README.md           Main documentation (comprehensive)
+GETTING_STARTED.md  Step-by-step beginner guide ⭐
+QUICKSTART.md       5-minute quick start
+ACTIONS.md          Complete action reference
+ARCHITECTURE.md     System design and architecture
+CHANGELOG.md        Version history and roadmap
+PROJECT_SUMMARY.md  Project overview and status
+
+
+🔗 IMPORTANT PATHS
+───────────────────
+Main entry point:   src/index.js
+Action handlers:    src/actions/actionHandler.js
+Rule engine:        src/engine/ruleEngine.js
+Example rules:      rules/
+Generated output:   screenshots/ and logs/
+
+
+✅ VERIFICATION CHECKLIST
+──────────────────────────
+□ Node.js 16+ installed?
+□ Ran 'npm install'?
+□ Ran 'npm run install-browsers'?
+□ Ran 'npm run demo' successfully?
+□ Read GETTING_STARTED.md?
+
+If yes to all → You're ready to automate! 🎉
+
+
+📧 NEED HELP?
+──────────────
+1. Check the documentation files
+2. Review example rule files
+3. Look at logs/automation.log
+4. Examine screenshots for visual verification
+
+
+🎉 GET STARTED NOW!
+────────────────────
+1. Run: npm run demo
+2. Open: GETTING_STARTED.md
+3. Start automating!
+
+
+═══════════════════════════════════════════════════════════════════════
+
+Version: 1.0.0
+Status: Production Ready
+License: MIT
+
+Happy Automating! 🚀
+
+═══════════════════════════════════════════════════════════════════════
+

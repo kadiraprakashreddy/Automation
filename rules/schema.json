@@ -1,0 +1,146 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Playwright Automation Rule Schema",
+  "description": "JSON Schema for Playwright Automation Engine rule files",
+  "type": "object",
+  "required": ["name", "steps"],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Name of the automation rule set"
+    },
+    "description": {
+      "type": "string",
+      "description": "Description of what this automation does"
+    },
+    "continueOnError": {
+      "type": "boolean",
+      "description": "Whether to continue execution if a step fails",
+      "default": false
+    },
+    "steps": {
+      "type": "array",
+      "description": "Array of automation steps",
+      "items": {
+        "$ref": "#/definitions/step"
+      },
+      "minItems": 1
+    }
+  },
+  "definitions": {
+    "step": {
+      "type": "object",
+      "required": ["stepId", "action", "enabled"],
+      "properties": {
+        "stepId": {
+          "type": "string",
+          "description": "Unique identifier for this step"
+        },
+        "action": {
+          "type": "string",
+          "enum": [
+            "navigate",
+            "click",
+            "type",
+            "fill",
+            "wait",
+            "waitForNavigation",
+            "waitForSelector",
+            "extractText",
+            "extractAttribute",
+            "screenshot",
+            "select",
+            "hover",
+            "check",
+            "uncheck",
+            "evaluate"
+          ],
+          "description": "The action to perform"
+        },
+        "enabled": {
+          "type": "boolean",
+          "description": "Whether this step should be executed"
+        },
+        "description": {
+          "type": "string",
+          "description": "Human-readable description of this step"
+        },
+        "continueOnError": {
+          "type": "boolean",
+          "description": "Whether to continue if this step fails"
+        },
+        "delayAfter": {
+          "type": "number",
+          "description": "Milliseconds to wait after this step completes"
+        },
+        "timeout": {
+          "type": "number",
+          "description": "Custom timeout for this step in milliseconds"
+        },
+        "url": {
+          "type": "string",
+          "description": "URL to navigate to (for navigate action)"
+        },
+        "waitUntil": {
+          "type": "string",
+          "enum": ["load", "domcontentloaded", "networkidle"],
+          "description": "Wait condition for navigation"
+        },
+        "selector": {
+          "type": "string",
+          "description": "CSS selector for the target element"
+        },
+        "text": {
+          "type": "string",
+          "description": "Text to type or fill"
+        },
+        "delay": {
+          "type": "number",
+          "description": "Delay between keystrokes for type action"
+        },
+        "duration": {
+          "type": "number",
+          "description": "Duration to wait in milliseconds"
+        },
+        "state": {
+          "type": "string",
+          "enum": ["visible", "hidden", "attached", "detached"],
+          "description": "Element state to wait for"
+        },
+        "storeAs": {
+          "type": "string",
+          "description": "Variable name to store extracted data"
+        },
+        "attribute": {
+          "type": "string",
+          "description": "Attribute name to extract"
+        },
+        "filename": {
+          "type": "string",
+          "description": "Screenshot filename"
+        },
+        "fullPage": {
+          "type": "boolean",
+          "description": "Whether to capture full page screenshot"
+        },
+        "value": {
+          "type": "string",
+          "description": "Value to select in dropdown"
+        },
+        "label": {
+          "type": "string",
+          "description": "Label to select in dropdown"
+        },
+        "index": {
+          "type": "number",
+          "description": "Index to select in dropdown"
+        },
+        "script": {
+          "type": "string",
+          "description": "JavaScript code to evaluate"
+        }
+      }
+    }
+  }
+}
+

@@ -1,0 +1,33 @@
+{
+  "name": "playwright-automation-engine",
+  "version": "1.0.0",
+  "description": "A rule-driven browser automation engine using Playwright for Node.js",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.js",
+    "install-browsers": "npx playwright install",
+    "demo": "node src/index.js rules/demo-google.json",
+    "test": "node src/index.js rules/example-login.json",
+    "run-all": "node scripts/run-all-examples.js",
+    "validate": "node scripts/validate-rule.js"
+  },
+  "keywords": [
+    "playwright",
+    "automation",
+    "rule-engine",
+    "browser-automation",
+    "testing"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "playwright": "^1.40.0",
+    "winston": "^3.11.0",
+    "dotenv": "^16.3.1"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}
+
