@@ -124,6 +124,20 @@
       "description": "Wait for Content Library page to load"
     },
     {
+      "stepId": "8h1",
+      "action": "click",
+      "enabled": true,
+      "selector": "mat-card-title.content-library-tile-text:has-text('Courses')",
+      "description": "Click on Courses tile"
+    },
+    {
+      "stepId": "8h2",
+      "action": "wait",
+      "enabled": true,
+      "duration": 2000,
+      "description": "Wait after clicking Courses"
+    },
+    {
       "stepId": "8i",
       "action": "screenshot",
       "enabled": true,
@@ -158,8 +172,8 @@
       "stepId": "8m",
       "action": "click",
       "enabled": true,
-      "selector": "[data-testid='course-card']",
-      "description": "Click on course card from search results"
+      "selector": "[data-cy='course-title']:has-text('Reddy123')",
+      "description": "Click on course with title 'Reddy123'"
     },
     {
       "stepId": "8n",
@@ -234,7 +248,7 @@
       "enabled": true,
       "validationType": "textContains",
       "selector": "[data-testid='outline-lesson-section'] li:nth-child(1)",
-      "expectedValue": "Prakash123_title (Optional)",
+      "expectedValue": "Prakash1234_title (Optional)",
       "onFailure": "visual",
       "failureMessage": "First lesson item 'Prakash123_title (Optional)' not found!",
       "description": "Validate first lesson is 'Prakash123_title (Optional)'"

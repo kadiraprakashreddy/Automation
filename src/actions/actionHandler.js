@@ -113,7 +113,13 @@ class ActionHandler {
    * Click an element
    */
   async click(step) {
-    const { selector } = step;
+    const { selector, highlight = true } = step;
+    
+    // Highlight element before clicking if enabled
+    if (highlight) {
+      await this.highlightElement(selector);
+    }
+    
     await this.page.click(selector, {
       timeout: step.timeout || config.timeouts.default
     });
@@ -140,10 +146,15 @@ class ActionHandler {
    * Fill an input field (faster than type)
    */
   async fill(step) {
-    const { selector, text } = step;
+    const { selector, text, highlight = true } = step;
     
     // Replace placeholders with stored data
     const processedText = this.replacePlaceholders(text);
+    
+    // Highlight element before filling if enabled
+    if (highlight) {
+      await this.highlightElement(selector);
+    }
     
     await this.page.fill(selector, processedText, {
       timeout: step.timeout || config.timeouts.default
@@ -249,7 +260,12 @@ class ActionHandler {
    * Select an option from a dropdown
    */
   async select(step) {
-    const { selector, value, label, index } = step;
+    const { selector, value, label, index, highlight = true } = step;
+    
+    // Highlight element before selecting if enabled
+    if (highlight) {
+      await this.highlightElement(selector);
+    }
     
     let result;
     if (value) {
@@ -269,7 +285,13 @@ class ActionHandler {
    * Hover over an element
    */
   async hover(step) {
-    const { selector } = step;
+    const { selector, highlight = true } = step;
+    
+    // Highlight element before hovering if enabled
+    if (highlight) {
+      await this.highlightElement(selector);
+    }
+    
     await this.page.hover(selector, {
       timeout: step.timeout || config.timeouts.default
     });
@@ -280,7 +302,13 @@ class ActionHandler {
    * Check a checkbox or radio button
    */
   async check(step) {
-    const { selector } = step;
+    const { selector, highlight = true } = step;
+    
+    // Highlight element before checking if enabled
+    if (highlight) {
+      await this.highlightElement(selector);
+    }
+    
     await this.page.check(selector, {
       timeout: step.timeout || config.timeouts.default
     });
@@ -291,7 +319,13 @@ class ActionHandler {
    * Uncheck a checkbox
    */
   async uncheck(step) {
-    const { selector } = step;
+    const { selector, highlight = true } = step;
+    
+    // Highlight element before unchecking if enabled
+    if (highlight) {
+      await this.highlightElement(selector);
+    }
+    
     await this.page.uncheck(selector, {
       timeout: step.timeout || config.timeouts.default
     });
@@ -504,6 +538,50 @@ class ActionHandler {
       logger.info(`Error screenshot saved: ${filepath}`);
     } catch (error) {
       logger.error(`Failed to capture error screenshot: ${error.message}`);
+    }
+  }
+
+  /**
+   * Highlight an element on the page for visual feedback
+   * @param {string} selector - The element selector to highlight
+   * @param {number} duration - How long to show the highlight (ms)
+   */
+  async highlightElement(selector, duration = 800) {
+    try {
+      // Use Playwright's locator which handles all selector types
+      const locator = this.page.locator(selector).first();
+      
+      // Wait briefly for element to be available
+      await locator.waitFor({ state: 'visible', timeout: 2000 }).catch(() => {});
+      
+      // Apply highlight using Playwright's evaluate on the element
+      await locator.evaluate((element, dur) => {
+        // Store original style
+        const originalOutline = element.style.outline;
+        const originalOutlineOffset = element.style.outlineOffset;
+        const originalBoxShadow = element.style.boxShadow;
+        
+        // Apply highlight effect
+        element.style.outline = '3px solid #ff6b6b';
+        element.style.outlineOffset = '2px';
+        element.style.boxShadow = '0 0 15px rgba(255, 107, 107, 0.6)';
+        
+        // Scroll element into view smoothly
+        element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        
+        // Remove highlight after duration
+        setTimeout(() => {
+          element.style.outline = originalOutline;
+          element.style.outlineOffset = originalOutlineOffset;
+          element.style.boxShadow = originalBoxShadow;
+        }, dur);
+      }, duration);
+      
+      // Wait a bit for the highlight to be visible
+      await this.page.waitForTimeout(400);
+    } catch (error) {
+      // If highlight fails, just log it and continue
+      logger.warn(`Failed to highlight element: ${error.message}`);
     }
   }
 
