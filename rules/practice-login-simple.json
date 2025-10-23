@@ -1,0 +1,229 @@
+{
+  "name": "User Login and Course Search",
+  "description": "Automated login and course search workflow for managers and product owners",
+  "continueOnError": false,
+  "workflow": {
+    "type": "user-login-and-search",
+    "website": "https://snackoverflowdemo.dev1.reliaslearning.com",
+    "credentials": {
+      "username": "praksah444499",
+      "password": "Demo@12345"
+    },
+    "search": {
+      "term": "reddy",
+      "expectedCourse": "Reddy123"
+    }
+  },
+  "steps": [
+    {
+      "step": "Go to website",
+      "action": "navigate",
+      "url": "{{website}}",
+      "wait": "page loads"
+    },
+    {
+      "step": "Wait for login form",
+      "action": "waitForSelector",
+      "element": "username field",
+      "selector": "#Username",
+      "wait": "visible"
+    },
+    {
+      "step": "Enter username",
+      "action": "fill",
+      "element": "username field",
+      "selector": "#Username",
+      "value": "{{credentials.username}}"
+    },
+    {
+      "step": "Enter password",
+      "action": "fill",
+      "element": "password field", 
+      "selector": "#Password",
+      "value": "{{credentials.password}}"
+    },
+    {
+      "step": "Click login button",
+      "action": "click",
+      "element": "login button",
+      "selector": "button[type='submit']"
+    },
+    {
+      "step": "Wait for login to complete",
+      "action": "wait",
+      "duration": "2 seconds"
+    },
+    {
+      "step": "Open learning menu",
+      "action": "click",
+      "element": "learning menu button",
+      "selector": "button[type='button'][aria-controls='learningMenu']"
+    },
+    {
+      "step": "Wait for menu to open",
+      "action": "wait",
+      "duration": "1 second"
+    },
+    {
+      "step": "Click modules link",
+      "action": "click",
+      "element": "modules link",
+      "selector": "#FormContentPlaceHolder_LeftHandNav_ModulesLink"
+    },
+    {
+      "step": "Wait for modules page",
+      "action": "wait",
+      "duration": "1.5 seconds"
+    },
+    {
+      "step": "Click module list",
+      "action": "click",
+      "element": "module list",
+      "selector": "[data-cy='lhn-module-list']"
+    },
+    {
+      "step": "Wait after selecting module list",
+      "action": "wait",
+      "duration": "1 second"
+    },
+    {
+      "step": "Go to content library",
+      "action": "navigate",
+      "url": "{{website}}/new/en/content-library",
+      "wait": "page loads"
+    },
+    {
+      "step": "Wait for content library to load",
+      "action": "wait",
+      "duration": "3 seconds"
+    },
+    {
+      "step": "Take screenshot of content library",
+      "action": "screenshot",
+      "filename": "content-library-page.png",
+      "fullPage": true
+    },
+    {
+      "step": "Click on Courses tile",
+      "action": "click",
+      "element": "Courses tile",
+      "selector": "mat-card-title.content-library-tile-text:has-text('Courses')"
+    },
+    {
+      "step": "Wait after clicking Courses",
+      "action": "wait",
+      "duration": "2 seconds"
+    },
+    {
+      "step": "Wait for search field",
+      "action": "waitForSelector",
+      "element": "search courses field",
+      "selector": "[placeholder='Search courses']",
+      "wait": "visible"
+    },
+    {
+      "step": "Search for course",
+      "action": "fill",
+      "element": "search courses field",
+      "selector": "[placeholder='Search courses']",
+      "value": "{{search.term}}"
+    },
+    {
+      "step": "Wait before clicking course",
+      "action": "wait",
+      "duration": "2 seconds"
+    },
+    {
+      "step": "Click on course",
+      "action": "click",
+      "element": "course with title 'Reddy123'",
+      "selector": "[data-cy='course-title']:has-text('{{search.expectedCourse}}')"
+    },
+    {
+      "step": "Wait for course details page",
+      "action": "wait",
+      "duration": "3 seconds"
+    },
+    {
+      "step": "Take screenshot of course details",
+      "action": "screenshot",
+      "filename": "course-details-page.png",
+      "fullPage": true
+    },
+    {
+      "step": "Get course URL",
+      "action": "evaluate",
+      "script": "window.location.href",
+      "storeAs": "courseDetailsUrl"
+    },
+    {
+      "step": "Wait for outline tab",
+      "action": "waitForSelector",
+      "element": "outline tab",
+      "selector": "[data-testid='outline-tab']",
+      "wait": "visible",
+      "timeout": "5 seconds"
+    },
+    {
+      "step": "Click outline tab",
+      "action": "click",
+      "element": "outline tab",
+      "selector": "[data-testid='outline-tab']"
+    },
+    {
+      "step": "Wait for outline content",
+      "action": "wait",
+      "duration": "2 seconds"
+    },
+    {
+      "step": "Check if lesson section exists",
+      "action": "validate",
+      "type": "exists",
+      "element": "outline lesson section",
+      "selector": "[data-testid='outline-lesson-section']",
+      "onFailure": "visual",
+      "message": "Outline lesson section not found!"
+    },
+    {
+      "step": "Check lesson count",
+      "action": "validate",
+      "type": "count",
+      "element": "lesson items",
+      "selector": "[data-testid='outline-lesson-section'] li",
+      "expected": "2",
+      "onFailure": "visual",
+      "message": "Expected 2 lesson items but found different count!"
+    },
+    {
+      "step": "Check first lesson",
+      "action": "validate",
+      "type": "textContains",
+      "element": "first lesson item",
+      "selector": "[data-testid='outline-lesson-section'] li:nth-child(1)",
+      "expected": "Prakash123_title (Optional)",
+      "onFailure": "visual",
+      "message": "First lesson item 'Prakash123_title (Optional)' not found!"
+    },
+    {
+      "step": "Check second lesson",
+      "action": "validate",
+      "type": "textContains",
+      "element": "second lesson item",
+      "selector": "[data-testid='outline-lesson-section'] li:nth-child(2)",
+      "expected": "reddyzip (Optional)",
+      "onFailure": "visual",
+      "message": "Second lesson item 'reddyzip (Optional)' not found!"
+    },
+    {
+      "step": "Take final screenshot",
+      "action": "screenshot",
+      "filename": "outline-validation-complete.png",
+      "fullPage": true
+    },
+    {
+      "step": "Keep browser open for manual review",
+      "action": "wait",
+      "duration": "10 minutes"
+    }
+  ]
+}
