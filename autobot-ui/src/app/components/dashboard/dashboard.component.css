@@ -1,0 +1,263 @@
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.no-rules {
+  text-align: center;
+  padding: 40px;
+  color: #666;
+}
+
+.rule-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border: 1px solid #E0E0E0;
+  border-radius: 12px;
+  margin-bottom: 16px;
+  background: white;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.rule-item:hover {
+  border-color: #1976D2;
+  box-shadow: 0 4px 12px rgba(25, 118, 210, 0.1);
+  transform: translateY(-2px);
+}
+
+.rule-info h4 {
+  margin: 0 0 8px 0;
+  color: #2c3e50;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.rule-info p {
+  margin: 0 0 8px 0;
+  color: #6c757d;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.rule-info small {
+  color: #9e9e9e;
+  font-size: 12px;
+}
+
+.rule-actions {
+  display: flex;
+  gap: 5px;
+}
+
+.rule-actions .btn {
+  padding: 5px 10px;
+  font-size: 12px;
+}
+
+.log-container {
+  max-height: 300px;
+  overflow-y: auto;
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 4px;
+  padding: 10px;
+  margin: 10px 0;
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+}
+
+.log-info {
+  color: #333;
+}
+
+.log-error {
+  color: #dc3545;
+  font-weight: bold;
+}
+
+.log-success {
+  color: #28a745;
+  font-weight: bold;
+}
+
+.log-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.btn-primary {
+  background: #007bff;
+  border-color: #007bff;
+}
+
+.btn-primary:hover {
+  background: #0056b3;
+  border-color: #0056b3;
+}
+
+.btn-primary:disabled {
+  background: #6c757d;
+  border-color: #6c757d;
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  background: #6c757d;
+  border-color: #6c757d;
+}
+
+.btn-secondary:hover {
+  background: #545b62;
+  border-color: #545b62;
+}
+
+.running-indicator {
+  margin-top: 5px;
+}
+
+.status-running {
+  color: #43A047;
+  font-weight: bold;
+  font-size: 12px;
+  background: rgba(67, 160, 71, 0.1);
+  padding: 4px 10px;
+  border-radius: 12px;
+  border: 1px solid rgba(67, 160, 71, 0.3);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.7; }
+  100% { opacity: 1; }
+}
+
+.running-summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background: #f8f9fa;
+  border-radius: 4px;
+  margin-bottom: 15px;
+}
+
+.log-source {
+  color: #6c757d;
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+/* Enhanced Button Styles for Dashboard */
+.rule-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.rule-actions .btn {
+  padding: 8px 16px;
+  font-size: 13px;
+  min-width: auto;
+}
+
+.btn-run {
+  background: #1976D2;
+  color: white;
+}
+
+.btn-run:hover {
+  background: #1565C0;
+}
+
+.btn-run:disabled {
+  background: #BDBDBD;
+  color: #757575;
+}
+
+.btn-edit {
+  background: #43A047;
+  color: white;
+}
+
+.btn-edit:hover {
+  background: #388E3C;
+}
+
+.btn-delete {
+  background: #D32F2F;
+  color: white;
+}
+
+.btn-delete:hover {
+  background: #C62828;
+}
+
+.btn-stop {
+  background: #FF5722;
+  color: white;
+}
+
+.btn-stop:hover {
+  background: #E64A19;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 15px;
+  flex-wrap: wrap;
+}
+
+.actions .btn {
+  padding: 10px 20px;
+  font-size: 14px;
+}
+
+.log-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 15px;
+  flex-wrap: wrap;
+}
+
+.log-actions .btn {
+  padding: 8px 16px;
+  font-size: 13px;
+}
+
+.running-summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-radius: 8px;
+  margin-bottom: 15px;
+  border-left: 4px solid #43A047;
+}
+
+.running-summary p {
+  margin: 0;
+  font-weight: 500;
+  color: #495057;
+}
+
+.running-summary strong {
+  color: #43A047;
+  font-size: 16px;
+}

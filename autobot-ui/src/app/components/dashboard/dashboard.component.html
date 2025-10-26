@@ -1,1 +1,64 @@
-<p>dashboard works!</p>
+<div class="dashboard">
+  <div class="card">
+    <h2>📊 Automation Dashboard</h2>
+    <p>Monitor and manage your automation rules</p>
+    
+    <div class="actions">
+      <a routerLink="/builder" class="btn btn-success">➕ Create New Rule</a>
+      <button class="btn" (click)="refreshRules()">🔄 Refresh Rules</button>
+      <button class="btn" (click)="loadRunningAutomations()">🔄 Refresh Status</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>📋 Existing Rules</h3>
+    <div *ngIf="rules.length === 0" class="no-rules">
+      <p>No rules found. Create your first automation rule!</p>
+    </div>
+    
+    <div *ngFor="let rule of rules" class="rule-item">
+      <div class="rule-info">
+        <h4>{{ rule.name }}</h4>
+        <p>{{ rule.description || 'No description' }}</p>
+        <small>Version: {{ rule.version }} | Author: {{ rule.author }}</small>
+        <div *ngIf="isRuleRunning(rule.fileName)" class="running-indicator">
+          <span class="status-running">🔄 Running</span>
+        </div>
+      </div>
+      <div class="rule-actions">
+        <button class="btn btn-run" 
+                (click)="runRule(rule)" 
+                [disabled]="isRuleRunning(rule.fileName)">
+          {{ isRuleRunning(rule.fileName) ? '🔄 Running' : '▶️ Run' }}
+        </button>
+        <button class="btn btn-stop" 
+                (click)="stopRule(rule)" 
+                *ngIf="isRuleRunning(rule.fileName)">
+          ⏹️ Stop
+        </button>
+        <button class="btn btn-edit" (click)="editRule(rule)">✏️ Edit</button>
+        <button class="btn btn-delete" (click)="deleteRule(rule)">🗑️ Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" *ngIf="runningAutomations.length > 0 || logs.length > 0">
+    <h3>{{ runningAutomations.length > 0 ? '🔄 Running Automations' : '📋 Automation Logs' }}</h3>
+    
+    <div *ngIf="runningAutomations.length > 0" class="running-summary">
+      <p><strong>{{ runningAutomations.length }}</strong> automation(s) currently running</p>
+      <button class="btn btn-stop" (click)="stopAllRules()">⏹️ Stop All</button>
+    </div>
+    
+    <div class="log-container">
+      <div *ngFor="let log of logs" [class]="'log-' + log.type">
+        <span *ngIf="log.fileName" class="log-source">[{{ log.fileName }}]</span>
+        {{ log.timestamp }} - {{ log.message }}
+      </div>
+    </div>
+    <div class="log-actions">
+      <button class="btn btn-primary" (click)="downloadLogs()" [disabled]="logs.length === 0">📥 Download Logs</button>
+      <button class="btn btn-secondary" (click)="clearLogs()" *ngIf="logs.length > 0">🗑️ Clear Logs</button>
+    </div>
+  </div>
+</div>

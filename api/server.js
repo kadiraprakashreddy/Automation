@@ -114,6 +114,9 @@ app.delete('/api/rules/:fileName', async (req, res) => {
   }
 });
 
+// Store running processes
+const runningProcesses = new Map();
+
 // Run a rule
 app.post('/api/run/:fileName', (req, res) => {
   try {
@@ -123,6 +126,11 @@ app.post('/api/run/:fileName', (req, res) => {
     // Check if rule file exists
     if (!fs.existsSync(rulePath)) {
       return res.status(404).json({ error: 'Rule file not found' });
+    }
+    
+    // Check if this rule is already running
+    if (runningProcesses.has(fileName)) {
+      return res.status(409).json({ error: 'Rule is already running' });
     }
     
     // Spawn the Node.js automation process
@@ -138,12 +146,17 @@ app.post('/api/run/:fileName', (req, res) => {
       stdio: ['pipe', 'pipe', 'pipe']
     });
     
+    // Create unique run ID
+    const runId = `${fileName}-${Date.now()}`;
+    
     // Handle process output
     automationProcess.stdout.on('data', (data) => {
       const log = {
         type: 'info',
         message: data.toString().trim(),
-        timestamp: new Date().toLocaleTimeString()
+        timestamp: new Date().toLocaleTimeString(),
+        runId: runId,
+        fileName: fileName
       };
       broadcast(log);
     });
@@ -152,7 +165,9 @@ app.post('/api/run/:fileName', (req, res) => {
       const log = {
         type: 'error',
         message: data.toString().trim(),
-        timestamp: new Date().toLocaleTimeString()
+        timestamp: new Date().toLocaleTimeString(),
+        runId: runId,
+        fileName: fileName
       };
       broadcast(log);
     });
@@ -161,30 +176,86 @@ app.post('/api/run/:fileName', (req, res) => {
       const log = {
         type: code === 0 ? 'success' : 'error',
         message: `Process exited with code ${code}`,
-        timestamp: new Date().toLocaleTimeString()
+        timestamp: new Date().toLocaleTimeString(),
+        runId: runId,
+        fileName: fileName
       };
       broadcast(log);
+      
+      // Remove from running processes
+      runningProcesses.delete(fileName);
     });
     
-    // Store process reference for stopping
-    app.locals.automationProcess = automationProcess;
+    // Store process reference
+    runningProcesses.set(fileName, {
+      process: automationProcess,
+      runId: runId,
+      startTime: new Date(),
+      fileName: fileName
+    });
     
-    res.json({ message: 'Automation started', pid: automationProcess.pid });
+    res.json({ 
+      message: 'Automation started', 
+      pid: automationProcess.pid,
+      runId: runId,
+      fileName: fileName
+    });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 });
 
 // Stop automation
-app.post('/api/stop', (req, res) => {
+app.post('/api/stop/:fileName', (req, res) => {
   try {
-    if (app.locals.automationProcess) {
-      app.locals.automationProcess.kill();
-      app.locals.automationProcess = null;
-      res.json({ message: 'Automation stopped' });
+    const { fileName } = req.params;
+    const processInfo = runningProcesses.get(fileName);
+    
+    if (processInfo) {
+      processInfo.process.kill();
+      runningProcesses.delete(fileName);
+      res.json({ message: `Automation stopped for ${fileName}` });
     } else {
-      res.json({ message: 'No automation running' });
+      res.json({ message: `No automation running for ${fileName}` });
     }
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Stop all automations
+app.post('/api/stop-all', (req, res) => {
+  try {
+    const stoppedProcesses = [];
+    
+    for (const [fileName, processInfo] of runningProcesses) {
+      processInfo.process.kill();
+      stoppedProcesses.push(fileName);
+    }
+    
+    runningProcesses.clear();
+    res.json({ 
+      message: 'All automations stopped', 
+      stoppedProcesses: stoppedProcesses 
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Get running processes
+app.get('/api/running', (req, res) => {
+  try {
+    const running = [];
+    for (const [fileName, processInfo] of runningProcesses) {
+      running.push({
+        fileName: fileName,
+        runId: processInfo.runId,
+        startTime: processInfo.startTime,
+        pid: processInfo.process.pid
+      });
+    }
+    res.json(running);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

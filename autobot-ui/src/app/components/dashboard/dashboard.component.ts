@@ -2,143 +2,54 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { AutomationService } from '../../services/automation.service';
+import { interval } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
   imports: [CommonModule, RouterModule],
-  template: `
-    <div class="dashboard">
-      <div class="card">
-        <h2>📊 Automation Dashboard</h2>
-        <p>Monitor and manage your automation rules</p>
-        
-        <div class="actions">
-          <a routerLink="/builder" class="btn btn-success">➕ Create New Rule</a>
-          <button class="btn" (click)="refreshRules()">🔄 Refresh</button>
-        </div>
-      </div>
-
-      <div class="card">
-        <h3>📋 Existing Rules</h3>
-        <div *ngIf="rules.length === 0" class="no-rules">
-          <p>No rules found. Create your first automation rule!</p>
-        </div>
-        
-        <div *ngFor="let rule of rules" class="rule-item">
-          <div class="rule-info">
-            <h4>{{ rule.name }}</h4>
-            <p>{{ rule.description || 'No description' }}</p>
-            <small>Version: {{ rule.version }} | Author: {{ rule.author }}</small>
-          </div>
-          <div class="rule-actions">
-            <button class="btn" (click)="runRule(rule)">▶️ Run</button>
-            <button class="btn" (click)="editRule(rule)">✏️ Edit</button>
-            <button class="btn btn-danger" (click)="deleteRule(rule)">🗑️ Delete</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="card" *ngIf="isRunning">
-        <h3>🔄 Running Automation</h3>
-        <div class="log-container">
-          <div *ngFor="let log of logs" [class]="'log-' + log.type">
-            {{ log.timestamp }} - {{ log.message }}
-          </div>
-        </div>
-        <button class="btn btn-danger" (click)="stopAutomation()">⏹️ Stop</button>
-      </div>
-    </div>
-  `,
-  styles: [`
-    .dashboard {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-    
-    .actions {
-      display: flex;
-      gap: 10px;
-      margin-top: 15px;
-    }
-    
-    .no-rules {
-      text-align: center;
-      padding: 40px;
-      color: #666;
-    }
-    
-    .rule-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 15px;
-      border: 1px solid #e9ecef;
-      border-radius: 4px;
-      margin-bottom: 10px;
-    }
-    
-    .rule-info h4 {
-      margin: 0 0 5px 0;
-      color: #333;
-    }
-    
-    .rule-info p {
-      margin: 0 0 5px 0;
-      color: #666;
-    }
-    
-    .rule-info small {
-      color: #999;
-    }
-    
-    .rule-actions {
-      display: flex;
-      gap: 5px;
-    }
-    
-    .rule-actions .btn {
-      padding: 5px 10px;
-      font-size: 12px;
-    }
-    
-    .log-container {
-      max-height: 300px;
-      overflow-y: auto;
-      background-color: #f8f9fa;
-      border: 1px solid #e9ecef;
-      border-radius: 4px;
-      padding: 10px;
-      margin: 10px 0;
-      font-family: 'Courier New', monospace;
-      font-size: 12px;
-    }
-    
-    .log-info {
-      color: #333;
-    }
-    
-    .log-error {
-      color: #dc3545;
-      font-weight: bold;
-    }
-    
-    .log-success {
-      color: #28a745;
-      font-weight: bold;
-    }
-  `]
+  templateUrl: './dashboard.component.html',
+  styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit, OnDestroy {
   rules: any[] = [];
-  isRunning = false;
+  runningAutomations: any[] = [];
   logs: any[] = [];
+  currentRule: any = null;
+  private refreshInterval: any;
 
   constructor(private automationService: AutomationService) {}
 
   ngOnInit() {
     this.loadRules();
+    this.loadRunningAutomations();
+    
+    // Connect to WebSocket and subscribe to logs once
+    this.automationService.connectWebSocket();
+    this.automationService.getLogs().subscribe({
+      next: (log) => {
+        // Show logs from all automations
+        this.logs.push(log);
+        setTimeout(() => {
+          const logContainer = document.querySelector('.log-container');
+          if (logContainer) {
+            logContainer.scrollTop = logContainer.scrollHeight;
+          }
+        }, 100);
+      }
+    });
+    
+    // Refresh running automations every 5 seconds
+    this.refreshInterval = interval(5000).subscribe(() => {
+      this.loadRunningAutomations();
+    });
+  }
+
+  loadRunningAutomations() {
+    this.automationService.getRunningRules().subscribe({
+      next: (running) => this.runningAutomations = running,
+      error: (error) => console.error('Error loading running automations:', error)
+    });
   }
 
   loadRules() {
@@ -153,50 +64,39 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   runRule(rule: any) {
-    this.isRunning = true;
-    this.logs = [];
+    this.currentRule = rule;
     
-    // Connect to WebSocket for real-time logs
-    this.automationService.connectWebSocket();
-    
-    // Subscribe to real-time logs via WebSocket
-    this.automationService.getLogs().subscribe({
-      next: (log) => {
-        this.logs.push(log);
-        // Auto-scroll to bottom
-        setTimeout(() => {
-          const logContainer = document.querySelector('.log-container');
-          if (logContainer) {
-            logContainer.scrollTop = logContainer.scrollHeight;
-          }
-        }, 100);
+    // Ask user if they want to clear existing logs
+    if (this.logs.length > 0) {
+      const clearLogs = confirm('Clear existing logs before starting new automation?');
+      if (clearLogs) {
+        this.logs = [];
       }
-    });
+    }
     
-    // Start the automation process
     this.automationService.runRule(rule.fileName).subscribe({
       next: (response) => {
-        console.log('Rule started:', response);
         this.logs.push({
           type: 'info',
           message: `Starting automation: ${rule.name}`,
-          timestamp: new Date().toLocaleTimeString()
+          timestamp: new Date().toLocaleTimeString(),
+          fileName: rule.fileName
         });
+        this.loadRunningAutomations();
       },
       error: (error) => {
-        console.error('Error starting rule:', error);
         this.logs.push({
           type: 'error',
           message: `Error starting automation: ${error.message}`,
-          timestamp: new Date().toLocaleTimeString()
+          timestamp: new Date().toLocaleTimeString(),
+          fileName: rule.fileName
         });
-        this.isRunning = false;
+        this.loadRunningAutomations();
       }
     });
   }
 
   editRule(rule: any) {
-    // Navigate to rule builder with rule data
     console.log('Edit rule:', rule);
   }
 
@@ -211,23 +111,112 @@ export class DashboardComponent implements OnInit, OnDestroy {
     }
   }
 
-  stopAutomation() {
-    this.automationService.stopAutomation().subscribe({
+  stopRule(rule: any) {
+    this.automationService.stopRule(rule.fileName).subscribe({
       next: () => {
-        this.isRunning = false;
         this.logs.push({
           type: 'info',
-          message: 'Automation stopped by user',
-          timestamp: new Date().toLocaleTimeString()
+          message: `Automation stopped for ${rule.name}`,
+          timestamp: new Date().toLocaleTimeString(),
+          fileName: rule.fileName
         });
-        // Disconnect WebSocket
-        this.automationService.disconnectWebSocket();
+        this.loadRunningAutomations();
+      },
+      error: (error) => {
+        this.logs.push({
+          type: 'error',
+          message: `Error stopping automation: ${error.message}`,
+          timestamp: new Date().toLocaleTimeString(),
+          fileName: rule.fileName
+        });
       }
     });
   }
 
+  stopAllRules() {
+    if (confirm('Are you sure you want to stop all running automations?')) {
+      this.automationService.stopAllRules().subscribe({
+        next: (response) => {
+          this.logs.push({
+            type: 'info',
+            message: `All automations stopped: ${response.stoppedProcesses.join(', ')}`,
+            timestamp: new Date().toLocaleTimeString()
+          });
+          this.loadRunningAutomations();
+        },
+        error: (error) => {
+          this.logs.push({
+            type: 'error',
+            message: `Error stopping automations: ${error.message}`,
+            timestamp: new Date().toLocaleTimeString()
+          });
+        }
+      });
+    }
+  }
+
+  isRuleRunning(fileName: string): boolean {
+    return this.runningAutomations.some(automation => automation.fileName === fileName);
+  }
+
   ngOnDestroy() {
-    // Clean up WebSocket connection when component is destroyed
     this.automationService.disconnectWebSocket();
+    if (this.refreshInterval) {
+      this.refreshInterval.unsubscribe();
+    }
+  }
+
+  downloadLogs() {
+    if (this.logs.length === 0) {
+      alert('No logs to download');
+      return;
+    }
+
+    const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+    const filename = `automation-logs-${timestamp}.txt`;
+    
+    const header = [
+      '='.repeat(60),
+      'AUTOMATION LOGS',
+      '='.repeat(60),
+      `Generated: ${new Date().toLocaleString()}`,
+      `Rule: ${this.currentRule ? this.currentRule.name : 'Multiple Rules'}`,
+      `File: ${this.currentRule ? this.currentRule.fileName : 'Multiple Files'}`,
+      `Total Log Entries: ${this.logs.length}`,
+      `Running Automations: ${this.runningAutomations.length}`,
+      '='.repeat(60),
+      ''
+    ].join('\n');
+    
+    const logContent = this.logs.map(log => 
+      `${log.timestamp} [${log.type.toUpperCase()}] ${log.message}`
+    ).join('\n');
+    
+    const footer = [
+      '',
+      '='.repeat(60),
+      'END OF LOGS',
+      '='.repeat(60)
+    ].join('\n');
+    
+    const fullContent = header + logContent + footer;
+    
+    const blob = new Blob([fullContent], { type: 'text/plain' });
+    const url = window.URL.createObjectURL(blob);
+    
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    window.URL.revokeObjectURL(url);
+  }
+
+  clearLogs() {
+    if (confirm('Are you sure you want to clear all logs?')) {
+      this.logs = [];
+      this.currentRule = null;
+    }
   }
 }
