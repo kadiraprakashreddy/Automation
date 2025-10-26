@@ -3,20 +3,18 @@
   "version": "1.0.0",
   "author": "Prakash Reddy K",
   "created": "2025-10-19",
-  
+  "networkActivity": false,
   "continueOnError": false,
   "steps": [
     {
       "stepId": "nav-login-page",
       "action": "navigate",
-      "enabled": true,
       "url": "https://snackoverflowdemo.dev1.reliaslearning.com",
       "waitUntil": "domcontentloaded"
     },
     {
       "stepId": "wait-page-load",
       "action": "wait",
-      "enabled": true,
       "duration": 3000
     },
     {
@@ -28,14 +26,12 @@
     {
       "stepId": "fill-username",
       "action": "fill",
-      "enabled": true,
       "selector": "#Username",
       "text": "praksah444499"
     },
     {
       "stepId": "fill-password",
       "action": "fill",
-      "enabled": true,
       "selector": "#Password",
       "text": "Demo@12345"
     },
@@ -48,74 +44,62 @@
     {
       "stepId": "click-login-button",
       "action": "click",
-      "enabled": true,
       "selector": "button[type='submit']"
     },
     {
       "stepId": "wait-login-complete",
       "action": "wait",
-      "enabled": true,
       "duration": 2000
     },
     {
       "stepId": "click-learning-menu",
       "action": "click",
-      "enabled": true,
       "selector": "button[type='button'][aria-controls='learningMenu']"
     },
     {
       "stepId": "wait-menu-expand",
       "action": "wait",
-      "enabled": true,
       "duration": 1000
     },
     {
       "stepId": "click-modules-link",
       "action": "click",
-      "enabled": true,
       "selector": "#FormContentPlaceHolder_LeftHandNav_ModulesLink"
     },
     {
       "stepId": "8d",
       "action": "wait",
-      "enabled": true,
       "duration": 1500
     },
     {
       "stepId": "8e",
       "action": "click",
-      "enabled": true,
       "selector": "[data-cy='lhn-module-list']"
     },
     {
       "stepId": "8f",
       "action": "wait",
-      "enabled": true,
       "duration": 1000
     },
     {
       "stepId": "nav-content-library",
       "action": "navigate",
-      "enabled": true,
       "url": "https://snackoverflowdemo.dev1.reliaslearning.com/new/en/content-library",
       "waitUntil": "domcontentloaded"
     },
     {
       "stepId": "8h",
       "action": "wait",
-      "enabled": true,
       "duration": 3000
     },
     {
       "stepId": "click-courses-tile",
       "action": "click",
-      "enabled": true,
       "selector": "mat-card-title.content-library-tile-text:has-text('Courses')"
     },
     {
       "stepId": "8h2",
       "action": "wait",
-      "enabled": true,
       "duration": 2000
     },
     {
@@ -127,32 +111,27 @@
     {
       "stepId": "8j",
       "action": "wait",
-      "enabled": true,
       "duration": 3000
     },
     {
       "stepId": "search-courses",
       "action": "fill",
-      "enabled": true,
       "selector": "[placeholder='Search courses']",
       "text": "reddy"
     },
     {
       "stepId": "8l",
       "action": "wait",
-      "enabled": true,
       "duration": 2000
     },
     {
       "stepId": "click-course-reddy123",
       "action": "click",
-      "enabled": true,
       "selector": "[data-cy='course-title']:has-text('Reddy123')"
     },
     {
       "stepId": "8n",
       "action": "wait",
-      "enabled": true,
       "duration": 3000
     },
     {
@@ -160,12 +139,43 @@
       "action": "screenshot",
       "enabled": false,
       "fullPage": true
-    },   
-     
+    },
     {
-      "stepId": "12",
+      "stepId": "11",
+      "action": "validate",
+      "validationType": "exists",
+      "selector": "mat-tab-header.mat-mdc-tab-header"
+    },
+    {
+      "stepId": "11-check-overview",
+      "action": "validate",
+      "validationType": "textContains",
+      "selector": "mat-tab-header.mat-mdc-tab-header",
+      "expectedValue": "Overview123",
+      "continueOnError": true,
+      "script": "validate('Missing tab: Overview', 'error')"
+    },
+    {
+      "stepId": "11-check-outline",
+      "action": "validate",
+      "validationType": "textContains",
+      "selector": "mat-tab-header.mat-mdc-tab-header",
+      "expectedValue": "Outline",
+      "continueOnError": true,
+      "script": "validate('Missing tab: Outline', 'error')"
+    },
+    {
+      "stepId": "12-check-course-description",
+      "action": "validate",
+      "validationType": "textContains",
+      "selector": "relias-shared-course-overview-tab",
+      "expectedValue": "prakash testing123",
+      "continueOnError": true,
+      "script": "validate('Course Description missing: prakash testing', 'error')"
+    },
+    {
+      "stepId": "End-of-test",
       "action": "wait",
-      "enabled": true,
       "duration": 600000
     }
   ]

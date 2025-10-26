@@ -1,0 +1,35 @@
+{
+  "name": "Test1",
+  "description": "test",
+  "author": "prakash",
+  "version": "1.0.0",
+  "steps": [
+    {
+      "stepId": "1",
+      "action": "navigate",
+      "url": "https://snackoverflowdemo.dev1.reliaslearning.com/"
+    },
+    {
+      "stepId": "2",
+      "action": "fill",
+      "selector": "#Username",
+      "text": "praksah444499"
+    },
+    {
+      "stepId": "3",
+      "action": "fill",
+      "selector": "#Password",
+      "text": "Demo@12345"
+    },
+    {
+      "stepId": "4",
+      "action": "wait",
+      "duration": 2000
+    },
+    {
+      "stepId": "4",
+      "action": "click",
+      "selector": "button[type='submit']"
+    }
+  ]
+}

@@ -1,6 +1,7 @@
 import logger from '../utils/logger.js';
 import dataStore from '../utils/dataStore.js';
 import config from '../utils/config.js';
+import { validate, showBrowserAlert, showConsoleAlert } from '../utils/alertScripts.js';
 import fs from 'fs';
 import path from 'path';
 
@@ -11,6 +12,146 @@ class ActionHandler {
   constructor(page, context) {
     this.page = page;
     this.context = context;
+    this.networkRequests = [];
+    this.networkResponses = [];
+    this.setupNetworkMonitoring();
+  }
+
+  /**
+   * Setup network monitoring to track requests and responses
+   */
+  setupNetworkMonitoring() {
+    // Clear previous network data
+    this.networkRequests = [];
+    this.networkResponses = [];
+    this.networkActivityEnabled = false; // Will be set by rule engine
+  }
+
+  /**
+   * Enable network monitoring (called by rule engine)
+   */
+  enableNetworkMonitoring() {
+    this.networkActivityEnabled = true;
+    this.clearNetworkData();
+    
+    // Monitor network requests
+    this.page.on('request', request => {
+      if (!this.networkActivityEnabled) return;
+      
+      // Only track API calls (exclude static resources)
+      const isApiCall = request.resourceType() === 'xhr' || 
+                       request.resourceType() === 'fetch' ||
+                       request.url().includes('/api/') ||
+                       request.url().includes('/graphql') ||
+                       request.url().includes('/rest/') ||
+                       request.url().includes('/v1/') ||
+                       request.url().includes('/v2/');
+      
+      if (isApiCall) {
+        const requestData = {
+          url: request.url(),
+          method: request.method(),
+          headers: request.headers(),
+          timestamp: Date.now(),
+          resourceType: request.resourceType()
+        };
+        this.networkRequests.push(requestData);
+        logger.info(`🌐 API Request: ${request.method()} ${request.url()}`);
+      }
+    });
+
+    // Monitor network responses
+    this.page.on('response', response => {
+      if (!this.networkActivityEnabled) return;
+      
+      // Only track API responses
+      const isApiResponse = response.url().includes('/api/') ||
+                           response.url().includes('/graphql') ||
+                           response.url().includes('/rest/') ||
+                           response.url().includes('/v1/') ||
+                           response.url().includes('/v2/');
+      
+      if (isApiResponse) {
+        const responseData = {
+          url: response.url(),
+          status: response.status(),
+          statusText: response.statusText(),
+          headers: response.headers(),
+          timestamp: Date.now()
+        };
+        this.networkResponses.push(responseData);
+        logger.info(`📡 API Response: ${response.status()} ${response.url()}`);
+      }
+    });
+  }
+
+  /**
+   * Disable network monitoring
+   */
+  disableNetworkMonitoring() {
+    this.networkActivityEnabled = false;
+  }
+
+  /**
+   * Inject alert scripts into the browser context
+   */
+  async injectAlertScripts() {
+    try {
+      // Read the alertScripts.js file and inject it
+      const fs = await import('fs');
+      const path = await import('path');
+      const { fileURLToPath } = await import('url');
+      
+      const __filename = fileURLToPath(import.meta.url);
+      const __dirname = path.dirname(__filename);
+      const alertScriptsPath = path.join(__dirname, '..', 'utils', 'alertScripts.js');
+      
+      const alertScriptsContent = fs.readFileSync(alertScriptsPath, 'utf8');
+      
+      // Convert ES6 exports to regular function declarations for browser compatibility
+      const browserCompatibleScript = alertScriptsContent
+        .replace(/export function/g, 'function')
+        .replace(/export \{[^}]+\}/g, '');
+      
+      // Extract the function definitions and inject them
+      await this.page.evaluate((scriptContent) => {
+        // Create a function that contains the alert script logic
+        const alertFunctions = new Function(`
+          ${scriptContent}
+          
+          // Make functions available globally
+          window.validate = validate;
+          window.showBrowserAlert = showBrowserAlert;
+          window.showConsoleAlert = showConsoleAlert;
+        `);
+        
+        alertFunctions();
+      }, browserCompatibleScript);
+      
+      logger.info('Alert scripts injected into browser context');
+    } catch (error) {
+      logger.warn(`Failed to inject alert scripts: ${error.message}`);
+    }
+  }
+
+  /**
+   * Get network activity summary
+   */
+  getNetworkActivity() {
+    return {
+      requests: this.networkRequests,
+      responses: this.networkResponses,
+      totalRequests: this.networkRequests.length,
+      totalResponses: this.networkResponses.length
+    };
+  }
+
+  /**
+   * Clear network monitoring data
+   */
+  clearNetworkData() {
+    this.networkRequests = [];
+    this.networkResponses = [];
   }
 
   /**
@@ -19,11 +160,17 @@ class ActionHandler {
    * @returns {Promise<Object>} Result object with success status and data
    */
   async execute(step) {
-    const { stepId, action, enabled } = step;
+    const { stepId, action, enabled = true } = step;
 
-    if (!enabled) {
+    if (enabled === false) {
       logger.info(`Step ${stepId} is disabled, skipping...`);
       return { success: true, skipped: true };
+    }
+
+    // Inject alert scripts on first execution
+    if (!this.alertScriptsInjected) {
+      await this.injectAlertScripts();
+      this.alertScriptsInjected = true;
     }
 
     logger.info(`Executing Step ${stepId}: ${action}`);
@@ -78,6 +225,9 @@ class ActionHandler {
           break;
         case 'validate':
           result = await this.validate(step);
+          break;
+        case 'monitornetwork':
+          result = await this.monitorNetwork(step);
           break;
         default:
           throw new Error(`Unknown action: ${action}`);
@@ -370,7 +520,8 @@ class ActionHandler {
       onFailure = 'console',
       failureMessage,
       continueOnFailure = false,
-      storeAs
+      storeAs,
+      script
     } = step;
 
     let actualValue;
@@ -447,6 +598,71 @@ class ActionHandler {
       if (!validationPassed) {
         const message = failureMessage || `Validation failed: Expected ${expectedValue}, but got ${actualValue}`;
         logger.warn(`VALIDATION FAILED: ${message}`);
+        
+        // Execute custom script if provided
+        if (script) {
+          try {
+            // Ensure alert functions are available before executing script
+            const isValidateAvailable = await this.page.evaluate(() => {
+              return typeof window !== 'undefined' && typeof window.validate === 'function';
+            });
+            
+            if (!isValidateAvailable) {
+              // Read and inject the alertScripts.js file
+              const fs = await import('fs');
+              const path = await import('path');
+              const { fileURLToPath } = await import('url');
+              
+              const __filename = fileURLToPath(import.meta.url);
+              const __dirname = path.dirname(__filename);
+              const alertScriptsPath = path.join(__dirname, '..', 'utils', 'alertScripts.js');
+              
+              const alertScriptsContent = fs.readFileSync(alertScriptsPath, 'utf8');
+              
+              // Convert ES6 exports to regular function declarations for browser compatibility
+              const browserCompatibleScript = alertScriptsContent
+                .replace(/export function/g, 'function')
+                .replace(/export \{[^}]+\}/g, '');
+              
+              await this.page.evaluate((scriptContent) => {
+                // Extract the function definitions and make them available globally
+                const alertFunctions = new Function(`
+                  ${scriptContent}
+                  
+                  // Make functions available globally
+                  window.validate = validate;
+                  window.showBrowserAlert = showBrowserAlert;
+                  window.showConsoleAlert = showConsoleAlert;
+                `);
+                
+                alertFunctions();
+              }, browserCompatibleScript);
+            }
+            
+            
+            // Parse the script to extract function call
+            const scriptMatch = script.match(/validate\('([^']+)',\s*'([^']+)'\)/);
+            
+            if (scriptMatch) {
+              const [, message, type] = scriptMatch;
+              await this.page.evaluate((args) => {
+                if (typeof window.validate === 'function') {
+                  return window.validate(args.message, args.type);
+                } else {
+                  throw new Error('validate function not available');
+                }
+              }, { message, type });
+            } else {
+              // Fallback to eval for other script types
+              await this.page.evaluate((scriptToRun) => {
+                return eval(scriptToRun);
+              }, script);
+            }
+            logger.info('Custom validation script executed');
+          } catch (scriptError) {
+            logger.warn(`Script execution failed: ${scriptError.message}`);
+          }
+        }
         
         // Show notification based on onFailure setting
         await this.showValidationNotification(onFailure, message, false);
@@ -593,6 +809,57 @@ class ActionHandler {
       // If highlight fails, just log it and continue
       logger.warn(`Failed to highlight element: ${error.message}`);
     }
+  }
+
+  /**
+   * Monitor network activity and capture API calls
+   */
+  async monitorNetwork(step) {
+    const { storeAs, duration = 5000 } = step;
+    
+    logger.info(`🔍 Starting API monitoring for ${duration}ms...`);
+    
+    // Clear previous network data
+    this.clearNetworkData();
+    
+    // Wait for the specified duration to capture network activity
+    await this.page.waitForTimeout(duration);
+    
+    // Get network activity summary
+    const networkActivity = this.getNetworkActivity();
+    
+    // Create API-focused summary
+    const apiSummary = {
+      totalApiRequests: networkActivity.totalRequests,
+      totalApiResponses: networkActivity.totalResponses,
+      apiCalls: networkActivity.requests,
+      apiResponses: networkActivity.responses,
+      timestamp: Date.now()
+    };
+    
+    // Log API summary
+    logger.info(`📊 API Summary:`);
+    logger.info(`   API Requests: ${apiSummary.totalApiRequests}`);
+    logger.info(`   API Responses: ${apiSummary.totalApiResponses}`);
+    
+    // Log API calls with status
+    if (apiSummary.apiCalls.length > 0) {
+      logger.info(`🚀 API Calls Detected:`);
+      apiSummary.apiCalls.forEach((req, index) => {
+        const response = apiSummary.apiResponses.find(resp => resp.url === req.url);
+        const status = response ? response.status : 'Pending';
+        logger.info(`   ${index + 1}. ${req.method} ${req.url} - Status: ${status}`);
+      });
+    } else {
+      logger.info(`ℹ️  No API calls detected during monitoring period`);
+    }
+    
+    // Store network data if requested
+    if (storeAs) {
+      dataStore.set(storeAs, apiSummary);
+    }
+    
+    return apiSummary;
   }
 
   /**

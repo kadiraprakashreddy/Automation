@@ -61,9 +61,7 @@ class RuleEngine {
       if (!step.action) {
         throw new Error(`Step ${step.stepId} is missing "action"`);
       }
-      if (step.enabled === undefined) {
-        throw new Error(`Step ${step.stepId} is missing "enabled" flag`);
-      }
+      // enabled field is optional - defaults to true in ActionHandler
     });
   }
 
@@ -120,6 +118,15 @@ class RuleEngine {
   async executeRules(rules) {
     logger.info(`Starting execution of rule set: ${rules.name}`);
     
+    // Check if network activity monitoring is enabled
+    if (rules.networkActivity === true) {
+      logger.info(`🔍 Network activity monitoring enabled - will track API calls`);
+      this.actionHandler.enableNetworkMonitoring();
+    } else {
+      logger.info(`📴 Network activity monitoring disabled`);
+      this.actionHandler.disableNetworkMonitoring();
+    }
+    
     const summary = {
       name: rules.name,
       description: rules.description || 'N/A',
@@ -131,7 +138,10 @@ class RuleEngine {
     };
 
     for (const step of rules.steps) {
-      if (!step.enabled) {
+      // Default enabled to true if not specified
+      const enabled = step.enabled !== undefined ? step.enabled : true;
+      
+      if (!enabled) {
         summary.skipped++;
         summary.results.push({
           stepId: step.stepId,
