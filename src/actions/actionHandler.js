@@ -239,14 +239,24 @@ class ActionHandler {
    * Take a screenshot
    */
   async takeScreenshot(step) {
-    const { filename, fullPage } = step;
+    const { filename, fullPage, stepId, description } = step;
     const screenshotDir = config.screenshot.path;
     
     if (!fs.existsSync(screenshotDir)) {
       fs.mkdirSync(screenshotDir, { recursive: true });
     }
     
-    const filepath = path.join(screenshotDir, filename);
+    // Generate filename with GUID if not provided
+    let finalFilename;
+    if (filename) {
+      finalFilename = filename;
+    } else {
+      // Generate GUID-based filename using stepId + GUID
+      const guid = this.generateGUID();
+      finalFilename = `${stepId}-${guid}.png`;
+    }
+    
+    const filepath = path.join(screenshotDir, finalFilename);
     await this.page.screenshot({ 
       path: filepath, 
       fullPage: fullPage !== false 
@@ -583,6 +593,17 @@ class ActionHandler {
       // If highlight fails, just log it and continue
       logger.warn(`Failed to highlight element: ${error.message}`);
     }
+  }
+
+  /**
+   * Generate a GUID (Globally Unique Identifier)
+   */
+  generateGUID() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+      const r = Math.random() * 16 | 0;
+      const v = c == 'x' ? r : (r & 0x3 | 0x8);
+      return v.toString(16);
+    });
   }
 
   /**
