@@ -1,7 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 import { AutomationService } from '../../services/automation.service';
+import { RuleEditService } from '../../services/rule-edit.service';
 import { interval } from 'rxjs';
 
 @Component({
@@ -18,7 +19,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
   currentRule: any = null;
   private refreshInterval: any;
 
-  constructor(private automationService: AutomationService) {}
+  constructor(
+    private automationService: AutomationService,
+    private router: Router,
+    private ruleEditService: RuleEditService
+  ) {}
 
   ngOnInit() {
     this.loadRules();
@@ -97,7 +102,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   editRule(rule: any) {
-    console.log('Edit rule:', rule);
+    console.log('Dashboard editRule called with:', rule);
+    // Set the rule to edit in the service
+    this.ruleEditService.setRuleToEdit(rule);
+    console.log('Rule set in service, navigating to rule builder...');
+    // Navigate to rule builder
+    this.router.navigate(['/builder']);
   }
 
   deleteRule(rule: any) {

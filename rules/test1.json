@@ -3,6 +3,9 @@
   "description": "test",
   "author": "prakash",
   "version": "1.0.0",
+  "created": "",
+  "networkActivity": false,
+  "continueOnError": false,
   "steps": [
     {
       "stepId": "1",
@@ -29,7 +32,35 @@
     {
       "stepId": "4",
       "action": "click",
-      "selector": "button[type='submit']"
+      "selector": "data-cy=\"login-btn\""
+    },
+    {
+      "stepId": "7",
+      "action": "click",
+      "selector": "id=\"FormContentPlaceHolder_LeftHandNav_UsersSection\""
+    },
+    {
+      "stepId": "8",
+      "action": "click",
+      "selector": "id=\"FormContentPlaceHolder_LeftHandNav_UserListLink\""
+    },
+    {
+      "stepId": "9",
+      "action": "wait",
+      "duration": 3000
+    },
+    {
+      "stepId": "10",
+      "action": "validate",
+      "validationType": "textContains",
+      "selector": "p:has-text('Active Users:')",
+      "expectedValue": "58",
+      "script": ""
+    },
+    {
+      "stepId": "10",
+      "action": "wait",
+      "duration": 30000
     }
   ]
 }

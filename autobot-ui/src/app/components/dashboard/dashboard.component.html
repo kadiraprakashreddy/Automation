@@ -19,8 +19,6 @@
     <div *ngFor="let rule of rules" class="rule-item">
       <div class="rule-info">
         <h4>{{ rule.name }}</h4>
-        <p>{{ rule.description || 'No description' }}</p>
-        <small>Version: {{ rule.version }} | Author: {{ rule.author }}</small>
         <div *ngIf="isRuleRunning(rule.fileName)" class="running-indicator">
           <span class="status-running">🔄 Running</span>
         </div>

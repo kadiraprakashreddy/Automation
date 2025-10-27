@@ -5,8 +5,12 @@ const path = require('path');
 const { spawn } = require('child_process');
 const WebSocket = require('ws');
 
+// Load environment variables
+require('dotenv').config({ path: path.join(__dirname, '..', '.env') });
+
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.API_PORT || 3000;
+const WEBSOCKET_PORT = process.env.WS_PORT || 8081;
 
 // Middleware
 app.use(cors());
@@ -14,7 +18,7 @@ app.use(express.json());
 app.use(express.static('public'));
 
 // WebSocket server for real-time updates
-const wss = new WebSocket.Server({ port: 8081 });
+const wss = new WebSocket.Server({ port: WEBSOCKET_PORT });
 const clients = new Set();
 
 wss.on('connection', (ws) => {
@@ -36,10 +40,45 @@ function broadcast(data) {
   });
 }
 
+// API endpoint to serve environment configuration
+app.get('/api/config', (req, res) => {
+  try {
+    const config = {
+      production: process.env.ENVIRONMENT === 'production',
+      environment: process.env.ENVIRONMENT || 'development',
+      apiUrl: `${process.env.API_BASE_URL || 'http://localhost:3000/api'}`,
+      wsUrl: process.env.WS_BASE_URL || 'ws://localhost:8081',
+      logLevel: process.env.LOG_LEVEL || 'debug',
+      enableDebugMode: process.env.ENABLE_DEBUG_MODE === 'true',
+      showConsoleLogs: process.env.SHOW_CONSOLE_LOGS === 'true',
+      enableSourceMaps: process.env.ENABLE_SOURCE_MAPS === 'true',
+      enableHotReload: process.env.ENABLE_HOT_RELOAD === 'true',
+      enableDevTools: process.env.ENABLE_DEV_TOOLS === 'true',
+      defaultPageSize: parseInt(process.env.DEFAULT_PAGE_SIZE) || 10,
+      autoRefreshInterval: parseInt(process.env.AUTO_REFRESH_INTERVAL) || 5000,
+      logMaxLines: parseInt(process.env.LOG_MAX_LINES) || 1000,
+      maxConcurrentAutomations: parseInt(process.env.MAX_CONCURRENT_AUTOMATIONS) || 5,
+      apiTimeout: parseInt(process.env.API_TIMEOUT) || 30000,
+      wsReconnectInterval: parseInt(process.env.WS_RECONNECT_INTERVAL) || 5000,
+      wsMaxReconnectAttempts: parseInt(process.env.WS_MAX_RECONNECT_ATTEMPTS) || 5,
+      fileUploadTimeout: parseInt(process.env.FILE_UPLOAD_TIMEOUT) || 60000,
+      enableCompression: process.env.ENABLE_COMPRESSION === 'true',
+      externalApiUrl: process.env.EXTERNAL_API_URL || '',
+      externalApiKey: process.env.EXTERNAL_API_KEY || '',
+      buildVersion: process.env.APP_VERSION || '1.0.0',
+      gitCommit: process.env.GIT_COMMIT || 'unknown'
+    };
+    
+    res.json(config);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to load configuration' });
+  }
+});
+
 // Routes
-const rulesDir = path.join(__dirname, '..', 'rules');
-const screenshotsDir = path.join(__dirname, '..', 'screenshots');
-const logsDir = path.join(__dirname, '..', 'logs');
+const rulesDir = path.resolve(process.env.RULES_DIR || path.join(__dirname, '..', 'rules'));
+const screenshotsDir = path.resolve(process.env.SCREENSHOTS_DIR || path.join(__dirname, '..', 'screenshots'));
+const logsDir = path.resolve(process.env.LOGS_DIR || path.join(__dirname, '..', 'logs'));
 
 // Ensure directories exist
 fs.ensureDirSync(rulesDir);
@@ -134,8 +173,8 @@ app.post('/api/run/:fileName', (req, res) => {
     }
     
     // Spawn the Node.js automation process
-    const projectRoot = path.join(__dirname, '..');
-    const automationScript = path.join(projectRoot, 'src', 'index.js');
+    const projectRoot = path.resolve(process.env.PROJECT_ROOT || path.join(__dirname, '..'));
+    const automationScript = path.resolve(process.env.AUTOMATION_SCRIPT || path.join(projectRoot, 'src', 'index.js'));
     
     console.log('Project root:', projectRoot);
     console.log('Automation script:', automationScript);
@@ -384,7 +423,10 @@ app.get('/api/templates/selectors', (req, res) => {
 
 // Start server
 app.listen(PORT, () => {
+  console.log(`🌍 Environment: ${process.env.ENVIRONMENT || 'development'}`);
   console.log(`🚀 API server running on port ${PORT}`);
-  console.log(`📡 WebSocket server running on port 8081`);
+  console.log(`📡 WebSocket server running on port ${WEBSOCKET_PORT}`);
   console.log(`📁 Rules directory: ${rulesDir}`);
+  console.log(`📁 Screenshots directory: ${screenshotsDir}`);
+  console.log(`📁 Logs directory: ${logsDir}`);
 });

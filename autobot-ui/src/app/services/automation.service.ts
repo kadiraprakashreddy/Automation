@@ -1,15 +1,20 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, BehaviorSubject } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AutomationService {
-  private apiUrl = 'http://localhost:3000/api';
-  private wsUrl = 'ws://localhost:8081';
+  private apiUrl = environment.apiUrl;
+  private wsUrl = environment.wsUrl;
   private logSubject = new Subject<any>();
   private websocket: WebSocket | null = null;
+  private connectionStatus = new BehaviorSubject<boolean>(false);
+  private reconnectAttempts = 0;
+  private maxReconnectAttempts = environment.wsMaxReconnectAttempts;
+  private reconnectInterval = environment.wsReconnectInterval;
 
   constructor(private http: HttpClient) {}
 
@@ -18,10 +23,17 @@ export class AutomationService {
       return;
     }
 
+    if (!environment.enableWebSocket) {
+      console.warn('WebSocket is disabled in current environment');
+      return;
+    }
+
     this.websocket = new WebSocket(this.wsUrl);
     
     this.websocket.onopen = () => {
       console.log('WebSocket connected');
+      this.connectionStatus.next(true);
+      this.reconnectAttempts = 0;
     };
     
     this.websocket.onmessage = (event) => {
@@ -35,18 +47,39 @@ export class AutomationService {
     
     this.websocket.onclose = () => {
       console.log('WebSocket disconnected');
+      this.connectionStatus.next(false);
+      this.attemptReconnect();
     };
     
     this.websocket.onerror = (error) => {
       console.error('WebSocket error:', error);
+      this.connectionStatus.next(false);
     };
+  }
+
+  private attemptReconnect(): void {
+    if (this.reconnectAttempts < this.maxReconnectAttempts) {
+      this.reconnectAttempts++;
+      console.log(`Attempting to reconnect... (${this.reconnectAttempts}/${this.maxReconnectAttempts})`);
+      
+      setTimeout(() => {
+        this.connectWebSocket();
+      }, this.reconnectInterval);
+    } else {
+      console.error('Max reconnection attempts reached');
+    }
   }
 
   disconnectWebSocket(): void {
     if (this.websocket) {
       this.websocket.close();
       this.websocket = null;
+      this.connectionStatus.next(false);
     }
+  }
+
+  getConnectionStatus(): Observable<boolean> {
+    return this.connectionStatus.asObservable();
   }
 
   getRules(): Observable<any[]> {
@@ -103,5 +136,40 @@ export class AutomationService {
 
   getCommonSelectors(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/templates/selectors`);
+  }
+
+  // Environment-specific methods
+  getEnvironmentInfo(): any {
+    return {
+      environment: environment.environment,
+      production: environment.production,
+      version: environment.projectVersion,
+      apiUrl: environment.apiUrl,
+      wsUrl: environment.wsUrl,
+      enableLogging: environment.enableLogging,
+      enableScreenshots: environment.enableScreenshots,
+      enableWebSocket: environment.enableWebSocket,
+      debugMode: environment.enableDebugMode
+    };
+  }
+
+  isDebugMode(): boolean {
+    return environment.enableDebugMode;
+  }
+
+  getLogLevel(): string {
+    return environment.logLevel;
+  }
+
+  getMaxConcurrentAutomations(): number {
+    return environment.maxConcurrentAutomations;
+  }
+
+  getAutoRefreshInterval(): number {
+    return environment.autoRefreshInterval;
+  }
+
+  getLogMaxLines(): number {
+    return environment.logMaxLines;
   }
 }

@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router, NavigationExtras } from '@angular/router';
 import { AutomationService } from '../../services/automation.service';
+import { RuleEditService } from '../../services/rule-edit.service';
 
 @Component({
   selector: 'app-rule-builder',
@@ -25,10 +26,51 @@ export class RuleBuilderComponent implements OnInit {
   activeTab = 'setup';
   showModal = false;
 
-  constructor(private automationService: AutomationService) {}
+  constructor(
+    private automationService: AutomationService,
+    private router: Router,
+    private ruleEditService: RuleEditService
+  ) {}
 
   ngOnInit() {
+    console.log('Rule Builder ngOnInit - checking edit mode...');
+    console.log('Is in edit mode:', this.ruleEditService.isInEditMode());
+    
+    // Check if we're in edit mode using the service
+    if (this.ruleEditService.isInEditMode()) {
+      const ruleToEdit = this.ruleEditService.getRuleToEdit();
+      console.log('Rule to edit:', ruleToEdit);
+      
+      if (ruleToEdit) {
+        this.loadRuleForEdit(ruleToEdit);
+        return;
+      }
+    }
+    
+    console.log('Creating new rule...');
+    // Default: create new rule
     this.addStep();
+  }
+
+  loadRuleForEdit(rule: any) {
+    // Load the existing rule data
+    this.rule = {
+      name: rule.name,
+      description: rule.description || '',
+      author: rule.author || '',
+      version: rule.version || '1.0.0',
+      created: rule.created || '',
+      networkActivity: rule.networkActivity || false,
+      continueOnError: rule.continueOnError || false,
+      steps: rule.steps || []
+    };
+    
+    // If no steps, add a default one
+    if (this.rule.steps.length === 0) {
+      this.addStep();
+    }
+    
+    console.log('Loaded rule for editing:', this.rule);
   }
 
   setActiveTab(tab: string) {
@@ -154,14 +196,37 @@ export class RuleBuilderComponent implements OnInit {
       return;
     }
 
-    this.automationService.saveRule(this.rule).subscribe({
-      next: (response) => {
-        alert('Rule saved successfully!');
-      },
-      error: (error) => {
-        alert('Error saving rule: ' + error.message);
-      }
-    });
+    // Check if we're editing an existing rule
+    if (this.ruleEditService.isInEditMode()) {
+      const originalRule = this.ruleEditService.getRuleToEdit();
+      const fileName = originalRule.fileName;
+      
+      // Use PUT to update existing rule
+      this.automationService.updateRule(fileName, this.rule).subscribe({
+        next: (response) => {
+          alert('Rule updated successfully!');
+          // Clear edit state after saving
+          this.ruleEditService.clearEditState();
+          // Navigate back to dashboard
+          this.router.navigate(['/dashboard']);
+        },
+        error: (error) => {
+          alert('Error updating rule: ' + error.message);
+        }
+      });
+    } else {
+      // Use POST to create new rule
+      this.automationService.saveRule(this.rule).subscribe({
+        next: (response) => {
+          alert('Rule saved successfully!');
+          // Navigate back to dashboard
+          this.router.navigate(['/dashboard']);
+        },
+        error: (error) => {
+          alert('Error saving rule: ' + error.message);
+        }
+      });
+    }
   }
 
   previewJson() {

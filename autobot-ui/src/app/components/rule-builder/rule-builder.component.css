@@ -180,8 +180,8 @@
 .btn {
   padding: 6px 12px;
   font-size: 11px;
-  border: 1px solid #007bff;
-  background: #007bff;
+  border: 1px solid #838485;
+  background: #838485;
   color: white;
   border-radius: 4px;
   cursor: pointer;
@@ -191,28 +191,28 @@
 }
 
 .btn:hover {
-  background: #0056b3;
-  border-color: #0056b3;
+  background: #838485;
+  border-color: #838485;
 }
 
 .btn-success {
-  background: #28a745;
-  border-color: #28a745;
+  background: #838485;
+  border-color: #838485;
 }
 
 .btn-success:hover {
-  background: #1e7e34;
-  border-color: #1e7e34;
+  background: #838485;
+  border-color: #838485;
 }
 
 .btn-danger {
-  background: #dc3545;
-  border-color: #dc3545;
+  background: #838485;
+  border-color: #838485;
 }
 
 .btn-danger:hover {
-  background: #c82333;
-  border-color: #c82333;
+  background: #838485;
+  border-color: #838485;
 }
 
 .btn-sm {
@@ -220,9 +220,12 @@
   font-size: 12px;
 }
 
-.button-spacer {
-  display: inline-block;
-  width: 8px;
+.grid-cell .btn {
+  margin-right: 5px;
+}
+
+.grid-cell .btn:last-child {
+  margin-right: 0;
 }
 
 /* Enhanced Button Styles for Rule Builder */
@@ -264,23 +267,23 @@
 }
 
 .btn-success.btn-sm {
-  background: #43A047;
+  background: #838485;
   padding: 4px 8px;
   font-size: 11px;
 }
 
 .btn-success.btn-sm:hover {
-  background: #388E3C;
+  background: #838485;
 }
 
 .btn-danger.btn-sm {
-  background: #D32F2F;
+  background: #838485;
   padding: 4px 8px;
   font-size: 11px;
 }
 
 .btn-danger.btn-sm:hover {
-  background: #C62828;
+  background: #838485;
 }
 
 .form-row {

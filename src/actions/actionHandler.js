@@ -264,16 +264,22 @@ class ActionHandler {
    */
   async click(step) {
     const { selector, highlight = true } = step;
+    const convertedSelector = this.convertToCSSSelector(selector);
+    
+    // Log conversion if it changed
+    if (convertedSelector !== selector) {
+      logger.info(`Selector converted: "${selector}" -> "${convertedSelector}"`);
+    }
     
     // Highlight element before clicking if enabled
     if (highlight) {
-      await this.highlightElement(selector);
+      await this.highlightElement(convertedSelector);
     }
     
-    await this.page.click(selector, {
+    await this.page.click(convertedSelector, {
       timeout: step.timeout || config.timeouts.default
     });
-    return { selector };
+    return { selector: convertedSelector };
   }
 
   /**
@@ -297,19 +303,25 @@ class ActionHandler {
    */
   async fill(step) {
     const { selector, text, highlight = true } = step;
+    const convertedSelector = this.convertToCSSSelector(selector);
+    
+    // Log conversion if it changed
+    if (convertedSelector !== selector) {
+      logger.info(`Selector converted: "${selector}" -> "${convertedSelector}"`);
+    }
     
     // Replace placeholders with stored data
     const processedText = this.replacePlaceholders(text);
     
     // Highlight element before filling if enabled
     if (highlight) {
-      await this.highlightElement(selector);
+      await this.highlightElement(convertedSelector);
     }
     
-    await this.page.fill(selector, processedText, {
+    await this.page.fill(convertedSelector, processedText, {
       timeout: step.timeout || config.timeouts.default
     });
-    return { selector, text: processedText };
+    return { selector: convertedSelector, text: processedText };
   }
 
   /**
@@ -871,6 +883,94 @@ class ActionHandler {
       const v = c == 'x' ? r : (r & 0x3 | 0x8);
       return v.toString(16);
     });
+  }
+
+  /**
+   * Convert HTML attribute format to proper CSS selector
+   * Handles common cases where users copy HTML attributes directly
+   */
+  convertToCSSSelector(selector) {
+    if (!selector || typeof selector !== 'string') {
+      return selector;
+    }
+
+    // Handle type="submit" -> button[type='submit']
+    if (selector.includes('type=')) {
+      const typeMatch = selector.match(/type="([^"]+)"/);
+      if (typeMatch) {
+        const typeValue = typeMatch[1];
+        // Common type values and their likely elements
+        const typeToElement = {
+          'submit': 'button',
+          'button': 'button',
+          'text': 'input',
+          'email': 'input',
+          'password': 'input',
+          'checkbox': 'input',
+          'radio': 'input',
+          'file': 'input',
+          'hidden': 'input',
+          'number': 'input',
+          'tel': 'input',
+          'url': 'input',
+          'search': 'input',
+          'date': 'input',
+          'time': 'input',
+          'datetime-local': 'input',
+          'month': 'input',
+          'week': 'input',
+          'color': 'input',
+          'range': 'input'
+        };
+        
+        const element = typeToElement[typeValue] || 'button';
+        return `${element}[type='${typeValue}']`;
+      }
+    }
+
+    // Handle class="..." -> .class-name
+    if (selector.includes('class=')) {
+      const classMatch = selector.match(/class="([^"]+)"/);
+      if (classMatch) {
+        const className = classMatch[1].split(' ')[0]; // Take first class
+        return `.${className}`;
+      }
+    }
+
+    // Handle id="..." -> #id
+    if (selector.includes('id=')) {
+      const idMatch = selector.match(/id="([^"]+)"/);
+      if (idMatch) {
+        return `#${idMatch[1]}`;
+      }
+    }
+
+    // Handle name="..." -> [name='...']
+    if (selector.includes('name=')) {
+      const nameMatch = selector.match(/name="([^"]+)"/);
+      if (nameMatch) {
+        return `[name='${nameMatch[1]}']`;
+      }
+    }
+
+    // Handle data-cy="..." -> [data-cy='...']
+    if (selector.includes('data-cy=')) {
+      const dataCyMatch = selector.match(/data-cy="([^"]+)"/);
+      if (dataCyMatch) {
+        return `[data-cy='${dataCyMatch[1]}']`;
+      }
+    }
+
+    // Handle data-testid="..." -> [data-testid='...']
+    if (selector.includes('data-testid=')) {
+      const dataTestIdMatch = selector.match(/data-testid="([^"]+)"/);
+      if (dataTestIdMatch) {
+        return `[data-testid='${dataTestIdMatch[1]}']`;
+      }
+    }
+
+    // If no conversion needed, return as-is
+    return selector;
   }
 
   /**

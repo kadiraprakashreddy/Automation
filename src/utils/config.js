@@ -1,28 +1,52 @@
-import dotenv from 'dotenv';
+import environmentLoader from './environmentLoader.js';
 
-// Load environment variables
-dotenv.config();
-
+// Use centralized environment configuration
 const config = {
   browser: {
-    type: process.env.BROWSER_TYPE || 'chromium',
-    headless: process.env.HEADLESS === 'true',
+    type: environmentLoader.get('BROWSER_TYPE'),
+    headless: environmentLoader.get('HEADLESS'),
     viewport: {
-      width: parseInt(process.env.VIEWPORT_WIDTH) || 1920,
-      height: parseInt(process.env.VIEWPORT_HEIGHT) || 1080
+      width: environmentLoader.get('VIEWPORT_WIDTH'),
+      height: environmentLoader.get('VIEWPORT_HEIGHT')
     }
   },
   timeouts: {
-    default: parseInt(process.env.DEFAULT_TIMEOUT) || 30000,
-    navigation: parseInt(process.env.NAVIGATION_TIMEOUT) || 60000
+    default: environmentLoader.get('DEFAULT_TIMEOUT'),
+    navigation: environmentLoader.get('NAVIGATION_TIMEOUT'),
+    element: environmentLoader.get('ELEMENT_TIMEOUT')
   },
   screenshot: {
-    onError: process.env.SCREENSHOT_ON_ERROR !== 'false',
-    path: process.env.SCREENSHOT_PATH || './screenshots'
+    onError: environmentLoader.get('SCREENSHOT_ON_ERROR'),
+    path: environmentLoader.get('SCREENSHOT_PATH'),
+    format: environmentLoader.get('SCREENSHOT_FORMAT'),
+    quality: environmentLoader.get('SCREENSHOT_QUALITY')
   },
   logging: {
-    level: process.env.LOG_LEVEL || 'info',
-    path: process.env.LOG_PATH || './logs'
+    level: environmentLoader.get('LOG_LEVEL'),
+    path: environmentLoader.get('LOG_PATH'),
+    console: environmentLoader.get('LOG_CONSOLE'),
+    file: environmentLoader.get('LOG_FILE')
+  },
+  network: {
+    monitoring: environmentLoader.get('NETWORK_MONITORING'),
+    logRequests: environmentLoader.get('NETWORK_LOG_REQUESTS'),
+    logResponses: environmentLoader.get('NETWORK_LOG_RESPONSES'),
+    filterApiOnly: environmentLoader.get('NETWORK_FILTER_API_ONLY')
+  },
+  performance: {
+    maxConcurrentSteps: environmentLoader.get('MAX_CONCURRENT_STEPS'),
+    stepDelay: environmentLoader.get('STEP_DELAY'),
+    retryAttempts: environmentLoader.get('RETRY_ATTEMPTS'),
+    retryDelay: environmentLoader.get('RETRY_DELAY')
+  },
+  security: {
+    allowInsecureRequests: environmentLoader.get('ALLOW_INSECURE_REQUESTS'),
+    ignoreHttpsErrors: environmentLoader.get('IGNORE_HTTPS_ERRORS')
+  },
+  development: {
+    debugMode: environmentLoader.get('ENABLE_DEBUG_MODE'),
+    verboseLogging: environmentLoader.get('LOG_LEVEL') === 'debug',
+    showBrowser: !environmentLoader.get('HEADLESS')
   }
 };
 

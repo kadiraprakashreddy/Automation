@@ -20,10 +20,10 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px;
+  padding: 3px 20px;
   border: 1px solid #E0E0E0;
   border-radius: 12px;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
   background: white;
   transition: all 0.3s ease;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
@@ -36,7 +36,7 @@
 }
 
 .rule-info h4 {
-  margin: 0 0 8px 0;
+  margin: 0;
   color: #2c3e50;
   font-size: 18px;
   font-weight: 600;
@@ -123,7 +123,7 @@
 }
 
 .running-indicator {
-  margin-top: 5px;
+  margin-top: 8px;
 }
 
 .status-running {
@@ -170,50 +170,50 @@
 }
 
 .rule-actions .btn {
-  padding: 8px 16px;
+  padding: 1px 16px;
   font-size: 13px;
   min-width: auto;
 }
 
 .btn-run {
-  background: #1976D2;
+  background: #838485;
   color: white;
 }
 
 .btn-run:hover {
-  background: #1565C0;
+  background: #838485;
 }
 
 .btn-run:disabled {
-  background: #BDBDBD;
+  background: #838485;
   color: #757575;
 }
 
 .btn-edit {
-  background: #43A047;
+  background: #838485;
   color: white;
 }
 
 .btn-edit:hover {
-  background: #388E3C;
+  background: #838485;
 }
 
 .btn-delete {
-  background: #D32F2F;
+  background: #838485;
   color: white;
 }
 
 .btn-delete:hover {
-  background: #C62828;
+  background: #838485;
 }
 
 .btn-stop {
-  background: #FF5722;
+  background: #838485;
   color: white;
 }
 
 .btn-stop:hover {
-  background: #E64A19;
+  background: #838485;
 }
 
 .actions {
