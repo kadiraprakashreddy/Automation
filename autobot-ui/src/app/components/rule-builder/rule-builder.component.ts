@@ -21,10 +21,9 @@ export class RuleBuilderComponent implements OnInit {
     steps: []
   };
   
-  showPreview = false;
-  jsonPreview = '';
   activeTab = 'setup';
   showModal = false;
+  isSetupComplete: boolean = false;
 
   constructor(
     private automationService: AutomationService,
@@ -33,23 +32,13 @@ export class RuleBuilderComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    console.log('Rule Builder ngOnInit - checking edit mode...');
-    console.log('Is in edit mode:', this.ruleEditService.isInEditMode());
-    
-    // Check if we're in edit mode using the service
     if (this.ruleEditService.isInEditMode()) {
       const ruleToEdit = this.ruleEditService.getRuleToEdit();
-      console.log('Rule to edit:', ruleToEdit);
-      
       if (ruleToEdit) {
         this.loadRuleForEdit(ruleToEdit);
         return;
       }
     }
-    
-    console.log('Creating new rule...');
-    // Default: create new rule
-    this.addStep();
   }
 
   loadRuleForEdit(rule: any) {
@@ -60,8 +49,6 @@ export class RuleBuilderComponent implements OnInit {
       author: rule.author || '',
       version: rule.version || '1.0.0',
       created: rule.created || '',
-      networkActivity: rule.networkActivity || false,
-      continueOnError: rule.continueOnError || false,
       steps: rule.steps || []
     };
     
@@ -70,11 +57,37 @@ export class RuleBuilderComponent implements OnInit {
       this.addStep();
     }
     
-    console.log('Loaded rule for editing:', this.rule);
+    // Enable Workflow tab when editing existing rule
+    this.isSetupComplete = true;
   }
 
+
   setActiveTab(tab: string) {
+    if (tab === 'workflow' && !this.isSetupComplete) {
+      return; // Prevent switching to Workflow if setup is not complete
+    }
     this.activeTab = tab;
+  }
+
+  isFormValid(): boolean {
+    // Check if all required fields are filled
+    return !!(this.rule.name && this.rule.name.trim() !== '');
+  }
+
+  nextStep() {
+    // Validate Rule Setup form
+    if (!this.isFormValid()) {
+      return;
+    }
+
+    // Mark setup as complete and switch to Workflow tab
+    this.isSetupComplete = true;
+    this.activeTab = 'workflow';
+    
+    // If no steps exist, add a default one
+    if (this.rule.steps.length === 0) {
+      this.addStep();
+    }
   }
 
   addStep() {
@@ -86,45 +99,6 @@ export class RuleBuilderComponent implements OnInit {
     });
   }
 
-  addWaitStep() {
-    const stepNumber = this.rule.steps.length + 1;
-    this.rule.steps.push({
-      stepId: stepNumber.toString(),
-      action: 'wait',
-      duration: 3000
-    });
-  }
-
-  addClickStep() {
-    const stepNumber = this.rule.steps.length + 1;
-    this.rule.steps.push({
-      stepId: stepNumber.toString(),
-      action: 'click',
-      selector: ''
-    });
-  }
-
-  addFillStep() {
-    const stepNumber = this.rule.steps.length + 1;
-    this.rule.steps.push({
-      stepId: stepNumber.toString(),
-      action: 'fill',
-      selector: '',
-      text: ''
-    });
-  }
-
-  addValidateStep() {
-    const stepNumber = this.rule.steps.length + 1;
-    this.rule.steps.push({
-      stepId: stepNumber.toString(),
-      action: 'validate',
-      validationType: 'exists',
-      selector: '',
-      expectedValue: '',
-      script: ''
-    });
-  }
 
   onActionChange(step: any, index: number) {
     step.stepId = (index + 1).toString();
@@ -173,6 +147,7 @@ export class RuleBuilderComponent implements OnInit {
   removeStep(index: number) {
     this.rule.steps.splice(index, 1);
   }
+
 
   addStepAfter(index: number) {
     const stepNumber = this.rule.steps.length + 1;

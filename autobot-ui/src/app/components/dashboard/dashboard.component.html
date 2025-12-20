@@ -1,62 +1,166 @@
-<div class="dashboard">
-  <div class="card">
-    <h2>📊 Automation Dashboard</h2>
-    <p>Monitor and manage your automation rules</p>
-    
-    <div class="actions">
-      <a routerLink="/builder" class="btn btn-success">➕ Create New Rule</a>
-      <button class="btn" (click)="refreshRules()">🔄 Refresh Rules</button>
-      <button class="btn" (click)="loadRunningAutomations()">🔄 Refresh Status</button>
+<div class="spec-explorer-layout">
+  <!-- Dark Sidebar -->
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <div class="logo">
+        <i class="fas fa-robot"></i>
+        <span class="project-name">AutoBot</span>
+      </div>
     </div>
+    
+    <nav class="sidebar-nav">
+      <a routerLink="/dashboard" routerLinkActive="active" class="nav-item">
+        <i class="fas fa-list"></i>
+        <span>Dashboard</span>
+      </a>
+      <a routerLink="/builder" routerLinkActive="active" class="nav-item">
+        <i class="fas fa-code"></i>
+        <span>Rule Builder</span>
+      </a>
+      <a href="#" class="nav-item">
+        <i class="fas fa-cog"></i>
+        <span>Settings</span>
+      </a>
+    </nav>
   </div>
 
-  <div class="card">
-    <h3>📋 Existing Rules</h3>
-    <div *ngIf="rules.length === 0" class="no-rules">
-      <p>No rules found. Create your first automation rule!</p>
-    </div>
-    
-    <div *ngFor="let rule of rules" class="rule-item">
-      <div class="rule-info">
-        <h4>{{ rule.name }}</h4>
-        <div *ngIf="isRuleRunning(rule.fileName)" class="running-indicator">
-          <span class="status-running">🔄 Running</span>
+  <!-- Main Content Area -->
+  <div class="main-content">
+    <!-- Header -->
+    <div class="main-header">
+      <div class="header-left">
+        <h1>Automation Dashboard</h1>
+        <p class="subtitle">Monitor and manage your automation rules</p>
+      </div>
+      <div class="header-right">
+        <div class="version-info">
+          <span class="version">v1.0.0</span>
+          <span class="browser">Chrome 102</span>
+        </div>
+        <div class="header-actions">
+          <a href="#" class="docs-link">Docs</a>
+          <div class="user-avatar">
+            <i class="fas fa-user"></i>
+          </div>
         </div>
       </div>
-      <div class="rule-actions">
-        <button class="btn btn-run" 
-                (click)="runRule(rule)" 
-                [disabled]="isRuleRunning(rule.fileName)">
-          {{ isRuleRunning(rule.fileName) ? '🔄 Running' : '▶️ Run' }}
-        </button>
-        <button class="btn btn-stop" 
-                (click)="stopRule(rule)" 
-                *ngIf="isRuleRunning(rule.fileName)">
-          ⏹️ Stop
-        </button>
-        <button class="btn btn-edit" (click)="editRule(rule)">✏️ Edit</button>
-        <button class="btn btn-delete" (click)="deleteRule(rule)">🗑️ Delete</button>
-      </div>
     </div>
-  </div>
 
-  <div class="card" *ngIf="runningAutomations.length > 0 || logs.length > 0">
-    <h3>{{ runningAutomations.length > 0 ? '🔄 Running Automations' : '📋 Automation Logs' }}</h3>
-    
-    <div *ngIf="runningAutomations.length > 0" class="running-summary">
-      <p><strong>{{ runningAutomations.length }}</strong> automation(s) currently running</p>
-      <button class="btn btn-stop" (click)="stopAllRules()">⏹️ Stop All</button>
-    </div>
-    
-    <div class="log-container">
-      <div *ngFor="let log of logs" [class]="'log-' + log.type">
-        <span *ngIf="log.fileName" class="log-source">[{{ log.fileName }}]</span>
-        {{ log.timestamp }} - {{ log.message }}
+    <!-- Search and Actions -->
+    <div class="search-section">
+      <div class="search-container">
+        <input type="text" class="search-input" placeholder="Search Rules..." [(ngModel)]="searchTerm">
+        <i class="fas fa-search search-icon"></i>
       </div>
+      <button class="btn-new-spec" (click)="createNewRule()">
+        <i class="fas fa-plus"></i>
+        New Rule
+      </button>
     </div>
-    <div class="log-actions">
-      <button class="btn btn-primary" (click)="downloadLogs()" [disabled]="logs.length === 0">📥 Download Logs</button>
-      <button class="btn btn-secondary" (click)="clearLogs()" *ngIf="logs.length > 0">🗑️ Clear Logs</button>
+
+    <!-- Dashboard Content -->
+    <div class="dashboard-content">
+      <div class="card dashboard-card">
+        <div class="section-header">
+          <h3>Quick Actions</h3>
+        </div>
+        <div class="actions">
+          <button class="btn btn-outline-primary" (click)="refreshRules()">
+            <i class="fas fa-sync-alt"></i>
+            Refresh Rules
+          </button>
+          <button class="btn btn-outline-primary" (click)="loadRunningAutomations()">
+            <i class="fas fa-play-circle"></i>
+            Refresh Status
+          </button>
+        </div>
+      </div>
+
+      <div class="card dashboard-card">
+        <div class="section-header">
+          <h3><i class="fas fa-list"></i> Existing Rules</h3>
+        </div>
+        <div *ngIf="rules.length === 0" class="no-rules">
+          <i class="fas fa-inbox fa-3x mb-3"></i>
+          <p>No rules found. Create your first automation rule!</p>
+        </div>
+
+        <div *ngIf="rules.length > 0" class="rule-table">
+          <div class="rule-table-header">
+            <span>Rule Name</span>
+            <span>Actions</span>
+          </div>
+
+          <div *ngFor="let rule of rules" class="rule-row">
+            <div class="rule-info">
+              <h4>{{ rule.name }}</h4>
+              <div *ngIf="isRuleRunning(rule.fileName)" class="running-indicator">
+                <span class="status-running">
+                  <i class="fas fa-circle-notch fa-spin"></i>
+                  Running
+                </span>
+              </div>
+            </div>
+            <div class="rule-actions">
+              <button class="btn btn-run" 
+                      (click)="runRule(rule)" 
+                      [disabled]="isRuleRunning(rule.fileName)">
+                <i class="fas fa-play"></i>
+                {{ isRuleRunning(rule.fileName) ? 'Running' : 'Run' }}
+              </button>
+              <button class="btn btn-stop" 
+                      (click)="stopRule(rule)" 
+                      *ngIf="isRuleRunning(rule.fileName)">
+                <i class="fas fa-stop"></i>
+                Stop
+              </button>
+              <button class="btn btn-edit" (click)="editRule(rule)">
+                <i class="fas fa-edit"></i>
+                Edit
+              </button>
+              <button class="btn btn-delete" (click)="deleteRule(rule)">
+                <i class="fas fa-trash"></i>
+                Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card dashboard-card" *ngIf="runningAutomations.length > 0 || logs.length > 0">
+        <div class="section-header">
+          <h3>
+            <i class="fas fa-play-circle" *ngIf="runningAutomations.length > 0"></i>
+            <i class="fas fa-list" *ngIf="runningAutomations.length === 0"></i>
+            {{ runningAutomations.length > 0 ? 'Running Automations' : 'Automation Logs' }}
+          </h3>
+        </div>
+        
+        <div *ngIf="runningAutomations.length > 0" class="running-summary">
+          <p><strong>{{ runningAutomations.length }}</strong> automation(s) currently running</p>
+          <button class="btn btn-stop" (click)="stopAllRules()">
+            <i class="fas fa-stop"></i>
+            Stop All
+          </button>
+        </div>
+        
+        <div class="log-container">
+          <div *ngFor="let log of logs" [class]="'log-' + log.type">
+            <span *ngIf="log.fileName" class="log-source">[{{ log.fileName }}]</span>
+            {{ log.timestamp }} - {{ log.message }}
+          </div>
+        </div>
+        <div class="log-actions">
+          <button class="btn btn-primary" (click)="downloadLogs()" [disabled]="logs.length === 0">
+            <i class="fas fa-download"></i>
+            Download Logs
+          </button>
+          <button class="btn btn-secondary" (click)="clearLogs()" *ngIf="logs.length > 0">
+            <i class="fas fa-trash"></i>
+            Clear Logs
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </div>

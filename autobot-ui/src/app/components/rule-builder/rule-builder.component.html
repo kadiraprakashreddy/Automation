@@ -1,165 +1,249 @@
-<div class="rule-builder">
-  <div class="card">
-    <div class="actions">
-      <a routerLink="/dashboard" class="btn back-button">← Back to Dashboard</a>
+<div class="spec-explorer-layout">
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <div class="logo">
+        <i class="fas fa-robot"></i>
+        <span class="project-name">AutoBot</span>
+      </div>
     </div>
+
+    <nav class="sidebar-nav">
+      <a routerLink="/dashboard" class="nav-item">
+        <i class="fas fa-list"></i>
+        <span>Dashboard</span>
+      </a>
+      <a routerLink="/builder" class="nav-item active">
+        <i class="fas fa-code"></i>
+        <span>Rule Builder</span>
+      </a>
+      <a href="#" class="nav-item">
+        <i class="fas fa-cog"></i>
+        <span>Settings</span>
+      </a>
+    </nav>
   </div>
 
-  <div class="tab-container">
-    <div class="tab-nav">
-      <button class="tab-button" 
-              [class.active]="activeTab === 'setup'" 
-              (click)="setActiveTab('setup')">
-        📝 Rule Setup
-      </button>
-      <button class="tab-button" 
-              [class.active]="activeTab === 'workflow'" 
-              (click)="setActiveTab('workflow')">
-        🔧 Workflow
-      </button>
+  <div class="main-content">
+    <div class="main-header">
+      <div class="header-left">
+        <h1>Rule Builder</h1>
+        <p class="subtitle">Create and edit automation workflows</p>
+      </div>
+      <div class="header-right">
+        <a routerLink="/dashboard" class="docs-link">Back to Dashboard</a>
+      </div>
     </div>
 
-    <div class="tab-content">
-      <div class="tab-panel" [class.active]="activeTab === 'setup'">
-        <div class="card">
-          <div class="card-body">
-            <div class="row g-3">
-              <div class="col-md-6">
-                <label class="form-label">Rule Name</label>
-                <input type="text" class="form-control" [(ngModel)]="rule.name" placeholder="Enter rule name">
-              </div>
-              <div class="col-md-6">
-                <label class="form-label">Author</label>
-                <input type="text" class="form-control" [(ngModel)]="rule.author" placeholder="Enter author name">
-              </div>
-            </div>
-            
-            <div class="row g-3 mt-2">
-              <div class="col-md-8">
-                <label class="form-label">Description</label>
-                <textarea class="form-control" rows="3" [(ngModel)]="rule.description" placeholder="Enter rule description"></textarea>
-              </div>
-              <div class="col-md-4">
-                <label class="form-label">Version</label>
-                <input type="text" class="form-control" [(ngModel)]="rule.version" placeholder="1.0.0">
-              </div>
-            </div>
-
-            <div class="row g-3 mt-2">
-              <div class="col-md-6">
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" [(ngModel)]="rule.networkActivity" id="networkActivity">
-                  <label class="form-check-label" for="networkActivity">
-                    Enable Network Monitoring
-                  </label>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" [(ngModel)]="rule.continueOnError" id="continueOnError">
-                  <label class="form-check-label" for="continueOnError">
-                    Continue on Error
-                  </label>
-                </div>
-              </div>
-            </div>
+    <div class="builder-content">
+      <div class="rule-builder-container">
+        <div class="rule-builder-card">
+          <!-- Tab Navigation -->
+          <div class="tab-nav">
+            <button class="tab-button" 
+                    [class.active]="activeTab === 'setup'" 
+                    (click)="setActiveTab('setup')">
+              Rule Setup
+            </button>
+            <button class="tab-button" 
+                    [class.active]="activeTab === 'workflow'" 
+                    [class.disabled]="!isSetupComplete"
+                    [disabled]="!isSetupComplete"
+                    (click)="setActiveTab('workflow')">
+              Workflow
+            </button>
           </div>
-        </div>
-      </div>
 
-      <div class="tab-panel" [class.active]="activeTab === 'workflow'">
-        <div class="card">
-          <div class="card-body">
-            <div class="d-flex gap-2 mb-3">
-              <button class="btn btn-outline-primary btn-sm" (click)="addWaitStep()">⏱️ Add Wait</button>
-              <button class="btn btn-outline-primary btn-sm" (click)="addClickStep()">👆 Add Click</button>
-              <button class="btn btn-outline-primary btn-sm" (click)="addFillStep()">✏️ Add Fill</button>
-              <button class="btn btn-outline-primary btn-sm" (click)="addValidateStep()">✅ Add Validation</button>
+          <!-- Tab Content -->
+          <div class="tab-content">
+            <!-- Rule Setup Tab -->
+            <div class="tab-panel" [class.active]="activeTab === 'setup'">
+              <div class="form-section">
+                <h2 class="section-title">Rule Information</h2>
+                
+                <div class="form-grid">
+                  <div class="form-group">
+                    <label class="form-label">Rule Name</label>
+                    <input type="text" 
+                           class="form-input" 
+                           [(ngModel)]="rule.name" 
+                           placeholder="Enter rule name"
+                           required>
+                  </div>
+                  
+                  <div class="form-group">
+                    <label class="form-label">Author</label>
+                    <input type="text" 
+                           class="form-input" 
+                           [(ngModel)]="rule.author" 
+                           placeholder="Enter author name">
+                  </div>
+                </div>
+
+                <div class="form-grid">
+                  <div class="form-group form-group-wide">
+                    <label class="form-label">Description</label>
+                    <textarea class="form-textarea" 
+                              rows="3" 
+                              [(ngModel)]="rule.description" 
+                              placeholder="Enter rule description"></textarea>
+                  </div>
+                  
+                  <div class="form-group">
+                    <label class="form-label">Version</label>
+                    <input type="text" 
+                           class="form-input" 
+                           [(ngModel)]="rule.version" 
+                           placeholder="1.0.0">
+                  </div>
+                </div>
+
+
+                <div class="form-actions">
+                  <button class="btn-primary" 
+                          [disabled]="!isFormValid()" 
+                          [class.disabled]="!isFormValid()"
+                          (click)="nextStep()">
+                    Next
+                  </button>
+                </div>
+              </div>
             </div>
 
-            <div class="table-responsive" *ngIf="rule.steps.length > 0">
-              <table class="table table-bordered table-hover">
-                <thead class="table-light">
-                  <tr>
-                    <th style="width: 10%;">Step ID</th>
-                    <th style="width: 15%;">Action Type</th>
-                    <th style="width: 50%;">Input/Configuration</th>
-                    <th style="width: 25%;">Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let step of rule.steps; let i = index">
-                    <td>
-                      <input type="text" class="form-control form-control-sm" [(ngModel)]="step.stepId" 
-                             [value]="i + 1" readonly>
-                    </td>
+            <!-- Workflow Tab -->
+            <div class="tab-panel" [class.active]="activeTab === 'workflow'">
+              <div class="workflow-section">
+
+                <!-- Automation Steps Table -->
+                <div class="workflow-table-container" *ngIf="rule.steps.length > 0">
+                  <table class="workflow-table">
+                    <thead>
+                      <tr>
+                        <th class="col-step-id">Step ID</th>
+                        <th class="col-action-type">Action Type</th>
+                        <th class="col-input-config">Input / Configuration</th>
+                        <th class="col-actions">Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let step of rule.steps; let i = index" class="step-row">
+                        <td class="col-step-id">
+                          <span class="step-number">{{ i + 1 }}</span>
+                        </td>
+                        
+                        <td class="col-action-type">
+                          <select class="table-select" 
+                                  [(ngModel)]="step.action" 
+                                  (change)="onActionChange(step, i)">
+                            <option value="navigate">Navigate</option>
+                            <option value="click">Click</option>
+                            <option value="fill">Fill</option>
+                            <option value="wait">Wait</option>
+                            <option value="screenshot">Screenshot</option>
+                            <option value="validate">Validate</option>
+                          </select>
+                        </td>
                     
-                    <td>
-                      <select class="form-select form-select-sm" [(ngModel)]="step.action" (change)="onActionChange(step, i)">
-                        <option value="navigate">Navigate</option>
-                        <option value="click">Click</option>
-                        <option value="fill">Fill</option>
-                        <option value="wait">Wait</option>
-                        <option value="screenshot">Screenshot</option>
-                        <option value="validate">Validate</option>
-                      </select>
-                    </td>
-              
-                    <td>
-                      <div *ngIf="step.action === 'navigate'">
-                        <input type="text" class="form-control form-control-sm w-100" [(ngModel)]="step.url" placeholder="Enter URL">
-                      </div>
-                      
-                      <div *ngIf="step.action === 'click'">
-                        <input type="text" class="form-control form-control-sm w-100" [(ngModel)]="step.selector" placeholder="CSS Selector">
-                      </div>
-                      
-                      <div *ngIf="step.action === 'fill'">
-                        <input type="text" class="form-control form-control-sm w-100 mb-1" [(ngModel)]="step.selector" placeholder="CSS Selector">
-                        <input type="text" class="form-control form-control-sm w-100" [(ngModel)]="step.text" placeholder="Text to fill">
-                      </div>
-                      
-                      <div *ngIf="step.action === 'wait'">
-                        <input type="number" class="form-control form-control-sm w-100" [(ngModel)]="step.duration" placeholder="Duration (ms)">
-                      </div>
-                      
-                      <div *ngIf="step.action === 'screenshot'">
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" [(ngModel)]="step.fullPage" id="fullPage{{i}}">
-                          <label class="form-check-label" for="fullPage{{i}}">Full Page</label>
-                        </div>
-                      </div>
-                      
-                      <div *ngIf="step.action === 'validate'">
-                        <select class="form-select form-select-sm w-100 mb-1" [(ngModel)]="step.validationType">
-                          <option value="exists">Element Exists</option>
-                          <option value="textContains">Text Contains</option>
-                          <option value="textEquals">Text Equals</option>
-                          <option value="visible">Element Visible</option>
-                        </select>
-                        <input type="text" class="form-control form-control-sm w-100 mb-1" [(ngModel)]="step.selector" placeholder="CSS Selector">
-                        <input *ngIf="step.validationType !== 'exists'" type="text" class="form-control form-control-sm w-100" [(ngModel)]="step.expectedValue" placeholder="Expected Value">
-                      </div>
-                    </td>
-                    
-                    <td>
-                      <div class="d-flex gap-1">
-                        <button class="btn btn-success btn-sm" (click)="addStepAfter(i)">➕</button>
-                        <button class="btn btn-danger btn-sm" (click)="removeStep(i)">🗑️</button>
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+                        <td class="col-input-config">
+                          <div *ngIf="step.action === 'navigate'" class="inline-config">
+                            <span class="inline-label">URL:</span>
+                            <input type="text" 
+                                   class="inline-input" 
+                                   [(ngModel)]="step.url" 
+                                   placeholder="Enter URL here">
+                          </div>
+                          
+                          <div *ngIf="step.action === 'click'" class="inline-config">
+                            <span class="inline-label">Button:</span>
+                            <input type="text" 
+                                   class="inline-input" 
+                                   [(ngModel)]="step.selector" 
+                                   placeholder="CSS Selector">
+                          </div>
+                          
+                          <div *ngIf="step.action === 'fill'" class="inline-config">
+                            <span class="inline-label">Field:</span>
+                            <input type="text" 
+                                   class="inline-input" 
+                                   [(ngModel)]="step.selector" 
+                                   placeholder="CSS Selector">
+                            <span class="inline-label">Value:</span>
+                            <input type="text" 
+                                   class="inline-input" 
+                                   [(ngModel)]="step.text" 
+                                   placeholder="Text to fill">
+                          </div>
+                          
+                          <div *ngIf="step.action === 'wait'" class="inline-config">
+                            <span class="inline-label">Duration:</span>
+                            <input type="number" 
+                                   class="inline-input" 
+                                   [(ngModel)]="step.duration" 
+                                   placeholder="Duration (ms)">
+                          </div>
+                          
+                          <div *ngIf="step.action === 'screenshot'" class="inline-config">
+                            <label class="inline-checkbox">
+                              <input type="checkbox" 
+                                     class="checkbox-input" 
+                                     [(ngModel)]="step.fullPage" 
+                                     id="fullPage{{i}}">
+                              <span class="checkbox-text">Full Page Screenshot</span>
+                            </label>
+                          </div>
+                          
+                          <div *ngIf="step.action === 'validate'" class="inline-config">
+                            <span class="inline-label">Type:</span>
+                            <select class="inline-select" [(ngModel)]="step.validationType">
+                              <option value="exists">Element Exists</option>
+                              <option value="textContains">Text Contains</option>
+                              <option value="textEquals">Text Equals</option>
+                              <option value="visible">Element Visible</option>
+                            </select>
+                            <span class="inline-label">Selector:</span>
+                            <input type="text" 
+                                   class="inline-input" 
+                                   [(ngModel)]="step.selector" 
+                                   placeholder="CSS Selector">
+                            <input *ngIf="step.validationType !== 'exists'" 
+                                   type="text" 
+                                   class="inline-input" 
+                                   [(ngModel)]="step.expectedValue" 
+                                   placeholder="Expected Value">
+                          </div>
+                        </td>
+                        
+                        <td class="col-actions">
+                          <div class="table-actions">
+                            <button class="btn-icon btn-icon-add" (click)="addStepAfter(i)" title="Add step after">
+                              ➕
+                            </button>
+                            <button class="btn-icon btn-icon-delete" (click)="removeStep(i)" title="Delete step">
+                              ❌
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
 
-            <div *ngIf="rule.steps.length === 0" class="text-center py-4 text-muted">
-              <p>No steps added yet. Click "Add Step" to get started!</p>
-            </div>
+                <div *ngIf="rule.steps.length === 0" class="empty-state">
+                  <i class="fas fa-list-ul"></i>
+                  <p>No steps added yet. Click "Add" buttons above to get started!</p>
+                </div>
 
-            <div class="d-flex gap-2 justify-content-center mt-3">
-              <button class="btn btn-success" (click)="saveRule()">💾 Save Rule</button>
-              <button class="btn btn-outline-success" (click)="previewJson()">👁️ Preview JSON</button>
+                <!-- Footer Controls -->
+                <div class="workflow-footer">
+                  <button class="btn-preview" (click)="previewJson()">
+                    <i class="fas fa-eye"></i>
+                    Preview JSON
+                  </button>
+                  <button class="btn-save" (click)="saveRule()">
+                    <i class="fas fa-save"></i>
+                    Save Rule
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -168,18 +252,22 @@
   </div>
 </div>
 
+<!-- Modal for JSON Preview -->
 <div class="modal-overlay" *ngIf="showModal" (click)="closeModal()">
   <div class="modal-content" (click)="$event.stopPropagation()">
     <div class="modal-header">
-      <h3>📄 JSON Preview</h3>
+      <h3><i class="fas fa-code"></i> JSON Preview</h3>
       <button class="modal-close" (click)="closeModal()">×</button>
     </div>
     <div class="modal-body">
       <pre class="json-preview">{{ getJsonPreview() }}</pre>
     </div>
     <div class="modal-footer">
-      <button class="btn btn-success" (click)="copyToClipboard()">📋 Copy JSON</button>
-      <button class="btn" (click)="closeModal()">Close</button>
+      <button class="btn-secondary" (click)="copyToClipboard()">
+        <i class="fas fa-copy"></i>
+        Copy JSON
+      </button>
+      <button class="btn-primary" (click)="closeModal()">Close</button>
     </div>
   </div>
 </div>

@@ -152,7 +152,7 @@ async function runAll() {
   // Start Angular UI
   log('\n🎨 Starting Angular UI (Port 4200)...', 'blue');
   
-  const angularProcess = spawn('ng', ['serve'], {
+  const angularProcess = spawn('npm', ['run', 'start'], {
     cwd: path.join(projectRoot, 'autobot-ui'),
     stdio: ['pipe', 'pipe', 'pipe'],
     shell: true

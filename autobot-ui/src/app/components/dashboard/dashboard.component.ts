@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { RouterModule, Router } from '@angular/router';
 import { AutomationService } from '../../services/automation.service';
 import { RuleEditService } from '../../services/rule-edit.service';
@@ -8,7 +9,7 @@ import { interval } from 'rxjs';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
@@ -18,6 +19,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   logs: any[] = [];
   currentRule: any = null;
   private refreshInterval: any;
+  searchTerm: string = '';
 
   constructor(
     private automationService: AutomationService,
@@ -102,11 +104,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   editRule(rule: any) {
-    console.log('Dashboard editRule called with:', rule);
-    // Set the rule to edit in the service
     this.ruleEditService.setRuleToEdit(rule);
-    console.log('Rule set in service, navigating to rule builder...');
-    // Navigate to rule builder
+    this.router.navigate(['/builder']);
+  }
+
+  createNewRule() {
+    this.ruleEditService.clearEditState();
     this.router.navigate(['/builder']);
   }
 
