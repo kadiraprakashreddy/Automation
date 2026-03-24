@@ -1,0 +1,162 @@
+/*
+THIS IS FOR DEMO PURPOSES ONLY, WITHIN YOUR JSP YOU'LL NEED TO LINK TO static/common or static/cacheable fonts. Reach out
+to Techie Peppers (TechiePeppers@fmr.com) if you have any questions.
+*/
+@font-face {
+    font-family: "Fidelity Sans";
+    src:  url(https://assets.fidelity.com/fonts/FidelitySans-Regular.woff2)format('woff2'),
+          url(https://assets.fidelity.com/fonts/FidelitySans-Regular.woff)format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+/* FidelitySans-Italic */
+@font-face {
+    font-family: "Fidelity Sans";
+    src:  url(https://assets.fidelity.com/fonts/FidelitySans-Italic.woff2)format('woff2'),
+          url(https://assets.fidelity.com/fonts/FidelitySans-Italic.woff)format('woff');
+    font-weight: 400;
+    font-style: italic;
+}
+
+/* FidelitySans-Light Italic */
+@font-face {
+    font-family: "Fidelity Sans";
+    src:  url(https://assets.fidelity.com/fonts/FidelitySans-LightItalic.woff2)format('woff2'),
+          url(https://assets.fidelity.com/fonts/FidelitySans-LightItalic.woff)format('woff');
+    font-weight: 300;
+    font-style: italic;
+}
+
+/* FidelitySans-Bold */
+@font-face {
+    font-family: "Fidelity Sans";
+    src:  url(https://assets.fidelity.com/fonts/FidelitySans-Bold.woff2)format('woff2'),
+          url(https://assets.fidelity.com/fonts/FidelitySans-Bold.woff)format('woff');
+    font-weight: 700; /* 700 = "bold"*/
+    font-style: normal;
+}
+
+/* FidelitySans-BoldItalic */
+@font-face {
+    font-family: "Fidelity Sans";
+    src:  url(https://assets.fidelity.com/fonts/FidelitySans-BoldItalic.woff2)format('woff2'),
+          url(https://assets.fidelity.com/fonts/FidelitySans-BoldItalic.woff)format('woff');
+    font-weight: 700;
+    font-style: italic;
+}
+
+/* FidelitySans-ExtraBold */
+@font-face {
+    font-family: "Fidelity Sans";
+    src:  url(https://assets.fidelity.com/fonts/FidelitySans-ExtraBold.woff2)format('woff2'),
+          url(https://assets.fidelity.com/fonts/FidelitySans-ExtraBold.woff)format('woff');
+    font-weight: 800;
+    font-style: normal;
+}
+
+
+/* FidelitySans-Light */
+@font-face {
+    font-family: "Fidelity Sans";
+    src:  url(https://assets.fidelity.com/fonts/FidelitySans-Light.woff2)format('woff2'),
+          url(https://assets.fidelity.com/fonts/FidelitySans-Light.woff)format('woff');
+    font-weight: 300;
+    font-style: normal;
+}
+
+
+/* FidelitySans-UltraLight */
+@font-face {
+    font-family: "Fidelity Sans";
+    src:  url(https://assets.fidelity.com/fonts/FidelitySans-UltraLight.woff2)format('woff2'),
+          url(https://assets.fidelity.com/fonts/FidelitySans-UltraLight.woff)format('woff');
+    font-weight: 200;
+    font-style: normal;
+}
+
+
+/* FOUNDATION USERS NEED CAMELCASE FOR LEGACY REASONS */
+/*FidelitySans-Regular*/
+@font-face {
+    font-family: "FidelitySans";
+    src:  url(https://assets.fidelity.com/fonts/FidelitySans-Regular.woff2)format('woff2'),
+          url(https://assets.fidelity.com/fonts/FidelitySans-Regular.woff)format('woff');
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  /* FidelitySans-Italic */
+  @font-face {
+    font-family: "FidelitySans";
+    src:  url(https://assets.fidelity.com/fonts/FidelitySans-Italic.woff2)format('woff2'),
+          url(https://assets.fidelity.com/fonts/FidelitySans-Italic.woff)format('woff');
+    font-weight: 400;
+    font-style: italic;
+  }
+
+  /* FidelitySans-Light Italic */
+  @font-face {
+    font-family: "FidelitySans";
+    src:  url(https://assets.fidelity.com/fonts/FidelitySans-LightItalic.woff2)format('woff2'),
+          url(https://assets.fidelity.com/fonts/FidelitySans-LightItalic.woff)format('woff');
+    font-weight: 300;
+    font-style: italic;
+  }
+
+  /* FidelitySans-Bold */
+  @font-face {
+    font-family: "FidelitySans";
+    src:  url(https://assets.fidelity.com/fonts/FidelitySans-Bold.woff2)format('woff2'),
+          url(https://assets.fidelity.com/fonts/FidelitySans-Bold.woff)format('woff');
+    font-weight: 700; /* 700 = "bold"*/
+    font-style: normal;
+  }
+
+  /* FidelitySans-BoldItalic */
+  @font-face {
+    font-family: "FidelitySans";
+    src:  url(https://assets.fidelity.com/fonts/FidelitySans-BoldItalic.woff2)format('woff2'),
+          url(https://assets.fidelity.com/fonts/FidelitySans-BoldItalic.woff)format('woff');
+    font-weight: 700;
+    font-style: italic;
+  }
+
+  /* FidelitySans-ExtraBold */
+  @font-face {
+    font-family: "FidelitySans";
+    src:  url(https://assets.fidelity.com/fonts/FidelitySans-ExtraBold.woff2)format('woff2'),
+          url(https://assets.fidelity.com/fonts/FidelitySans-ExtraBold.woff)format('woff');
+    font-weight: 800;
+    font-style: normal;
+  }
+
+
+  /* FidelitySans-Light */
+  @font-face {
+    font-family: "FidelitySans";
+    src:  url(https://assets.fidelity.com/fonts/FidelitySans-Light.woff2)format('woff2'),
+          url(https://assets.fidelity.com/fonts/FidelitySans-Light.woff)format('woff');
+    font-weight: 300;
+    font-style: normal;
+
+  }
+
+
+  /* FidelitySans-UltraLight */
+  @font-face {
+    font-family: "FidelitySans";
+    src:  url(https://assets.fidelity.com/fonts/FidelitySans-UltraLight.woff2)format('woff2'),
+          url(https://assets.fidelity.com/fonts/FidelitySans-UltraLight.woff)format('woff');
+    font-weight: 200;
+    font-style: normal;
+  }
+
+  /* Condensed Medium */
+  @font-face {
+    font-family: "FidelitySans-CondensedMedium";
+    src:  url(https://assets.fidelity.com/fonts/FidelitySansCondensed-Medium.woff)format('woff'),
+          url(https://assets.fidelity.com/fonts/FidelitySansCondensed-Medium.woff2)format('woff2');
+    font-weight: 500;
+    font-style: normal;
+  }

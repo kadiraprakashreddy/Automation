@@ -1,0 +1,92 @@
+@import '@fmr-pr101742/providence-visual-style/styles/visual-style';
+@import '@fmr-ap109253/providence/dist/scss/pvd-list-group/styles/functions';
+@import '@fmr-ap109253/providence/dist/scss/pvd-list-group/styles/mixins';
+@import '@fmr-ap109253/providence/dist/scss/pvd-list-group/styles/variables';
+
+.operations-guide__expandcollapse {
+    margin: $pvd-space-stack-two-x;
+
+    .pvd-expand-collapse-root {
+        .pvd-expand-collapse__subheading {
+            font-size: 1rem;
+        }
+    }
+}
+
+.operations-guide__expandcollapse-title {
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.25;
+    margin: 0;
+
+    & + .operations-guide__expandcollapse-desc {
+        margin-top: $pvd-space-utility-half-x;
+    }
+}
+
+.operations-guide__expandcollapse-desc {
+    @include pvd-text-medium();
+    margin-bottom: $pvd-space-utility-one-and-half-x;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+
+    ul {
+        @include pvd-box-sizing;
+        @include pvd-text-medium;
+        display: block;
+        line-height: 1.5;
+        margin: 0;
+        margin-top: 0.5rem;
+        padding: 0;
+        @include pvd-list-group-inline-breakpoint-styles {
+            display: flex;
+
+            li {
+                +li {
+                    margin-left: $pvd-space-utility-one-and-half-x;
+                    margin-top: 0;
+                }
+            }
+        }
+
+        li {
+            background-image: none;
+            grid-template-areas:
+                'list-style-or-icon-left list-item-text icon-right'
+                '. nested-list nested-list';
+            grid-template-columns: auto 1fr auto;
+
+            +li {
+                margin-top: $pvd-space-utility-half-x;
+            }
+
+            &::before {
+                @include pvd-list-group-responsive-margin-top($pvd-font-size-text-medium-default,
+                $pvd-font-size-text-medium-at-512,
+                $pvd-list-group-bullet-size);
+                background-color: currentColor;
+                content: '';
+                display: inline-block;
+                height: $pvd-list-group-bullet-size;
+                margin-right: $pvd-space-utility-three-quarter-x;
+                vertical-align: top;
+                width: $pvd-list-group-bullet-size;
+            }
+
+            &::marker {
+                content: none;
+            }
+
+            a {
+                font-family: $pvd-font-family-sans;
+            }
+        }
+    }
+}
+
+// override max-width that is set in the video component
+.video-box {
+    max-width: 18.75rem !important;
+}

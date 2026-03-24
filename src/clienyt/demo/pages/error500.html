@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html class="no-js" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" data-ng-app='yourPageNameApp'>
+    <head>
+        <meta charset="utf-8">
+        <!-- Start Site Catalyst Top Information -->
+        <script type="text/javascript">
+            window.ensightenDataSurface = {
+                Client: "000714443",
+                effectiveUserId: "prelog2",
+                loginScope: "post-login",
+                Plan: "",
+                p2: "eea1e4f5ee5c8311e5ac870a2aba15aa77",
+                userId: "prelog2"
+            };
+        </script>
+        <!-- End Site Catalyst Top Information -->
+
+        <title>Help and Learning</title>
+        <meta name="eReview" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <script type='text/javascript'>
+            var _trackAnalytics = function () {};
+        </script>
+        <script>
+            window.STATIC_CONTENT_LOCATION = 'http://localhost:4200/';
+        </script>
+        <link href="https://pssint.fmr.com/bin-public/06_PSW_Website/css/print.css" type="text/css" rel="stylesheet"
+              media="print"/>
+        <!-- Unfortunately in the PSW space this site.css kinda duplicates as the realm css.  This includes the nav bar CSS for now until that is updated to the realm css. -->
+        <link href="https://pssint.fmr.com/bin-public/06_PSW_Website/css/site.css" type="text/css" rel="stylesheet"
+              media="all"/>
+
+        <link href="https://pssint.fmr.com/bin-public/06_PSW_Website/css/pswcontent.css" type="text/css" rel="stylesheet"
+              media="all"/>
+        <script src="https://pssint.fmr.com/static/psw/cacheable/content/js/realms/dist/plansponsortop.min.js"
+                type="text/javascript"></script>
+
+        <!-- <link href="/styles/fonts.css" /> -->
+        <link href="./common/styles/extendednavbar_footer.css" type="text/css" rel="stylesheet">
+        <!--INJECT_ALL_SCRIPTS-->
+        <!-- Dojo a necessary include for the present dojo based nav bar. -->
+        <script src="https://pssint.fmr.com/static/psw/cacheable/psw3_0/common/js/dojo/current/dojo/dojo.js"
+                type="text/javascript" data-dojo-config="parseOnLoad: true"></script>
+        <!-- Javascript to build and add accessibility/functionality logic for the page header. -->
+        <script src="https://pssint.fmr.com/static/psw/cacheable/psw3_0/common/js/commonPageHeader.js"
+                type="text/javascript"></script>
+        <!-- Dojo a necessary include for the present dojo based nav bar. -->
+        <script type="text/javascript">
+            dojo.require("dojox.layout.ContentPane");
+        </script>
+        <title>Title</title>
+    </head>
+    <body>
+        <nav id="navbar" dojoType="dojox.layout.ContentPane" refreshOnShow="false"
+             href="./common/stub_elements/stub_psw_header.html">
+            Ignore the dojo connect event. Running this for aesthetics. THe Jquery on load function will highlight the tab in
+            normal conditions.
+        </nav>
+
+        <div>
+            <app-root></app-root>
+            <div class="content-container footer-container" role="contentinfo"></div>
+        </div>
+
+        <script type="text/javascript">
+            /**
+             * Please note that this URL is a dummy URL just to differentiate between different JSON data for different
+             * scenarios. The actual URL format is - /planadmin/api/getDocumentList
+             */
+            var apis = {"getBookApi": "/api/error/error500.json"};
+            var txntoken = 'GBQE-LXBG-CMLY-MQC2-31BR-8VP0-5YKW-K8D3';
+            var brightcoveConfig = {"scripts":["https:\/\/players.brightcove.net\/5781043325001\/tU9P6t2Kt_default\/index.min.js"],
+                                    "accountId": "5781043325001",
+                                    "playerId": "tU9P6t2Kt_default"};
+        </script>
+
+        <link href="../../bin-public/06_PSW_Website/fonts/"/>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                // Ignore this line.  This is used to load the common footer element from a stub to keep this page about simplicity.
+                $(".footer-container").load("./common/stub_elements/stub_psw_footer.html");
+            });
+        </script>
+    </body>
+</html>

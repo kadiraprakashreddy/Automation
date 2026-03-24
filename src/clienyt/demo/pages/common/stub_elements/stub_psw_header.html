@@ -1,0 +1,1196 @@
+<script type = "text/javascript">
+
+    var homeTabUrl = '/plansponsor/pswmain/homepage.psw';
+    var viewParticipantsTabUrl = '/plansponsor/iewebapp/ParticipantSearchLandingPage.do?fromNavBar=true';
+    var administerPlansTabUrl = '/plansponsor/pswmain/administerplanslanding.psw';
+    var manageDataTabUrl = '/plansponsor/pswmain/managedatalanding.psw';
+    var workWithFidelityTabUrl = '/plansponsor/pswmain/workwithfidelitylanding.psw';
+    var trainingTabUrl = '/plansponsor/pswmain/trainingsupport/trainingsupportlanding.psw';
+    var reportingTabUrl = '/plansponsor/pswmain/reportinglanding.psw';
+    var notificationsTabUrl = '/plansponsor/pswmain/showActiveNotifications.psw';
+    var newsAndInsightsTabUrl =  '/plansponsor/pswmain/psw/public/library.html';
+
+    //If the user has access to echancedReporting(NGREPORT) clicking the Reporting tab will take them to the Reporting Dashboard
+    //If the user has access to the new Reporting tab but not enchancedReporting(NGREPORT) the tab will take them to Ordered Reports
+
+
+    reportingTabUrl = '/plansponsor/intreporting/showReportsDashboard.psw';
+
+
+
+
+
+
+
+
+
+
+</script>
+
+
+<div class="nb postLogin" id="navbar_nb">
+
+
+
+    <div class="psHeader">
+        <div class="headBanner-container">
+            <div class="content-container headerBg">
+                <div class="logo" role="banner">
+                    <div>
+                        <a href="#skipToContent" tabindex="1" class="skipNavHidden" id="navbar_skipNav" onfocus="this.className='skipNav';" onblur="this.className='skipNavHidden';">
+                            Skip to Main Content.
+                        </a>
+                    </div>
+                    <div class="nav-header-right-links topRow-Item">
+                        <ul>
+                            <li>
+                                Welcome,
+                            </li>
+                            <li>
+                                <span class="identifier">&nbsp;Pre-Login Test User1</span>
+                            </li>
+                        </ul>
+                        <ul>
+                            <li>
+
+
+
+                                <a href="/plansponsor/pswmain/ClientSelector.psw"><span class="identifier">HUNTER FAN COMPANY</span>&nbsp;(Switch Company)</a>
+
+
+
+
+                            </li>
+                        </ul>
+                        <ul>
+
+                            <li>
+                                <a href="#" title="Training & Support" onClick="javascript:(window.location ='/plansponsor/pswmain/trainingsupport/trainingsupportlanding.psw');">
+                                    <img width="12" height="17" alt="Training & Support" src="https://pssint.fmr.com/bin-public/06_PSW_Website/images/question.png">
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="#" title="Settings" onClick="javascript:(window.location ='/plansponsor/sponsor/setPersonalNotifications.do');">
+                                    <img width="17" height="17" alt="Settings" src="https://pssint.fmr.com/bin-public/06_PSW_Website/images/user-gear.png">
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="#" title="User Maintenance" onClick="javascript:(window.location ='/plansponsor/pswmain/usermaintenancelanding.psw');">
+                                    <img width="16" height="15" src="https://pssint.fmr.com/bin-public/06_PSW_Website/images/wrench.png" alt="User Maintenance">
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="#" class="logout-button" title="Logout" onClick="javascript:(logoutPsw('/plansponsor/pswmain/Logout.psw'));" id="LogoutLink">
+                                    Log Out
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <a href="#" onClick="javascript:(window.location ='/plansponsor/pswmain/homepage.psw');" id="navbar_logoLink" tabindex="2"  title="Fidelity PSW Home">
+
+
+
+                        <img src="https://pssint.fmr.com/bin-public/06_PSW_Website/images/PSW_logoMkt.png" width="309" height="55" alt="Fidelity PSW Home" border="0">
+
+
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <input type="hidden" id="highLightNavBar" value="NONE"/>
+
+    <form id="MasterParticipantSearchForm" action="" method="POST">
+        <input type="hidden" name="searchField" value=""/>
+        <input type="hidden" name="temporarySearchField" value=""/>
+        <input type="hidden" name="searchValue" value=""/>
+        <input type="hidden" name="dcPlanNumber" value=""/>
+        <input type="hidden" name="dcPlanDivision" value=""/>
+        <input type="hidden" name="actualSsn" value=""/>
+        <input type="hidden" name="whatToView" value=""/>
+    </form>
+
+
+
+    <div class="nav-container">
+        <div class="content-container navBar-width">
+            <div dojoType="dijit.MenuBar" id="navMenu" role="navigation">
+                <div dojoType="dijit.MenuBarItem" id="homeBarItem" onMouseLeave="javascript:deselectTab('homeBarItem');" class="hiddenUntilLoaded">
+            <span>
+                <div class="tab-title-holder">
+                    Home
+                </div>
+            </span>
+                </div><div dojoType="dijit.PopupMenuBarItem" id="participantBarItem" class="hiddenUntilLoaded">
+    <span>
+        <div class="tab-title-holder">
+            View Participants
+            <span class="off-screen menuStatus">menu closed</span>
+        </div>
+    </span>
+                <div dojoType="dijit.Menu" id="participantMenu"
+                     onMouseEnter="javascript:selectTab('participantBarItem');"
+                     onMouseLeave="javascript:closeTabPopup('participantMenu', 'participantBarItem');" class="nb">
+                    <div dojoType="dijit.MenuItem" id="viewParticipantMenuItem">
+                        <div class="tab-extender"></div>
+                        <div id="hovViewParticipantsContentPortion"><div style="width: 450px; height:214px;"><img style="padding-top: 60px; padding-left: 200px;" src="https://pssint.fmr.com/bin-public/06_PSW_Website/images/loading_spinner_big.gif" alt="Loading..." /></div></div>
+                    </div>
+                </div>
+            </div><div dojoType="dijit.PopupMenuBarItem" id="adminPlansBarItem"
+                       onMouseLeave="javascript:selectTab('adminPlansBarItem');" class="hiddenUntilLoaded">
+    <span>
+        <div class="tab-title-holder">
+            Administer Plans
+            <span class="off-screen menuStatus">menu closed</span>
+        </div>
+    </span>
+                <div dojoType="dijit.Menu" id="adminBenefitsMenu"
+                     onMouseEnter="javascript:selectTab('adminPlansBarItem');"
+                     onMouseLeave="javascript:closeTabPopup('adminBenefitsMenu', 'adminPlansBarItem');" class="nb">
+                    <div dojoType="dijit.MenuItem"  id="adminPlansMenuItem">
+                        <div class="tab-extender"></div>
+                        <div id="hoverOverAdministerPlansContentPortion" >
+
+
+
+
+
+                            <div id="hoverOverSectionDefinedContribution" class= " hoverOverSection borderedSection  " >
+                                <div class="adminPlan-sections">
+
+                                    <div class="hoverOverSectionHeading">Defined Contribution</div>
+
+
+                                    <div class="hoverOverLink">
+                                        <a href="#"  onClick="javascript:(window.location ='/plansponsor/sponsor/setupOverview.do');"> Set Plan Options </a>
+                                    </div>
+
+
+
+                                    <div class="hoverOverLink">
+                                        <a href="#"  onClick="javascript:(window.location ='/plansponsor/pswdccore/plan/planReportCategorySelect.do?planReportCategory=all');"> Plan History &amp; Balances</a>
+                                    </div>
+
+
+
+
+
+
+
+
+                                    <div class="hoverOverLink">
+                                        <a href="#"  onClick="javascript:(window.location ='/plansponsor/iewebapp/ShowCategoryReportsPage.do?category=investments');"> Plan Investments</a>
+                                    </div>
+
+
+
+
+                                    <div class="hoverOverLink">
+                                        <a href="#"  onClick="javascript:(window.location ='/plansponsor/sponsor/lwDisplayApprovals.do');"> Approve Loans &amp; Withdrawals</a>
+                                    </div>
+
+
+                                    <div class="hoverOverLink">
+                                        <a href="#"  onClick="javascript:(window.location ='/plansponsor/pswdccore/adu/LoadInterestRate.do');"> View &amp; Submit Loan Interest Rates</a>
+                                    </div>
+
+
+
+                                    <div class="hoverOverLink">
+                                        <a href="#"  onClick="javascript:(window.location ='/plansponsor/sponsor/EAActionHome.do');"> Company Contribution Calculator</a>
+                                    </div>
+
+
+                                    <div class="hoverOverLink">
+                                        <a href="#"  onClick="javascript:(window.location ='/plansponsor/planadmin/showAllocateRevenueCredits.psw');"> Allocate Revenue Credits</a>
+                                    </div>
+
+
+
+                                </div>
+                                <div class="adminPlan-sections">
+
+                                </div>
+
+                            </div>
+
+
+
+                            <div id="administerPlansHoverOverComplianceSection" class="hoverOverSection borderedSection">
+                                <div class="hoverOverSectionHeading">Compliance</div>
+
+                                <div class="hoverOverLink">
+                                    <a href="#"  onClick="javascript:(window.location ='/plansponsor/sponsor/complianceNDTHome.do');"> Non-Discrimination Testing (NDT)</a>
+                                </div>
+
+
+                                <div class="hoverOverLink">
+                                    <a href="#"  onClick="javascript:(window.location ='/plansponsor/planadmin/showPyesDocumentList.psw');"> Plan Year End Summary Reports</a>
+                                </div>
+
+
+                                <div class="hoverOverLink">
+                                    <a href="#"  onClick="javascript:(window.location ='/plansponsor/planadmin/showGovernmentForms.psw');"> Form 5500 and Form 8955-SSA</a>
+                                </div>
+
+
+                            </div>
+
+                        </div>
+
+                        <div id="hoverOverAdministerPlansHelpPortion" class="breaker">
+
+                            <div id="administerPlansDefinedContributionHelpSection" class="hoverOverSection hoverOverHelpSection">
+                                <div id="administerPlansDefinedContributionHelp" class="borderedSection">
+                                    <div class="top-border learn-link">
+                                        <img src="https://pssint.fmr.com/bin-public/06_PSW_Website/images/9_9_BULLET_B.gif" alt="" />
+                                        <a href="javascript:openPopupWindow('/plansponsor/pswmain/trainingsupport/trainingdetail/administerplans.psw','LearnMoreAbout', '711x639');">
+                                            Learn more about Administering Plans
+                                            <img class="popupIcon" src="https://pssint.fmr.com/bin-public/06_PSW_Website/images/popup.gif" alt="Opens in new window." /></a>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div id="administerPlansComplianceHelpSection" class="hoverOverSection hoverOverHelpSection">
+                                <div id="administerPlansComplianceHelp" class="borderedSection">
+                                    <div class="top-border learn-link">
+                                        <img src="https://pssint.fmr.com/bin-public/06_PSW_Website/images/9_9_BULLET_B.gif" alt="" />
+                                        <a href="javascript:openPopupWindow('/plansponsor/pswmain/trainingsupport/trainingdetail/compliance.psw','LearnMoreAbout', '711x639');">
+                                            Learn more about Compliance
+                                            <img class="popupIcon" src="https://pssint.fmr.com/bin-public/06_PSW_Website/images/popup.gif" alt="Opens in new window." /></a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div><div dojoType="dijit.PopupMenuBarItem" id="adminDataBarItem"
+                       onMouseLeave="javascript:selectTab('adminDataBarItem');" class="hiddenUntilLoaded">
+    <span>
+        <div class="tab-title-holder">
+            Manage Data
+            <span class="off-screen menuStatus">menu closed</span>
+        </div>
+    </span>
+                <div dojoType="dijit.Menu" id="adminDataMenu"
+                     onMouseEnter="javascript:selectTab('adminDataBarItem');"
+                     onMouseLeave="javascript:closeTabPopup('adminDataMenu', 'adminDataBarItem');" class="nb">
+                    <div dojoType="dijit.MenuItem" id="adminDataMenuItem">
+                        <div class="tab-extender"></div>
+                        <div id="hovManageDataContentPortion">
+
+                            <div id="hovManageDataFileManagementSection" class="hoverOverSection borderedSection">
+                                <div class="hoverOverSectionHeading">File Management</div>
+
+                                <div class="hoverOverLink">
+                                    <a href="#" onClick="javascript:(window.location ='/plansponsor/datamgmt/ShowAdminFiles');">
+                                        View All Files
+                                    </a>
+                                </div>
+
+
+                                <div class="hoverOverLink">
+                                    <a href="#" onClick="javascript:(window.location ='/plansponsor/datamgmt/SelectFileTypeLanding');">
+                                        Create or Send a File
+                                    </a>
+                                </div>
+
+
+
+                                <div class="hoverOverLink">
+                                    <a href="#"
+                                       title="Apply Funding"
+                                       onClick="javascript:(window.location ='/plansponsor/sponsor/fundMultipleBatches.do');">
+                                        Apply Funding
+                                    </a>
+                                </div>
+
+
+
+                                <div class="hoverOverLink">
+                                    <a href="#"  onClick="javascript:(window.location ='/plansponsor/interchange/ReceiveFeedbackFilesSelector.do');">
+                                        Receive Files
+                                    </a>
+                                </div>
+
+
+                                <div class="hoverOverLink">
+                                    <a href="#" onClick="javascript:(window.location ='/plansponsor/sponsor/existingLayoutSummary.do?context=new');">
+                                        View & Modify File Layouts
+                                    </a>
+                                </div>
+
+                            </div>
+
+
+                            <div id="hovManageDataAdditionalParticipantDataSection" class="hoverOverSection borderedSection">
+                                <div class="hoverOverSectionHeading">Participant Data Management</div>
+
+
+
+
+
+
+
+
+                                <div class="hoverOverLink">
+                                    <a href="#" onClick="javascript:(window.location ='/plansponsor/datamgmt/ShowNewParticipant');">
+                                        Enroll a New Participant
+                                    </a>
+                                </div>
+
+
+
+
+
+
+
+
+                                <div class="hoverOverLink">
+                                    <a href="#" onClick="javascript:(window.location ='/plansponsor/sponsor/searchModify.do?newSearch=true');">
+                                        View & Modify Participant Data
+                                    </a>
+                                </div>
+
+
+                            </div>
+
+                        </div>
+
+                        <div class="hoverOverHelpLink">
+                            <div id="hovHelpPortion" class="hoverOverPostContentPortion top-border learn-link">
+                                <img src="https://pssint.fmr.com/bin-public/06_PSW_Website/images/9_9_BULLET_B.gif" alt="" />
+                                <a href="javascript:openPopupWindow('/plansponsor/pswmain/trainingsupport/trainingdetail/managingdata.psw','LearnMoreAbout', '711x639');">
+                                    Learn more about Managing Data
+                                    <img class="popupIcon" src="https://pssint.fmr.com/bin-public/06_PSW_Website/images/popup.gif" alt="Opens in new window." /></a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div><div dojoType="dijit.PopupMenuBarItem" id="workwithfidelityBarItem"
+                       onMouseLeave="javascript:selectTab('workwithfidelityBarItem');" class="hiddenUntilLoaded">
+    <span>
+        <div class="tab-title-holder">
+            Work With Fidelity
+            <span class="off-screen menuStatus">menu closed</span>
+        </div>
+    </span>
+                <div dojoType="dijit.Menu" id="workwithfidelityMenu"
+                     onMouseEnter="javascript:selectTab('workwithfidelityBarItem');"
+                     onMouseLeave="javascript:closeTabPopup('workwithfidelityMenu', 'workwithfidelityBarItem');" class="nb">
+                    <div dojoType="dijit.MenuItem" id="workWithFidelityMenuItem">
+                        <div class="tab-extender"></div>
+                        <div id="hovWorkWithFidelityContentPortion" class="hovWorkWithFidelityContent">
+
+
+
+                            <div id="hovWorkWithFidelityServiceRequestsSection" class="hoverOverSection borderedSection">
+
+
+
+
+
+
+
+                                <div class="hoverOverSectionHeading">Service Requests</div>
+
+
+                                <div class="hoverOverLink"><a href="#" onClick="javascript:(window.location ='/plansponsor/customerservice/servicerequest/displayMyActiveWorkItems.do?filterBy=myActive');">View All Service Requests</a></div>
+
+
+
+                                <div class="hoverOverLink">
+                                    <a href="javascript:(openPopupWindow('/plansponsor/customerservice/servicerequest/DCServiceRequest.do','ServiceRequests', '510x560'));">
+                                        Open a New Service Request
+                                        <img class="popupIcon" src="https://pssint.fmr.com/bin-public/06_PSW_Website/images/popup.gif" alt="Opens in new window." />
+                                    </a>
+                                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            </div>
+
+
+
+
+                            <div id="hovWorkWithFidelityTeamWorkspaceSection" class="hoverOverSection borderedSection">
+
+                                <div class="hoverOverSectionHeading">Team Workspace</div>
+
+                                <div class="hoverOverLink"><a href="#" onClick="javascript:(window.location ='/plansponsor/collaboration/ShowProjectsPage.do');">Your Team Workspace Projects</a></div>
+
+                                <div class="hoverOverSubsectionHeading">Tasks</div>
+
+                                <div class="hoverOverLink"><a href="#" onClick="javascript:(window.location ='/plansponsor/collaboration/ShowWorkflowAssigned.do?workflowStatus=ACTIVE');">Tasks You Assigned</a></div>
+
+                                <div class="hoverOverLink"><a href="#" onClick="javascript:(window.location ='/plansponsor/collaboration/ShowTasksAssigned.do?taskStatus=ACTIVE&retreiveReqd=true');">Tasks Assigned to You</a></div>
+
+                            </div>
+
+                        </div>
+                        <div class="breaker"></div>
+
+                        <div id="hovWorkWithFidelityHelpPortion" class="hovWorkWithFidelityContent">
+
+                            <div class="hoverOverSection hoverOverHelpSection borderedSection" id="hovWorkWithFidelityServiceRequestsHelpSection">
+                                <div class="hoverOverPostContentPortion top-border learn-link">
+                                    <img src="https://pssint.fmr.com/bin-public/06_PSW_Website/images/9_9_BULLET_B.gif" alt="" />
+                                    <a href="javascript:openPopupWindow('/plansponsor/pswmain/trainingsupport/trainingdetail/workingwithfidelity.psw','LearnMoreAbout', '711x639');">
+                                        Learn more about Service Requests
+                                        <img class="popupIcon" src="https://pssint.fmr.com/bin-public/06_PSW_Website/images/popup.gif" alt="Opens in new window." /></a>
+                                </div>
+                            </div>
+
+
+
+                            <div class="hoverOverSection hoverOverHelpSection borderedSection" id="hovWorkWithFidelityTeamWorkspaceHelpSection">
+                                <div class="hoverOverPostContentPortion top-border learn-link">
+                                    <img src="https://pssint.fmr.com/bin-public/06_PSW_Website/images/9_9_BULLET_B.gif" alt="" />
+                                    <a href="javascript:openPopupWindow('/plansponsor/pswmain/trainingsupport/trainingdetail/workingwithfidelity.psw','LearnMoreAbout', '711x639');">
+                                        Learn more about Team Workspace
+                                        <img class="popupIcon" src="https://pssint.fmr.com/bin-public/06_PSW_Website/images/popup.gif" alt="Opens in new window." /></a>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div><script type="text/javascript">
+                function goToRunReports(product) {
+                    document.runReportsForm.elements["product"].value = product;
+                    document.runReportsForm.submit();
+                }
+
+                function closeAllFlyouts() {
+                    var listOfFlyouts = dojo.query(".ie-position-fix");
+                    listOfFlyouts.style("visibility", "hidden");
+                }
+
+                function focusFlyout(menuItemId) {
+                    closeAllFlyouts();
+                    var menuItemNode = dojo.query('#' + menuItemId);
+                    menuItemNode.style("visibility", "visible");
+                }
+            </script><div dojoType="dijit.PopupMenuBarItem" id="reportingBarItem" onmouseleave="selectTab('reportingBarItem')"
+                          class="hiddenUntilLoaded">
+    <span>
+        <div class="tab-title-holder">
+            Reporting <span class="off-screen menuStatus">menu closed</span>
+        </div>
+    </span>
+                <div dojoType="dijit.Menu" id="reportingMenu" onmouseenter="selectTab('reportingBarItem');"
+                     onmouseleave="closeTabPopup('reportingMenu', 'reportingBarItem');" class="nb">
+                    <div dojoType="dijit.MenuItem" id="reportingMenuItem">
+                        <div class="tab-extender"></div>
+
+
+
+
+
+
+
+                        <div id="hoverover-enhncd-rpt-layout-2-col" class="next-gen" onmouseleave="closeAllFlyouts()">
+
+
+                            <div class="hoverover-strategic-analytics" onmouseover="closeAllFlyouts()">
+                                <div class="hoverover-section">
+                                    <div class="hoverover-heading">Strategic Analytics</div>
+                                    <div class="hoverOverLink">
+                                        <a href="javascript:openExecutiveInsightsWindow('/plansponsor/pswmain/pageheader/executiveInsights.psw')">
+                                            Executive Insights
+                                            <img class="popupIcon" src="https://pssint.fmr.com/bin-public/06_PSW_Website/images/popup.gif" alt="Opens in new window." />
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <div class="hoverover-standard-reporting" onmouseleave="closeAllFlyouts()">
+                                <div class="hoverOverSection hoverOverSectionReporting">
+                                    <div class="hoverover-heading">Operational Reports</div>
+                                    <ul id="enhanced_reporting_nav">
+
+
+
+
+                                        <li class="">
+                                            <a href="/plansponsor/intreporting/showReportsDashboard.psw" onmouseover="focusFlyout('dashboardFlyout')" onfocus="focusFlyout('dashboardFlyout')">Dashboard</a>
+
+                                        </li>
+
+
+
+
+                                        <li class="">
+                                            <a href="javascript:goToRunReports('all')" onmouseover="focusFlyout('runReports')" onfocus="focusFlyout('runReports')">Run Reports</a>
+
+                                            <form id="runReportsForm" name="runReportsForm" method="POST" action="/plansponsor/intreporting/showRunReports.psw">
+                                                <input type="hidden" name="product" value="all">
+                                                <input type="hidden" name="category" value="all">
+                                                <input type="hidden" name="manager" value="all">
+                                                <input type="hidden" name="keyword" value="">
+                                            </form>
+                                        </li>
+
+                                        <li class="">
+                                            <a href="/plansponsor/intreporting/createTemplates.psw" onmouseover="focusFlyout('createReport')" onfocus="focusFlyout('createReportFlyout')">Create Report</a>
+
+                                        </li>
+
+
+
+
+
+                                        <li class="">
+                                            <a href="/plansponsor/intreporting/showOrderedReports.psw" onmouseover="focusFlyout('classicReport')" onfocus="focusFlyout('classicReport')">View Classic Reports</a>
+
+                                        </li>
+
+                                    </ul>
+                                </div>
+                            </div>
+
+
+                            <div class="clearfix"></div>
+
+
+                            <div class="hoverover-strategic-analytics" onmouseover="closeAllFlyouts()">
+                                <div class="hoverOverHelpLink">
+                                    <div class="hoverOverPostContentPortion top-border learn-link">
+                                        <img src="https://pssint.fmr.com/bin-public/06_PSW_Website/images/9_9_BULLET_B.gif" alt="" /> <a
+                                            href="javascript:openPopupWindow('/plansponsor/pswmain/trainingsupport/trainingdetail/executiveinsights.psw','LearnMoreAbout', '711x639');">
+                                        Learn more about Analytics <img class="popupIcon" src="https://pssint.fmr.com/bin-public/06_PSW_Website/images/popup.gif"
+                                                                        alt="Opens in new window." />
+                                    </a>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <div class="hoverover-standard-reporting" onmouseover="closeAllFlyouts()">
+                                <div class="hoverOverHelpLink">
+                                    <div class="hoverOverPostContentPortion top-border learn-link">
+                                        <img src="https://pssint.fmr.com/bin-public/06_PSW_Website/images/9_9_BULLET_B.gif" alt="" /> <a
+                                            href="javascript:openPopupWindow('/plansponsor/pswmain/trainingsupport/trainingdetail/enhancedreportinglargeformat.psw','LearnMoreAbout', '711x639');">
+                                        Learn more about Reporting <img class="popupIcon" src="https://pssint.fmr.com/bin-public/06_PSW_Website/images/popup.gif"
+                                                                        alt="Opens in new window." />
+                                    </a>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+
+
+
+
+
+                    </div>
+                </div>
+            </div>
+
+
+
+
+                <div dojoType="dijit.PopupMenuBarItem" id="newsandinsightsBarItem"
+                     onMouseLeave="javascript:selectTab('newsandinsightsBarItem');" class="hiddenUntilLoaded">
+    <span>
+        <div class="tab-title-holder">
+            Library
+            <span class="off-screen menuStatus">menu closed</span>
+        </div>
+    </span>
+                    <div dojoType="dijit.Menu" id="newsandinsightsMenu"
+                         onMouseEnter="javascript:selectTab('newsandinsightsBarItem');"
+                         onMouseLeave="javascript:closeTabPopup('newsandinsightsMenu', 'newsandinsightsBarItem');" class="nb">
+                        <div dojoType="dijit.MenuItem" id="newsAndInsightsMenuItem">
+                            <div class="tab-extender"></div>
+                            <div id="hovNewsAndInsightsContentPortion">
+
+
+                                <div id="newsAndInsightsHoverOverNewsSection" class="hoverOverSection borderedSection">
+                                    <div class="hoverOverSectionHeading">Library</div>
+                                    <div class="hoverOverLink">
+                                        <dt>
+                                            <a href="/plansponsor/pswmain/psw/public/library/manageplans/managingPlans.html" id="Link_1444351942618" title="Managing Plans" name="Link_1444351942618" >Managing Plans</a>
+                                        </dt>
+                                    </div>
+
+                                    <div class="hoverOverLink">
+                                        <dt>
+                                            <a href="/plansponsor/pswmain/psw/public/library/designbenefits/designingBenefits.html" id="Link_1453975211577" title="Designing Benefits" name="Link_1453975211577" class="secure-lock-icon" >Designing Benefits<span class="off-screen">Log In Required</span></a>
+                                        </dt>
+                                    </div>
+
+                                    <div class="hoverOverLink">
+                                        <dt>
+                                            <a href="/plansponsor/pswmain/psw/public/library/engageemployees/engagingEmployees.html" id="Link_1444333673386" title="Engaging Employees" name="Link_1444333673386" >Engaging Employees</a>
+                                        </dt>
+                                    </div>
+
+                                    <div class="hoverOverLink">
+                                        <dt>
+                                            <a href="/plansponsor/pswmain/psw/public/library/innovations/exploringInnovations.html" id="Link_1444334421269" title="Exploring Innovations" name="Link_1444334421269" >Exploring Innovations</a>
+                                        </dt>
+                                    </div>
+
+                                    <div class="hoverOverLink">
+                                        <dt>
+                                            <a href="/plansponsor/pswmain/psw/public/library/newsinsights/newsInsights.html" id="Link_1444334698444" title="News &amp;amp; Insights" name="Link_1444334698444" >News &amp; Insights</a>
+                                        </dt>
+                                    </div>
+
+                                </div>
+
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div dojoType="dijit.MenuBarItem" id="notificationsBarItem"
+                     onMouseLeave="javascript:deselectTab('notificationsBarItem');" class="hiddenUntilLoaded">
+    <span>
+        <div class="tab-title-holder">
+            <img src="https://pssint.fmr.com/bin-public/06_PSW_Website/images/icon-unread.gif" id="hovNotificationIcon" border="0" alt="" align="left" />
+            Your Notifications
+        </div>
+    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<style>
+    #tocover { display:none; position:absolute; left:0px; top:0px; width:110%; height:200em; background:#9E9E93; filter:alpha(opacity=30); opacity:0.30; -moz-opacity:0.30; /* -khtml-opacity:0.30; */ }
+    #extsessdlg {position:absolute; left:190px; top:90px; width:375px; background-color:#fff; border: 1px solid #000; padding: 17px 20px 20px 20px; z-index:1000; display:none}
+</style>
+
+
+<div id="tocover"></div>
+<div id="extsessdlg" role="alertdialog" aria-describedby="warningcontent"></div>
+
+<script type="text/javascript">
+    var tid = -1;
+    var mins;
+    var secs;
+    function startCounter() {
+        mins = 1 * incrMins("0");
+        secs = 0 + incrSecs("0:60");
+        incrCntr(mins, secs);
+    }
+    function incrMins(obj) {
+        for(var i = 0; i < obj.length; i++) {
+            if(obj.substring(i, i + 1) == ":")
+                break;
+        }
+        return(obj.substring(0, i));
+    }
+    function incrSecs(obj) {
+        for(var i = 0; i < obj.length; i++) {
+            if(obj.substring(i, i + 1) == ":")
+                break;
+        }
+        return(obj.substring(i + 1, obj.length));
+    }
+    function getCntrVal(mins,secs) {
+        var disp;
+        if(mins <= 9) {
+            disp = " ";
+        } else {
+            disp = " ";
+        }
+        disp += mins + ":";
+        if(secs <= 9) {
+            disp += "0" +secs;
+        } else {
+            disp +=secs;
+        }
+        return(disp);
+    }
+    function incrCntr() {
+        secs--;
+        if(secs == -1) {
+            secs = 60;
+            mins--;
+        }
+        if (document.getElementById("cntrTxt")){
+            document.getElementById("cntrTxt").value = getCntrVal(mins,secs);
+        }
+        if((mins == 0) && (secs == 0)) {
+            private_logout();
+        } else {
+            tid = setTimeout("incrCntr()",0);
+        }
+    }
+    function resetCntr()
+    {
+        if (tid != -1)
+        {
+            clearTimeout(tid);
+            tid = -1;
+        }
+    }
+</script>
+
+
+
+<script type="text/javascript">
+    var cstimeout = 1740;
+
+    var pingIntrvl = cstimeout - 60;
+    var snoozeIntrvl = cstimeout / 2;
+    var snoozeCount = 0;
+    var nbtmrId = -1;
+    var pngIntrvlId = -1;
+    var cnt = "";
+    var toDisabled = false;
+    var pngCnt = 0;
+    var pngs = 0;
+    var xmlhttp = false;
+
+    function private_startTimer()
+    {
+
+        if (nbtmrId != -1)
+        {
+            clearTimeout(nbtmrId);
+            nbtmrId = -1;
+        }
+        nbtmrId = setTimeout(private_logout, (cstimeout * 1000));
+        toDisabled = false;
+
+
+        private_startPing(pingIntrvl);
+    }
+
+    function private_startTimerSnooze()
+    {
+
+        if (nbtmrId != -1)
+        {
+            clearTimeout(nbtmrId);
+            nbtmrId = -1;
+        }
+
+        nbtmrId = setTimeout(private_logout, (cstimeout * 1000));
+        toDisabled = false;
+
+
+        private_startPing(snoozeIntrvl);
+    }
+
+
+    function private_logout()
+    {
+        try
+        {
+            resetCntr();
+            private_hideDlg();
+            logoutPsw('/plansponsor/pswmain/Logout.psw');
+        }
+        catch(e) {}
+    }
+
+
+    function private_extendTimeout()
+    {
+        private_postAjaxReq();
+        private_startTimer();
+        resetCntr();
+        private_hideDlg();
+        window.focus();
+        snoozeCount = 0;
+    }
+
+
+    function private_snoozeTimeout()
+    {
+        snoozeCount++;
+        private_startTimerSnooze();
+        resetCntr();
+    }
+
+
+    function private_postAjaxReq()
+    {
+        var url = "/plansponsor/pswmain/ExtendSessionTimeout.psw";
+        if (window.XMLHttpRequest)
+        {
+            xmlhttp=new XMLHttpRequest();
+        }
+        else if (window.ActiveXObject)
+        {
+            xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        if (xmlhttp)
+        {
+            xmlhttp.onreadystatechange=xmlhttpChange;
+            xmlhttp.open("POST",url,true);
+            xmlhttp.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+            xmlhttp.setRequestHeader("Content-Length",cnt.length);
+            xmlhttp.send(cnt);
+        }
+    }
+
+    function xmlhttpChange()
+    {
+        if (xmlhttp && xmlhttp.readyState == 4)
+        {
+            if (xmlhttp.status == 200)
+            {
+                pngCnt++;
+            }
+        }
+    }
+
+
+    function private_ping()
+    {
+        var sessionInactive = private_checkSessionInactivity();
+        if (sessionInactive || snoozeCount > 2)
+        {
+            private_showDlg();
+
+            startCounter();
+            window.focus();
+        }
+        else
+        {
+            private_snoozeTimeout();
+        }
+    }
+
+
+    function private_checkSessionInactivity()
+    {
+        var sessionInactive = false;
+
+        dojo.xhrGet({
+            url: "/plansponsor/pswmain/checkSessionActivity.psw",
+            handleAs: "json",
+            sync: true,
+            load: function(result) {
+                var inactivityDuration = parseInt(result.inactivityDurationMinutes);
+                var inactivityThreshold = (cstimeout/60) - 10;
+                if (inactivityDuration > inactivityThreshold)
+                {
+                    sessionInactive = true; // session is inactive
+                }
+            },
+            error: function() {
+                sessionInactive = false; // session is active
+            }
+        });
+
+        return sessionInactive;
+    }
+
+
+    function private_startPing(argSecs)
+    {
+        if (pngIntrvlId != -1)
+        {
+            clearInterval(pngIntrvlId);
+        }
+        if (arguments.length == 0 || isParamNull(argSecs))
+        {
+            argSecs = pingIntrvl;
+        }
+        pngIntrvlId = setInterval(private_ping, (argSecs * 1000));
+    }
+
+    function private_showDlg()
+    {
+        showTimeoutDlg(document, 'extsessdlg');
+    }
+    function private_hideDlg()
+    {
+        closeTimeoutDlg(document, 'extsessdlg');
+    }
+
+    function private_getPopupContent()
+    {
+        var popup_cnt ="<div style='margin-bottom:0 !important; padding-bottom:0 !important'>" +
+                "<h2 style='font-family:arial;font-size:17px;font-weight:bold;color:#408800;margin-bottom:11px'>Are you still there?</h2>" +
+                "<p id='warningcontent' style='font-family:arial;font-size:12px;font-weight:normal;color:#000; margin-bottom:11px; margin-top:11px; padding-top:0;'>We noticed that you've been inactive. To protect your information, you will be logged out of your online PSW session in<input name='tocntr' type='text' id='cntrTxt' value='0:60' size='1' readonly='true' title='seconds remaining' style='width:32px; border:none; font-family: Arial; font-size: 12px; font-weight:bold; color:#FF0000; text-align:center;' tabindex='-1' />seconds.</p>" +
+                "<p style='font-family:arial;font-size:12px;font-weight:normal;color:#000; margin-top:0; padding-top:0'>Do you want to continue your session?</p>" +
+                "<p style='text-align:center;margin-top:15px'><input type='button' value='Continue' style='width: 75px;' accesskey='5' style='font-family:arial;font-size:12px;font-weight:normal;color:#000;' onclick='javascript:private_extendTimeout();' /> <input type='button' value='Log Out' style='width: 65px;' accesskey='4' style='margin-left:10px;font-family:arial;font-size:12px;font-weight:normal;color:#000;' onclick='javascript:private_logout();' /> </p></div>";
+        return popup_cnt;
+    }
+
+    function getViewportWidth(doc)
+    {
+        var width = 0;
+        if( doc.documentElement && doc.documentElement.clientWidth ) {
+            width = doc.documentElement.clientWidth;
+        }
+        else if( doc.body && doc.body.clientWidth ) {
+            width = doc.body.clientWidth;
+        }
+        else if( window.innerWidth ) {
+            width = window.innerWidth - 18;
+        }
+        return width;
+    }
+
+    function getViewportHeight(doc)
+    {
+        var height = 0;
+        if( doc.documentElement && doc.documentElement.clientHeight ) {
+            height = doc.documentElement.clientHeight;
+        }
+        else if( doc.body && doc.body.clientHeight ) {
+            height = doc.body.clientHeight;
+        }
+        else if( window.innerHeight ) {
+            height = window.innerHeight - 18;
+        }
+        return height;
+    }
+
+    function getViewportScrollX(doc)
+    {
+        var scrollX = 0;
+        if( doc.documentElement && doc.documentElement.scrollLeft ) {
+            scrollX = doc.documentElement.scrollLeft;
+        }
+        else if( doc.body && doc.body.scrollLeft ) {
+            scrollX = doc.body.scrollLeft;
+        }
+        else if( window.pageXOffset ) {
+            scrollX = window.pageXOffset;
+        }
+        else if( window.scrollX ) {
+            scrollX = window.scrollX;
+        }
+        return scrollX;
+    }
+
+    function getViewportScrollY(doc)
+    {
+        var scrollY = 0;
+        if( doc.documentElement && doc.documentElement.scrollTop ) {
+            scrollY = doc.documentElement.scrollTop;
+        }
+        else if( doc.body && doc.body.scrollTop ) {
+            scrollY = doc.body.scrollTop;
+        }
+        else if( window.pageYOffset ) {
+            scrollY = window.pageYOffset;
+        }
+        else if( window.scrollY ) {
+            scrollY = window.scrollY;
+        }
+        return scrollY;
+    }
+
+    function showTimeoutDlg(doc, el)
+    {
+        // cover for all frames
+        coverAllFrames(this);
+        findAndDisableDropDown(doc);
+
+        var dlg = doc.getElementById(el);
+        if (! isParamNull(dlg))
+        {
+            var hPos = Math.round(getViewportScrollX(doc)+((getViewportWidth(doc)-375)/2));
+            var vPos = Math.round(getViewportScrollY(doc)+((getViewportHeight(doc)-190)/2));
+            hPos = (hPos < 0)?0:hPos;
+            vPos = (vPos < 0)?0:vPos;
+            dlg.style.top = vPos + "px";
+            dlg.style.left = hPos + "px";
+            dlg.innerHTML = private_getPopupContent();
+            dlg.style.display="block";
+        }
+    }
+
+    function closeTimeoutDlg(doc, el)
+    {
+        var dlg = doc.getElementById(el);
+        if (! isParamNull(dlg))
+        {
+            dlg.style.display="none";
+        }
+        //uncover for all frames
+        uncoverAllFrames(this);
+        findAndEnableDropDown(doc);
+    }
+
+    function isParamNull(param)
+    {
+        if((typeof param == "boolean") || (typeof param == "number"))
+        {
+            return false;
+        }
+
+        if((typeof param == "undefined") || param == null)
+        {
+            return true;
+        }
+        if((typeof param == "string") && (param == "null" || param == "" || param == "undefined") )
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    function uncoverAllFrames(frm)
+    {
+        try
+        {
+            var l = frm.location.href;
+            var cvrFrm = frm.document.getElementById("tocover");
+            if (!isParamNull(cvrFrm))
+            {
+                cvrFrm.style.display = "none";
+                cvrFrm.style.zIndex=0;
+            }
+            if (frm.frames)
+            {
+                var iFramesLength = frm.frames.length;
+                if (iFramesLength != 0)
+                {
+                    for(var i=0;i<iFramesLength;i++)
+                    {
+                        uncoverAllFrames(frm.frames[i]);
+                    }
+                }
+            }
+        }
+        catch(e)
+        {
+            if (frm.frames)
+            {
+                var iFramesLength = frm.frames.length;
+                if (iFramesLength != 0)
+                {
+                    for(var i=0;i<iFramesLength;i++)
+                    {
+                        uncoverAllFrames(frm.frames[i]);
+                    }
+                }
+            }
+        }
+    }
+
+    function coverAllFrames(frm)
+    {
+        try
+        {
+            var l = frm.location.href;
+            var cvrFrm = frm.document.getElementById("tocover");
+            if (!isParamNull(cvrFrm))
+            {
+                cvrFrm.style.display = "block";
+                cvrFrm.style.zIndex=999;
+                cvrFrm.style.height = getPageHeight(frm.document);
+                cvrFrm.style.width = getViewportWidth(frm.document);
+            }
+            if (frm.frames)
+            {
+                var iFramesLength = frm.frames.length;
+                if (iFramesLength != 0)
+                {
+                    for(var i=0;i<iFramesLength;i++)
+                    {
+                        coverAllFrames(frm.frames[i]);
+                    }
+                }
+            }
+        }
+        catch(e)
+        {
+            if (frm.frames)
+            {
+                var iFramesLength = frm.frames.length;
+                if (iFramesLength != 0)
+                {
+                    for(var i=0;i<iFramesLength;i++)
+                    {
+                        coverAllFrames(frm.frames[i]);
+                    }
+                }
+            }
+        }
+    }
+
+    function findAndDisableDropDown(doc)
+    {
+        var selectBoxes = doc.getElementsByTagName("SELECT");
+        if (selectBoxes)
+        {
+            var selLen = selectBoxes.length;
+            for (var i=0; i<selLen; i++)
+            {
+                var selBox = selectBoxes[i];
+                selBox.style.visibility = "hidden";
+            }
+        }
+    }
+
+    function findAndEnableDropDown(doc)
+    {
+        var selectBoxes = doc.getElementsByTagName("SELECT");
+        if (selectBoxes)
+        {
+            var selLen = selectBoxes.length;
+            for (var i=0; i<selLen; i++)
+            {
+                var selBox = selectBoxes[i];
+                selBox.style.visibility = "visible";
+            }
+        }
+    }
+
+
+    // Commented out the start timer function so that this doesn't try to change the page.
+    //private_startTimer();
+
+
+    uncoverAllFrames(this);
+
+</script>
+<a name="skipToContent" id="navSkipToContent" href="#skipToContent"></a>

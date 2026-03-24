@@ -1,0 +1,11 @@
+{
+    "errors": [
+        {
+            "code": "F-WSDPER-ERCUS-100403",
+            "title": "ZGK3 15 10:18:06",
+            "detail": "A system error occurred for the requested action.",
+            "parameters": null,
+            "links": null
+        }
+    ]
+}

@@ -1,0 +1,24 @@
+{
+    "title": "Welcome to the SPS quick reference guide",
+    "articles": [
+    {
+    "articleHeading": null,
+    "paragraphs": [
+    {
+    "type": "STRING",
+    "value": "Your source to understanding and using Stock Plan Services. Here's what you'll find inside:"
+    },
+    {
+    "type": "STRING",
+    "value": "<ul><li>Basics on equity compensation types</li><li>Timelines for actions you need to take</li><li>Tools to simplify your workflow</li></ul>"
+    },
+    {
+    "type": "STRING",
+    "value": "Choose a chapter to get started."
+    }
+    ],
+    "subArticles": null
+    }
+    ],
+    "footnotes": "testing footnotes"
+    }

@@ -1,0 +1,270 @@
+{
+    "title": "Award upload",
+    "articles": [
+        {
+            "articleHeading": "What to do before you upload",
+            "paragraphs": [
+                {
+                    "type": "STRING",
+                    "value": "<strong xmlns=\"http://www.w3.org/1999/xhtml\">Send Fidelity new participant records.</strong> Provide the date of birth for each participant so we can set up their accounts. In some cases, you may also need to provide their date of hire.",
+                    "videoId": null,
+                    "videoTranscriptUrl": null
+                },
+                {
+                    "type": "STRING",
+                    "value": "<strong xmlns=\"http://www.w3.org/1999/xhtml\">Work with your client services team to find out if you can use an existing product ID.</strong> You’re required to use a new one if one or more of the following parameters is different from previous awards:",
+                    "videoId": null,
+                    "videoTranscriptUrl": null
+                },
+                {
+                    "type": "STRING",
+                    "value": "<ul xmlns=\"http://www.w3.org/1999/xhtml\"><li>Cash vs. share proceeds</li><li>Award acceptance requirements</li><li>Allowable exercise types</li><li>Exercise pricing type</li><li>Tax withholding methods</li><li>FICA suppression</li><li>Sale and transfer restriction periods</li><li>Inclusion or exclusion of U.K./France approved and unapproved options</li><li>A new transfer agent reserve account</li><li>Security identifier (CUSIP or SEDOL)</li></ul>",
+                    "videoId": null,
+                    "videoTranscriptUrl": null
+                },
+                {
+                    "type": "STRING",
+                    "value": "<strong xmlns=\"http://www.w3.org/1999/xhtml\">If applicable, set up new grant agreements, performance parameters, and vesting, distribution, performance, and termination schedules.</strong>",
+                    "videoId": null,
+                    "videoTranscriptUrl": null
+                }
+            ],
+            "subArticles": [
+                {
+                    "articleHeading": "Send Fidelity new participant records.",
+                    "paragraphs": [
+                        {
+                            "type": "STRING",
+                            "value": "Provide the date of birth for each participant so we can set up their accounts.  In some cases, you may also need to provide their date of hire.",
+                            "videoId": null,
+                            "videoTranscriptUrl": null
+                        }
+                    ],
+                    "subArticles": null
+                },
+                {
+                    "articleHeading": "Work with your client services team to find out if you can use an existing product ID.",
+                    "paragraphs": [
+                        {
+                            "type": "STRING",
+                            "value": "You're required to use a new ID if one or more of the following parameters is different from previous awards:",
+                            "videoId": null,
+                            "videoTranscriptUrl": null
+                        },
+                        {
+                            "type": "STRING",
+                            "value": "<ul xmlns=\"http://www.w3.org/1999/xhtml\"><li>Cash vs. share proceeds</li><li>Award acceptance requirements</li><li>Allowable exercise types</li><li>Exercise pricing type</li><li>Tax withholding methods</li><li>FICA suppression</li><li>Sale and transfer restriction periods</li><li>Inclusion or exclusion of UK/France approved and unapproved options</li><li>A new transfer agent reserve account</li><li>Security identifier (CUSIP or SEDOL)</li></ul>",
+                            "videoId": null,
+                            "videoTranscriptUrl": null
+                        }
+                    ],
+                    "subArticles": null
+                },
+                {
+                    "articleHeading": "If applicable, set up new grant agreements, performance parameters, and vesting, distribution, performance, and termination schedules",
+                    "paragraphs": null,
+                    "subArticles": null
+                }
+            ]
+        },
+        {
+            "articleHeading": "Preparing the award upload template",
+            "paragraphs": null,
+            "subArticles": [
+                {
+                    "articleHeading": null,
+                    "paragraphs": [
+                        {
+                            "type": "STRING",
+                            "value": "To load full-value awards, use the Stock: Grant (Global) template. For stock options and stock appreciation rights (SARs), use the Stock: Grant template. Find both on the \"File management\" page.",
+                            "videoId": null,
+                            "videoTranscriptUrl": null
+                        },
+                        {
+                            "type": "STRING",
+                            "value": "You can use the system configuration reports to pull information you need for the template.",
+                            "videoId": null,
+                            "videoTranscriptUrl": null
+                        },
+                        {
+                            "type": "STRING",
+                            "value": "Watch the video: <a href=\"https://www.fidelity.com\" id=\"Link_1611417425547\" title=\"Full-value awards: Upload a grant file in PSW\" target=\"_blank\" name=\"Link_1611417425547\" >Full-value awards: Upload a grant file in PSW</a>",
+                            "videoId": null,
+                            "videoTranscriptUrl": null
+                        },
+                        {
+                            "type": "STRING",
+                            "value": "Watch the video: <a href=\"https://www.fidelity.com\" id=\"Link_1611417470849\" title=\"Stock options and SARs: How to upload a grant file in PSW\" target=\"_blank\" name=\"Link_1611417470849\" >Stock options and SARs: How to upload a grant file in PSW</a>",
+                            "videoId": null,
+                            "videoTranscriptUrl": null
+                        }
+                    ],
+                    "subArticles": null
+                },
+                {
+                    "articleHeading": "Required information",
+                    "paragraphs": [
+                        {
+                            "type": "STRING",
+                            "value": "Anything in the template that’s highlighted in yellow is a required field. Keep in mind that additional fields may be required based on the award type:",
+                            "videoId": null,
+                            "videoTranscriptUrl": null
+                        },
+                        {
+                            "type": "STRING",
+                            "value": "<ul xmlns=\"http://www.w3.org/1999/xhtml\"><li>For any full-value awards except cash, fair market value (FMV) is required.</li><li>For performance awards, performance indicator field is required. Performance schedule date and parameter ID may also be required.</li></ul>",
+                            "videoId": null,
+                            "videoTranscriptUrl": null
+                        }
+                    ],
+                    "subArticles": null
+                }
+            ]
+        },
+        {
+            "articleHeading": "Timeline for uploading",
+            "paragraphs": null,
+            "subArticles": [
+                {
+                    "articleHeading": "Processing time for your upload",
+                    "paragraphs": [
+                        {
+                            "type": "STRING",
+                            "value": "<ul xmlns=\"http://www.w3.org/1999/xhtml\"><li>Full-value awards: Immediately</li><li>Stock options and SARs: The next available time at 8 am, noon, or 4 pm ET.</li></ul>",
+                            "videoId": null,
+                            "videoTranscriptUrl": null
+                        }
+                    ],
+                    "subArticles": null
+                },
+                {
+                    "articleHeading": "Award load time",
+                    "paragraphs": [
+                        {
+                            "type": "STRING",
+                            "value": "After processing, we’ll send you a file to review. Check to see if the award information is correct. If everything looks good, approve the award records so we can upload them.",
+                            "videoId": null,
+                            "videoTranscriptUrl": null
+                        },
+                        {
+                            "type": "STRING",
+                            "value": "<ul xmlns=\"http://www.w3.org/1999/xhtml\"><li>Full-value awards: Immediately after approval</li><li>Stock options and SARs: The next available time after approval at 8 am, noon, or 4 pm ET.</li></ul>",
+                            "videoId": null,
+                            "videoTranscriptUrl": null
+                        }
+                    ],
+                    "subArticles": null
+                },
+                {
+                    "articleHeading": "When awards show up in reporting",
+                    "paragraphs": [
+                        {
+                            "type": "STRING",
+                            "value": "<ul xmlns=\"http://www.w3.org/1999/xhtml\"><li>Full-value awards: 30 minutes after you approve them for uploading.</li><li>Stock options and SARs: Available on the next business day.</li></ul>",
+                            "videoId": null,
+                            "videoTranscriptUrl": null
+                        },
+                        {
+                            "type": "STRING",
+                            "value": "Watch the video: <a href=\"https://www.fidelity.com\" id=\"Link_1611418120211\" title=\"Full-value awards: Grant upload overview\" target=\"_blank\" name=\"Link_1611418120211\" >Full-value awards: Grant upload overview</a>",
+                            "videoId": null,
+                            "videoTranscriptUrl": null
+                        },
+                        {
+                            "type": "STRING",
+                            "value": "Watch the video: <a href=\"https://www.fidelity.com\" id=\"Link_1611418158065\" title=\"Stock options and SARs: Grant upload process overview\" target=\"_blank\" name=\"Link_1611418158065\" >Stock options and SARs: Grant upload process overview</a>",
+                            "videoId": null,
+                            "videoTranscriptUrl": null
+                        }
+                    ],
+                    "subArticles": null
+                }
+            ]
+        },
+        {
+            "articleHeading": "Participant views and alerts on Fidelity NetBenefits®",
+            "paragraphs": null,
+            "subArticles": [
+                {
+                    "articleHeading": null,
+                    "paragraphs": [
+                        {
+                            "type": "STRING",
+                            "value": "You can choose if and when participants see awards on NetBenefits®:",
+                            "videoId": null,
+                            "videoTranscriptUrl": null
+                        },
+                        {
+                            "type": "STRING",
+                            "value": "<ul xmlns=\"http://www.w3.org/1999/xhtml\"><li>Immediately</li><li>Shortly after midnight on a custom date (time zone specific to plan or client ID).</li><li>A future date you submit via Service Request.</li><li>Never</li></ul>",
+                            "videoId": null,
+                            "videoTranscriptUrl": null
+                        },
+                        {
+                            "type": "STRING",
+                            "value": "If participants don’t have a stock plan account, we’ll create one on their behalf. They’ll receive an email instructing them to activate and certify it on NetBenefits®.",
+                            "videoId": null,
+                            "videoTranscriptUrl": null
+                        }
+                    ],
+                    "subArticles": null
+                }
+            ]
+        },
+        {
+            "articleHeading": "Common errors and how to fix them",
+            "paragraphs": null,
+            "subArticles": [
+                {
+                    "articleHeading": null,
+                    "paragraphs": [
+                        {
+                            "type": "STRING",
+                            "value": "If your award upload isn’t successful, you’ll see an error message telling you why. Common reasons include:",
+                            "videoId": null,
+                            "videoTranscriptUrl": null
+                        },
+                        {
+                            "type": "STRING",
+                            "value": "<ul xmlns=\"http://www.w3.org/1999/xhtml\"><li>Bad data within the file</li><li>Corrupt file</li><li>Data security violation</li><li>Duplicate file</li><li>Unrecognized file name format</li><li>Unsupported file extension</li><li>Wrong template</li></ul>",
+                            "videoId": null,
+                            "videoTranscriptUrl": null
+                        },
+                        {
+                            "type": "STRING",
+                            "value": "To see the error message, description, and what you can do to fix it, look at the \"Grant load errors and warnings\" PDF.",
+                            "videoId": null,
+                            "videoTranscriptUrl": null
+                        },
+                        {
+                            "type": "STRING",
+                            "value": "If you’ve already approved an award with incorrect information and you want to change it, submit a Service Request.",
+                            "videoId": null,
+                            "videoTranscriptUrl": null
+                        },
+                        {
+                            "type": "STRING",
+                            "value": "Watch the video: <a href=\"https://www.fidelity.com\" id=\"Link_1611418709914\" title=\"Full-value awards: Grant load errors and warnings\" target=\"_blank\" name=\"Link_1611418709914\" >Full-value awards: Grant load errors and warnings</a>",
+                            "videoId": null,
+                            "videoTranscriptUrl": null
+                        },
+                        {
+                            "type": "STRING",
+                            "value": "Watch the video: <a href=\"https://www.fidelity.com\" id=\"Link_1611418762562\" title=\"Stock options and SARs: Common grant load errors and warnings\" target=\"_blank\" name=\"Link_1611418762562\" >Stock options and SARs: Common grant load errors and warnings</a>",
+                            "videoId": null,
+                            "videoTranscriptUrl": null
+                        },
+                        {
+                            "type": "VIDEO",
+                            "value": null,
+                            "videoId": "5858397981001",
+                            "videoTranscriptUrl": "pdf_example"
+                        }
+                    ],
+                    "subArticles": null
+                }
+            ]
+        }
+    ],
+    "footnotes": "Fidelity Clearing and Custody Solutions® provides clearing, custody, or other brokerage services through National Financial Services LLC or Fidelity Brokerage Services LLC, members NYSE, SIPC.\r\n<br />\r\n<br />\r\nFidelity does not provide legal or tax advice. The information herein is general in nature and should not be considered legal or tax advice. Consult an attorney or tax professional regarding your specific situation.\r\n<br />\r\n<br />\r\n959032.1.0"
+}

@@ -1,0 +1,5 @@
+{
+    "extends": [
+        "@fmr-ap123285/stylelint-config-dp-angular"
+    ]
+  }

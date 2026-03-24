@@ -1,0 +1,23 @@
+{
+    "root": true,
+    "extends": [
+        "@fmr-ap123285/eslint-config-dp-angular"
+    ],
+    // ! Techie Peppers suggested that - 
+    // We should remove the below overrides block from this config.
+    // Need to plan for fixing errors that will be published
+    // after removing the overrides block completely and by running npm run build command.
+    "overrides": [
+        {
+          "files": ["*.ts"],
+          "rules": {
+            "max-len": "off",
+            "prefer-arrow/prefer-arrow-functions": "off",
+            "@typescript-eslint/prefer-arrow-function": "off",
+            "@typescript-eslint/naming-convention": "off",
+            "@typescript-eslint/no-explicit-any": "off",
+            "@typescript-eslint/no-use-before-define": "off"
+          }
+        }
+    ]
+}

@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>PswLibraryClientApp</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <!-- needed for providencev3-->
+  <link rel="stylesheet" href="https://assets.fidelity.com/vendor/providence/fonts.css">
+  <style>
+    body {
+        background-color:white !important;
+    }
+  </style>
+</head>
+<body>
+    <h1>Angular Webpack Dev Server</h1>
+    <p>By default we want to make it easy to showcase multiple local scenerios. Please click `All Demos` to navigate to a list of app demo
+    scenerios. This demo server is running on port :4201.</p>
+    <a href="/index">All Demos</a>
+    <app-root style="display:none"></app-root>
+    <script>
+        // since the server may point via ip address not local host we need to update the hrefs dynamically
+        var anchors = document.querySelectorAll('a');
+        var anchorList = Array.prototype.slice.call(anchors);
+        anchorList.forEach(function(element){
+            var demoHref = window.location.protocol + '//' + window.location.hostname + ':4201' + element.getAttribute('href');
+            console.log(demoHref);
+            element.href = demoHref;
+        });
+    </script>
+</body>
+</html>

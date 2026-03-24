@@ -1,0 +1,34 @@
+{
+    "title": "Helping your associates navigate their stock plan journey",
+    "articles": [
+        {
+            "articleHeading": null,
+            "paragraphs": [
+                {
+                    "type": "STRING",
+                    "value": "Your company's stock plan represents a significant investment to recognize, attract, and retain talent.  Stock plans can be complex, and it's important for participants to understand how they work and how to take advantage of everything they offer.<div xmlns=\"http://www.w3.org/1999/xhtml\"></div>"
+                }, {
+                    "type": "STRING",
+                    "value": "Fidelity's comprehensive communication and education (C&E) program spans the needs of all stock plan participants--whether they are getting started, navigating plan events, or planning for financial goals. Along their journey, we'll help them through seven key moments, when it's especially important for participants to understand, decide, and act."
+                }, {
+                    "type": "STRING",
+                    "value": "This SPS Participant C&E Resource Center offers sample materials that Fidelity sends and that you can distribute. Use the drop-down menu above to explore what's available."
+                }, {
+                    "type": "STRING",
+                    "value": "<strong>Getting Started:</strong> Understand stock plans and how to work with Fidelity. Moments include:<ul xmlns=\"http://www.w3.org/1999/xhtml\"><li>Welcome to Fidelity Stock Plan Services</li><li>Understanding your Equity and ESPP</li></ul>"
+                }, {
+                    "type": "STRING",
+                    "value": "<strong>Navigating Plan Events:</strong> Timely, relevant communications announce important plan events to help make decisions and encourage action. Moments include:<ul xmlns=\"http://www.w3.org/1999/xhtml\"><li>Staying on Track</li><li>Vesting/Distribution</li></ul>"
+                }, {
+                    "type": "STRING",
+                    "value": "<strong>Planning for Today & Tomorrow:</strong> Get help making the most of company stock and Fidelity's planning resources. Moments include:<ul xmlns=\"http://www.w3.org/1999/xhtml\"><li>Using equity for financial goals</li><li>Taxes and tax filing</li><li>Financial planning beyond equity</li></ul>"
+                }, {
+                    "type": "STRING",
+                    "value": "Review the <a href=\"https://fidelity.com\" id=\"Link_1633360832162\" title=\"2022 Communications Calendar\" target=\"_blank\" name=\"Link_1633360832162\" >2022 Communications Calendar</a> to view communications that Fidelity will send to your plan participants throughout the year. See samples of supporting <strong>Statements & Confirmations</strong> that participants receive throughout their equity experience. You can also see a <strong>Full Site Index</strong> of communications and education by channel."
+                }
+            ],
+            "subArticles": null
+        }
+    ],
+    "footnotes": null
+}

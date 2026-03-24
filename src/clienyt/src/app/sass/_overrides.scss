@@ -1,0 +1,251 @@
+$font-family: 'FidelitySans', Helvetica, Arial, sans-serif;
+$container-width: 1240px;
+$border-color-black: #aaaaaa;
+
+.pagination-padding {
+    padding: 24px;
+}
+
+.nb .headerBg,
+.nb .navBar-width {
+    margin: unset;
+}
+
+#workwithfidelityBarItem_dropdown,
+#reportingBarItem_dropdown,
+#adminDataBarItem_dropdown {
+    box-sizing: content-box !important;
+}
+
+//due to new foundation styles by component library
+//below three code blocks are restore styles to match
+//with other psw pages.
+.nb .enter-ssn {
+    border: solid 1px $border-color-black;
+    border-radius: 0;
+    box-sizing: content-box;
+    height: 18px;
+    padding: 2px;
+}
+
+#ParticipantSearchFormNav {
+    input [type='radio'] {
+        appearance: auto;
+        height: 13px;
+        margin-top: -2px;
+        width: 13px;
+    }
+
+    .search {
+        border: solid 1px $border-color-black;
+        border-radius: 0;
+        padding: 0;
+    }
+}
+
+.contextual-message {
+    margin-left: 0;
+}
+
+.dijit dt {
+    font-weight: normal;
+}
+
+.fid-sans-font-family {
+    a {
+        font-family: $font-family;
+
+        &:visited {
+            font-family: $font-family;
+        }
+    }
+}
+
+.fd-vtf--header--status-icon {
+    // background-image: url(../../../bin-public/06_PSW_Website/images/svg/vertical_task_flow_icon_sprite.svg); //change to the file path that ed provides
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+
+.nb #notificationsBarItem img {
+    box-sizing: content-box;
+}
+
+//overrides the nav bar bullets to not have a background.
+// sass-lint:disable-all
+.psHeader ul li {
+    background: none;
+}
+
+//overrides the nav bar bullets to not have a background.
+.pswfooter li {
+    background: none;
+}
+
+.pswfooter .right p,
+.pswfooter .right ul li {
+    font-size: 10.92px;
+}
+
+.psw-oga-legend {
+    font-size: 1rem;
+}
+
+select {
+    background-size: 7px 4px;
+}
+
+table.dataTable {
+    font-family: $font-family;
+}
+
+.nb #notificationsBarItem {
+    border-left: none;
+    border-right: none;
+    float: right;
+    margin-top: 0;
+    padding: 5px 18px 9px 8px;
+}
+
+.headerBg li {
+    background: none;
+}
+
+//overrides the nav bar bullets to not have a background.
+#navbar_nb li {
+    background-image: none;
+}
+
+.dijitPopup ul li {
+    background-image: none;
+}
+
+.nb .enter-ssn:focus {
+    box-shadow: none;
+}
+
+.nb .hoverOverSectionHeading {
+    width: 100%;
+}
+
+table.nb {
+    font: 13px arial, helvetica, clean, sans-serif;
+}
+
+.hovWorkWithFidelityContent {
+    > div {
+        box-sizing: content-box;
+    }
+}
+
+.global-footer .right ul li:last-child {
+    margin-top: 0;
+}
+
+.hoverOverReportingContentPortion,
+#hovNewsAndInsightsContentPortion .hoverOverSection {
+    box-sizing: content-box;
+}
+
+.learn-link a {
+    position: relative;
+    top: 2px;
+
+    img {
+        bottom: 3px;
+        position: inherit;
+    }
+}
+
+.hoverOverLink a img {
+    bottom: 3px;
+    position: relative;
+}
+
+a:visited,
+a {
+    color: #0e67a9;
+}
+
+// override from plansponsor.min.css
+label + input {
+    font-size: 16px;
+}
+
+// set box sizing for legacy nav styles
+#hoverover-enhncd-rpt-layout-2-col {
+    box-sizing: content-box;
+}
+
+.container--primary {
+    box-shadow: none !important;
+}
+
+// for spark navbar's spark masthead
+body > div.view-container > app-root > app-library > div > spark-navbar > div > div > div.spark-masthead.row {
+    justify-content: space-between !important;
+}
+
+body > div.view-container > app-root > app-library > div > spark-navbar > div > div > div.spark-masthead.row {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
+// for navbar welcome message
+body > div.view-container > app-root > app-library > div > spark-navbar > div > div > div.spark-masthead.row > div.offset-2.col-5 > div {
+    margin-right: 6rem;
+}
+
+body > div.view-container > app-root > app-library > div > spark-navbar > div > div > div.spark-masthead.row > div.offset-2.col-5 {
+    display: flex;
+}
+
+// for client filter
+label[for='client-search'] {
+    padding: 0;
+}
+
+body > div.view-container > app-root > app-library > div > spark-navbar > div > div > div.spark-navbar.mar-0.pad-t-12.pad-b-12 > div > div.col-6.row.pad-0.mar-l-15 > client-filter {
+    padding: 0;
+}
+
+// for participant input
+body > div.view-container > app-root > app-library > div > spark-navbar > div > div > div.spark-navbar.mar-0.pad-t-12.pad-b-12 > div > div.col-6.row.pad-0.mar-0 > div.col-3.mar-t-5 {
+    margin-left: 30px !important;
+    margin-right: 0 !important;
+}
+
+// for client and participant section of navbar
+
+.form-inline {
+    align-items: center !important;
+    display: flex !important;
+    flex-flow: row wrap !important;
+}
+
+.form-inline label {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 0;
+}
+
+.row {
+    display: flex !important;
+    margin-left: -15px !important;
+    margin-right: -15px !important;
+}
+
+.row>* {
+    width: auto !important;
+}
+    
+// to negate offset-4
+.offset-4 {
+    margin-left: 0 !important;
+}
+
+// to negate col-8
+.col-8 {
+    width: auto !important;
+}

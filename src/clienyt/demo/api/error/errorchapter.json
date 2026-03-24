@@ -1,0 +1,29 @@
+{
+  "title": "SPS Quick Reference Guide",
+  "description": "Descriptive text about the page",
+  "tocLabel": "Table of Contents",
+  "goLabel": "Go",
+  "accessibilityBackLabel":"Back Label",
+  "toc": [
+      {
+          "deprecation": null,
+          "href": "/api/error/error500.json",
+          "hreflang": null,
+          "media": null,
+          "rel": "self",
+          "title": "Select a chapter",
+          "type": null
+      },
+      {
+          "deprecation": null,
+          "href": "/api/error/error500distributions.json",
+          "hreflang": null,
+          "media": null,
+          "rel": "self",
+          "title": "Manage and approve distributions",
+          "type": null
+      }
+     
+  ],
+  "footnotes": "<p>For Plan Sponsor Use Only. Fidelity Stock Plan Services, LLC provides recordkeeping and/or administrative services to your company's equity compensation plan, in addition to any services provided directly to the plan by your company or its service providers.</p>\r\n<p>© ~(CURRENT_YEAR)~ FMR LLC. All rights reserved.</p>\r\n<p>949768.1.0</p>"
+}

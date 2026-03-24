@@ -1,0 +1,47 @@
+{
+    "title": "SPS Participant Communications &amp; Resource Center",
+    "description": "Descriptive text about the page",
+    "tocLabel": "Table of Contents",
+    "goLabel": "Go",
+    "accessibilityBackLabel":"Back Label",
+    "transcriptLabel": "View transcript (PDF)",
+    "toc": [
+        {
+            "deprecation": null,
+            "href": "/api/success/selectAChapter.json",
+            "hreflang": null,
+            "media": null,
+            "rel": "self",
+            "title": "Home",
+            "type": null
+        },
+        {
+            "deprecation": null,
+            "href": "/api/success/overviewmanageapprove.json",
+            "hreflang": null,
+            "media": null,
+            "rel": "self",
+            "title": "Getting Started",
+            "type": null
+        },
+        {
+            "deprecation": null,
+            "href": "/api/success/overviewdistributions.json",
+            "hreflang": null,
+            "media": null,
+            "rel": "self",
+            "title": "Distributions",
+            "type": null
+        },
+        {
+            "deprecation": null,
+            "href": "/api/success/overviewawardupload.json",
+            "hreflang": null,
+            "media": null,
+            "rel": "self",
+            "title": "Award upload",
+            "type": null
+        }
+    ],
+    "footnotes": "<p>For Plan Sponsor Use Only. Fidelity Stock Plan Services, LLC provides recordkeeping and/or administrative services to your company's equity compensation plan, in addition to any services provided directly to the plan by your company or its service providers.</p>\r\n<p>© ~(CURRENT_YEAR)~ FMR LLC. All rights reserved.</p>\r\n<p>949768.1.0</p>"
+}

@@ -1,0 +1,76 @@
+<div [ngClass]="pageContextUser === 'spark' ? 'page-content-wrapper--spark' : 'page-content-wrapper'">
+    @if (pageContextUser === 'spark') {
+        <spark-navbar [sparkInput]="sparkNavbarContext"></spark-navbar>
+    }
+        @if (overviewContentLoading || isInitialPageLoad) {
+            <div class="overview-spinner-container">
+            <pvd-spinner pvd-size="large"></pvd-spinner>
+        </div>
+        }
+    @if (this.bookApiReady && this.chapterCallComplete || this.errorResponse || this.chapterErrorResponse) {
+        <div [ngClass]="pageContextUser === 'spark' ? 'page-content-container--spark' : 'page-content-container'">
+            @if (this.bookApiReady && this.chapterCallComplete && this.overviewContent) {
+                <div class="page-header">
+                <pvd-title>
+                    <h2 slot="heading" class="pvd-title__heading pvd-title__heading--level-2" aria-level="1" role="heading" [innerHtml]="this.overviewContent.title">
+                    </h2>
+                </pvd-title>
+            </div>
+            }
+            @if (this.errorResponse) {
+                <div class="operations-guide__error-page-level">
+                <pvd-alert pvd-variant="critical" attr.pvd-title={{this.errorTitle}}>
+                    {{this.errorMessage}}
+                </pvd-alert>
+            </div>
+            }
+            @if (this.bookApiReady && this.chapterCallComplete && this.overviewContent) {
+                <div class="page-container">
+                    <main class="primary-container">
+                        <div class="operations-guide">
+                            <div class="operations-guide__dropdown">
+                                <pvd-field-group>
+                                    <pvd-label pvd-aria-label="table-of-contents">
+                                        {{this.overviewContent.tocLabel}}
+                                    </pvd-label>
+                                    <pvd-field-group pvd-inline="always">
+                                        <pvd-field-group pvd-fixed-width="true">
+                                            <pvd-select pvd-id="toc" [attr.pvd-options]="tocListJson"
+                                                [(ngModel)]=tocSelected pvd-select-control pvd-aria-label = "tableOfContents">
+                                            </pvd-select>
+                                        </pvd-field-group>
+                                        <pvd-field-group pvd-fixed-width="true">
+                                            <pvd-button pvd-variant="secondary" aria-live="polite" (click)="chaptersAPI()">
+                                                {{this.overviewContent.goLabel}}</pvd-button>
+                                        </pvd-field-group>
+                                    </pvd-field-group>
+                                </pvd-field-group>
+                            </div>
+                            @if (!this.chapterErrorResponse) {
+                            <app-chapter [chapterContent]="chapterContent" [transcriptLabel] = "this.overviewContent.transcriptLabel" [chapterContentLoading]="chapterContentLoading"></app-chapter>
+                            }
+                            </div>
+                        @if (this.chapterErrorResponse) {
+                            <div class="operations-guide__error-chapter-level">
+                            <pvd-alert pvd-variant="critical" attr.pvd-title={{this.errorTitle}}>
+                                {{this.chapterErrorMessage}}
+                            </pvd-alert>
+                        </div>
+                        }
+                    </main>
+                </div>
+            }
+            </div>
+    }
+    @if (this.bookApiReady && this.chapterCallComplete && this.overviewContent && this.overviewContent.footnotes) {
+        <div [ngClass]="pageContextUser === 'spark' ? 'page-footnotes-wrapper--spark' : 'page-footnotes-wrapper'">
+        <pvd-footnotes pvd-background=light-gray>
+            <pvd-footnote>
+                <div class="pvd-footnote__text" [innerHtml]="overviewContent.footnotes">
+                </div>
+            </pvd-footnote>
+        </pvd-footnotes>
+    </div>
+    }
+
+</div>

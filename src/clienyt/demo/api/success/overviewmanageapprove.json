@@ -1,0 +1,262 @@
+{
+    "title": "Getting Started",
+    "articles": [
+        {
+            "articleHeading": null,
+            "paragraphs": [
+                {
+                    "type": "STRING",
+                    "value": "Fidelity's onboarding support program educates your employees on their awards and gets them up and running with equity compensation basics."
+                }
+            ],
+            "subArticles": null
+        },
+        {
+            "articleHeading": "Moment: Welcome to Fidelity Stock Plan Services",
+            "articleSubHeading": "Introduce your participants to Fidelity, help them navigate NetBenefits, and encourage key next steps including accepting grants, certifying their account and designating beneficiaries.",
+            "paragraphs": null,
+            "subArticles": [
+                {
+                    "articleHeading": "Plan Sponsor Announcement",
+                    "articleSubHeading": "See a sample of how you can notify participants about the transition to Fidelity Stock Plan Services, the resources available, and what comes next.",
+                    "paragraphs": null,
+                    "subArticles": [
+                        {
+                            "articleHeading": null,
+                            "paragraphs": [
+                                {
+                                    "type": "STRING",
+                                    "value": "<ul xmlns=\"http://www.w3.org/1999/xhtml\"><li>Plan Sponsor Announcement*: <a href=\"http://workplaceservices.fidelity.com/bin-public/070_NB_SPS_Pages/documents/dcl/shared/StockPlanServices/SPS_DOMPSA_SAM.pdf\" id=\"Link_1632235560128\" title=\"US\" target=\"_blank\" name=\"Link_1632235560128\" >US</a> | <a href=\"http://workplaceservices.fidelity.com/bin-public/070_NB_SPS_Pages/documents/dcl/shared/StockPlanServices/SPS_INTPSA_SAM.pdf\" id=\"Link_1632235617834\" title=\"Outside US\" target=\"_blank\" name=\"Link_1632235617834\" >Outside US</a></li></ul>"
+                                }
+                            ],
+                            "subArticles": null
+                        }
+                    ]
+                },
+                {
+                    "articleHeading": "Welcome to Fidelity Stock Plan Services messages",
+                    "articleSubHeading": "Welcomes participants and helps them accept their award and/or open their account.",
+                    "paragraphs": null,
+                    "subArticles": [
+                        {
+                            "articleHeading": null,
+                            "paragraphs": [
+                                {
+                                    "type": "STRING",
+                                    "value": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><strong>Fidelity Sends:</strong><br /> Equity welcome message*: <a href=\"http://workplaceservices.fidelity.com/bin-public/070_NB_SPS_Pages/documents/dcl/shared/StockPlanServices/SPS_DOMEKIT_SAM.pdf\" id=\"Link_1632246197741\" title=\"US\" target=\"_blank\" name=\"Link_1632246197741\" >US</a> | <a href=\"http://workplaceservices.fidelity.com/bin-public/070_NB_SPS_Pages/documents/dcl/shared/StockPlanServices/SPS_INTEKIT_SAM.pdf\" id=\"Link_1632246262542\" title=\"Outside US\" target=\"_blank\" name=\"Link_1632246262542\" >Outside US</a><br /><br /><strong>You can distribute:</strong></div><div xmlns=\"http://www.w3.org/1999/xhtml\">ESPP welcome message*:  <a href=\"http://www.myfidelitysite.com/sites/default/files/US%20ESPP%20EKit-%20ENH%20LEG.pdf\" id=\"Link_1632246316107\" title=\"US\" target=\"_blank\" name=\"Link_1632246316107\" >US</a> | <a href=\"http://www.myfidelitysite.com/sites/default/files/OUS%20ESPP%20EKit-ENH%20LEG.pdf\" id=\"Link_1632246366894\" title=\"Outside US\" target=\"_blank\" name=\"Link_1632246366894\" >Outside US</a></div><div xmlns=\"http://www.w3.org/1999/xhtml\">Implementation welcome message*: US | Outside US (need urls)</div><div xmlns=\"http://www.w3.org/1999/xhtml\">Implementation welcome flyer: <a href=\"https://workplaceservices.fidelity.com/bin-public/070_NB_SPS_Pages/documents/dcl/shared/StockPlanServices/WelcomeFlyer_Equity_US.pdf\" id=\"Link_1633102931727\" title=\"US\" target=\"_blank\" name=\"Link_1633102931727\" >US</a> | <a href=\"http://workplaceservices.fidelity.com/bin-public/070_NB_SPS_Pages/documents/dcl/shared/StockPlanServices/WelcomeFlyer_Equity_OUS.pdf\" id=\"Link_1632246520491\" title=\"Outside US\" target=\"_blank\" name=\"Link_1632246520491\" >Outside US</a></div>"
+                                }
+                            ],
+                            "subArticles": null
+                        }
+                    ]
+                },
+                {
+                    "articleHeading": "Onboarding Campaign",
+                    "articleSubHeading": "Fidelity sends the following messages to help participants get started by setting up their account and learning more about their award.",
+                    "paragraphs": null,
+                    "subArticles": [
+                        {
+                            "articleHeading": null,
+                            "paragraphs": [
+                                {
+                                    "type": "STRING",
+                                    "value": "<ul xmlns=\"http://www.w3.org/1999/xhtml\"><li>Setting up your account: <a href=\"https://workplaceservices.fidelity.com/bin-public/070_NB_SPS_Pages/documents/dcl/shared/StockPlanServices/CampaignOverview_Onboarding.pdf\" id=\"Link_1633711831672\" title=\"US\" target=\"_blank\" name=\"Link_1633711831672\" >US</a></li><li>Plan/account education: <a href=\"https://workplaceservices.fidelity.com/bin-public/070_NB_SPS_Pages/documents/dcl/shared/StockPlanServices/CampaignOverview_Onboarding.pdf\" id=\"Link_1633711878124\" title=\"US\" target=\"_blank\" name=\"Link_1633711878124\" >US</a> </li></ul>"
+                                }
+                            ],
+                            "subArticles": null
+                        }
+                    ]
+                },
+                {
+                    "articleHeading": "How To Guides",
+                    "articleSubHeading": "How-to guides provide plan participants with detailed instructions for completing activities related to their award.",
+                    "paragraphs": null,
+                    "subArticles": [
+                        {
+                            "articleHeading": null,
+                            "paragraphs": [
+                                {
+                                    "type": "STRING",
+                                    "value": "<p xmlns=\"http://www.w3.org/1999/xhtml\">Activate your account: <a href=\"https://workplaceservices.fidelity.com/bin-public/070_NB_SPS_Pages/documents/dcl/shared/StockPlanServices/SPS_GEN_ACTINSTR.pdf\" id=\"Link_1633108356939\" title=\"US\" name=\"Link_1633108356939\" >US</a> | <a href=\"https://workplaceservices.fidelity.com/bin-public/070_NB_SPS_Pages/documents/dcl/shared/StockPlanServices/SPS_INTL_ActivateInstructions.pdf\" id=\"Link_1633108376208\" title=\"Outside US\" target=\"_blank\" name=\"Link_1633108376208\" >Outside US</a><br /> Accept your grant: <a href=\"https://workplaceservices.fidelity.com/bin-public/070_NB_SPS_Pages/documents/dcl/shared/StockPlanServices/SPS_Generic_OGADomestic.pdf\" id=\"Link_1633108403858\" title=\"US\" target=\"_blank\" name=\"Link_1633108403858\" >US</a> | <a href=\"https://workplaceservices.fidelity.com/bin-public/070_NB_SPS_Pages/documents/dcl/shared/StockPlanServices/SPS_OGA_INTL_ACCEPT_GRANT.pdf\" id=\"Link_1633108425463\" title=\"Outside US\" target=\"_blank\" name=\"Link_1633108425463\" >Outside US</a></p><p xmlns=\"http://www.w3.org/1999/xhtml\">Enroll in your ESPP: <a href=\"https://workplaceservices.fidelity.com/bin-public/070_NB_SPS_Pages/documents/dcl/shared/StockPlanServices/SPS_DOM_ESPP_ENROLL.pdf\" id=\"Link_1633108457115\" title=\"US\" target=\"_blank\" name=\"Link_1633108457115\" >US</a> | <a href=\"https://workplaceservices.fidelity.com/bin-public/070_NB_SPS_Pages/documents/dcl/shared/StockPlanServices/SPS_GEN_INTL_ENROLL_INSTRUX.pdf\" id=\"Link_1633108527792\" title=\"Outside US\" target=\"_blank\" name=\"Link_1633108527792\" >Outside US</a></p><p xmlns=\"http://www.w3.org/1999/xhtml\">Exercise your award: <a href=\"https://workplaceservices.fidelity.com/bin-public/070_NB_SPS_Pages/documents/dcl/shared/StockPlanServices/SPS_Exercise_DOM.pdf\" id=\"Link_1633108588476\" title=\"US\" target=\"_blank\" name=\"Link_1633108588476\" >US</a> | <a href=\"https://workplaceservices.fidelity.com/bin-public/070_NB_SPS_Pages/documents/dcl/shared/StockPlanServices/SPS_OUS_EXERCISING_GRANT.pdf\" id=\"Link_1633108626590\" title=\"Outside US\" target=\"_blank\" name=\"Link_1633108626590\" >Outside US</a></p><p xmlns=\"http://www.w3.org/1999/xhtml\">Sell shares: <a href=\"https://workplaceservices.fidelity.com/bin-public/070_NB_SPS_Pages/documents/dcl/shared/StockPlanServices/SPS_TRADE_DOM.pdf\" id=\"Link_1633108816662\" title=\"US\" target=\"_blank\" name=\"Link_1633108816662\" >US</a> | <a href=\"https://workplaceservices.fidelity.com/bin-public/070_NB_SPS_Pages/documents/dcl/shared/StockPlanServices/SPS_OUS_How_To_Trade.pdf\" id=\"Link_1633108855662\" title=\"Outside US\" target=\"_blank\" name=\"Link_1633108855662\" >Outside US</a></p><p xmlns=\"http://www.w3.org/1999/xhtml\">Set up withdrawal preferences/transfer instructions: <a href=\"https://workplaceservices.fidelity.com/bin-public/070_NB_SPS_Pages/documents/dcl/shared/StockPlanServices/SPS_US_EFT.pdf\" id=\"Link_1633108950902\" title=\"US\" target=\"_blank\" name=\"Link_1633108950902\" >US</a> | <a href=\"https://workplaceservices.fidelity.com/bin-public/070_NB_SPS_Pages/documents/dcl/shared/StockPlanServices/SPS_GENERIC_WireTransferSteps.pdf\" id=\"Link_1633108992769\" title=\"Outside US\" target=\"_blank\" name=\"Link_1633108992769\" >Outside US</a></p><p xmlns=\"http://www.w3.org/1999/xhtml\">Restricted Stock Awards (RSA) tax withholding: <a href=\"https://workplaceservices.fidelity.com/bin-public/070_NB_SPS_Pages/documents/dcl/shared/StockPlanServices/SPS_Generic_RSTaxWithholding_Domestic.pdf\" id=\"Link_1633109079685\" title=\"US\" target=\"_blank\" name=\"Link_1633109079685\" >US</a></p><p xmlns=\"http://www.w3.org/1999/xhtml\">Reinvest dividends: <a href=\"https://workplaceservices.fidelity.com/bin-public/070_NB_SPS_Pages/documents/dcl/shared/StockPlanServices/SPS_Generic_Dividend_Reinvestment_Domestic.pdf\" id=\"Link_1633109145775\" title=\"US\" target=\"_blank\" name=\"Link_1633109145775\" >US</a>  </p>"
+                                }
+                            ],
+                            "subArticles": null
+                        }
+                    ]
+                },
+                {
+                    "articleHeading": "Participant Resource Center",
+                    "articleSubHeading": "An online destination for participants to learn all about equity awards and ESPPs, how their account works, and taxes.",
+                    "paragraphs": null,
+                    "subArticles": [
+                        {
+                            "articleHeading": null,
+                            "paragraphs": [
+                                {
+                                    "type": "STRING",
+                                    "value": "<ul xmlns=\"http://www.w3.org/1999/xhtml\"><li>Participant Resource Center: <a href=\"http://www.fidelity.com/go/stock-plan-services/overview\" id=\"Link_1632244758478\" title=\"US\" target=\"_blank\" name=\"Link_1632244758478\" >US</a> | <a href=\"http://www.myfidelitysite.com/p/1412790142/412/global-stock-plan-resource-center\" id=\"Link_1632244883135\" title=\"Outside US\" target=\"_blank\" name=\"Link_1632244883135\" >Outside US</a></li></ul>"
+                                }
+                            ],
+                            "subArticles": null
+                        }
+                    ]
+                },
+                {
+                    "articleHeading": "NetBenefits Navigation",
+                    "articleSubHeading": "Share these step by step instructions on how to log in and navigate NetBenefits , including the summary page, currency and translations, important alerts, and seeing the total value of your plan.",
+                    "paragraphs": null,
+                    "subArticles": [
+                        {
+                            "articleHeading": null,
+                            "paragraphs": [
+                                {
+                                    "type": "STRING",
+                                    "value": "<ul xmlns=\"http://www.w3.org/1999/xhtml\"><li>NetBenefits navigation guide: <a href=\"http://workplaceservices.fidelity.com/bin-public/070_NB_SPS_Pages/documents/dcl/shared/StockPlanServices/US_Navigation_equity.pdf\" id=\"Link_1632245531108\" title=\"US\" target=\"_blank\" name=\"Link_1632245531108\" >US</a> | <a href=\"http://workplaceservices.fidelity.com/bin-public/070_NB_SPS_Pages/documents/dcl/shared/StockPlanServices/OUS_Navigation_equity.pdf\" id=\"Link_1632245588641\" title=\"Outside US\" target=\"_blank\" name=\"Link_1632245588641\" >Outside US</a></li></ul>"
+                                }
+                            ],
+                            "subArticles": null
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "articleHeading": "Moment: Understanding equity and ESPP",
+            "articleSubHeading": "See how things work, steps that occur and actions to take.",
+            "paragraphs": null,
+            "subArticles": [
+                {
+                    "articleHeading": "Equity Awards At A Glance",
+                    "paragraphs": null,
+                    "subArticles": [
+                        {
+                            "articleHeading": null,
+                            "paragraphs": [
+                                {
+                                    "type": "STRING",
+                                    "value": "<p xmlns=\"http://www.w3.org/1999/xhtml\">Give your plan participants a simple overview of the key steps that occur during the lifecycle of an equity award.</p>"
+                                }
+                            ],
+                            "subArticles": null
+                        },
+                        {
+                            "articleHeading": null,
+                            "paragraphs": [
+                                {
+                                    "type": "STRING",
+                                    "value": "<ul xmlns=\"http://www.w3.org/1999/xhtml\"><li>Restricted Stock Units (RSU): <a href=\"https://workplaceservices.fidelity.com/bin-public/070_NB_SPS_Pages/documents/dcl/shared/StockPlanServices/SPS_At_A_Glance_RSU.pdf\" id=\"Link_1631711584953\" title=\"US\" target=\"_blank\" name=\"Link_1631711584953\" >US</a> | <a href=\"https://workplaceservices.fidelity.com/bin-public/070_NB_SPS_Pages/documents/dcl/shared/StockPlanServices/SPS_OUS_At_A_Glance_RS.pdf\" id=\"Link_1631711631784\" title=\"Outside US\" target=\"_blank\" name=\"Link_1631711631784\" >Outside US</a></li><li>Restricted Stock Awards (RSA): <a href=\"https://workplaceservices.fidelity.com/bin-public/070_NB_SPS_Pages/documents/dcl/shared/StockPlanServices/SPS_At_A_Glance_RSU.pdf\" id=\"Link_1631711584953\" title=\"US\" target=\"_blank\" name=\"Link_1631711584953\" >US</a> | <a href=\"https://workplaceservices.fidelity.com/bin-public/070_NB_SPS_Pages/documents/dcl/shared/StockPlanServices/SPS_OUS_At_A_Glance_RS.pdf\" id=\"Link_1631711631784\" title=\"Outside US\" target=\"_blank\" name=\"Link_1631711631784\" >Outside US</a></li><li>Stock Appreciation Rights (SAR): <a href=\"https://workplaceservices.fidelity.com/bin-public/070_NB_SPS_Pages/documents/dcl/shared/StockPlanServices/SPS_At_A_Glance_RSU.pdf\" id=\"Link_1631711584953\" title=\"US\" target=\"_blank\" name=\"Link_1631711584953\" >US</a> | <a href=\"https://workplaceservices.fidelity.com/bin-public/070_NB_SPS_Pages/documents/dcl/shared/StockPlanServices/SPS_OUS_At_A_Glance_RS.pdf\" id=\"Link_1631711631784\" title=\"Outside US\" target=\"_blank\" name=\"Link_1631711631784\" >Outside US</a></li><li>Stock Appreciation: <a href=\"https://workplaceservices.fidelity.com/bin-public/070_NB_SPS_Pages/documents/dcl/shared/StockPlanServices/SPS_At_A_Glance_RSU.pdf\" id=\"Link_1631711584953\" title=\"US\" target=\"_blank\" name=\"Link_1631711584953\" >US</a> | <a href=\"https://workplaceservices.fidelity.com/bin-public/070_NB_SPS_Pages/documents/dcl/shared/StockPlanServices/SPS_OUS_At_A_Glance_RS.pdf\" id=\"Link_1631711631784\" title=\"Outside US\" target=\"_blank\" name=\"Link_1631711631784\" >Outside US</a></li><li>ESPP: <a href=\"https://workplaceservices.fidelity.com/bin-public/070_NB_SPS_Pages/documents/dcl/shared/StockPlanServices/SPS_At_A_Glance_RSU.pdf\" id=\"Link_1631711584953\" title=\"US\" target=\"_blank\" name=\"Link_1631711584953\" >US</a> | <a href=\"https://workplaceservices.fidelity.com/bin-public/070_NB_SPS_Pages/documents/dcl/shared/StockPlanServices/SPS_OUS_At_A_Glance_RS.pdf\" id=\"Link_1631711631784\" title=\"Outside US\" target=\"_blank\" name=\"Link_1631711631784\" >Outside US</a></li><li>Stock Options (SOP): <a href=\"https://workplaceservices.fidelity.com/bin-public/070_NB_SPS_Pages/documents/dcl/shared/StockPlanServices/SPS_At_A_Glance_RSU.pdf\" id=\"Link_1631711584953\" title=\"US\" target=\"_blank\" name=\"Link_1631711584953\" >US</a> | <a href=\"https://workplaceservices.fidelity.com/bin-public/070_NB_SPS_Pages/documents/dcl/shared/StockPlanServices/SPS_OUS_At_A_Glance_RS.pdf\" id=\"Link_1631711631784\" title=\"Outside US\" target=\"_blank\" name=\"Link_1631711631784\" >Outside US</a></li></ul>"
+                                }
+                            ],
+                            "subArticles": null
+                        }
+                    ]
+                },
+                {
+                    "articleHeading": "Getting Started Checklist",
+                    "paragraphs": null,
+                    "subArticles": [
+                        {
+                            "articleHeading": null,
+                            "paragraphs": [
+                                {
+                                    "type": "STRING",
+                                    "value": "<p xmlns=\"http://www.w3.org/1999/xhtml\">Suggested steps to make the most of everything their award has to offer.</p>"
+                                }
+                            ],
+                            "subArticles": null
+                        },
+                        {
+                            "articleHeading": null,
+                            "paragraphs": [
+                                {
+                                    "type": "STRING",
+                                    "value": "<ul xmlns=\"http://www.w3.org/1999/xhtml\"><li style=\"margin-top: 0px; margin-bottom: 0px; vertical-align: middle;\"><font color=\"#000000\">Equity & ESPP</font>:<span style=\"font-size: 8.25pt;\"> </span><a href=\"https://workplaceservices.fidelity.com/bin-public/070_NB_SPS_Pages/documents/dcl/shared/StockPlanServices/SPS_Equity_Compensation_Checklist.pdf\" id=\"Link_1632161148305\" title=\"US\" target=\"_blank\" name=\"Link_1632161148305\" >US</a><span style=\"font-size: 8.25pt;\"> | </span><a href=\"https://workplaceservices.fidelity.com/bin-public/070_NB_SPS_Pages/documents/dcl/shared/StockPlanServices/SPS_OUS_Getting_Started__Checklist.pdf\" id=\"Link_1632161141899\" title=\"Outside US\" target=\"_blank\" name=\"Link_1632161141899\" >Outside US</a></li><li style=\"margin-top: 0px; margin-bottom: 0px; vertical-align: middle;\"><span style=\"color: black;\">Equity Only</span>: <span style=\"font-size: 8.25pt;\"><a href=\"https://workplaceservices.fidelity.com/bin-public/070_NB_SPS_Pages/documents/dcl/shared/StockPlanServices/SPS_Equity_Only_Checklist.pdf\" id=\"Link_1632161154590\" title=\"US\" target=\"_blank\" name=\"Link_1632161154590\" >US</a><span style=\"font-size: 8.25pt;\"> </span>| </span><a href=\"https://workplaceservices.fidelity.com/bin-public/070_NB_SPS_Pages/documents/dcl/shared/StockPlanServices/SPS_OUS_Getting_Started_Checklist_EquityOnly.pdf\" id=\"Link_1632161208198\" title=\"Outside US\" target=\"_blank\" name=\"Link_1632161208198\" >Outside US</a></li><li style=\"margin-top: 0px; margin-bottom: 0px; vertical-align: middle;\">Cash Award: <a href=\"https://workplaceservices.fidelity.com/bin-public/070_NB_SPS_Pages/documents/dcl/shared/StockPlanServices/SPS_CASH_CHECKLIST.PDF\" id=\"Link_1632226917114\" title=\"US\" target=\"_blank\" name=\"Link_1632226917114\" >US</a><span style=\"font-size: 8.25pt;\"> </span>| <a href=\"https://workplaceservices.fidelity.com/bin-public/070_NB_SPS_Pages/documents/dcl/shared/StockPlanServices/SPS_OUS_CASH_CHECKLIST.PDF\" id=\"Link_1632226957081\" title=\"Outside US\" target=\"_blank\" name=\"Link_1632226957081\" >Outside US</a></li><li style=\"margin-top: 0px; margin-bottom: 0px; vertical-align: middle;\">Cash Performance Award: <a href=\"https://workplaceservices.fidelity.com/bin-public/070_NB_SPS_Pages/documents/dcl/shared/StockPlanServices/SPS_CASH_PA_CHECKLIST.PDF\" id=\"Link_1632227034858\" title=\"US\" target=\"_blank\" name=\"Link_1632227034858\" >US</a><span style=\"font-size: 8.25pt;\"> </span>| <a href=\"https://workplaceservices.fidelity.com/bin-public/070_NB_SPS_Pages/documents/dcl/shared/StockPlanServices/SPS_OUS_CASH_PA_CHECKLIST.PDF\" id=\"Link_1632227070638\" title=\"Outside US\" target=\"_blank\" name=\"Link_1632227070638\" >Outside US</a></li></ul>"
+                                }
+                            ],
+                            "subArticles": null
+                        }
+                    ]
+                },
+                {
+                    "articleHeading": "Videos",
+                    "paragraphs": null,
+                    "subArticles": [
+                        {
+                            "articleHeading": null,
+                            "paragraphs": [
+                                {
+                                    "type": "STRING",
+                                    "value": "Use the videos below to help plan participants learn more about their ESPP or award works. Select the video(s) that represents your plan design."
+                                }
+                            ],
+                            "subArticles": null
+                        },
+                        {
+                            "articleHeading": null,
+                            "paragraphs": [
+                                {
+                                    "type": "STRING",
+                                    "value": "<ul xmlns=\"http://www.w3.org/1999/xhtml\"><li>Get to Know your Equity Award: <a href=\"http://go.fidelity.com/restrictedstock\" id=\"Link_1632232304926\" title=\"US\" target=\"_blank\" name=\"Link_1632232304926\" >US</a><br /><br /><strong>Meet your Employee Stock Purchase Plan (ESPP), versioned based on purchase price discount, and lookback, if any:</strong></li><li>10% discount: <a href=\"http://go.netbenefits.com/ESPP10discount\" id=\"Link_1632232298806\" title=\"US\" target=\"_blank\" name=\"Link_1632232298806\" >US</a> | <a href=\"http://go.netbenefits.com/ESPP10discount\" id=\"Link_1632232292380\" title=\"Outside US\" target=\"_blank\" name=\"Link_1632232292380\" >Outside US</a></li><li>10% discount & lookback: <a href=\"http://go.netbenefits.com/ESPP10\" id=\"Link_1632232346240\" title=\"US\" target=\"_blank\" name=\"Link_1632232346240\" >US</a> | <a href=\"http://go.netbenefits.com/ESPP10\" id=\"Link_1632232432052\" title=\"Outside US\" target=\"_blank\" name=\"Link_1632232432052\" >Outside US</a></li><li>15% discount: <a href=\"http://go.netbenefits.com/ESPP15discount\" id=\"Link_1632232522554\" title=\"US\" target=\"_blank\" name=\"Link_1632232522554\" >US</a> | <a href=\"http://go.netbenefits.com/ESPP15discount\" id=\"Link_1632232551397\" title=\"Outside US\" target=\"_blank\" name=\"Link_1632232551397\" >Outside US</a></li><li>15% discount & lookback: <a href=\"http://go.netbenefits.com/ESPP\" id=\"Link_1632232600899\" title=\"US\" target=\"_blank\" name=\"Link_1632232600899\" >US</a> | <a href=\"http://go.netbenefits.com/ESPP\" id=\"Link_1632232624537\" title=\"Outside US\" target=\"_blank\" name=\"Link_1632232624537\" >Outside US</a></li><li>5% discount: <a href=\"http://go.netbenefits.com/ESPP5discount\" id=\"Link_1632232689184\" title=\"US\" target=\"_blank\" name=\"Link_1632232689184\" >US</a> | <a href=\"http://go.netbenefits.com/ESPP5discount\" id=\"Link_1632232710351\" title=\"Outside US\" target=\"_blank\" name=\"Link_1632232710351\" >Outside US</a></li><li>5% discount & lookback: <a href=\"http://go.netbenefits.com/ESPP5\" id=\"Link_1632232774667\" title=\"US\" target=\"_blank\" name=\"Link_1632232774667\" >US</a> | <a href=\"http://go.netbenefits.com/ESPP5\" id=\"Link_1632232802886\" title=\"Outside US\" target=\"_blank\" name=\"Link_1632232802886\" >Outside US</a></li><li>15% discount & lookback : <a href=\"http://go.netbenefits.com/ESPPvideo\" id=\"Link_1632232891414\" title=\"US\" target=\"_blank\" name=\"Link_1632232891414\" >US</a>  <br /><br /><strong>Meet your Restricted Stock Award (RSA), versioned based on tax withholding method:</strong></li><li>All withholding methods: <a href=\"http://go.netbenefits.com/RSA\" id=\"Link_1632233007662\" title=\"US\" target=\"_blank\" name=\"Link_1632233007662\" >US</a><span style=\"font-weight: 400;\"> | </span><a href=\"http://go.netbenefits.com/RSA\" id=\"Link_1632233031047\" title=\"Outside US\" target=\"_blank\" name=\"Link_1632233031047\" >Outside US</a></li><li>Paying with cash: <a href=\"http://go.netbenefits.com/RSA-cash\" id=\"Link_1632233089192\" title=\"US\" target=\"_blank\" name=\"Link_1632233089192\" >US</a> | <a href=\"http://go.netbenefits.com/RSA-cash\" id=\"Link_1632233112115\" title=\"Outside US\" target=\"_blank\" name=\"Link_1632233112115\" >Outside US</a></li><li>Netting shares: <a href=\"http://go.netbenefits.com/RSA-net\" id=\"Link_1632233325968\" title=\"US\" target=\"_blank\" name=\"Link_1632233325968\" >US</a> | <a href=\"http://go.netbenefits.com/RSA-net\" id=\"Link_1632233344805\" title=\"Outside US\" target=\"_blank\" name=\"Link_1632233344805\" >Outside US</a></li><li>Netting shares & paying with cash: <a href=\"http://go.netbenefits.com/RSA1\" id=\"Link_1632233171702\" title=\"US\" target=\"_blank\" name=\"Link_1632233171702\" >US</a> | <a href=\"http://go.netbenefits.com/RSA1\" id=\"Link_1632233217738\" title=\"Outside US\" target=\"_blank\" name=\"Link_1632233217738\" >Outside US</a></li><li>Selling to cover: <a href=\"http://go.netbenefits.com/RSA-STC\" id=\"Link_1632233508989\" title=\"US\" target=\"_blank\" name=\"Link_1632233508989\" >US</a> | <a href=\"http://go.netbenefits.com/RSA-STC\" id=\"Link_1632233534669\" title=\"Outside US\" target=\"_blank\" name=\"Link_1632233534669\" >Outside US</a></li><li>Selling to cover & paying with cash: <a href=\"http://go.netbenefits.com/RSA2\" id=\"Link_1632233417088\" title=\"US\" target=\"_blank\" name=\"Link_1632233417088\" >US</a> | <a href=\"http://go.netbenefits.com/RSA2\" id=\"Link_1632233440285\" title=\"Outside US\" target=\"_blank\" name=\"Link_1632233440285\" >Outside US</a><br /><br /></li><li><strong>Meet your Restricted Stock Unit (RSU), versioned based on tax withholding:</strong></li><li>RSU Settled in Cash, all tax withholding options explained: <a href=\"http://go.netbenefits.com/cash-RSU\" id=\"Link_1632233593568\" title=\"US\" target=\"_blank\" name=\"Link_1632233593568\" >US</a> | <a href=\"http://go.netbenefits.com/cash-RSU\" id=\"Link_1632233616620\" title=\"Outside US\" target=\"_blank\" name=\"Link_1632233616620\" >Outside US</a></li><li>RSU Settled in Shares: <a href=\"http://go.netbenefits.com/RSU\" id=\"Link_1632233672806\" title=\"US\" target=\"_blank\" name=\"Link_1632233672806\" >US</a> | <a href=\"http://go.netbenefits.com/RSU\" id=\"Link_1632233694893\" title=\"Outside US\" target=\"_blank\" name=\"Link_1632233694893\" >Outside US</a></li><li>Shares Tax Withholding - Paying with Cash (in Fidelity Account): <a href=\"http://go.netbenefits.com/RSU-cash\" id=\"Link_1632233763155\" title=\"US\" target=\"_blank\" name=\"Link_1632233763155\" >US</a> | <a href=\"http://go.netbenefits.com/RSU-cash\" id=\"Link_1632233783120\" title=\"Outside US\" target=\"_blank\" name=\"Link_1632233783120\" >Outside US</a></li><li>Shares Tax Withholding - Netting Shares (shares withheld to cover taxes): <a href=\"http://go.netbenefits.com/RSU1\" id=\"Link_1632233938351\" title=\"US\" target=\"_blank\" name=\"Link_1632233938351\" >US</a> | <a href=\"http://go.netbenefits.com/RSU1\" id=\"Link_1632233958519\" title=\"Outside US\" target=\"_blank\" name=\"Link_1632233958519\" >Outside US</a></li><li>Shares Tax Withholding - Netting Shares & Paying with Cash: <a href=\"http://go.netbenefits.com/RSU-net\" id=\"Link_1632234018354\" title=\"US\" target=\"_blank\" name=\"Link_1632234018354\" >US</a> | <a href=\"http://go.netbenefits.com/RSU-net\" id=\"Link_1632234036489\" title=\"Outside US\" target=\"_blank\" name=\"Link_1632234036489\" >Outside US</a></li><li>Shares Tax Withholding - Selling Shares to Cover  (shares sold to cover taxes): <a href=\"http://go.netbenefits.com/RSU2\" id=\"Link_1632234133428\" title=\"US\" target=\"_blank\" name=\"Link_1632234133428\" >US</a> | <a href=\"http://go.netbenefits.com/RSU2\" id=\"Link_1632234180614\" title=\"Outside US\" target=\"_blank\" name=\"Link_1632234180614\" >Outside US</a></li><li>Shares Tax Withholding - Selling Shares to Cover &  Paying with Cash : <a href=\"http://go.netbenefits.com/RSU-STC\" id=\"Link_1632234244106\" title=\"US\" target=\"_blank\" name=\"Link_1632234244106\" >US</a> | <a href=\"http://go.netbenefits.com/RSU-STC\" id=\"Link_1632234368485\" title=\"Outside US\" target=\"_blank\" name=\"Link_1632234368485\" >Outside US</a><br /><br /><strong>Meet your Stock Option (SOP) or Stock Appreciation Right (SAR):</strong></li><li>Get to Know Your Stock Option Plan: <a href=\"http://www.fidelity.com/sopgen\" id=\"Link_1632234415687\" title=\"US\" target=\"_blank\" name=\"Link_1632234415687\" >US</a> | <a href=\"http://www.fidelity.com/sopgen\" id=\"Link_1632234490674\" title=\"Outside US\" target=\"_blank\" name=\"Link_1632234490674\" >Outside US</a></li><li>Three Things To Know About Your Stock Option Award : <a href=\"http://go.fidelity.com/stockoptions\" id=\"Link_1632234558402\" title=\"US\" target=\"_blank\" name=\"Link_1632234558402\" >US</a></li></ul>"
+                                }
+                            ],
+                            "subArticles": null
+                        }
+                    ]
+                },
+                {
+                    "articleHeading": "Flyers",
+                    "paragraphs": null,
+                    "subArticles": [
+                        {
+                            "articleHeading": null,
+                            "paragraphs": [
+                                {
+                                    "type": "STRING",
+                                    "value": "Here's a sample of a promotional flyer for your company's ESPP."
+                                }
+                            ],
+                            "subArticles": null
+                        },
+                        {
+                            "articleHeading": null,
+                            "paragraphs": [
+                                {
+                                    "type": "STRING",
+                                    "value": "<ul xmlns=\"http://www.w3.org/1999/xhtml\"><li>Enroll in your ESPP and invest in your future: <a href=\"https://workplaceservices.fidelity.com/bin-public/070_NB_SPS_Pages/documents/dcl/shared/StockPlanServices/US_ESPPFlyer.pdf%20\" id=\"Link_1633713655259\" title=\"US\" target=\"_blank\" name=\"Link_1633713655259\" >US</a> | <a href=\"https://workplaceservices.fidelity.com/bin-public/070_NB_SPS_Pages/documents/dcl/shared/StockPlanServices/OUS_ESPPFlyer.pdf\" id=\"Link_1633103478847\" title=\"Outside US\" target=\"_blank\" name=\"Link_1633103478847\" >Outside US</a></li></ul>"
+                                }
+                            ],
+                            "subArticles": null
+                        }
+                    ]
+                },
+                {
+                    "articleHeading": "Pre-Recorded Workshops & Materials",
+                    "paragraphs": null,
+                    "subArticles": [
+                        {
+                            "articleHeading": null,
+                            "paragraphs": [
+                                {
+                                    "type": "STRING",
+                                    "value": "Educational tools for your rollout."
+                                }
+                            ],
+                            "subArticles": null
+                        },
+                        {
+                            "articleHeading": null,
+                            "paragraphs": [
+                                {
+                                    "type": "STRING",
+                                    "value": "<ul xmlns=\"http://www.w3.org/1999/xhtml\"><li>Tax filing: <a href=\"https://www.brainshark.com/1/player/fidelityemg?fb=0&amp;r3f1=&amp;custom=taxfilingforstockplans\" id=\"Link_1633714594517\" title=\"US\" target=\"_blank\" name=\"Link_1633714594517\" >US</a></li><li>Onboarding: <a href=\"https://www.brainshark.com/fidelityemg/SPS_US\" id=\"Link_1633714677067\" title=\"US\" target=\"_blank\" name=\"Link_1633714677067\" >US</a> | <a href=\"https://www.brainshark.com/fidelityemg/SPS_OUS\" id=\"Link_1633714702693\" title=\"Outside US\" target=\"_blank\" name=\"Link_1633714702693\" >Outside US</a></li></ul>"
+                                }
+                            ],
+                            "subArticles": null
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "footnotes": ""
+}
