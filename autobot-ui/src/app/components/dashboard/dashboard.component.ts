@@ -1,9 +1,10 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Router } from '@angular/router';
 import { AutomationService } from '../../services/automation.service';
 import { RuleEditService } from '../../services/rule-edit.service';
+import { environment } from '../../../environments/environment';
 import { interval } from 'rxjs';
 
 @Component({
@@ -20,6 +21,15 @@ export class DashboardComponent implements OnInit, OnDestroy {
   currentRule: any = null;
   private refreshInterval: any;
   searchTerm: string = '';
+  loadingRules = true;
+  rulesLoadError: string | null = null;
+  sidebarOpen = true;
+  /** Narrow viewport: drawer sidebar + backdrop */
+  isNarrowLayout = false;
+  env = environment;
+
+  /** Session run outcomes from WebSocket exit lines */
+  stats = { pass: 0, fail: 0, flaky: 0 };
 
   constructor(
     private automationService: AutomationService,
@@ -28,6 +38,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
+    this.updateLayoutMode();
+    if (this.isNarrowLayout) {
+      this.sidebarOpen = false;
+    }
     this.loadRules();
     this.loadRunningAutomations();
     
@@ -35,8 +49,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.automationService.connectWebSocket();
     this.automationService.getLogs().subscribe({
       next: (log) => {
-        // Show logs from all automations
         this.logs.push(log);
+        this.ingestLogForStats(log);
         setTimeout(() => {
           const logContainer = document.querySelector('.log-container');
           if (logContainer) {
@@ -60,10 +74,97 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   loadRules() {
+    this.loadingRules = true;
+    this.rulesLoadError = null;
     this.automationService.getRules().subscribe({
-      next: (rules) => this.rules = rules,
-      error: (error) => console.error('Error loading rules:', error)
+      next: (rules) => {
+        this.rules = rules;
+        this.loadingRules = false;
+      },
+      error: (error) => {
+        console.error('Error loading rules:', error);
+        this.loadingRules = false;
+        this.rulesLoadError = 'Could not load rules. Is the API running?';
+      }
     });
+  }
+
+  get filteredRules(): any[] {
+    const q = (this.searchTerm || '').trim().toLowerCase();
+    if (!q) return this.rules;
+    return this.rules.filter(
+      (r) =>
+        (r.name || '').toLowerCase().includes(q) ||
+        (r.project || r.version || '').toString().toLowerCase().includes(q) ||
+        (r.fileName || '').toLowerCase().includes(q)
+    );
+  }
+
+  /** Disabled steps across all loaded rules (shown as “ignored” KPI). */
+  get ignoredStepsCount(): number {
+    return this.rules.reduce((n, r) => {
+      const steps = r.steps;
+      if (!Array.isArray(steps)) return n;
+      return n + steps.filter((s: { enabled?: boolean }) => s.enabled === false).length;
+    }, 0);
+  }
+
+  get totalRuns(): number {
+    return this.stats.pass + this.stats.fail;
+  }
+
+  /** Success rate of completed runs this session (0–100). */
+  get progressPercent(): number {
+    const t = this.totalRuns;
+    if (t === 0) return 0;
+    return Math.round((this.stats.pass / t) * 100);
+  }
+
+  /** Conic gradient for the summary ring (pass / fail / neutral). */
+  get ringBackground(): string {
+    const p = this.stats.pass;
+    const f = this.stats.fail;
+    const t = p + f;
+    if (t === 0) {
+      return 'conic-gradient(#e5e7eb 0% 100%)';
+    }
+    const pPct = (p / t) * 100;
+    const pf = pPct + (f / t) * 100;
+    return `conic-gradient(#3b82f6 0% ${pPct}%, #ef4444 ${pPct}% ${pf}%, #e5e7eb ${pf}% 100%)`;
+  }
+
+  get browserBadge(): string {
+    return 'Chromium';
+  }
+
+  toggleSidebar(): void {
+    this.sidebarOpen = !this.sidebarOpen;
+  }
+
+  @HostListener('window:resize')
+  onResize(): void {
+    this.updateLayoutMode();
+    if (!this.isNarrowLayout) {
+      this.sidebarOpen = true;
+    }
+  }
+
+  private updateLayoutMode(): void {
+    this.isNarrowLayout = typeof window !== 'undefined' && window.innerWidth < 900;
+  }
+
+  stepCount(rule: any): number {
+    return Array.isArray(rule?.steps) ? rule.steps.length : 0;
+  }
+
+  private ingestLogForStats(log: { message?: string; fileName?: string }): void {
+    const msg = (log.message || '').toString();
+    if (!msg.includes('Process exited with code')) return;
+    const m = msg.match(/Process exited with code (\d+)/);
+    if (!m) return;
+    const code = parseInt(m[1], 10);
+    if (code === 0) this.stats.pass++;
+    else this.stats.fail++;
   }
 
   refreshRules() {

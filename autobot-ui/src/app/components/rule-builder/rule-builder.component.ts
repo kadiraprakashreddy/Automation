@@ -1,10 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Router, NavigationExtras } from '@angular/router';
 import { AutomationService } from '../../services/automation.service';
 import { RuleEditService } from '../../services/rule-edit.service';
-
 @Component({
   selector: 'app-rule-builder',
   standalone: true,
@@ -13,17 +12,25 @@ import { RuleEditService } from '../../services/rule-edit.service';
   styleUrls: ['./rule-builder.component.css']
 })
 export class RuleBuilderComponent implements OnInit {
+  sidebarOpen = true;
+  isNarrowLayout = false;
+
   rule: any = {
     name: '',
     description: '',
     author: '',
-    version: '1.0.0',
-    steps: []
+    project: '',
+    browser: 'chromium',
+    steps: [
+      {
+        stepId: '1',
+        action: 'navigate',
+        url: ''
+      }
+    ]
   };
   
-  activeTab = 'setup';
   showModal = false;
-  isSetupComplete: boolean = false;
 
   constructor(
     private automationService: AutomationService,
@@ -32,6 +39,10 @@ export class RuleBuilderComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.updateLayoutMode();
+    if (this.isNarrowLayout) {
+      this.sidebarOpen = false;
+    }
     if (this.ruleEditService.isInEditMode()) {
       const ruleToEdit = this.ruleEditService.getRuleToEdit();
       if (ruleToEdit) {
@@ -47,7 +58,8 @@ export class RuleBuilderComponent implements OnInit {
       name: rule.name,
       description: rule.description || '',
       author: rule.author || '',
-      version: rule.version || '1.0.0',
+      project: rule.project || rule.version || '',
+      browser: rule.browser || 'chromium',
       created: rule.created || '',
       steps: rule.steps || []
     };
@@ -57,37 +69,11 @@ export class RuleBuilderComponent implements OnInit {
       this.addStep();
     }
     
-    // Enable Workflow tab when editing existing rule
-    this.isSetupComplete = true;
-  }
-
-
-  setActiveTab(tab: string) {
-    if (tab === 'workflow' && !this.isSetupComplete) {
-      return; // Prevent switching to Workflow if setup is not complete
-    }
-    this.activeTab = tab;
   }
 
   isFormValid(): boolean {
     // Check if all required fields are filled
     return !!(this.rule.name && this.rule.name.trim() !== '');
-  }
-
-  nextStep() {
-    // Validate Rule Setup form
-    if (!this.isFormValid()) {
-      return;
-    }
-
-    // Mark setup as complete and switch to Workflow tab
-    this.isSetupComplete = true;
-    this.activeTab = 'workflow';
-    
-    // If no steps exist, add a default one
-    if (this.rule.steps.length === 0) {
-      this.addStep();
-    }
   }
 
   addStep() {
@@ -223,5 +209,21 @@ export class RuleBuilderComponent implements OnInit {
     }).catch(err => {
       alert('Failed to copy to clipboard');
     });
+  }
+
+  toggleSidebar(): void {
+    this.sidebarOpen = !this.sidebarOpen;
+  }
+
+  @HostListener('window:resize')
+  onResize(): void {
+    this.updateLayoutMode();
+    if (!this.isNarrowLayout) {
+      this.sidebarOpen = true;
+    }
+  }
+
+  private updateLayoutMode(): void {
+    this.isNarrowLayout = typeof window !== 'undefined' && window.innerWidth < 900;
   }
 }

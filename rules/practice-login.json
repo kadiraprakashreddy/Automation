@@ -1,10 +1,10 @@
 {
   "name": "User Authentication and Course Search Workflow",
-  "version": "1.0.0",
+  "description": "",
   "author": "Prakash Reddy K",
+  "project": "sps",
+  "browser": "chromium",
   "created": "2025-10-19",
-  "networkActivity": false,
-  "continueOnError": false,
   "steps": [
     {
       "stepId": "nav-login-page",
