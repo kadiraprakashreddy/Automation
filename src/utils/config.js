@@ -9,7 +9,8 @@ const config = {
       width: environmentLoader.get('VIEWPORT_WIDTH'),
       height: environmentLoader.get('VIEWPORT_HEIGHT')
     },
-    useWindowViewport: environmentLoader.get('USE_WINDOW_VIEWPORT')
+    useWindowViewport: environmentLoader.get('USE_WINDOW_VIEWPORT'),
+    chromeForceDeviceScaleOne: environmentLoader.get('CHROME_FORCE_DEVICE_SCALE_ONE')
   },
   timeouts: {
     default: environmentLoader.get('DEFAULT_TIMEOUT'),

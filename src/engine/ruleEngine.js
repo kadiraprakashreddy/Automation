@@ -86,16 +86,30 @@ class RuleEngine {
           browserType = chromium;
       }
 
+      const launchArgs = ['--start-maximized'];
+      if (
+        config.browser.type.toLowerCase() === 'chromium' &&
+        config.browser.chromeForceDeviceScaleOne
+      ) {
+        launchArgs.push('--force-device-scale-factor=1');
+      }
+
       this.browser = await browserType.launch({
         headless: config.browser.headless,
-        channel: 'chrome',  // Use installed Google Chrome
-        args: ['--start-maximized']
+        channel: 'chrome', // Use installed Google Chrome
+        args: launchArgs
       });
 
       const contextOptions = config.browser.useWindowViewport
         ? { viewport: null }
         : { viewport: config.browser.viewport };
       this.context = await this.browser.newContext(contextOptions);
+
+      logger.info(
+        config.browser.useWindowViewport
+          ? 'Browser context: viewport matches window (USE_WINDOW_VIEWPORT / headed default).'
+          : `Browser context: fixed viewport ${config.browser.viewport.width}x${config.browser.viewport.height}.`
+      );
 
       this.page = await this.context.newPage();
       
