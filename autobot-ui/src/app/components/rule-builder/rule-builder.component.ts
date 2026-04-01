@@ -20,7 +20,7 @@ export class RuleBuilderComponent implements OnInit {
     description: '',
     author: '',
     project: '',
-    browser: 'chromium',
+    browser: 'google-chrome',
     steps: [
       {
         stepId: '1',

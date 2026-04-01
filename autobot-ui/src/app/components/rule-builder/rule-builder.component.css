@@ -435,8 +435,9 @@
   justify-content: center;
   width: 22px;
   height: 22px;
-  background: var(--primary);
-  color: #fff;
+  background: #e5e7eb;
+  color: #4b5563;
+  border: 1px solid #d1d5db;
   border-radius: 50%;
   font-size: 10px;
   font-weight: 700;
@@ -528,7 +529,7 @@
 .checkbox-input {
   width: 14px;
   height: 14px;
-  accent-color: var(--primary);
+  accent-color: #9ca3af;
   margin: 0;
 }
 
