@@ -1392,7 +1392,12 @@ class ActionHandler {
       if (key === 'onlick') {
         key = 'onclick';
       }
-      wanted[key] = v == null ? '' : String(v);
+      const val = v == null ? '' : String(v);
+      // Empty on* from paste (e.g. onclick="") — skip: real submit buttons often have no onclick in DOM (React/Angular/etc.)
+      if (key.length >= 2 && key.startsWith('on') && val.trim() === '') {
+        continue;
+      }
+      wanted[key] = val;
     }
     return wanted;
   }
