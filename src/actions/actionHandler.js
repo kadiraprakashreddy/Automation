@@ -338,7 +338,7 @@ class ActionHandler {
           }
           await handle.click({ timeout });
         } finally {
-          await handle.dispose();
+          await this.safeDisposeHandle(handle);
         }
         return { selector: raw, selectorMode: 'html', matchedBy: 'html-paste' };
       }
@@ -451,7 +451,7 @@ class ActionHandler {
           }
           await handle.fill(processedText, { timeout });
         } finally {
-          await handle.dispose();
+          await this.safeDisposeHandle(handle);
         }
         return { selector: raw, text: processedText, selectorMode: 'html', matchedBy: 'html-paste' };
       }
@@ -734,7 +734,7 @@ class ActionHandler {
               validationResult = { selector, attribute, expectedValue, actualValue, validationPassed };
             }
           } finally {
-            await h.dispose();
+            await this.safeDisposeHandle(h);
           }
           break;
         }
@@ -1158,6 +1158,27 @@ class ActionHandler {
   }
 
   /**
+   * Dispose an element handle; ignore errors after navigation (e.g. submit click).
+   */
+  async safeDisposeHandle(handle) {
+    if (!handle) {
+      return;
+    }
+    try {
+      await handle.dispose();
+    } catch (e) {
+      const msg = e?.message || String(e);
+      if (
+        /Execution context was destroyed|Target page.*closed|has been closed|detached/i.test(msg)
+      ) {
+        logger.debug(`Handle dispose skipped (navigation or closed page): ${msg}`);
+      } else {
+        logger.warn(`Element handle dispose: ${msg}`);
+      }
+    }
+  }
+
+  /**
    * Monitor network activity and capture API calls
    */
   async monitorNetwork(step) {
@@ -1367,7 +1388,11 @@ class ActionHandler {
     }
     const wanted = {};
     for (const [k, v] of Object.entries(parsed.attrs)) {
-      wanted[String(k).toLowerCase()] = v == null ? '' : String(v);
+      let key = String(k).toLowerCase();
+      if (key === 'onlick') {
+        key = 'onclick';
+      }
+      wanted[key] = v == null ? '' : String(v);
     }
     return wanted;
   }
@@ -1377,12 +1402,19 @@ class ActionHandler {
       ({ tag, wanted: w }) => {
         function attrMatches(el) {
           for (const [key, val] of Object.entries(w)) {
+            const vt = String(val).trim();
             const got = el.getAttribute(key);
+            // Empty handler paste (e.g. onClick= or truncated DevTools copy): DOM stores full JS in onclick — only require presence
+            if (vt === '' && key.length >= 2 && key.startsWith('on')) {
+              if (!el.hasAttribute(key)) {
+                return false;
+              }
+              continue;
+            }
             if (got === null) {
               return false;
             }
             const gt = String(got).trim();
-            const vt = String(val).trim();
             if (gt !== vt && gt.toLowerCase() !== vt.toLowerCase()) {
               return false;
             }
@@ -1407,12 +1439,18 @@ class ActionHandler {
       ({ tag, wanted: w }) => {
         function attrMatches(el) {
           for (const [key, val] of Object.entries(w)) {
+            const vt = String(val).trim();
             const got = el.getAttribute(key);
+            if (vt === '' && key.length >= 2 && key.startsWith('on')) {
+              if (!el.hasAttribute(key)) {
+                return false;
+              }
+              continue;
+            }
             if (got === null) {
               return false;
             }
             const gt = String(got).trim();
-            const vt = String(val).trim();
             if (gt !== vt && gt.toLowerCase() !== vt.toLowerCase()) {
               return false;
             }
@@ -1431,7 +1469,7 @@ class ActionHandler {
     );
     const element = handle.asElement();
     if (!element) {
-      await handle.dispose();
+      await this.safeDisposeHandle(handle);
       return null;
     }
     return handle;
