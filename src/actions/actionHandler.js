@@ -886,6 +886,21 @@ class ActionHandler {
   }
 
   /**
+   * CSS #id only works for simple ids. Spaces, colons, etc. need [id="..."].
+   */
+  idValueToCssSelector(idValue) {
+    if (!idValue || typeof idValue !== 'string') {
+      return idValue;
+    }
+    const v = idValue.trim();
+    if (/^[A-Za-z_][\w-]*$/.test(v)) {
+      return `#${v}`;
+    }
+    const escaped = v.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+    return `[id="${escaped}"]`;
+  }
+
+  /**
    * Convert HTML attribute format to proper CSS selector
    * Handles common cases where users copy HTML attributes directly
    */
@@ -943,20 +958,28 @@ class ActionHandler {
       }
     }
 
+    // id= before class= so snippets like <a class="..." id="..."> resolve to id
+    if (selector.includes('id=')) {
+      let m = selector.match(/id="([^"]+)"/);
+      if (m) {
+        return this.idValueToCssSelector(m[1]);
+      }
+      m = selector.match(/id='([^']+)'/);
+      if (m) {
+        return this.idValueToCssSelector(m[1]);
+      }
+      m = selector.trim().match(/^id\s*=\s*(.+)$/i);
+      if (m) {
+        return this.idValueToCssSelector(m[1].trim());
+      }
+    }
+
     // Handle class="..." -> .class-name
     if (selector.includes('class=')) {
       const classMatch = selector.match(/class="([^"]+)"/);
       if (classMatch) {
         const className = classMatch[1].split(' ')[0]; // Take first class
         return `.${className}`;
-      }
-    }
-
-    // Handle id="..." -> #id
-    if (selector.includes('id=')) {
-      const idMatch = selector.match(/id="([^"]+)"/);
-      if (idMatch) {
-        return `#${idMatch[1]}`;
       }
     }
 
