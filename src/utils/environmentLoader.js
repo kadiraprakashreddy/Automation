@@ -90,6 +90,8 @@ class EnvironmentLoader {
       HEADLESS: process.env.HEADLESS === 'true',
       VIEWPORT_WIDTH: parseInt(process.env.VIEWPORT_WIDTH) || 1920,
       VIEWPORT_HEIGHT: parseInt(process.env.VIEWPORT_HEIGHT) || 1080,
+      /** When true, Playwright uses the real browser window size (no fixed viewport). Fixes “narrow / left” layout in headed runs. */
+      USE_WINDOW_VIEWPORT: process.env.USE_WINDOW_VIEWPORT === 'true',
       
       // Rule Engine Timeouts
       DEFAULT_TIMEOUT: parseInt(process.env.DEFAULT_TIMEOUT) || 30000,

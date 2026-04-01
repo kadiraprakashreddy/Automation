@@ -804,8 +804,8 @@ class ActionHandler {
         element.style.outlineOffset = '2px';
         element.style.boxShadow = '0 0 15px rgba(255, 107, 107, 0.6)';
         
-        // Scroll element into view smoothly
-        element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        // Minimal scroll — avoids shifting layout vs manual browsing (block: center can jump the page)
+        element.scrollIntoView({ behavior: 'auto', block: 'nearest', inline: 'nearest' });
         
         // Remove highlight after duration
         setTimeout(() => {

@@ -8,7 +8,8 @@ const config = {
     viewport: {
       width: environmentLoader.get('VIEWPORT_WIDTH'),
       height: environmentLoader.get('VIEWPORT_HEIGHT')
-    }
+    },
+    useWindowViewport: environmentLoader.get('USE_WINDOW_VIEWPORT')
   },
   timeouts: {
     default: environmentLoader.get('DEFAULT_TIMEOUT'),

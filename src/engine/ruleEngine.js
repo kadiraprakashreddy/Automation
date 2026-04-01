@@ -92,9 +92,10 @@ class RuleEngine {
         args: ['--start-maximized']
       });
 
-      this.context = await this.browser.newContext({
-        viewport: config.browser.viewport
-      });
+      const contextOptions = config.browser.useWindowViewport
+        ? { viewport: null }
+        : { viewport: config.browser.viewport };
+      this.context = await this.browser.newContext(contextOptions);
 
       this.page = await this.context.newPage();
       
