@@ -61,14 +61,16 @@ export class RuleBuilderComponent implements OnInit {
       project: rule.project || rule.version || '',
       browser: rule.browser || 'chromium',
       created: rule.created || '',
-      steps: rule.steps || []
+      steps: (rule.steps || []).map((s: any) => ({
+        ...s,
+        selectorMode: s.selectorMode || 'css'
+      }))
     };
-    
+
     // If no steps, add a default one
     if (this.rule.steps.length === 0) {
       this.addStep();
     }
-    
   }
 
   isFormValid(): boolean {
@@ -95,6 +97,7 @@ export class RuleBuilderComponent implements OnInit {
   clearStepProperties(step: any) {
     delete step.url;
     delete step.selector;
+    delete step.selectorMode;
     delete step.text;
     delete step.duration;
     delete step.fullPage;
@@ -110,9 +113,11 @@ export class RuleBuilderComponent implements OnInit {
         break;
       case 'click':
         step.selector = '';
+        step.selectorMode = 'css';
         break;
       case 'fill':
         step.selector = '';
+        step.selectorMode = 'css';
         step.text = '';
         break;
       case 'wait':
@@ -124,6 +129,7 @@ export class RuleBuilderComponent implements OnInit {
       case 'validate':
         step.validationType = 'exists';
         step.selector = '';
+        step.selectorMode = 'css';
         step.expectedValue = '';
         step.script = '';
         break;

@@ -260,26 +260,99 @@ class ActionHandler {
   }
 
   /**
-   * Click an element
+   * Click an element. `selectorMode`: testId (exact data-testid), id (exact id), html (paste element), css.
    */
   async click(step) {
     const { selector, highlight = true } = step;
-    const convertedSelector = this.convertToCSSSelector(selector);
-    
-    // Log conversion if it changed
+    const raw = typeof selector === 'string' ? selector.trim() : selector;
+    const mode = this.normalizeSelectorMode(step.selectorMode);
+    const timeout = step.timeout || config.timeouts.default;
+
+    if (mode === 'testid') {
+      if (!raw) {
+        throw new Error('selector (data-testid value) is required');
+      }
+      const loc = this.page.getByTestId(raw);
+      const c = await loc.count();
+      if (c === 0) {
+        throw new Error(`No element with data-testid="${raw}"`);
+      }
+      if (c > 1) {
+        logger.warn(`data-testid="${raw}" matched ${c} elements; clicking first.`);
+      }
+      logger.info(`Click by data-testid="${raw}" (exact)`);
+      if (highlight) {
+        await this.highlightLocator(loc);
+      }
+      await loc.first().click({ timeout });
+      return { selector: raw, selectorMode: 'testId', matchedBy: 'data-testid' };
+    }
+
+    if (mode === 'id') {
+      if (!raw) {
+        throw new Error('selector (id value) is required');
+      }
+      const css = this.idValueToCssSelector(raw);
+      logger.info(`Click by id="${raw}" (exact)`);
+      if (highlight) {
+        await this.highlightElement(css);
+      }
+      await this.page.click(css, { timeout });
+      return { selector: raw, selectorMode: 'id', matchedBy: 'id' };
+    }
+
+    const useHtml =
+      mode === 'html' ||
+      (mode === 'auto' && raw && this.looksLikeHtmlElementSnippet(raw));
+
+    if (useHtml) {
+      if (mode === 'html' && (!raw || !this.looksLikeHtmlElementSnippet(raw))) {
+        throw new Error('Html target mode requires pasted HTML starting with <tag');
+      }
+      const parsed = this.parseHtmlOpeningTag(raw);
+      const wanted = this.wantedAttrsFromParsed(parsed);
+      if (!wanted || Object.keys(wanted).length === 0) {
+        if (mode === 'html') {
+          throw new Error('Html target mode requires an opening tag with at least one attribute');
+        }
+      } else {
+        const n = await this.countElementsMatchingPastedAttrs(parsed.tagName, wanted);
+        if (n === 0) {
+          throw new Error(
+            `No element matched pasted <${parsed.tagName}> with attributes: ${Object.keys(wanted).join(', ')}`
+          );
+        }
+        if (n > 1) {
+          logger.warn(`Pasted HTML matched ${n} elements; clicking the first.`);
+        }
+        logger.info(
+          `Click by pasted HTML: <${parsed.tagName}> (${Object.keys(wanted).length} attribute(s), exact match)`
+        );
+        const handle = await this.findFirstElementHandleMatchingPastedAttrs(parsed.tagName, wanted);
+        if (!handle) {
+          throw new Error('Could not resolve element for pasted HTML');
+        }
+        try {
+          if (highlight) {
+            await this.highlightElementHandle(handle);
+          }
+          await handle.click({ timeout });
+        } finally {
+          await handle.dispose();
+        }
+        return { selector: raw, selectorMode: 'html', matchedBy: 'html-paste' };
+      }
+    }
+
+    const convertedSelector = this.resolveStepSelector(selector);
     if (convertedSelector !== selector) {
       logger.info(`Selector converted: "${selector}" -> "${convertedSelector}"`);
     }
-    
-    // Highlight element before clicking if enabled
     if (highlight) {
       await this.highlightElement(convertedSelector);
     }
-    
-    await this.page.click(convertedSelector, {
-      timeout: step.timeout || config.timeouts.default
-    });
-    return { selector: convertedSelector };
+    await this.page.click(convertedSelector, { timeout });
+    return { selector: convertedSelector, selectorMode: 'css' };
   }
 
   /**
@@ -303,25 +376,96 @@ class ActionHandler {
    */
   async fill(step) {
     const { selector, text, highlight = true } = step;
-    const convertedSelector = this.convertToCSSSelector(selector);
-    
-    // Log conversion if it changed
+    const raw = typeof selector === 'string' ? selector.trim() : selector;
+    const mode = this.normalizeSelectorMode(step.selectorMode);
+    const processedText = this.replacePlaceholders(text);
+    const timeout = step.timeout || config.timeouts.default;
+
+    if (mode === 'testid') {
+      if (!raw) {
+        throw new Error('selector (data-testid value) is required');
+      }
+      const loc = this.page.getByTestId(raw);
+      const c = await loc.count();
+      if (c === 0) {
+        throw new Error(`No element with data-testid="${raw}"`);
+      }
+      if (c > 1) {
+        logger.warn(`data-testid="${raw}" matched ${c} elements; filling first.`);
+      }
+      logger.info(`Fill by data-testid="${raw}" (exact)`);
+      if (highlight) {
+        await this.highlightLocator(loc);
+      }
+      await loc.first().fill(processedText, { timeout });
+      return { selector: raw, text: processedText, selectorMode: 'testId', matchedBy: 'data-testid' };
+    }
+
+    if (mode === 'id') {
+      if (!raw) {
+        throw new Error('selector (id value) is required');
+      }
+      const css = this.idValueToCssSelector(raw);
+      logger.info(`Fill by id="${raw}" (exact)`);
+      if (highlight) {
+        await this.highlightElement(css);
+      }
+      await this.page.fill(css, processedText, { timeout });
+      return { selector: raw, text: processedText, selectorMode: 'id', matchedBy: 'id' };
+    }
+
+    const useHtml =
+      mode === 'html' ||
+      (mode === 'auto' && raw && this.looksLikeHtmlElementSnippet(raw));
+
+    if (useHtml) {
+      if (mode === 'html' && (!raw || !this.looksLikeHtmlElementSnippet(raw))) {
+        throw new Error('Html target mode requires pasted HTML starting with <tag');
+      }
+      const parsed = this.parseHtmlOpeningTag(raw);
+      const wanted = this.wantedAttrsFromParsed(parsed);
+      if (!wanted || Object.keys(wanted).length === 0) {
+        if (mode === 'html') {
+          throw new Error('Html target mode requires an opening tag with at least one attribute');
+        }
+      } else {
+        const n = await this.countElementsMatchingPastedAttrs(parsed.tagName, wanted);
+        if (n === 0) {
+          throw new Error(
+            `No element matched pasted <${parsed.tagName}> with attributes: ${Object.keys(wanted).join(', ')}`
+          );
+        }
+        if (n > 1) {
+          logger.warn(`Pasted HTML matched ${n} elements; filling the first.`);
+        }
+        logger.info(
+          `Fill by pasted HTML: <${parsed.tagName}> (${Object.keys(wanted).length} attribute(s), exact match)`
+        );
+        const handle = await this.findFirstElementHandleMatchingPastedAttrs(parsed.tagName, wanted);
+        if (!handle) {
+          throw new Error('Could not resolve element for pasted HTML');
+        }
+        try {
+          if (highlight) {
+            await this.highlightElementHandle(handle);
+          }
+          await handle.fill(processedText, { timeout });
+        } finally {
+          await handle.dispose();
+        }
+        return { selector: raw, text: processedText, selectorMode: 'html', matchedBy: 'html-paste' };
+      }
+    }
+
+    const convertedSelector = this.resolveStepSelector(selector);
     if (convertedSelector !== selector) {
       logger.info(`Selector converted: "${selector}" -> "${convertedSelector}"`);
     }
-    
-    // Replace placeholders with stored data
-    const processedText = this.replacePlaceholders(text);
-    
-    // Highlight element before filling if enabled
     if (highlight) {
       await this.highlightElement(convertedSelector);
     }
-    
-    await this.page.fill(convertedSelector, processedText, {
-      timeout: step.timeout || config.timeouts.default
-    });
-    return { selector: convertedSelector, text: processedText };
+    await this.page.fill(convertedSelector, processedText, { timeout });
+    return { selector: convertedSelector, text: processedText, selectorMode: 'css' };
   }
 
   /**
@@ -520,14 +664,12 @@ class ActionHandler {
   }
 
   /**
-   * Validate elements and data on the page
-   * Supports multiple validation types and notification methods
+   * Validate when selector field is pasted HTML (attribute subset match).
    */
-  async validate(step) {
-    const { 
-      validationType, 
-      selector, 
-      expectedValue, 
+  async validateWithHtmlAttributeMatch(step, parsed, wanted, selectorLabel) {
+    const {
+      validationType,
+      expectedValue,
       attribute,
       onFailure = 'console',
       failureMessage,
@@ -535,6 +677,149 @@ class ActionHandler {
       storeAs,
       script
     } = step;
+    const vt = validationType.toLowerCase();
+    const n = await this.countElementsMatchingPastedAttrs(parsed.tagName, wanted);
+    const selector = selectorLabel;
+
+    let actualValue;
+    let validationPassed = false;
+    let validationResult = {};
+
+    try {
+      switch (vt) {
+        case 'exists':
+          validationPassed = n > 0;
+          actualValue = validationPassed ? 'Element exists' : 'Element not found';
+          validationResult = { selector, validationPassed, actualValue };
+          break;
+
+        case 'notexists':
+          validationPassed = n === 0;
+          actualValue = !validationPassed ? 'Element exists' : 'Element not found';
+          validationResult = { selector, validationPassed, actualValue };
+          break;
+
+        case 'count':
+          validationPassed = n === parseInt(expectedValue, 10);
+          actualValue = n;
+          validationResult = { selector, expectedValue, actualValue, validationPassed };
+          break;
+
+        case 'visible':
+        case 'textequals':
+        case 'textcontains':
+        case 'attributeequals': {
+          if (n === 0) {
+            throw new Error(`No element matched pasted <${parsed.tagName}> for ${vt}`);
+          }
+          const h = await this.findFirstElementHandleMatchingPastedAttrs(parsed.tagName, wanted);
+          try {
+            if (vt === 'visible') {
+              validationPassed = await h.isVisible();
+              actualValue = validationPassed ? 'Element visible' : 'Element not visible';
+              validationResult = { selector, validationPassed, actualValue };
+            } else if (vt === 'textequals' || vt === 'textcontains') {
+              actualValue = await h.textContent();
+              validationPassed =
+                vt === 'textequals'
+                  ? actualValue === expectedValue
+                  : !!(actualValue && actualValue.includes(expectedValue));
+              validationResult = { selector, expectedValue, actualValue, validationPassed };
+            } else {
+              if (!attribute) {
+                throw new Error('Attribute name is required for attributeEquals validation');
+              }
+              actualValue = await h.getAttribute(attribute);
+              validationPassed = actualValue === expectedValue;
+              validationResult = { selector, attribute, expectedValue, actualValue, validationPassed };
+            }
+          } finally {
+            await h.dispose();
+          }
+          break;
+        }
+
+        default:
+          throw new Error(`Validation type "${validationType}" is not supported with Html target`);
+      }
+
+      if (storeAs) {
+        dataStore.set(storeAs, validationPassed);
+        logger.info(`Stored validation result as '${storeAs}': ${validationPassed}`);
+      }
+
+      if (!validationPassed) {
+        const message =
+          failureMessage || `Validation failed: Expected ${expectedValue}, but got ${actualValue}`;
+        logger.warn(`VALIDATION FAILED: ${message}`);
+        if (script) {
+          logger.warn('Custom failure script is not run for Html-target validation');
+        }
+        await this.showValidationNotification(onFailure, message, false);
+        if (!continueOnFailure) {
+          throw new Error(message);
+        }
+      } else {
+        logger.info(`VALIDATION PASSED: ${validationType} for pasted HTML`);
+      }
+
+      return validationResult;
+    } catch (error) {
+      const message = failureMessage || error.message;
+      logger.error(`Validation error: ${message}`);
+      await this.showValidationNotification(onFailure, message, false);
+      if (!continueOnFailure) {
+        throw error;
+      }
+      return { validationPassed: false, error: message };
+    }
+  }
+
+  /**
+   * Validate elements and data on the page
+   * Supports multiple validation types and notification methods
+   */
+  async validate(step) {
+    const {
+      validationType,
+      selector: selectorInput,
+      expectedValue,
+      attribute,
+      onFailure = 'console',
+      failureMessage,
+      continueOnFailure = false,
+      storeAs,
+      script
+    } = step;
+
+    const mode = this.normalizeSelectorMode(step.selectorMode);
+    const rawTrim = typeof selectorInput === 'string' ? selectorInput.trim() : selectorInput;
+
+    if (mode === 'html' || (mode === 'auto' && rawTrim && this.looksLikeHtmlElementSnippet(rawTrim))) {
+      const parsed = this.parseHtmlOpeningTag(selectorInput || '');
+      const wanted = this.wantedAttrsFromParsed(parsed);
+      if (wanted && Object.keys(wanted).length > 0) {
+        return this.validateWithHtmlAttributeMatch(step, parsed, wanted, selectorInput);
+      }
+      if (mode === 'html') {
+        throw new Error('Html target requires pasted HTML with at least one attribute');
+      }
+    }
+
+    let selector = selectorInput;
+    if (mode === 'testid') {
+      if (!rawTrim) {
+        throw new Error('selector (data-testid) is required');
+      }
+      selector = this.exactAttrSelector('data-testid', rawTrim);
+    } else if (mode === 'id') {
+      if (!rawTrim) {
+        throw new Error('selector (id) is required');
+      }
+      selector = this.idValueToCssSelector(rawTrim);
+    } else {
+      selector = this.resolveStepSelector(selectorInput);
+    }
 
     let actualValue;
     let validationPassed = false;
@@ -823,6 +1108,55 @@ class ActionHandler {
     }
   }
 
+  async highlightElementHandle(elementHandle, duration = 800) {
+    try {
+      await elementHandle.evaluate((element, dur) => {
+        const originalOutline = element.style.outline;
+        const originalOutlineOffset = element.style.outlineOffset;
+        const originalBoxShadow = element.style.boxShadow;
+        element.style.outline = '3px solid #ff6b6b';
+        element.style.outlineOffset = '2px';
+        element.style.boxShadow = '0 0 15px rgba(255, 107, 107, 0.6)';
+        element.scrollIntoView({ behavior: 'auto', block: 'nearest', inline: 'nearest' });
+        setTimeout(() => {
+          element.style.outline = originalOutline;
+          element.style.outlineOffset = originalOutlineOffset;
+          element.style.boxShadow = originalBoxShadow;
+        }, dur);
+      }, duration);
+      await this.page.waitForTimeout(400);
+    } catch (error) {
+      logger.warn(`Failed to highlight element: ${error.message}`);
+    }
+  }
+
+  async highlightLocator(locator, duration = 800) {
+    try {
+      const first = locator.first();
+      await first.waitFor({ state: 'visible', timeout: 2000 }).catch(() => {});
+      await first.evaluate(
+        (element, dur) => {
+          const originalOutline = element.style.outline;
+          const originalOutlineOffset = element.style.outlineOffset;
+          const originalBoxShadow = element.style.boxShadow;
+          element.style.outline = '3px solid #ff6b6b';
+          element.style.outlineOffset = '2px';
+          element.style.boxShadow = '0 0 15px rgba(255, 107, 107, 0.6)';
+          element.scrollIntoView({ behavior: 'auto', block: 'nearest', inline: 'nearest' });
+          setTimeout(() => {
+            element.style.outline = originalOutline;
+            element.style.outlineOffset = originalOutlineOffset;
+            element.style.boxShadow = originalBoxShadow;
+          }, dur);
+        },
+        duration
+      );
+      await this.page.waitForTimeout(400);
+    } catch (error) {
+      logger.warn(`Failed to highlight element: ${error.message}`);
+    }
+  }
+
   /**
    * Monitor network activity and capture API calls
    */
@@ -898,6 +1232,34 @@ class ActionHandler {
     }
     const escaped = v.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
     return `[id="${escaped}"]`;
+  }
+
+  /** Rule step `selectorMode`: auto = legacy (html-shaped string → attribute match). */
+  normalizeSelectorMode(mode) {
+    if (mode == null || mode === '') {
+      return 'auto';
+    }
+    const s = String(mode).toLowerCase();
+    if (s === 'testid') {
+      return 'testid';
+    }
+    if (s === 'id') {
+      return 'id';
+    }
+    if (s === 'html') {
+      return 'html';
+    }
+    if (s === 'css') {
+      return 'css';
+    }
+    return 'auto';
+  }
+
+  /** CSS for an exact attribute value (used for data-testid). */
+  exactAttrSelector(attrName, value) {
+    const v = String(value);
+    const escaped = v.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+    return `[${attrName}="${escaped}"]`;
   }
 
   /**
@@ -997,59 +1359,96 @@ class ActionHandler {
   }
 
   /**
-   * Build a CSS selector from a pasted HTML element (opening tag).
-   * Priority: data-testid → data-cy → id → name → class (+ tag when it helps).
+   * Normalize parsed attributes for DOM comparison (HTML attribute names are case-insensitive).
    */
-  htmlSnippetToCssSelector(html) {
-    const parsed = this.parseHtmlOpeningTag(html);
+  wantedAttrsFromParsed(parsed) {
     if (!parsed) {
       return null;
     }
-    const { tagName, attrs } = parsed;
-    const escAttr = (name, value) => {
-      if (value == null || value === '') {
-        return null;
-      }
-      if (!/["'\\]/.test(value)) {
-        return `[${name}='${value}']`;
-      }
-      const e = value.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
-      return `[${name}="${e}"]`;
-    };
-
-    let sel = null;
-    if (attrs['data-testid']) {
-      sel = escAttr('data-testid', attrs['data-testid']);
-    } else if (attrs['data-cy']) {
-      sel = escAttr('data-cy', attrs['data-cy']);
-    } else if (attrs['id'] != null && String(attrs['id']).length > 0) {
-      sel = this.idValueToCssSelector(attrs['id']);
-    } else if (attrs['name']) {
-      sel = escAttr('name', attrs['name']);
-    } else if (attrs['class']) {
-      const classes = attrs['class']
-        .trim()
-        .split(/\s+/)
-        .filter(Boolean);
-      const simple = classes.filter((c) => /^[a-zA-Z_][\w-]*$/.test(c));
-      if (simple.length === 1) {
-        sel = `.${simple[0]}`;
-      } else if (simple.length > 1) {
-        sel = simple.slice(0, 3).map((c) => `.${c}`).join('');
-      } else if (classes.length) {
-        sel = `[class~='${classes[0].replace(/'/g, "\\'")}']`;
-      }
+    const wanted = {};
+    for (const [k, v] of Object.entries(parsed.attrs)) {
+      wanted[String(k).toLowerCase()] = v == null ? '' : String(v);
     }
+    return wanted;
+  }
 
-    if (!sel) {
+  async countElementsMatchingPastedAttrs(tagName, wanted) {
+    return this.page.evaluate(
+      ({ tag, wanted: w }) => {
+        function attrMatches(el) {
+          for (const [key, val] of Object.entries(w)) {
+            const got = el.getAttribute(key);
+            if (got === null) {
+              return false;
+            }
+            const gt = String(got).trim();
+            const vt = String(val).trim();
+            if (gt !== vt && gt.toLowerCase() !== vt.toLowerCase()) {
+              return false;
+            }
+          }
+          return true;
+        }
+        const list = document.getElementsByTagName(tag);
+        let n = 0;
+        for (let i = 0; i < list.length; i++) {
+          if (attrMatches(list[i])) {
+            n++;
+          }
+        }
+        return n;
+      },
+      { tag: tagName, wanted }
+    );
+  }
+
+  async findFirstElementHandleMatchingPastedAttrs(tagName, wanted) {
+    const handle = await this.page.evaluateHandle(
+      ({ tag, wanted: w }) => {
+        function attrMatches(el) {
+          for (const [key, val] of Object.entries(w)) {
+            const got = el.getAttribute(key);
+            if (got === null) {
+              return false;
+            }
+            const gt = String(got).trim();
+            const vt = String(val).trim();
+            if (gt !== vt && gt.toLowerCase() !== vt.toLowerCase()) {
+              return false;
+            }
+          }
+          return true;
+        }
+        const list = document.getElementsByTagName(tag);
+        for (let i = 0; i < list.length; i++) {
+          if (attrMatches(list[i])) {
+            return list[i];
+          }
+        }
+        return null;
+      },
+      { tag: tagName, wanted }
+    );
+    const element = handle.asElement();
+    if (!element) {
+      await handle.dispose();
       return null;
     }
-    const generic = tagName === 'div' || tagName === 'span';
-    // Prefix tag for anchors, buttons, etc.; for div/span only when using class (narrower match)
-    if (tagName && (!generic || sel.startsWith('.'))) {
-      return `${tagName}${sel}`;
+    return handle;
+  }
+
+  /**
+   * Plain CSS or legacy snippets (type=, class=, id=, …). Pasted HTML is handled in click/fill via attribute match.
+   */
+  resolveStepSelector(selector) {
+    if (!selector || typeof selector !== 'string') {
+      return selector;
     }
-    return sel;
+    const trimmed = selector.trim();
+    if (/^\[\s*[iI][dD]\s*=/.test(trimmed)) {
+      return trimmed.replace(/^\[(\s*)[iI][dD](\s*=\s*)/, '[$1id$2');
+    }
+    return this.convertToCSSSelector(selector);
   }
 
   /**
@@ -1059,20 +1458,6 @@ class ActionHandler {
   convertToCSSSelector(selector) {
     if (!selector || typeof selector !== 'string') {
       return selector;
-    }
-
-    const trimmed = selector.trim();
-    // Already a CSS attribute selector on id — normalize to lowercase `id` (matches HTML) and do not re-run id=" parsing on the inner text
-    if (/^\[\s*[iI][dD]\s*=/.test(trimmed)) {
-      return trimmed.replace(/^\[(\s*)[iI][dD](\s*=\s*)/, '[$1id$2');
-    }
-
-    // Whole element paste from DevTools → best CSS selector (id, data-*, class, …)
-    if (this.looksLikeHtmlElementSnippet(trimmed)) {
-      const fromHtml = this.htmlSnippetToCssSelector(trimmed);
-      if (fromHtml) {
-        return fromHtml;
-      }
     }
 
     // Handle type="submit" / type='text' (HTML-ish snippets) -> proper CSS
