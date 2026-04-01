@@ -894,36 +894,51 @@ class ActionHandler {
       return selector;
     }
 
-    // Handle type="submit" -> button[type='submit']
+    // Handle type="submit" / type='text' (HTML-ish snippets) -> proper CSS
     if (selector.includes('type=')) {
-      const typeMatch = selector.match(/type="([^"]+)"/);
+      const typeMatch = selector.match(/type=["']([^"']+)["']/);
       if (typeMatch) {
         const typeValue = typeMatch[1];
         // Common type values and their likely elements
         const typeToElement = {
-          'submit': 'button',
-          'button': 'button',
-          'text': 'input',
-          'email': 'input',
-          'password': 'input',
-          'checkbox': 'input',
-          'radio': 'input',
-          'file': 'input',
-          'hidden': 'input',
-          'number': 'input',
-          'tel': 'input',
-          'url': 'input',
-          'search': 'input',
-          'date': 'input',
-          'time': 'input',
+          submit: 'button',
+          button: 'button',
+          text: 'input',
+          email: 'input',
+          password: 'input',
+          checkbox: 'input',
+          radio: 'input',
+          file: 'input',
+          hidden: 'input',
+          number: 'input',
+          tel: 'input',
+          url: 'input',
+          search: 'input',
+          date: 'input',
+          time: 'input',
           'datetime-local': 'input',
-          'month': 'input',
-          'week': 'input',
-          'color': 'input',
-          'range': 'input'
+          month: 'input',
+          week: 'input',
+          color: 'input',
+          range: 'input',
+          reset: 'button'
         };
-        
-        const element = typeToElement[typeValue] || 'button';
+
+        let element = typeToElement[typeValue];
+        if (element === undefined) {
+          element = 'button';
+        }
+        // submit/reset can be <input> or <button>; infer tag from the snippet
+        if (typeValue === 'submit' || typeValue === 'reset') {
+          const head = selector.trim();
+          const tagMatch =
+            head.match(/^<\s*(input|button)\b/i) ||
+            head.match(/^(input|button)[\s[/]/i);
+          if (tagMatch) {
+            element = tagMatch[1].toLowerCase();
+          }
+        }
+
         return `${element}[type='${typeValue}']`;
       }
     }
