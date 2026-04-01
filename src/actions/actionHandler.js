@@ -901,12 +901,178 @@ class ActionHandler {
   }
 
   /**
+   * True if pasted text looks like an HTML element (e.g. from DevTools Copy → outerHTML).
+   */
+  looksLikeHtmlElementSnippet(s) {
+    const t = s.trim();
+    if (!t.startsWith('<') || t.startsWith('<!') || t.startsWith('<?')) {
+      return false;
+    }
+    if (/^<\s*\//.test(t)) {
+      return false;
+    }
+    return /^<\s*[a-zA-Z][\w:-]*/.test(t);
+  }
+
+  /**
+   * Parse the opening tag of an HTML snippet and return { tagName, attrs } (attr names lowercased).
+   * Handles quoted values and newlines inside the tag; stops at first > outside quotes.
+   */
+  parseHtmlOpeningTag(html) {
+    const t = html.trim();
+    if (!this.looksLikeHtmlElementSnippet(t)) {
+      return null;
+    }
+    let i = 1;
+    while (i < t.length && /\s/.test(t[i])) {
+      i++;
+    }
+    const nameStart = i;
+    while (i < t.length && /[\w:-]/.test(t[i])) {
+      i++;
+    }
+    if (nameStart === i) {
+      return null;
+    }
+    const tagName = t.slice(nameStart, i).toLowerCase();
+    const attrs = {};
+    while (i < t.length) {
+      while (i < t.length && /\s/.test(t[i])) {
+        i++;
+      }
+      if (t[i] === '>' || (t[i] === '/' && t[i + 1] === '>')) {
+        break;
+      }
+      if (!t[i]) {
+        break;
+      }
+      const attrNameStart = i;
+      while (i < t.length && /[\w.-]/.test(t[i])) {
+        i++;
+      }
+      if (attrNameStart === i) {
+        i++;
+        continue;
+      }
+      const attrName = t.slice(attrNameStart, i).toLowerCase();
+      while (i < t.length && /\s/.test(t[i])) {
+        i++;
+      }
+      if (t[i] !== '=') {
+        attrs[attrName] = '';
+        continue;
+      }
+      i++;
+      while (i < t.length && /\s/.test(t[i])) {
+        i++;
+      }
+      let val = '';
+      if (t[i] === '"') {
+        i++;
+        while (i < t.length && t[i] !== '"') {
+          val += t[i];
+          i++;
+        }
+        if (t[i] === '"') {
+          i++;
+        }
+      } else if (t[i] === "'") {
+        i++;
+        while (i < t.length && t[i] !== "'") {
+          val += t[i];
+          i++;
+        }
+        if (t[i] === "'") {
+          i++;
+        }
+      } else {
+        while (i < t.length && !/[\s>\/]/.test(t[i])) {
+          val += t[i];
+          i++;
+        }
+      }
+      attrs[attrName] = val;
+    }
+    return { tagName, attrs };
+  }
+
+  /**
+   * Build a CSS selector from a pasted HTML element (opening tag).
+   * Priority: data-testid → data-cy → id → name → class (+ tag when it helps).
+   */
+  htmlSnippetToCssSelector(html) {
+    const parsed = this.parseHtmlOpeningTag(html);
+    if (!parsed) {
+      return null;
+    }
+    const { tagName, attrs } = parsed;
+    const escAttr = (name, value) => {
+      if (value == null || value === '') {
+        return null;
+      }
+      if (!/["'\\]/.test(value)) {
+        return `[${name}='${value}']`;
+      }
+      const e = value.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+      return `[${name}="${e}"]`;
+    };
+
+    let sel = null;
+    if (attrs['data-testid']) {
+      sel = escAttr('data-testid', attrs['data-testid']);
+    } else if (attrs['data-cy']) {
+      sel = escAttr('data-cy', attrs['data-cy']);
+    } else if (attrs['id'] != null && String(attrs['id']).length > 0) {
+      sel = this.idValueToCssSelector(attrs['id']);
+    } else if (attrs['name']) {
+      sel = escAttr('name', attrs['name']);
+    } else if (attrs['class']) {
+      const classes = attrs['class']
+        .trim()
+        .split(/\s+/)
+        .filter(Boolean);
+      const simple = classes.filter((c) => /^[a-zA-Z_][\w-]*$/.test(c));
+      if (simple.length === 1) {
+        sel = `.${simple[0]}`;
+      } else if (simple.length > 1) {
+        sel = simple.slice(0, 3).map((c) => `.${c}`).join('');
+      } else if (classes.length) {
+        sel = `[class~='${classes[0].replace(/'/g, "\\'")}']`;
+      }
+    }
+
+    if (!sel) {
+      return null;
+    }
+    const generic = tagName === 'div' || tagName === 'span';
+    // Prefix tag for anchors, buttons, etc.; for div/span only when using class (narrower match)
+    if (tagName && (!generic || sel.startsWith('.'))) {
+      return `${tagName}${sel}`;
+    }
+    return sel;
+  }
+
+  /**
    * Convert HTML attribute format to proper CSS selector
    * Handles common cases where users copy HTML attributes directly
    */
   convertToCSSSelector(selector) {
     if (!selector || typeof selector !== 'string') {
       return selector;
+    }
+
+    const trimmed = selector.trim();
+    // Already a CSS attribute selector on id — normalize to lowercase `id` (matches HTML) and do not re-run id=" parsing on the inner text
+    if (/^\[\s*[iI][dD]\s*=/.test(trimmed)) {
+      return trimmed.replace(/^\[(\s*)[iI][dD](\s*=\s*)/, '[$1id$2');
+    }
+
+    // Whole element paste from DevTools → best CSS selector (id, data-*, class, …)
+    if (this.looksLikeHtmlElementSnippet(trimmed)) {
+      const fromHtml = this.htmlSnippetToCssSelector(trimmed);
+      if (fromHtml) {
+        return fromHtml;
+      }
     }
 
     // Handle type="submit" / type='text' (HTML-ish snippets) -> proper CSS
