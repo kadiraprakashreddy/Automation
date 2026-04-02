@@ -361,17 +361,71 @@
   margin-top: 14px;
 }
 
-.workflow-table-container {
-  overflow-x: auto;
+.steps-card-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   margin-bottom: 14px;
-  border: 1px solid var(--border);
-  border-radius: 11px;
-  background: var(--card);
+}
+
+.step-card {
+  border: 1px solid #e7edf6;
+  border-radius: 12px;
+  background: #ffffff;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+  overflow: hidden;
+}
+
+.step-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 12px;
+  background: #f8fafd;
+  border-bottom: 1px solid #edf1f6;
+}
+
+.step-card-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.step-title-text {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.step-card-actions {
+  display: inline-flex;
+  gap: 6px;
+}
+
+.step-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  padding: 11px 12px;
+}
+
+.step-action-row {
+  margin-bottom: 2px;
+}
+
+.step-action-select {
+  max-width: 230px;
+}
+
+.target-select {
+  max-width: 230px;
 }
 
 .workflow-table {
   width: 100%;
-  border-collapse: collapse;
+  border-collapse: separate;
+  border-spacing: 0 8px;
   font-size: 11px;
   table-layout: fixed;
 }
@@ -412,21 +466,36 @@
 
 .workflow-table td {
   padding: 10px 11px;
-  border-bottom: 1px solid #f0f3f7;
+  border-top: 1px solid #edf1f6;
+  border-bottom: 1px solid #edf1f6;
+  background: #ffffff;
   vertical-align: middle;
   font-size: 11px;
 }
 
-.step-row:nth-child(even) {
+.step-row td:first-child {
+  border-left: 1px solid #edf1f6;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+.step-row td:last-child {
+  border-right: 1px solid #edf1f6;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.step-row:nth-child(even) td {
   background: #fbfcfe;
 }
 
-.step-row:hover {
+.step-row:hover td {
   background: rgba(37, 99, 235, 0.04) !important;
+  border-color: #dbe7fb;
 }
 
 .step-row:last-child td {
-  border-bottom: none;
+  border-bottom: 1px solid #edf1f6;
 }
 
 .step-number {
@@ -441,23 +510,6 @@
   border-radius: 50%;
   font-size: 10px;
   font-weight: 700;
-}
-
-.table-select {
-  width: 100%;
-  padding: 6px 8px;
-  font-size: 11px;
-  height: 32px;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  background: var(--card);
-  color: var(--text);
-}
-
-.table-select:focus {
-  outline: none;
-  border-color: var(--primary);
-  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.12);
 }
 
 .inline-config {
@@ -535,16 +587,6 @@
 
 .checkbox-text {
   font-size: 11px;
-}
-
-.table-actions {
-  display: flex;
-  gap: 6px;
-  justify-content: flex-end;
-}
-
-.col-actions {
-  text-align: right;
 }
 
 .btn-icon {
@@ -804,6 +846,18 @@
 }
 
 @media (max-width: 899px) {
+  .step-card-header {
+    padding: 9px 10px;
+  }
+
+  .step-card-body {
+    padding: 10px;
+  }
+
+  .step-action-select {
+    max-width: none;
+  }
+
   .sidebar-toggle {
     display: inline-flex;
   }

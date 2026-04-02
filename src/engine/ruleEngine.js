@@ -192,9 +192,15 @@ class RuleEngine {
         }
       }
 
-      // Optional delay between steps
-      if (step.delayAfter) {
-        await this.page.waitForTimeout(step.delayAfter);
+      // Delay between steps:
+      // - Step-level delayAfter overrides default
+      // - Else use configured global STEP_DELAY (default 3000 ms)
+      const delayMs =
+        step.delayAfter !== undefined && step.delayAfter !== null && step.delayAfter !== ''
+          ? Number(step.delayAfter)
+          : Number(config.performance.stepDelay || 3000);
+      if (Number.isFinite(delayMs) && delayMs > 0) {
+        await this.page.waitForTimeout(delayMs);
       }
     }
 

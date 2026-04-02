@@ -111,171 +111,172 @@
 
             <div class="workflow-section">
               <h2 class="section-heading">Steps</h2>
-              <div class="workflow-table-container" *ngIf="rule.steps.length > 0">
-                <table class="workflow-table">
-                  <thead>
-                    <tr>
-                      <th class="col-step-id">Step</th>
-                      <th class="col-action-type">Action</th>
-                      <th class="col-input-config">Configuration</th>
-                      <th class="col-actions-head">Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr *ngFor="let step of rule.steps; let i = index" class="step-row">
-                      <td class="col-step-id">
-                        <span class="step-number">{{ i + 1 }}</span>
-                      </td>
-                      <td class="col-action-type">
-                        <select
-                          class="table-select"
-                          [(ngModel)]="step.action"
-                          (change)="onActionChange(step, i)">
-                          <option value="navigate">Navigate</option>
-                          <option value="click">Click</option>
-                          <option value="fill">Input</option>
-                          <option value="wait">Sleep</option>
-                          <option value="screenshot">Screenshot</option>
-                          <option value="validate">Validate</option>
+              <div class="steps-card-list" *ngIf="rule.steps.length > 0">
+                <article *ngFor="let step of rule.steps; let i = index" class="step-card">
+                  <header class="step-card-header">
+                    <div class="step-card-title">
+                      <span class="step-number">{{ i + 1 }}</span>
+                      <span class="step-title-text">Step {{ i + 1 }}</span>
+                    </div>
+                    <div class="step-card-actions">
+                      <button
+                        type="button"
+                        class="btn-icon btn-icon-add"
+                        (click)="addStepAfter(i)"
+                        title="Add step after"
+                        aria-label="Add step after">
+                        <i class="fas fa-plus" aria-hidden="true"></i>
+                      </button>
+                      <button
+                        type="button"
+                        class="btn-icon btn-icon-delete"
+                        (click)="removeStep(i)"
+                        title="Delete step"
+                        aria-label="Delete step">
+                        <i class="fas fa-trash" aria-hidden="true"></i>
+                      </button>
+                    </div>
+                  </header>
+
+                  <div class="step-card-body">
+                    <div class="inline-row step-action-row">
+                      <span class="inline-label">Action</span>
+                      <select
+                        class="inline-select step-action-select"
+                        [(ngModel)]="step.action"
+                        (change)="onActionChange(step, i)">
+                        <option value="navigate">Navigate</option>
+                        <option value="click">Click</option>
+                        <option value="fill">Input</option>
+                        <option value="wait">Sleep</option>
+                        <option value="screenshot">Screenshot</option>
+                        <option value="validate">Validate</option>
+                      </select>
+                    </div>
+
+                    <div *ngIf="step.action === 'navigate'" class="inline-config">
+                      <span class="inline-label">URL</span>
+                      <input type="text" class="inline-input" [(ngModel)]="step.url" placeholder="https://…" />
+                    </div>
+                    <div *ngIf="step.action === 'click'" class="inline-config inline-config-stack">
+                      <div class="inline-row">
+                        <span class="inline-label">Target</span>
+                        <select class="inline-select target-select" [(ngModel)]="step.selectorMode">
+                          <option value="id">Id</option>
+                          <option value="testId">data-testid</option>
+                          <option value="html">Html</option>
+                          <option value="css">CSS</option>
                         </select>
-                      </td>
-                      <td class="col-input-config">
-                        <div *ngIf="step.action === 'navigate'" class="inline-config">
-                          <span class="inline-label">URL</span>
-                          <input type="text" class="inline-input" [(ngModel)]="step.url" placeholder="https://…" />
-                        </div>
-                        <div *ngIf="step.action === 'click'" class="inline-config inline-config-stack">
-                          <div class="inline-row">
-                            <span class="inline-label">Target</span>
-                            <select class="inline-select" [(ngModel)]="step.selectorMode">
-                              <option value="id">Id</option>
-                              <option value="testId">data-testid</option>
-                              <option value="html">Html</option>
-                              <option value="css">CSS</option>
-                            </select>
-                          </div>
-                          <div class="inline-row">
-                            <span class="inline-label">Selector</span>
-                            <input
-                              type="text"
-                              class="inline-input"
-                              [(ngModel)]="step.selector"
-                              [placeholder]="
-                                step.selectorMode === 'testId'
-                                  ? 'e.g. loginButton'
-                                  : step.selectorMode === 'id'
-                                    ? 'e.g. loginButton'
-                                    : step.selectorMode === 'html'
-                                      ? 'Paste full element from DevTools'
-                                      : 'CSS selector'
-                              " />
-                          </div>
-                        </div>
-                        <div *ngIf="step.action === 'fill'" class="inline-config inline-config-stack">
-                          <div class="inline-row">
-                            <span class="inline-label">Target</span>
-                            <select class="inline-select" [(ngModel)]="step.selectorMode">
-                              <option value="id">Id</option>
-                              <option value="testId">data-testid</option>
-                              <option value="html">Html</option>
-                              <option value="css">CSS</option>
-                            </select>
-                          </div>
-                          <div class="inline-row">
-                            <span class="inline-label">Field</span>
-                            <input
-                              type="text"
-                              class="inline-input"
-                              [(ngModel)]="step.selector"
-                              [placeholder]="
-                                step.selectorMode === 'testId'
-                                  ? 'e.g. emailInput'
-                                  : step.selectorMode === 'id'
-                                    ? 'e.g. email'
-                                    : step.selectorMode === 'html'
-                                      ? 'Paste full element from DevTools'
-                                      : 'CSS selector'
-                              " />
-                          </div>
-                          <div class="inline-row">
-                            <span class="inline-label">Value</span>
-                            <input type="text" class="inline-input" [(ngModel)]="step.text" placeholder="Text" />
-                          </div>
-                        </div>
-                        <div *ngIf="step.action === 'wait'" class="inline-config">
-                          <span class="inline-label">Ms</span>
-                          <input type="number" class="inline-input inline-input-narrow" [(ngModel)]="step.duration" placeholder="3000" />
-                        </div>
-                        <div *ngIf="step.action === 'screenshot'" class="inline-config">
-                          <label class="inline-checkbox">
-                            <input type="checkbox" class="checkbox-input" [(ngModel)]="step.fullPage" [id]="'fullPage' + i" />
-                            <span class="checkbox-text">Full page</span>
-                          </label>
-                        </div>
-                        <div *ngIf="step.action === 'validate'" class="inline-config inline-config-stack">
-                          <div class="inline-row">
-                            <span class="inline-label">Type</span>
-                            <select class="inline-select" [(ngModel)]="step.validationType">
-                              <option value="exists">Element exists</option>
-                              <option value="textContains">Text contains</option>
-                              <option value="textEquals">Text equals</option>
-                              <option value="visible">Visible</option>
-                            </select>
-                          </div>
-                          <div class="inline-row">
-                            <span class="inline-label">Target</span>
-                            <select class="inline-select" [(ngModel)]="step.selectorMode">
-                              <option value="id">Id</option>
-                              <option value="testId">data-testid</option>
-                              <option value="html">Html</option>
-                              <option value="css">CSS</option>
-                            </select>
-                          </div>
-                          <div class="inline-row">
-                            <span class="inline-label">Selector</span>
-                            <input
-                              type="text"
-                              class="inline-input"
-                              [(ngModel)]="step.selector"
-                              [placeholder]="
-                                step.selectorMode === 'testId'
-                                  ? 'e.g. loginButton'
-                                  : step.selectorMode === 'id'
-                                    ? 'e.g. loginButton'
-                                    : step.selectorMode === 'html'
-                                      ? 'Paste full element from DevTools'
-                                      : 'CSS selector'
-                              " />
-                          </div>
-                          <div class="inline-row" *ngIf="step.validationType !== 'exists'">
-                            <span class="inline-label">Expected</span>
-                            <input type="text" class="inline-input" [(ngModel)]="step.expectedValue" placeholder="Expected value" />
-                          </div>
-                        </div>
-                      </td>
-                      <td class="col-actions">
-                        <div class="table-actions">
-                          <button
-                            type="button"
-                            class="btn-icon btn-icon-add"
-                            (click)="addStepAfter(i)"
-                            title="Add step after"
-                            aria-label="Add step after">
-                            <i class="fas fa-plus" aria-hidden="true"></i>
-                          </button>
-                          <button
-                            type="button"
-                            class="btn-icon btn-icon-delete"
-                            (click)="removeStep(i)"
-                            title="Delete step"
-                            aria-label="Delete step">
-                            <i class="fas fa-trash" aria-hidden="true"></i>
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+                      </div>
+                      <div class="inline-row">
+                        <span class="inline-label">Selector</span>
+                        <input
+                          type="text"
+                          class="inline-input"
+                          [(ngModel)]="step.selector"
+                          [placeholder]="
+                            step.selectorMode === 'testId'
+                              ? 'e.g. loginButton'
+                              : step.selectorMode === 'id'
+                                ? 'e.g. loginButton'
+                                : step.selectorMode === 'html'
+                                  ? 'Paste full element from DevTools'
+                                  : 'CSS selector'
+                          " />
+                      </div>
+                    </div>
+                    <div *ngIf="step.action === 'fill'" class="inline-config inline-config-stack">
+                      <div class="inline-row">
+                        <span class="inline-label">Target</span>
+                        <select class="inline-select target-select" [(ngModel)]="step.selectorMode">
+                          <option value="id">Id</option>
+                          <option value="testId">data-testid</option>
+                          <option value="html">Html</option>
+                          <option value="css">CSS</option>
+                        </select>
+                      </div>
+                      <div class="inline-row">
+                        <span class="inline-label">Field</span>
+                        <input
+                          type="text"
+                          class="inline-input"
+                          [(ngModel)]="step.selector"
+                          [placeholder]="
+                            step.selectorMode === 'testId'
+                              ? 'e.g. emailInput'
+                              : step.selectorMode === 'id'
+                                ? 'e.g. email'
+                                : step.selectorMode === 'html'
+                                  ? 'Paste full element from DevTools'
+                                  : 'CSS selector'
+                          " />
+                      </div>
+                      <div class="inline-row">
+                        <span class="inline-label">Value</span>
+                        <input type="text" class="inline-input" [(ngModel)]="step.text" placeholder="Text" />
+                      </div>
+                    </div>
+                    <div *ngIf="step.action === 'wait'" class="inline-config">
+                      <span class="inline-label">Seconds</span>
+                      <select class="inline-select step-action-select" [(ngModel)]="step.duration">
+                        <option [ngValue]="3000">3 sec</option>
+                        <option [ngValue]="4000">4 sec</option>
+                        <option [ngValue]="5000">5 sec</option>
+                        <option [ngValue]="6000">6 sec</option>
+                        <option [ngValue]="7000">7 sec</option>
+                        <option [ngValue]="8000">8 sec</option>
+                        <option [ngValue]="9000">9 sec</option>
+                        <option [ngValue]="10000">10 sec</option>
+                      </select>
+                    </div>
+                    <div *ngIf="step.action === 'screenshot'" class="inline-config">
+                      <label class="inline-checkbox">
+                        <input type="checkbox" class="checkbox-input" [(ngModel)]="step.fullPage" [id]="'fullPage' + i" />
+                        <span class="checkbox-text">Full page</span>
+                      </label>
+                    </div>
+                    <div *ngIf="step.action === 'validate'" class="inline-config inline-config-stack">
+                      <div class="inline-row">
+                        <span class="inline-label">Type</span>
+                        <select class="inline-select" [(ngModel)]="step.validationType">
+                          <option value="exists">Element exists</option>
+                          <option value="textContains">Text contains</option>
+                          <option value="textEquals">Text equals</option>
+                          <option value="visible">Visible</option>
+                        </select>
+                      </div>
+                      <div class="inline-row">
+                        <span class="inline-label">Target</span>
+                        <select class="inline-select target-select" [(ngModel)]="step.selectorMode">
+                          <option value="id">Id</option>
+                          <option value="testId">data-testid</option>
+                          <option value="html">Html</option>
+                          <option value="css">CSS</option>
+                        </select>
+                      </div>
+                      <div class="inline-row">
+                        <span class="inline-label">Selector</span>
+                        <input
+                          type="text"
+                          class="inline-input"
+                          [(ngModel)]="step.selector"
+                          [placeholder]="
+                            step.selectorMode === 'testId'
+                              ? 'e.g. loginButton'
+                              : step.selectorMode === 'id'
+                                ? 'e.g. loginButton'
+                                : step.selectorMode === 'html'
+                                  ? 'Paste full element from DevTools'
+                                  : 'CSS selector'
+                          " />
+                      </div>
+                      <div class="inline-row" *ngIf="step.validationType !== 'exists'">
+                        <span class="inline-label">Expected</span>
+                        <input type="text" class="inline-input" [(ngModel)]="step.expectedValue" placeholder="Expected value" />
+                      </div>
+                    </div>
+                  </div>
+                </article>
               </div>
 
               <div class="workflow-footer">

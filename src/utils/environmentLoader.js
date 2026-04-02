@@ -130,7 +130,7 @@ class EnvironmentLoader {
       
       // Performance Settings
       MAX_CONCURRENT_STEPS: parseInt(process.env.MAX_CONCURRENT_STEPS) || 1,
-      STEP_DELAY: parseInt(process.env.STEP_DELAY) || 1000,
+      STEP_DELAY: parseInt(process.env.STEP_DELAY) || 3000,
       RETRY_ATTEMPTS: parseInt(process.env.RETRY_ATTEMPTS) || 3,
       RETRY_DELAY: parseInt(process.env.RETRY_DELAY) || 2000,
       
