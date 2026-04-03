@@ -124,7 +124,14 @@ if (!rules.steps || !Array.isArray(rules.steps)) {
       
       if (action === 'select') {
         if (!step.selector) errors.push(`${stepPrefix}: "select" requires "selector"`);
-        if (!step.value && !step.label && step.index === undefined) {
+        const hasVal = step.value != null && String(step.value).trim() !== '';
+        const hasLab = step.label != null && String(step.label).trim() !== '';
+        const hasIdx =
+          step.index !== undefined &&
+          step.index !== null &&
+          step.index !== '' &&
+          !(typeof step.index === 'number' && Number.isNaN(step.index));
+        if (!hasVal && !hasLab && !hasIdx) {
           errors.push(`${stepPrefix}: "select" requires "value", "label", or "index"`);
         }
       }

@@ -148,6 +148,7 @@
                         <option value="navigate">Navigate</option>
                         <option value="click">Click</option>
                         <option value="fill">Input</option>
+                        <option value="select">Select (dropdown)</option>
                         <option value="wait">Sleep</option>
                         <option value="screenshot">Screenshot</option>
                         <option value="validate">Validate</option>
@@ -216,6 +217,58 @@
                       <div class="inline-row">
                         <span class="inline-label">Value</span>
                         <input type="text" class="inline-input field-value-input" [(ngModel)]="step.text" placeholder="Text" />
+                      </div>
+                    </div>
+                    <div *ngIf="step.action === 'select'" class="inline-config inline-config-stack">
+                      <div class="inline-row">
+                        <span class="inline-label">Target</span>
+                        <select class="inline-select target-select" [(ngModel)]="step.selectorMode">
+                          <option value="id">Id</option>
+                          <option value="testId">data-testid</option>
+                          <option value="html">Html</option>
+                          <option value="css">CSS</option>
+                        </select>
+                      </div>
+                      <div class="inline-row">
+                        <span class="inline-label">&lt;select&gt;</span>
+                        <input
+                          type="text"
+                          class="inline-input"
+                          [ngClass]="step.selectorMode === 'html' ? 'selector-input-full' : 'field-value-input'"
+                          [(ngModel)]="step.selector" />
+                      </div>
+                      <div class="inline-row">
+                        <span class="inline-label">Option</span>
+                        <select
+                          class="inline-select target-select"
+                          [(ngModel)]="step.selectBy"
+                          (change)="onSelectByChange(step)">
+                          <option value="value">By value</option>
+                          <option value="label">By label</option>
+                          <option value="index">By index</option>
+                        </select>
+                      </div>
+                      <div class="inline-row" *ngIf="step.selectBy === 'value'">
+                        <span class="inline-label">Value</span>
+                        <input
+                          type="text"
+                          class="inline-input field-value-input"
+                          [(ngModel)]="step.value" />
+                      </div>
+                      <div class="inline-row" *ngIf="step.selectBy === 'label'">
+                        <span class="inline-label">Label</span>
+                        <input
+                          type="text"
+                          class="inline-input field-value-input"
+                          [(ngModel)]="step.label" />
+                      </div>
+                      <div class="inline-row" *ngIf="step.selectBy === 'index'">
+                        <span class="inline-label">Index</span>
+                        <input
+                          type="number"
+                          class="inline-input field-value-input"
+                          [(ngModel)]="step.index"
+                          min="0" />
                       </div>
                     </div>
                     <div *ngIf="step.action === 'wait'" class="inline-config">

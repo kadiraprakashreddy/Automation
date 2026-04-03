@@ -573,28 +573,120 @@ class ActionHandler {
   }
 
   /**
-   * Select an option from a dropdown
+   * Select an option from a native &lt;select&gt;. Same selector modes as fill/click: testId, id, html (&lt;select&gt; paste), css.
    */
   async select(step) {
-    const { selector, value, label, index, highlight = true } = step;
-    
-    // Highlight element before selecting if enabled
-    if (highlight) {
-      await this.highlightElement(selector);
-    }
-    
-    let result;
-    if (value) {
-      result = await this.page.selectOption(selector, { value });
-    } else if (label) {
-      result = await this.page.selectOption(selector, { label });
-    } else if (index !== undefined) {
-      result = await this.page.selectOption(selector, { index });
+    const { value, label, index, highlight = true } = step;
+    const raw = typeof step.selector === 'string' ? step.selector.trim() : step.selector;
+    const mode = this.normalizeSelectorMode(step.selectorMode);
+    const timeout = step.timeout || config.timeouts.default;
+
+    let optionPayload = null;
+    if (value !== undefined && value !== null && String(value).trim() !== '') {
+      optionPayload = { value: String(value) };
+    } else if (label !== undefined && label !== null && String(label).trim() !== '') {
+      optionPayload = { label: String(label).trim() };
+    } else if (index !== undefined && index !== null && index !== '') {
+      const n = typeof index === 'number' ? index : parseInt(String(index), 10);
+      if (Number.isNaN(n)) {
+        throw new Error('Select action index must be a number');
+      }
+      optionPayload = { index: n };
     } else {
       throw new Error('Select action requires value, label, or index');
     }
-    
-    return { selector, selected: result };
+
+    if (mode === 'testid') {
+      if (!raw) {
+        throw new Error('selector (data-testid value) is required');
+      }
+      const loc = this.page.getByTestId(raw);
+      const c = await loc.count();
+      if (c === 0) {
+        throw new Error(`No element with data-testid="${raw}"`);
+      }
+      if (c > 1) {
+        logger.warn(`data-testid="${raw}" matched ${c} elements; selecting in first <select>.`);
+      }
+      logger.info(`Select by data-testid="${raw}"`);
+      if (highlight) {
+        await this.highlightLocator(loc);
+      }
+      const result = await loc.first().selectOption(optionPayload, { timeout });
+      return { selector: raw, selected: result, selectorMode: 'testId', matchedBy: 'data-testid' };
+    }
+
+    if (mode === 'id') {
+      if (!raw) {
+        throw new Error('selector (id value) is required');
+      }
+      const css = this.idValueToCssSelector(raw);
+      logger.info(`Select by id="${raw}"`);
+      if (highlight) {
+        await this.highlightElement(css);
+      }
+      const result = await this.page.selectOption(css, optionPayload, { timeout });
+      return { selector: raw, selected: result, selectorMode: 'id', matchedBy: 'id' };
+    }
+
+    const useHtml =
+      mode === 'html' ||
+      (mode === 'auto' && raw && this.looksLikeHtmlElementSnippet(raw));
+
+    if (useHtml) {
+      if (mode === 'html' && (!raw || !this.looksLikeHtmlElementSnippet(raw))) {
+        throw new Error('Html target mode requires pasted HTML starting with <tag');
+      }
+      const parsed = this.parseHtmlOpeningTag(raw);
+      const wanted = this.wantedAttrsFromParsed(parsed);
+      if (!wanted || Object.keys(wanted).length === 0) {
+        if (mode === 'html') {
+          throw new Error('Html target mode requires an opening tag with at least one attribute');
+        }
+      } else {
+        const tag = parsed.tagName;
+        if (tag !== 'select') {
+          throw new Error(
+            `Select action with pasted HTML must target a <select> element, not <${tag}>. Paste the <select> tag or use CSS / id to point at the dropdown.`
+          );
+        }
+        const n = await this.countElementsMatchingPastedAttrs(tag, wanted);
+        if (n === 0) {
+          throw new Error(
+            `No element matched pasted <${tag}> with attributes: ${Object.keys(wanted).join(', ')}`
+          );
+        }
+        if (n > 1) {
+          logger.warn(`Pasted HTML matched ${n} <select> elements; using the first.`);
+        }
+        logger.info(
+          `Select by pasted HTML: <${tag}> (${Object.keys(wanted).length} attribute(s), exact match)`
+        );
+        const handle = await this.findFirstElementHandleMatchingPastedAttrs(tag, wanted);
+        if (!handle) {
+          throw new Error('Could not resolve element for pasted HTML');
+        }
+        try {
+          if (highlight) {
+            await this.highlightElementHandle(handle);
+          }
+          const result = await handle.selectOption(optionPayload, { timeout });
+          return { selector: raw, selected: result, selectorMode: 'html', matchedBy: 'html-paste' };
+        } finally {
+          await this.safeDisposeHandle(handle);
+        }
+      }
+    }
+
+    const convertedSelector = this.resolveStepSelector(step.selector);
+    if (convertedSelector !== step.selector) {
+      logger.info(`Selector converted: "${step.selector}" -> "${convertedSelector}"`);
+    }
+    if (highlight) {
+      await this.highlightElement(convertedSelector);
+    }
+    const result = await this.page.selectOption(convertedSelector, optionPayload, { timeout });
+    return { selector: convertedSelector, selected: result, selectorMode: 'css' };
   }
 
   /**

@@ -61,10 +61,23 @@ export class RuleBuilderComponent implements OnInit {
       project: rule.project || rule.version || '',
       browser: rule.browser || 'chromium',
       created: rule.created || '',
-      steps: (rule.steps || []).map((s: any) => ({
-        ...s,
-        selectorMode: s.selectorMode || 'css'
-      }))
+      steps: (rule.steps || []).map((s: any) => {
+        const step = { ...s, selectorMode: s.selectorMode || 'css' };
+        if (step.action === 'select') {
+          if (step.label != null && String(step.label).trim() !== '') {
+            step.selectBy = 'label';
+          } else if (
+            step.index !== undefined &&
+            step.index !== null &&
+            step.index !== ''
+          ) {
+            step.selectBy = 'index';
+          } else {
+            step.selectBy = 'value';
+          }
+        }
+        return step;
+      })
     };
 
     // If no steps, add a default one
@@ -94,6 +107,20 @@ export class RuleBuilderComponent implements OnInit {
     this.setDefaultProperties(step);
   }
 
+  /** Keep a single option field (value | label | index) for select steps. */
+  onSelectByChange(step: any) {
+    if (step.selectBy === 'value') {
+      delete step.label;
+      delete step.index;
+    } else if (step.selectBy === 'label') {
+      delete step.value;
+      delete step.index;
+    } else {
+      delete step.value;
+      delete step.label;
+    }
+  }
+
   clearStepProperties(step: any) {
     delete step.url;
     delete step.selector;
@@ -104,6 +131,10 @@ export class RuleBuilderComponent implements OnInit {
     delete step.validationType;
     delete step.expectedValue;
     delete step.script;
+    delete step.value;
+    delete step.label;
+    delete step.index;
+    delete step.selectBy;
   }
 
   setDefaultProperties(step: any) {
@@ -119,6 +150,14 @@ export class RuleBuilderComponent implements OnInit {
         step.selector = '';
         step.selectorMode = 'css';
         step.text = '';
+        break;
+      case 'select':
+        step.selector = '';
+        step.selectorMode = 'css';
+        step.selectBy = 'value';
+        step.value = '';
+        delete step.label;
+        delete step.index;
         break;
       case 'wait':
         step.duration = 3000;
