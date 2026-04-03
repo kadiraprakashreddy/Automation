@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Router } from '@angular/router';
@@ -27,6 +27,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   /** Narrow viewport: drawer sidebar + backdrop */
   isNarrowLayout = false;
   env = environment;
+  progressByRule: Record<string, { percent: number; currentStep: number; totalSteps: number; status: string }> = {};
 
   /** Session run outcomes from WebSocket exit lines */
   stats = { pass: 0, fail: 0, flaky: 0 };
@@ -34,7 +35,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
   constructor(
     private automationService: AutomationService,
     private router: Router,
-    private ruleEditService: RuleEditService
+    private ruleEditService: RuleEditService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
@@ -49,6 +51,17 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.automationService.connectWebSocket();
     this.automationService.getLogs().subscribe({
       next: (log) => {
+        if (log?.type === 'progress' && log?.fileName) {
+          this.progressByRule[log.fileName] = {
+            percent: Number(log.percent || 0),
+            currentStep: Number(log.currentStep || 0),
+            totalSteps: Number(log.totalSteps || 0),
+            status: (log.status || 'running').toString()
+          };
+          this.cdr.markForCheck();
+          return;
+        }
+        this.applyProgressFromEmbeddedLogLine(log);
         this.logs.push(log);
         this.ingestLogForStats(log);
         setTimeout(() => {
@@ -68,7 +81,19 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   loadRunningAutomations() {
     this.automationService.getRunningRules().subscribe({
-      next: (running) => this.runningAutomations = running,
+      next: (running) => {
+        this.runningAutomations = running;
+        for (const run of running) {
+          if (!run?.fileName) continue;
+          this.progressByRule[run.fileName] = {
+            percent: Number(run.percent || 0),
+            currentStep: Number(run.currentStep || 0),
+            totalSteps: Number(run.totalSteps || 0),
+            status: (run.status || 'running').toString()
+          };
+        }
+        this.cdr.markForCheck();
+      },
       error: (error) => console.error('Error loading running automations:', error)
     });
   }
@@ -271,6 +296,48 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   isRuleRunning(fileName: string): boolean {
     return this.runningAutomations.some(automation => automation.fileName === fileName);
+  }
+
+  getRuleProgress(fileName: string): { percent: number; currentStep: number; totalSteps: number; status: string } {
+    return this.progressByRule[fileName] || { percent: 0, currentStep: 0, totalSteps: 0, status: 'idle' };
+  }
+
+  /**
+   * Fallback: progress is embedded in info log lines as [AUTOMATION_PROGRESS] {...}
+   * (stdout chunking previously broke server-side-only parsing.)
+   */
+  private applyProgressFromEmbeddedLogLine(log: { fileName?: string; message?: string; type?: string }): void {
+    const fileName = log?.fileName;
+    if (!fileName || log.type === 'progress') {
+      return;
+    }
+    const raw = String(log.message || '');
+    const clean = raw.replace(/\u001b\[[0-9;]*m/gi, '');
+    const marker = '[AUTOMATION_PROGRESS]';
+    const idx = clean.indexOf(marker);
+    if (idx === -1) {
+      return;
+    }
+    let jsonPart = clean.slice(idx + marker.length).trim();
+    const braceMatch = clean.match(/\[AUTOMATION_PROGRESS\]\s*(\{[\s\S]*\})/);
+    if (braceMatch) {
+      jsonPart = braceMatch[1];
+    }
+    try {
+      const p = JSON.parse(jsonPart);
+      if (typeof p.completed === 'number' && typeof p.total === 'number' && p.total > 0) {
+        const pct = Math.round((p.completed / p.total) * 100);
+        this.progressByRule[fileName] = {
+          percent: Math.max(0, Math.min(100, pct)),
+          currentStep: p.completed,
+          totalSteps: p.total,
+          status: 'running'
+        };
+        this.cdr.markForCheck();
+      }
+    } catch {
+      /* ignore */
+    }
   }
 
   ngOnDestroy() {

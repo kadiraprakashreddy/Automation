@@ -152,6 +152,9 @@ class RuleEngine {
       results: []
     };
 
+    const totalEnabledSteps = rules.steps.filter((s) => s.enabled !== false).length;
+    let completedEnabledSteps = 0;
+
     for (const step of rules.steps) {
       // Default enabled to true if not specified
       const enabled = step.enabled !== undefined ? step.enabled : true;
@@ -191,6 +194,15 @@ class RuleEngine {
           break;
         }
       }
+
+      completedEnabledSteps++;
+      logger.info(
+        `[AUTOMATION_PROGRESS] ${JSON.stringify({
+          completed: completedEnabledSteps,
+          total: totalEnabledSteps,
+          stepId: step.stepId
+        })}`
+      );
 
       // Delay between steps:
       // - Step-level delayAfter overrides default

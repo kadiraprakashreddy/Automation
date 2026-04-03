@@ -40,6 +40,82 @@ function broadcast(data) {
   });
 }
 
+function stripAnsi(str) {
+  return String(str).replace(/\u001b\[[0-9;]*m/gi, '');
+}
+
+/**
+ * Apply one stdout line: broadcast as log + update progress state when applicable.
+ * @returns {boolean} true if progress counters changed
+ */
+function applyStdoutLineForProgress(trimmedLine, progressState) {
+  if (!trimmedLine) return false;
+  const clean = stripAnsi(trimmedLine);
+  const marker = '[AUTOMATION_PROGRESS]';
+  const idx = clean.indexOf(marker);
+  if (idx !== -1) {
+    let jsonPart = clean.slice(idx + marker.length).trim();
+    const braceMatch = clean.match(/\[AUTOMATION_PROGRESS\]\s*(\{[\s\S]*\})\s*$/);
+    if (braceMatch) {
+      jsonPart = braceMatch[1];
+    }
+    try {
+      const p = JSON.parse(jsonPart);
+      if (typeof p.completed === 'number' && typeof p.total === 'number') {
+        progressState.completedSteps = p.completed;
+        progressState.currentStep = p.completed;
+        progressState.totalSteps = p.total;
+        return true;
+      }
+    } catch (e) {
+      /* incomplete JSON until next chunk — line buffering fixes this */
+    }
+    return false;
+  }
+  let changed = false;
+  if (/Executing Step .*:/.test(clean)) {
+    progressState.currentStep = Math.min(progressState.completedSteps + 1, progressState.totalSteps || 1);
+    changed = true;
+  } else if (/Step .* completed successfully/.test(clean)) {
+    progressState.completedSteps = Math.min(
+      progressState.completedSteps + 1,
+      progressState.totalSteps || progressState.completedSteps + 1
+    );
+    progressState.currentStep = Math.min(
+      progressState.completedSteps + 1,
+      progressState.totalSteps || progressState.completedSteps
+    );
+    changed = true;
+  } else if (/Step .* failed:/.test(clean)) {
+    progressState.completedSteps = Math.min(
+      progressState.completedSteps + 1,
+      progressState.totalSteps || progressState.completedSteps + 1
+    );
+    progressState.status = 'failed';
+    changed = true;
+  }
+  return changed;
+}
+
+function broadcastProgress(processInfo) {
+  if (!processInfo) return;
+  const total = Number(processInfo.totalSteps || 0);
+  const completed = Number(processInfo.completedSteps || 0);
+  const current = Number(processInfo.currentStep || 0);
+  const percent = total > 0 ? Math.max(0, Math.min(100, Math.round((completed / total) * 100))) : 0;
+  broadcast({
+    type: 'progress',
+    timestamp: new Date().toLocaleTimeString(),
+    runId: processInfo.runId,
+    fileName: processInfo.fileName,
+    currentStep: current,
+    completedSteps: completed,
+    totalSteps: total,
+    percent,
+    status: processInfo.status || 'running'
+  });
+}
+
 // API endpoint to serve environment configuration
 app.get('/api/config', (req, res) => {
   try {
@@ -172,6 +248,12 @@ app.post('/api/run/:fileName', (req, res) => {
       return res.status(409).json({ error: 'Rule is already running' });
     }
     
+    // Read rule to know total steps for progress reporting
+    const ruleRaw = fs.readFileSync(rulePath, 'utf8');
+    const ruleJson = JSON.parse(ruleRaw);
+    const steps = Array.isArray(ruleJson.steps) ? ruleJson.steps : [];
+    const totalSteps = steps.filter(step => step?.enabled !== false).length;
+
     // Spawn the Node.js automation process
     const projectRoot = path.resolve(process.env.PROJECT_ROOT || path.join(__dirname, '..'));
     const automationScript = path.resolve(process.env.AUTOMATION_SCRIPT || path.join(projectRoot, 'src', 'index.js'));
@@ -188,16 +270,47 @@ app.post('/api/run/:fileName', (req, res) => {
     // Create unique run ID
     const runId = `${fileName}-${Date.now()}`;
     
+    const progressState = {
+      process: automationProcess,
+      runId: runId,
+      startTime: new Date(),
+      fileName: fileName,
+      totalSteps,
+      currentStep: 0,
+      completedSteps: 0,
+      status: 'running'
+    };
+
+    // Buffer stdout so lines are not split across chunks (fixes [AUTOMATION_PROGRESS] JSON parse + WS progress)
+    let stdoutLineBuffer = '';
+
     // Handle process output
     automationProcess.stdout.on('data', (data) => {
-      const log = {
-        type: 'info',
-        message: data.toString().trim(),
-        timestamp: new Date().toLocaleTimeString(),
-        runId: runId,
-        fileName: fileName
-      };
-      broadcast(log);
+      stdoutLineBuffer += data.toString();
+      const parts = stdoutLineBuffer.split(/\r?\n/);
+      stdoutLineBuffer = parts.pop() ?? '';
+
+      let progressChanged = false;
+      for (const line of parts) {
+        const trimmed = line.trim();
+        if (!trimmed) continue;
+
+        const log = {
+          type: 'info',
+          message: trimmed,
+          timestamp: new Date().toLocaleTimeString(),
+          runId: runId,
+          fileName: fileName
+        };
+        broadcast(log);
+
+        if (applyStdoutLineForProgress(trimmed, progressState)) {
+          progressChanged = true;
+        }
+      }
+      if (progressChanged) {
+        broadcastProgress(progressState);
+      }
     });
     
     automationProcess.stderr.on('data', (data) => {
@@ -212,6 +325,27 @@ app.post('/api/run/:fileName', (req, res) => {
     });
     
     automationProcess.on('close', (code) => {
+      if (stdoutLineBuffer.trim()) {
+        const trimmed = stdoutLineBuffer.trim();
+        stdoutLineBuffer = '';
+        const log = {
+          type: 'info',
+          message: trimmed,
+          timestamp: new Date().toLocaleTimeString(),
+          runId: runId,
+          fileName: fileName
+        };
+        broadcast(log);
+        if (applyStdoutLineForProgress(trimmed, progressState)) {
+          broadcastProgress(progressState);
+        }
+      }
+
+      progressState.status = code === 0 ? 'success' : 'failed';
+      progressState.currentStep = progressState.totalSteps;
+      progressState.completedSteps = progressState.totalSteps;
+      broadcastProgress(progressState);
+
       const log = {
         type: code === 0 ? 'success' : 'error',
         message: `Process exited with code ${code}`,
@@ -226,12 +360,8 @@ app.post('/api/run/:fileName', (req, res) => {
     });
     
     // Store process reference
-    runningProcesses.set(fileName, {
-      process: automationProcess,
-      runId: runId,
-      startTime: new Date(),
-      fileName: fileName
-    });
+    runningProcesses.set(fileName, progressState);
+    broadcastProgress(progressState);
     
     res.json({ 
       message: 'Automation started', 
@@ -291,7 +421,15 @@ app.get('/api/running', (req, res) => {
         fileName: fileName,
         runId: processInfo.runId,
         startTime: processInfo.startTime,
-        pid: processInfo.process.pid
+        pid: processInfo.process.pid,
+        totalSteps: processInfo.totalSteps || 0,
+        currentStep: processInfo.currentStep || 0,
+        completedSteps: processInfo.completedSteps || 0,
+        percent:
+          processInfo.totalSteps > 0
+            ? Math.max(0, Math.min(100, Math.round(((processInfo.completedSteps || 0) / processInfo.totalSteps) * 100)))
+            : 0,
+        status: processInfo.status || 'running'
       });
     }
     res.json(running);

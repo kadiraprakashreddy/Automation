@@ -560,7 +560,7 @@
 .table-head,
 .table-row {
   display: grid;
-  grid-template-columns: 2.2fr 1fr 1fr 0.75fr 1fr 0.9fr 0.9fr 1.35fr;
+  grid-template-columns: 2.2fr 1fr 1fr 0.75fr 1fr 0.9fr 1.35fr;
   align-items: center;
   gap: 6px;
   min-width: 576px;
@@ -631,6 +631,10 @@
 
 .cell-progress {
   min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
 }
 
 .progress-bar {
@@ -651,6 +655,11 @@
 .progress-idle {
   width: 100%;
   background: linear-gradient(90deg, #eef2f7 0%, #f8fafc 100%);
+}
+
+.progress-text {
+  font-size: 10px;
+  color: var(--muted);
 }
 
 .col-actions {
@@ -856,15 +865,13 @@
 
   .table-head span:nth-child(4),
   .table-head span:nth-child(5),
-  .table-head span:nth-child(6),
-  .table-head span:nth-child(7) {
+  .table-head span:nth-child(6) {
     display: none;
   }
 
   .table-row > div:nth-child(4),
   .table-row > div:nth-child(5),
-  .table-row > div:nth-child(6),
-  .table-row > div:nth-child(7) {
+  .table-row > div:nth-child(6) {
     display: none;
   }
 

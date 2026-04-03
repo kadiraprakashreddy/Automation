@@ -162,7 +162,6 @@
             <span>Progress</span>
             <span>Steps</span>
             <span>State</span>
-            <span>Version</span>
             <span>Browser</span>
             <span class="col-actions">Actions</span>
           </div>
@@ -177,21 +176,22 @@
             </div>
             <div class="cell-muted">{{ rule.project || rule.version || '—' }}</div>
             <div class="cell-progress">
-              <div class="progress-bar" *ngIf="isRuleRunning(rule.fileName)" title="Running">
-                <span class="progress-pass" style="width: 100%"></span>
+              <div class="progress-bar" *ngIf="isRuleRunning(rule.fileName)" [title]="getRuleProgress(rule.fileName).currentStep + ' / ' + getRuleProgress(rule.fileName).totalSteps">
+                <span class="progress-pass" [style.width.%]="getRuleProgress(rule.fileName).percent"></span>
               </div>
               <div class="progress-bar" *ngIf="!isRuleRunning(rule.fileName)">
                 <span class="progress-idle"></span>
               </div>
+              <small class="progress-text" *ngIf="isRuleRunning(rule.fileName)">
+                {{ getRuleProgress(rule.fileName).currentStep }}/{{ getRuleProgress(rule.fileName).totalSteps }}
+                ({{ getRuleProgress(rule.fileName).percent }}%)
+              </small>
             </div>
             <div>{{ stepCount(rule) }}</div>
             <div>
               <span class="badge badge-state" [class.running]="isRuleRunning(rule.fileName)">
                 {{ isRuleRunning(rule.fileName) ? 'Running' : 'Ready' }}
               </span>
-            </div>
-            <div>
-              <span class="badge badge-soft">{{ rule.version || env.projectVersion || '1.0' }}</span>
             </div>
             <div>
               <span class="badge badge-soft">{{ rule.browser || browserBadge }}</span>
