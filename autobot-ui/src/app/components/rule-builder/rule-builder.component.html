@@ -173,6 +173,7 @@
                         <input
                           type="text"
                           class="inline-input"
+                          [ngClass]="step.selectorMode === 'html' ? 'selector-input-full' : 'field-value-input'"
                           [(ngModel)]="step.selector"
                           [placeholder]="
                             step.selectorMode === 'testId'
@@ -200,6 +201,7 @@
                         <input
                           type="text"
                           class="inline-input"
+                          [ngClass]="step.selectorMode === 'html' ? 'selector-input-full' : 'field-value-input'"
                           [(ngModel)]="step.selector"
                           [placeholder]="
                             step.selectorMode === 'testId'
@@ -213,7 +215,7 @@
                       </div>
                       <div class="inline-row">
                         <span class="inline-label">Value</span>
-                        <input type="text" class="inline-input" [(ngModel)]="step.text" placeholder="Text" />
+                        <input type="text" class="inline-input field-value-input" [(ngModel)]="step.text" placeholder="Text" />
                       </div>
                     </div>
                     <div *ngIf="step.action === 'wait'" class="inline-config">
@@ -259,6 +261,7 @@
                         <input
                           type="text"
                           class="inline-input"
+                          [ngClass]="step.selectorMode === 'html' ? 'selector-input-full' : 'field-value-input'"
                           [(ngModel)]="step.selector"
                           [placeholder]="
                             step.selectorMode === 'testId'

@@ -410,16 +410,30 @@
   padding: 11px 12px;
 }
 
+.step-card-body .inline-config-stack .inline-row {
+  width: 100%;
+}
+
 .step-action-row {
   margin-bottom: 2px;
 }
 
 .step-action-select {
+  width: 230px;
   max-width: 230px;
+  flex: 0 0 230px;
 }
 
 .target-select {
+  width: 230px;
   max-width: 230px;
+  flex: 0 0 230px;
+}
+
+.field-value-input {
+  width: 230px;
+  max-width: 230px;
+  flex: 0 0 230px;
 }
 
 .workflow-table {
@@ -567,6 +581,23 @@
 
 .inline-select {
   flex: 1 1 140px;
+}
+
+.inline-input.field-value-input,
+.inline-select.step-action-select,
+.inline-select.target-select {
+  width: 230px;
+  min-width: 230px;
+  max-width: 230px;
+  flex: 0 0 230px;
+}
+
+/* Html paste: full-width selector field (long snippets) */
+.step-card-body .inline-row .inline-input.selector-input-full {
+  width: auto;
+  min-width: 0;
+  max-width: none;
+  flex: 1 1 auto;
 }
 
 .inline-checkbox {
