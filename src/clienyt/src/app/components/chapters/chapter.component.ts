@@ -1,7 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, Input } from '@angular/core';
 import { ChapterInterface } from '../../models/chapter.interface';
 import { ParagraphComponent } from '../paragraph/paragraph.component';
-import { CUSTOM_ELEMENT_SCHEMAS } from '../../custom-elements.schema';
 
 /**
  * @copyright 2020-2022, FMR LLC
@@ -13,8 +13,9 @@ import { CUSTOM_ELEMENT_SCHEMAS } from '../../custom-elements.schema';
     selector: 'app-chapter',
     templateUrl: './chapter.component.html',
     styleUrls: ['./chapter.component.scss'],
-    imports: [ParagraphComponent],
-    schemas: CUSTOM_ELEMENT_SCHEMAS
+    standalone: true,
+    imports: [CommonModule, ParagraphComponent],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class ChapterComponent {
 

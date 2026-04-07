@@ -1,29 +1,31 @@
-import { ApplicationConfig, importProvidersFrom } from '@angular/core';
-import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { ApplicationConfig, importProvidersFrom, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter, withHashLocation } from '@angular/router';
-import { PvdDirectivesModule } from '@fmr-ap109253/providence-angular-directives';
+import { provideHttpClient, withInterceptorsFromDi, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule } from '@angular/forms';
 import {
-    FciHeaderStatusInterceptor,
-    GlobalInterceptor
-} from '@fmr-ap123285/angular-utils';
-import { SparkNavbarModule } from '@fmr-ap137030/spark-navbar';
-import {
-    injectSpriteSheet,
-    PvdAlert,
-    PvdButton,
-    PvdExpandCollapse,
-    PvdFieldGroup,
-    PvdFootnote,
-    PvdFootnotes,
-    PvdIcon,
-    PvdLabel,
-    PvdLink,
-    PvdSelect,
-    PvdSpinner,
-    PvdTitle
+    injectSpriteSheet, PvdButton, PvdTitle, PvdFieldGroup, PvdSelect, PvdLink, PvdIcon, PvdLabel, PvdFootnotes,
+    PvdFootnote, PvdAlert, PvdExpandCollapse, PvdSpinner
 } from '@fmr-ap109253/providence';
-import { LibraryService } from './services/library.service';
+import { PvdDirectivesModule } from '@fmr-ap109253/providence-angular-directives';
+import { SparkNavbarModule } from '@fmr-ap137030/spark-navbar';
+import { AngularUtilsModule, FciHeaderStatusInterceptor, GlobalInterceptor } from '@fmr-ap123285/angular-utils';
+import { VideoModule } from '@fmr-ap137030/video-component';
 import { routes } from './app.routes';
+import { LibraryService } from './services/library.service';
+
+const allHttpInterceptorProviders = [
+  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: GlobalInterceptor,
+    multi: true
+  },
+  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: FciHeaderStatusInterceptor,
+    multi: true
+  }
+];
 
 injectSpriteSheet();
 PvdTitle.defineCustomElement();
@@ -40,21 +42,20 @@ PvdExpandCollapse.defineCustomElement();
 PvdSpinner.defineCustomElement();
 
 export const appConfig: ApplicationConfig = {
-    providers: [
-        provideRouter(routes, withHashLocation()),
-        provideHttpClient(withInterceptorsFromDi()),
-        importProvidersFrom(PvdDirectivesModule, SparkNavbarModule),
-        { provide: 'Window', useValue: window },
-        LibraryService,
-        {
-            provide: HTTP_INTERCEPTORS,
-            useClass: GlobalInterceptor,
-            multi: true
-        },
-        {
-            provide: HTTP_INTERCEPTORS,
-            useClass: FciHeaderStatusInterceptor,
-            multi: true
-        }
-    ]
+  providers: [
+    provideZoneChangeDetection({ eventCoalescing: true }),
+    provideRouter(routes, withHashLocation()),
+    provideHttpClient(withInterceptorsFromDi()),
+    { provide: 'Window', useValue: window },
+    LibraryService,
+    ...allHttpInterceptorProviders,
+    importProvidersFrom(
+      BrowserAnimationsModule,
+      FormsModule,
+      PvdDirectivesModule,
+      SparkNavbarModule,
+      AngularUtilsModule,
+      VideoModule
+    )
+  ]
 };

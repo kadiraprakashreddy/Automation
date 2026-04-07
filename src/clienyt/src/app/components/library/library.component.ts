@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { NgClass } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit } from '@angular/core';
 import { LibraryService } from '../../services/library.service';
 import { OverviewContentInterface } from '../../models/overviewContent.interface';
 import { TocInterface } from '../../models/toc.interface';
@@ -10,8 +9,10 @@ import { FAILURE_MSG, FAILURE_MSG_TITLE } from '../../constants/library.constant
 import { FdAnalyticsService, FdWindowService } from '@fmr-ap123285/angular-utils';
 import { ActivatedRoute } from '@angular/router';
 import { NavbarContext } from '@fmr-ap137030/spark-navbar';
+import { FormsModule } from '@angular/forms';
+import { PvdDirectivesModule } from '@fmr-ap109253/providence-angular-directives';
+import { SparkNavbarModule } from '@fmr-ap137030/spark-navbar';
 import { ChapterComponent } from '../chapters/chapter.component';
-import { CUSTOM_ELEMENT_SCHEMAS } from '../../custom-elements.schema';
 /**
  * @copyright 2020-2022, FMR LLC
  * @file Parent component for Help and Learning
@@ -22,8 +23,9 @@ import { CUSTOM_ELEMENT_SCHEMAS } from '../../custom-elements.schema';
     selector: 'app-library',
     templateUrl: './library.component.html',
     styleUrls: ['./library.component.scss'],
-    imports: [NgClass, FormsModule, ChapterComponent],
-    schemas: CUSTOM_ELEMENT_SCHEMAS
+    standalone: true,
+    imports: [CommonModule, FormsModule, PvdDirectivesModule, SparkNavbarModule, ChapterComponent],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class LibraryComponent implements OnInit {
 
@@ -207,10 +209,6 @@ export class LibraryComponent implements OnInit {
      * @param chapterContent: used for providing chapter title
      */
     public callAnalytics(chapterContent: ChapterInterface) {
-        const bootstrapper = this.fdWindowService.getWindow()?.Bootstrapper;
-        if (typeof bootstrapper?._trackAnalytics !== 'function') {
-            return;
-        }
         const chapterTitle = chapterContent.title ? chapterContent.title : 'no chapter title found';
         this.fdAnalyticsService.submitAnalytics({
             /* eslint-disable */
