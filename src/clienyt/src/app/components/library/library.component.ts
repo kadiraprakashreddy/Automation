@@ -207,6 +207,10 @@ export class LibraryComponent implements OnInit {
      * @param chapterContent: used for providing chapter title
      */
     public callAnalytics(chapterContent: ChapterInterface) {
+        const bootstrapper = this.fdWindowService.getWindow()?.Bootstrapper;
+        if (typeof bootstrapper?._trackAnalytics !== 'function') {
+            return;
+        }
         const chapterTitle = chapterContent.title ? chapterContent.title : 'no chapter title found';
         this.fdAnalyticsService.submitAnalytics({
             /* eslint-disable */
