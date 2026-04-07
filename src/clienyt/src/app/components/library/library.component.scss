@@ -33,7 +33,7 @@ $page-loading-indicator-padding: 3.75rem;
 }
 
 .page-header {
-    margin-bottom: $pvd-space-utility-two-x; //40px
+    margin-bottom: $pvd-space-utility-two-x; // 40px
 }
 
 .primary-container {
@@ -53,6 +53,7 @@ $page-loading-indicator-padding: 3.75rem;
 .operations-guide {
     display: block;
     padding: $pvd-space-utility-one-and-half-x;
+
     @include pvd-breakpoint(at-512) {
         padding: $pvd-space-utility-one-and-half-x;
     }

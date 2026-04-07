@@ -25,7 +25,8 @@
 }
 
 .operations-guide__expandcollapse-desc {
-    @include pvd-text-medium();
+    @include pvd-text-medium;
+
     margin-bottom: $pvd-space-utility-one-and-half-x;
 
     &:last-child {
@@ -35,11 +36,13 @@
     ul {
         @include pvd-box-sizing;
         @include pvd-text-medium;
+
         display: block;
         line-height: 1.5;
         margin: 0;
         margin-top: 0.5rem;
         padding: 0;
+
         @include pvd-list-group-inline-breakpoint-styles {
             display: flex;
 
@@ -66,7 +69,8 @@
                 @include pvd-list-group-responsive-margin-top($pvd-font-size-text-medium-default,
                 $pvd-font-size-text-medium-at-512,
                 $pvd-list-group-bullet-size);
-                background-color: currentColor;
+
+                background-color: currentcolor;
                 content: '';
                 display: inline-block;
                 height: $pvd-list-group-bullet-size;

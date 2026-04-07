@@ -8,7 +8,6 @@ import { TestBed, waitForAsync } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { FdHttpClientService, FdWindowService } from '@fmr-ap123285/angular-utils';
 import { Observable } from 'rxjs';
-import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@angular/platform-browser-dynamic/testing';
 import { LibraryService } from './library.service';
 import { OverviewContentInterface } from '../models/overviewContent.interface';
 import { ChapterInterface } from '../models/chapter.interface';
@@ -29,8 +28,7 @@ const mockWindow = {
 describe('Library Service', () => {
 
     beforeEach(waitForAsync(() => {
-        TestBed.resetTestEnvironment();
-        TestBed.initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDynamicTesting());
+        TestBed.resetTestingModule();
         TestBed.configureTestingModule({
             imports: [HttpClientTestingModule],
             providers: [

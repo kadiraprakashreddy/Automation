@@ -1,8 +1,10 @@
 import { Component, Input, OnChanges, OnInit, ViewEncapsulation } from '@angular/core';
+import { NgTemplateOutlet } from '@angular/common';
 import { ChapterInterface } from '../../models/chapter.interface';
 import { ArticleInterface } from '../../models/article.interface';
 import { FdWindowService } from '@fmr-ap123285/angular-utils';
-import { PlayerConfiguration } from '@fmr-ap137030/video-component';
+import { PlayerConfiguration, VideoModule } from '@fmr-ap137030/video-component';
+import { CUSTOM_ELEMENT_SCHEMAS } from '../../custom-elements.schema';
 
 /**
  * @copyright 2020-2021, FMR LLC
@@ -14,8 +16,9 @@ import { PlayerConfiguration } from '@fmr-ap137030/video-component';
     selector: 'app-paragraph',
     templateUrl: './paragraph.component.html',
     styleUrls: ['./paragraph.component.scss'],
-    standalone: false,
-    encapsulation: ViewEncapsulation.None
+    imports: [NgTemplateOutlet, VideoModule],
+    encapsulation: ViewEncapsulation.None,
+    schemas: CUSTOM_ELEMENT_SCHEMAS
 })
 export class ParagraphComponent implements OnChanges, OnInit {
 

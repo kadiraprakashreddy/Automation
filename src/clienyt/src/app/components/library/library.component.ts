@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { NgClass } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { LibraryService } from '../../services/library.service';
 import { OverviewContentInterface } from '../../models/overviewContent.interface';
 import { TocInterface } from '../../models/toc.interface';
@@ -8,6 +10,8 @@ import { FAILURE_MSG, FAILURE_MSG_TITLE } from '../../constants/library.constant
 import { FdAnalyticsService, FdWindowService } from '@fmr-ap123285/angular-utils';
 import { ActivatedRoute } from '@angular/router';
 import { NavbarContext } from '@fmr-ap137030/spark-navbar';
+import { ChapterComponent } from '../chapters/chapter.component';
+import { CUSTOM_ELEMENT_SCHEMAS } from '../../custom-elements.schema';
 /**
  * @copyright 2020-2022, FMR LLC
  * @file Parent component for Help and Learning
@@ -18,7 +22,8 @@ import { NavbarContext } from '@fmr-ap137030/spark-navbar';
     selector: 'app-library',
     templateUrl: './library.component.html',
     styleUrls: ['./library.component.scss'],
-    standalone: false
+    imports: [NgClass, FormsModule, ChapterComponent],
+    schemas: CUSTOM_ELEMENT_SCHEMAS
 })
 export class LibraryComponent implements OnInit {
 

@@ -1,11 +1,12 @@
 @import 'node_modules/@fmr-pr101742/providence-visual-style/styles/visual-style';
 
 .operations-guide__content {
-    @include pvd-text-medium();
+    @include pvd-text-medium;
 }
 
 h2.operations-guide__title {
-    @include pvd-heading-level-3();
+    @include pvd-heading-level-3;
+
     margin-bottom: 0.75rem;
 }
 

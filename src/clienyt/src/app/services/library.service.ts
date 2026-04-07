@@ -7,7 +7,7 @@
 import { Injectable } from '@angular/core';
 import { FdHttpClientService, FdWindowService } from '@fmr-ap123285/angular-utils';
 import { ChapterInterface } from '../models/chapter.interface';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 @Injectable()
 export class LibraryService {
@@ -29,13 +29,15 @@ export class LibraryService {
     /** Makes a content request for overviewContent, allowing for ErrorMessage (or any
      * other) type error responses.
      */
-    public retrieveOverviewContent() {
-        if (this.fdWindowService.getWindow() && this.fdWindowService.getWindow().apis) {
-            const apis = this.fdWindowService.getWindow().apis;
-            if (this.fdWindowService.getWindow().apis.getBookApi) {
+    public retrieveOverviewContent(): Observable<any> {
+        const windowObj = this.fdWindowService.getWindow();
+        if (windowObj && windowObj.apis) {
+            const apis = windowObj.apis;
+            if (apis.getBookApi) {
                 return this.fdHttpClientService.getData(apis.getBookApi, this.httpOptions);
             }
         }
+        return of(null);
     }
 
     /**

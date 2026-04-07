@@ -1,6 +1,6 @@
-$font-family: 'FidelitySans', Helvetica, Arial, sans-serif;
+$font-family: 'FidelitySans', helvetica, arial, sans-serif;
 $container-width: 1240px;
-$border-color-black: #aaaaaa;
+$border-color-black: #aaa;
 
 .pagination-padding {
     padding: 24px;
@@ -17,9 +17,9 @@ $border-color-black: #aaaaaa;
     box-sizing: content-box !important;
 }
 
-//due to new foundation styles by component library
-//below three code blocks are restore styles to match
-//with other psw pages.
+// due to new foundation styles by component library
+// below three code blocks are restore styles to match
+// with other psw pages.
 .nb .enter-ssn {
     border: solid 1px $border-color-black;
     border-radius: 0;
@@ -71,13 +71,13 @@ $border-color-black: #aaaaaa;
     box-sizing: content-box;
 }
 
-//overrides the nav bar bullets to not have a background.
+// overrides the nav bar bullets to not have a background.
 // sass-lint:disable-all
 .psHeader ul li {
     background: none;
 }
 
-//overrides the nav bar bullets to not have a background.
+// overrides the nav bar bullets to not have a background.
 .pswfooter li {
     background: none;
 }
@@ -111,7 +111,7 @@ table.dataTable {
     background: none;
 }
 
-//overrides the nav bar bullets to not have a background.
+// overrides the nav bar bullets to not have a background.
 #navbar_nb li {
     background-image: none;
 }

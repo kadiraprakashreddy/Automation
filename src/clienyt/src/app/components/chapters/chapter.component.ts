@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { ChapterInterface } from '../../models/chapter.interface';
+import { ParagraphComponent } from '../paragraph/paragraph.component';
+import { CUSTOM_ELEMENT_SCHEMAS } from '../../custom-elements.schema';
 
 /**
  * @copyright 2020-2022, FMR LLC
@@ -11,7 +13,8 @@ import { ChapterInterface } from '../../models/chapter.interface';
     selector: 'app-chapter',
     templateUrl: './chapter.component.html',
     styleUrls: ['./chapter.component.scss'],
-    standalone: false
+    imports: [ParagraphComponent],
+    schemas: CUSTOM_ELEMENT_SCHEMAS
 })
 export class ChapterComponent {
 
