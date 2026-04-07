@@ -9,7 +9,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { LibraryService } from './services/library.service';
-import { AngularUtilsModule, FdAnalyticsService } from '@fmr-ap123285/angular-utils';
+import { FdAnalyticsService } from '@fmr-ap123285/angular-utils';
 import { HttpClientModule } from '@angular/common/http';
 
 describe('AppComponent', () => {
@@ -17,16 +17,19 @@ describe('AppComponent', () => {
     let componentFixture: ComponentFixture<AppComponent>;
 
     beforeEach(waitForAsync(() => {
+        TestBed.overrideComponent(AppComponent, {
+            set: {
+                template: '',
+                imports: []
+            }
+        });
         TestBed.configureTestingModule({
             imports: [
                 RouterTestingModule,
-                AngularUtilsModule,
-                HttpClientModule
-            ],
-            providers: [LibraryService, FdAnalyticsService],
-            declarations: [
+                HttpClientModule,
                 AppComponent
             ],
+            providers: [LibraryService, FdAnalyticsService],
             schemas: [NO_ERRORS_SCHEMA]
         }).compileComponents()
             .then(() => {

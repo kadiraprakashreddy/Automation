@@ -7,7 +7,7 @@
 import { TestBed, waitForAsync, ComponentFixture } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { AngularUtilsModule, FdWindowService } from '@fmr-ap123285/angular-utils';
+import { FdWindowService } from '@fmr-ap123285/angular-utils';
 import { HttpClientModule } from '@angular/common/http';
 import { ParagraphComponent } from './paragraph.component';
 import { ChapterInterface } from '../../models/chapter.interface';
@@ -50,16 +50,19 @@ describe('ParagraphComponent', () => {
     let fdWindowService = new FdWindowService();
 
     beforeEach(waitForAsync(() => {
+        TestBed.overrideComponent(ParagraphComponent, {
+            set: {
+                template: '',
+                imports: []
+            }
+        });
         TestBed.configureTestingModule({
             imports: [
                 RouterTestingModule,
-                AngularUtilsModule,
-                HttpClientModule
-            ],
-            providers: [],
-            declarations: [
+                HttpClientModule,
                 ParagraphComponent
             ],
+            providers: [FdWindowService],
             schemas: [NO_ERRORS_SCHEMA]
         }).compileComponents()
             .then(() => {

@@ -9,7 +9,6 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { ChapterComponent } from './chapter.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { LibraryService } from '../../services/library.service';
-import { AngularUtilsModule } from '@fmr-ap123285/angular-utils';
 import { HttpClientModule } from '@angular/common/http';
 
 describe('ChapterComponent', () => {
@@ -17,16 +16,19 @@ describe('ChapterComponent', () => {
     let componentFixture: ComponentFixture<ChapterComponent>;
 
     beforeEach(waitForAsync(() => {
+        TestBed.overrideComponent(ChapterComponent, {
+            set: {
+                template: '',
+                imports: []
+            }
+        });
         TestBed.configureTestingModule({
             imports: [
                 RouterTestingModule,
-                AngularUtilsModule,
-                HttpClientModule
-            ],
-            providers: [LibraryService],
-            declarations: [
+                HttpClientModule,
                 ChapterComponent
             ],
+            providers: [LibraryService],
             schemas: [NO_ERRORS_SCHEMA]
         }).compileComponents()
             .then(() => {

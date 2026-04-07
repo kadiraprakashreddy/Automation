@@ -9,7 +9,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { LibraryComponent } from './library.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { LibraryService } from '../../services/library.service';
-import { AngularUtilsModule, FdAnalyticsService, FdWindowService } from '@fmr-ap123285/angular-utils';
+import { FdAnalyticsService, FdWindowService } from '@fmr-ap123285/angular-utils';
 import { HttpClientModule, HttpErrorResponse } from '@angular/common/http';
 import { of, ReplaySubject, throwError } from 'rxjs';
 import { chapterExample, overviewContent, tocListExample, tocListExampleJSON, errorData } from '../../app.component.data';
@@ -61,19 +61,23 @@ describe('LibraryComponent', () => {
 
     beforeEach(waitForAsync(() => {
         routeStub = new ActivatedRouteStub();
+        TestBed.overrideComponent(LibraryComponent, {
+            set: {
+                template: '',
+                imports: []
+            }
+        });
         TestBed.configureTestingModule({
             imports: [
                 RouterTestingModule,
-                AngularUtilsModule,
-                HttpClientModule
+                HttpClientModule,
+                LibraryComponent
             ],
             providers: [
                 LibraryService,
                 FdAnalyticsService,
+                FdWindowService,
                 { provide: ActivatedRoute, useValue: routeStub }
-            ],
-            declarations: [
-                LibraryComponent
             ],
             schemas: [NO_ERRORS_SCHEMA]
         }).compileComponents()

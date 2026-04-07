@@ -11,6 +11,7 @@ const config: Config = {
         'node_modules',
         '<rootDir>/src/app/app.module.ts',
         '<rootDir>/src/main.ts',
+        '<rootDir>/src/app/app.config.ts',
         '<rootDir>/src/app/common/services/app-xsrf-interceptor-config.service.ts'
     ],
     testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$',

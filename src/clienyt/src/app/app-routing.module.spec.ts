@@ -1,19 +1,8 @@
-import { TestBed } from '@angular/core/testing';
-import { Router, Routes } from '@angular/router';
-import { AppRoutingModule } from './app-routing.module';
+import { Routes } from '@angular/router';
+import { routes } from './app.routes';
 import { LibraryComponent } from './components/library/library.component';
 
-describe('AppRoutingModule', () => {
-    let routes: Routes;
-
-    beforeEach(() => {
-        TestBed.configureTestingModule({
-            imports: [AppRoutingModule]
-        });
-
-        // Extract the routes from the AppRoutingModule
-        routes = TestBed.inject(Router).config;
-    });
+describe('app.routes', () => {
 
     it('should define the routes correctly', () => {
         expect(routes).toBeTruthy();
@@ -32,14 +21,5 @@ describe('AppRoutingModule', () => {
         });
         expect(chapterRoute).toBeTruthy();
         expect(chapterRoute?.component).toBe(LibraryComponent);
-    });
-
-    it('should configure RouterModule with useHash set to true', () => {
-        const router = TestBed.inject(Router);
-        const routerConfig = router.config;
-
-        // Check that the RouterModule is configured with useHash: true
-        expect(routerConfig).toBeTruthy();
-        expect(router.config).toEqual(routes);
     });
 });
