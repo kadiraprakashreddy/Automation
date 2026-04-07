@@ -3,7 +3,6 @@ import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@a
 import { provideRouter, withHashLocation } from '@angular/router';
 import { PvdDirectivesModule } from '@fmr-ap109253/providence-angular-directives';
 import {
-    AngularUtilsModule,
     FciHeaderStatusInterceptor,
     GlobalInterceptor
 } from '@fmr-ap123285/angular-utils';
@@ -44,7 +43,7 @@ export const appConfig: ApplicationConfig = {
     providers: [
         provideRouter(routes, withHashLocation()),
         provideHttpClient(withInterceptorsFromDi()),
-        importProvidersFrom(PvdDirectivesModule, SparkNavbarModule, AngularUtilsModule),
+        importProvidersFrom(PvdDirectivesModule, SparkNavbarModule),
         { provide: 'Window', useValue: window },
         LibraryService,
         {
