@@ -19,11 +19,12 @@ $include-pvd2-global-styles: false;
 @import '@fmr-ap109253/providence/dist/scss/pvd-footnotes/pvd-footnotes';
 @import '@fmr-ap109253/providence/dist/scss/pvd-alert/pvd-alert';
 @import '@fmr-ap109253/providence/dist/scss/pvd-expand-collapse/pvd-expand-collapse';
-@import '@fmr-ap109253/providence/dist/scss/pvd-spinner/pvd-spinner.scss';
+@import '@fmr-ap109253/providence/dist/scss/pvd-spinner/pvd-spinner';
 @import 'app/sass/overrides';
 
 // Below line enables CSS grid layout support in Autoprefixer (needed for IE11)
 // you must add this to every component scss where you use grid layout
+
 /*! autoprefixer grid: autoplace */
 
 body,
@@ -40,9 +41,7 @@ a {
 }
 
 a:focus {
-    color: #000000;
-    outline: dotted 1px #000000;
-    outline-color: rgb(0, 0, 0);
-    outline-style: dotted;
-    outline-width: 1px;
+    color: #000;
+    outline: dotted 1px #000;
+    outline: rgb(0 0 0) dotted 1px;
 }
