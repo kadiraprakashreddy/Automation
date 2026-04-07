@@ -9,7 +9,7 @@ import {
 } from '@fmr-ap109253/providence';
 import { PvdDirectivesModule } from '@fmr-ap109253/providence-angular-directives';
 import { SparkNavbarModule } from '@fmr-ap137030/spark-navbar';
-import { AngularUtilsModule, FciHeaderStatusInterceptor, GlobalInterceptor } from '@fmr-ap123285/angular-utils';
+import { FciHeaderStatusInterceptor, GlobalInterceptor } from '@fmr-ap123285/angular-utils';
 import { VideoModule } from '@fmr-ap137030/video-component';
 import { routes } from './app.routes';
 import { LibraryService } from './services/library.service';
@@ -54,7 +54,6 @@ export const appConfig: ApplicationConfig = {
       FormsModule,
       PvdDirectivesModule,
       SparkNavbarModule,
-      AngularUtilsModule,
       VideoModule
     )
   ]

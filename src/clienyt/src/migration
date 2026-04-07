@@ -1,0 +1,188 @@
+# Angular 20 → 21 Migration Guide (Standalone Components)
+
+## Summary of Changes
+
+You're migrating from NgModule-based architecture to standalone components. Here's what changed:
+
+---
+
+## 1. **REMOVE FILES** ❌
+- Delete `src/app/app.module.ts` - No longer needed
+- Delete `src/app/app-routing.module.ts` - Routing is now in `app.routes.ts`
+
+---
+
+## 2. **REPLACE FILES** 🔄
+
+### `main.ts`
+**OLD (Angular 20):**
+```typescript
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { AppModule } from './app/app.module';
+
+document.addEventListener('DOMContentLoaded', () => {
+    platformBrowserDynamic().bootstrapModule(AppModule).catch((err) => {
+        return console.error(err);
+    });
+});
+```
+
+**NEW (Angular 21):**
+```typescript
+import { bootstrapApplication } from '@angular/platform-browser';
+import { AppComponent } from './app/app.component';
+import { appConfig } from './app/app.config';
+
+bootstrapApplication(AppComponent, appConfig)
+  .catch(err => console.error(err));
+```
+
+---
+
+## 3. **NEW FILES** ✅ Create these:
+
+### `src/app/app.config.ts`
+Contains all providers and configuration (replaces app.module.ts providers):
+- HTTP client setup
+- HTTP interceptors
+- Library services
+- Module imports via `importProvidersFrom()`
+
+### `src/app/app.routes.ts`
+Contains all routing (replaces app-routing.module.ts):
+```typescript
+import { Routes } from '@angular/router';
+import { LibraryComponent } from './components/library/library.component';
+
+export const routes: Routes = [
+  { path: '', component: LibraryComponent },
+  { path: ':chapterId', component: LibraryComponent }
+];
+```
+
+---
+
+## 4. **UPDATE COMPONENTS** 🔄
+
+### Key Changes for Each Component:
+
+**REMOVE:**
+- `standalone: false`
+- Declarations from NgModule
+
+**ADD:**
+- `standalone: true`
+- `imports: [...]` array with all dependencies
+- `schemas: [CUSTOM_ELEMENTS_SCHEMA]` if using Providence components
+
+### Example: AppComponent
+```typescript
+@Component({
+    selector: 'app-root',
+    standalone: true,              // ← ADD
+    imports: [CommonModule, RouterOutlet],  // ← ADD
+    templateUrl: './app.component.html',
+})
+export class AppComponent {}
+```
+
+### Example: LibraryComponent
+```typescript
+@Component({
+    selector: 'app-library',
+    standalone: true,              // ← ADD
+    imports: [
+        CommonModule,
+        FormsModule,
+        RouterModule,
+        SparkNavbarModule,
+        PvdDirectivesModule,
+        ChapterComponent             // ← Explicitly import child components
+    ],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],  // ← ADD
+    templateUrl: './library.component.html',
+})
+export class LibraryComponent implements OnInit { ... }
+```
+
+---
+
+## 5. **CHECKLIST** ✅
+
+- [ ] Delete `app.module.ts`
+- [ ] Delete `app-routing.module.ts`
+- [ ] Replace `main.ts`
+- [ ] Create `app.config.ts`
+- [ ] Create `app.routes.ts`
+- [ ] Update `app.component.ts` (add `standalone: true`)
+- [ ] Update `library.component.ts` (add `standalone: true`, `imports`, `schemas`)
+- [ ] Update `chapter.component.ts` (add `standalone: true`, `imports`, `schemas`)
+- [ ] Update `paragraph.component.ts` (add `standalone: true`, `imports`, `schemas`)
+- [ ] Remove all `standalone: false` from components
+- [ ] Verify all child components are imported in parent `imports` arrays
+- [ ] Run `ng serve` to test
+
+---
+
+## 6. **IMPORTANT NOTES**
+
+### Standalone Component Rules:
+1. **Each component must explicitly import what it needs**
+   - `CommonModule` for `*ngIf`, `*ngFor`, etc.
+   - `FormsModule` for `ngModel`
+   - Child components like `ChapterComponent`, `ParagraphComponent`
+
+2. **Parent imports child components**
+   - Don't declare in NgModule
+   - Add to parent's `imports` array
+
+3. **CUSTOM_ELEMENTS_SCHEMA must be on each standalone component**
+   - Required if component uses Providence/custom elements
+   - No global schema like NgModule had
+
+4. **No more `declarations` array**
+   - Everything is explicit in `imports`
+
+---
+
+## 7. **TROUBLESHOOTING**
+
+### Error: "Component X is standalone, cannot be declared in NgModule"
+→ You still have `app.module.ts` - Delete it and update `main.ts`
+
+### Error: "app-X is not a known element"
+→ Parent component didn't import child component
+→ Add child to parent's `imports` array
+
+### Error: "*ngIf is not a known element"
+→ Component missing `CommonModule` in imports
+
+### Error: "ngModel not found"
+→ Component missing `FormsModule` in imports
+
+### Error: "NG05104: Cannot find app-root element"
+→ Check `index.html` has `<app-root></app-root>`
+
+---
+
+## 8. **WHAT DID YOU WIN?** 🎉
+
+✅ **Smaller bundle sizes** - Tree-shaking works better
+✅ **Better performance** - Only load what you need
+✅ **Cleaner code** - Clear dependencies
+✅ **Easier testing** - Isolated components
+✅ **Future-proof** - Angular 21+ standard
+
+---
+
+## Questions?
+
+All files have been created in `/home/claude/` - copy them to your project:
+
+1. `main.ts`
+2. `app.config.ts`
+3. `app.routes.ts`
+4. `app.component.ts`
+5. `library.component.ts`
+6. `chapter.component.ts`
+7. `paragraph.component.ts`

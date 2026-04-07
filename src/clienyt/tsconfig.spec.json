@@ -2,7 +2,15 @@
     "extends": "./tsconfig.json",
     "compilerOptions": {
         "outDir": "./out-tsc/spec",
-        "types": ["jest", "node"]
+        "types": ["jest", "node"],
+        "module": "ES2022",
+        "moduleResolution": "node16"
     },
-    "include": ["src/**/*.spec.ts", "src/**/*.d.ts", "src/test/**/*.ts", "jest.*.ts"]
+    "include": [
+        "src/jest-global-types.d.ts",
+        "src/**/*.spec.ts",
+        "src/**/*.d.ts",
+        "src/test/**/*.ts",
+        "jest.*.ts"
+    ]
 }

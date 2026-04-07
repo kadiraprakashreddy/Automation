@@ -1,0 +1,265 @@
+# Angular 21 upgrade — steps with commands
+
+This is the upgrade path for **psw-library-client-app** (Angular **20.3.x → 21.2.x**), with **copy-paste commands**.  
+On **Windows PowerShell**, use `;` instead of `&&` between commands, or run each line separately.
+
+---
+
+## 0. Prerequisites
+
+```powershell
+cd "C:\Angular Apps\ClientLibrary"
+node -v
+npm -v
+```
+
+Use a **Node** version Angular 21 supports (see `@angular/core` `engines`). At the time of upgrade that was effectively:
+
+`^20.19.0 || ^22.12.0 || >=24.0.0`
+
+---
+
+## 0b. Artifactory — same **403** on `brace-expansion-5.0.5.tgz` after adding `overrides`
+
+**`overrides` in `package.json` only apply when you run `npm install` (or `npm ci`) in this repo.** They do **not** apply when **`ng update`** installs the CLI into a temp folder under `%LOCALAPPDATA%\Temp\angular-cli-packages-*`. That temp install still asks Artifactory for **`brace-expansion@5.0.5`**; if your mirror only has **5.0.4**, you get **403** again.
+
+**Do this instead on a locked-down laptop:**
+
+1. **Do not rely on `ng update` for the install step** (or ask Artifactory admins to mirror **`brace-expansion@5.0.5`** into `npm-prereleases`).
+2. **Manual upgrade:** edit `package.json` to Angular 21 versions (this doc + repo), then from the project root:
+
+   ```powershell
+   Remove-Item -Recurse -Force node_modules
+   Remove-Item -Force package-lock.json
+   npm install
+   ```
+
+3. **Pull a good `package-lock.json`** from a machine where `npm install` already succeeded (with the same `overrides`), then on the laptop run **`npm ci`** (if your policy allows).
+
+4. **npm version:** `overrides` need **npm ≥ 8.3** (`npm -v`).
+
+This repo pins **`brace-expansion@5.0.4`** via `overrides` (and under `minimatch`) so installs match what Artifactory already mirrors.
+
+---
+
+## 1. Preferred: Angular CLI migration
+
+Tries to bump packages and run schematics. Use when `package.json` / `node_modules` are consistent and installs work.
+
+```powershell
+cd "C:\Angular Apps\ClientLibrary"
+npx ng update @angular/core@21 @angular/cli@21 --allow-dirty
+```
+
+If the repo must ignore git state:
+
+```powershell
+npx ng update @angular/core@21 @angular/cli@21 --allow-dirty --force
+```
+
+Re-install everything after `ng update` edits `package.json`:
+
+```powershell
+npm install
+```
+
+**If `ng update` errors** (invalid/extraneous packages, registry issues): align `package.json` manually (section 2), then run `npm install` or a clean reinstall:
+
+```powershell
+Remove-Item -Recurse -Force node_modules
+Remove-Item -Force package-lock.json
+npm install
+```
+
+---
+
+## 2. Manual `package.json` bumps (when `ng update` is not used)
+
+After editing `package.json` with the versions in **section 12** (reference table), install:
+
+```powershell
+cd "C:\Angular Apps\ClientLibrary"
+npm install
+```
+
+---
+
+## 3. Jest 30 and `jest-preset-angular` 16
+
+Install/update test tooling (adjust versions if your registry pins differently):
+
+```powershell
+cd "C:\Angular Apps\ClientLibrary"
+npm install jest-preset-angular@^16.1.1 --save
+npm install jest@^30.0.0 jest-environment-jsdom@^30.0.0 jsdom@^26.0.0 --save-dev
+npm install @angular-builders/jest@^21.0.3 --save-dev
+```
+
+Edit **`jest.setup.ts`**: remove `jest-preset-angular/setup-jest` and use:
+
+```ts
+import { setupZoneTestEnv } from 'jest-preset-angular/setup-env/zone';
+
+setupZoneTestEnv();
+```
+
+Run unit tests once:
+
+```powershell
+npx jest --watchAll=false
+```
+
+---
+
+## 4. TypeScript — `moduleResolution: "bundler"`
+
+Edit root **`tsconfig.json`**: set compiler option:
+
+```json
+"moduleResolution": "bundler"
+```
+
+There is no separate CLI command; save the file, then rebuild.
+
+---
+
+## 5. Fix build errors we hit (Bootstrap + trusted-types)
+
+```powershell
+cd "C:\Angular Apps\ClientLibrary"
+npm install bootstrap @types/trusted-types --save
+```
+
+(`@types/trusted-types` is only needed for TypeScript checking of `lit-html`; you can move it to `devDependencies` later if you prefer.)
+
+---
+
+## 6. Internal `@fmr-*` packages
+
+Keep every internal scope **declared in `package.json`** so `npm install` does not delete pasted folders.
+
+**Corporate registry** (example — replace URL with yours):
+
+```powershell
+# Example only — create/edit .npmrc in project or user profile
+# @fmr-ap109253:registry=https://your-artifactory.example.com/artifactory/api/npm/npm-local/
+# @fmr-ap123285:registry=https://your-artifactory.example.com/artifactory/api/npm/npm-local/
+# @fmr-ap137030:registry=https://your-artifactory.example.com/artifactory/api/npm/npm-local/
+# @fmr-pr101742:registry=https://your-artifactory.example.com/artifactory/api/npm/npm-local/
+```
+
+Then:
+
+```powershell
+npm install
+```
+
+**Local folder** (example for one package):
+
+```powershell
+npm install "file:C:\path\to\local\packages\providence" --save
+```
+
+Repeat or list all `@fmr/*` entries as `file:` paths in `package.json` if you never use the registry.
+
+---
+
+## 7. Verification commands
+
+```powershell
+cd "C:\Angular Apps\ClientLibrary"
+npx ng version
+```
+
+Production build (no lint):
+
+```powershell
+npx ng build --configuration production --stats-json
+```
+
+Full CI script (lint + build + zip — needs **stylelint** and **ESLint/Angular ESLint** stack installed):
+
+```powershell
+npm run build
+```
+
+Maintenance:
+
+```powershell
+npm audit
+npm outdated
+```
+
+---
+
+## 8. `ng update` troubleshooting
+
+Retry after fixing tree:
+
+```powershell
+npm prune
+npm install
+npx ng update @angular/core@21 @angular/cli@21 --allow-dirty
+```
+
+---
+
+## 9. Optional: `@types/node` bump
+
+Edit `package.json` → `"@types/node": "^25.5.0"` (or your target), then:
+
+```powershell
+npm install
+```
+
+If `@fmr-*` 404 blocks all installs, fix `.npmrc` / `file:` first, or install `@types/node` from a temp folder and copy `node_modules/@types/node` into the project (last resort).
+
+---
+
+## 10. Quick replay checklist (commands only)
+
+```powershell
+cd "C:\Angular Apps\ClientLibrary"
+npx ng update @angular/core@21 @angular/cli@21 --allow-dirty
+npm install
+npm install bootstrap @types/trusted-types --save
+npm install jest-preset-angular@^16.1.1 --save
+npm install jest@^30.0.0 jest-environment-jsdom@^30.0.0 jsdom@^26.0.0 @angular-builders/jest@^21.0.3 --save-dev
+# Edit tsconfig.json: "moduleResolution": "bundler"
+# Edit jest.setup.ts: setupZoneTestEnv
+npx ng version
+npx ng build --configuration production --stats-json
+npx jest --watchAll=false
+```
+
+---
+
+## 11. Security / maintenance notes
+
+```powershell
+npm audit
+npm outdated
+```
+
+- Do **not** blindly `npm audit fix --force` if it proposes **downgrading** Angular 21 tooling to 20.
+- **`msw` 2.x** is a major upgrade from 1.x — plan separately.
+
+---
+
+## 12. Reference — `package.json` version targets
+
+| Package / area | Typical range |
+|----------------|---------------|
+| `@angular/*` (app) | `^21.2.0` |
+| `@angular/cli`, `@angular-devkit/build-angular`, `@angular/compiler-cli` | `^21.2.0` |
+| `@angular-builders/jest` | `^21.0.3` |
+| `typescript` | `>=5.9.0 <6.1.0` |
+| `jest` | `^30.0.0` |
+| `jest-environment-jsdom` | `^30.0.0` |
+| `jsdom` | `^26.0.0` |
+| `jest-preset-angular` | `^16.1.1` |
+| `engines.node` | Match Angular 21 (`@angular/core` `engines`) |
+
+---
+
+*Adjust paths and registry URLs for your machine and org. If `ClientLibrary` lives elsewhere, change the `cd` line.*

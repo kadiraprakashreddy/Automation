@@ -1,0 +1,999 @@
+
+[0]
+[0] Error: src/app/components/library/library.component.spec.ts:261:5 - error TS2593: Cannot find name 'it'. Do you need to install type definitions for a test runner? Try `npm i --save-dev @types/jest` or `npm i --save-dev @types/mocha` and then add 'jest' or 'mocha' to the types field in your tsconfig.
+[0]
+[0] 261     it('ngOnInit should make content call', waitForAsync(() => {
+[0]         ~~
+[0]
+[0]
+[0] Error: src/app/components/library/library.component.spec.ts:262:9 - error TS2304: Cannot find name 'jest'. 
+[0]
+[0] 262         jest.spyOn(libraryService, 'retrieveOverviewContent').mockReturnValue(of(overviewContent));    
+[0]             ~~~~
+[0]
+[0]
+[0] Error: src/app/components/library/library.component.spec.ts:263:9 - error TS2304: Cannot find name 'jest'. 
+[0]
+[0] 263         jest.spyOn(component, 'chaptersAPI');
+[0]             ~~~~
+[0]
+[0]
+[0] Error: src/app/components/library/library.component.spec.ts:264:9 - error TS2304: Cannot find name 'jest'. 
+[0]
+[0] 264         jest.spyOn(fdWindowService, 'getWindow').mockReturnValue(mockWindow);
+[0]             ~~~~
+[0]
+[0]
+[0] Error: src/app/components/library/library.component.spec.ts:268:13 - error TS2304: Cannot find name 'expect'.
+[0]
+[0] 268             expect(libraryService.retrieveOverviewContent).toHaveBeenCalled();
+[0]                 ~~~~~~
+[0]
+[0]
+[0] Error: src/app/components/library/library.component.spec.ts:269:13 - error TS2304: Cannot find name 'expect'.
+[0]
+[0] 269             expect(component.overviewContent).toBeTruthy();
+[0]                 ~~~~~~
+[0]
+[0]
+[0] Error: src/app/components/library/library.component.spec.ts:270:13 - error TS2304: Cannot find name 'expect'.
+[0]
+[0] 270             expect(component.overviewContent).toBeTruthy();
+[0]                 ~~~~~~
+[0]
+[0]
+[0] Error: src/app/components/library/library.component.spec.ts:271:13 - error TS2304: Cannot find name 'expect'.
+[0]
+[0] 271             expect(component.overviewContentLoading).toBeFalsy();
+[0]                 ~~~~~~
+[0]
+[0]
+[0] Error: src/app/components/library/library.component.spec.ts:272:13 - error TS2304: Cannot find name 'expect'.
+[0]
+[0] 272             expect(component.isInitialPageLoad).toBeFalsy();
+[0]                 ~~~~~~
+[0]
+[0]
+[0] Error: src/app/components/library/library.component.spec.ts:276:5 - error TS2304: Cannot find name 'xit'.  
+[0]
+[0] 276     xit('ngOnInit should set tocListJson', waitForAsync(() => {
+[0]         ~~~
+[0]
+[0]
+[0] Error: src/app/components/library/library.component.spec.ts:277:9 - error TS2304: Cannot find name 'jest'. 
+[0]
+[0] 277         jest.spyOn(libraryService, 'retrieveOverviewContent').mockReturnValue(of(overviewContent));    
+[0]             ~~~~
+[0]
+[0]
+[0] Error: src/app/components/library/library.component.spec.ts:278:9 - error TS2304: Cannot find name 'jest'. 
+[0]
+[0] 278         jest.spyOn(component, 'transformTocListToString').mockImplementationOnce(()=>{});
+[0]             ~~~~
+[0]
+[0]
+[0] Error: src/app/components/library/library.component.spec.ts:279:9 - error TS2304: Cannot find name 'jest'. 
+[0]
+[0] 279         jest.spyOn(component, 'chaptersAPI');
+[0]             ~~~~
+[0]
+[0]
+[0] Error: src/app/components/library/library.component.spec.ts:280:9 - error TS2304: Cannot find name 'jest'. 
+[0]
+[0] 280         jest.spyOn(fdWindowService, 'getWindow').mockReturnValue(mockWindow);
+[0]             ~~~~
+[0]
+[0]
+[0] Error: src/app/components/library/library.component.spec.ts:284:13 - error TS2304: Cannot find name 'expect'.
+[0]
+[0] 284             expect(component.transformTocListToString).toHaveBeenCalled();
+[0]                 ~~~~~~
+[0]
+[0]
+[0] Error: src/app/components/library/library.component.spec.ts:285:13 - error TS2304: Cannot find name 'expect'.
+[0]
+[0] 285             expect(component.tocListJson).toBeTruthy();
+[0]                 ~~~~~~
+[0]
+[0]
+[0] Error: src/app/components/library/library.component.spec.ts:289:5 - error TS2593: Cannot find name 'it'. Do you need to install type definitions for a test runner? Try `npm i --save-dev @types/jest` or `npm i --save-dev @types/mocha` and then add 'jest' or 'mocha' to the types field in your tsconfig.
+[0]
+[0] 289     it('ngOnInit should leave contentReady as false if response is null', waitForAsync(() => {
+[0]         ~~
+[0]
+[0]
+[0] Error: src/app/components/library/library.component.spec.ts:290:9 - error TS2304: Cannot find name 'jest'. 
+[0]
+[0] 290         jest.spyOn(libraryService, 'retrieveOverviewContent').mockReturnValue(of(null));
+[0]             ~~~~
+[0]
+[0]
+[0] Error: src/app/components/library/library.component.spec.ts:291:9 - error TS2304: Cannot find name 'jest'. 
+[0]
+[0] 291         jest.spyOn(fdWindowService, 'getWindow').mockReturnValue(mockWindow);
+[0]             ~~~~
+[0]
+[0]
+[0] Error: src/app/components/library/library.component.spec.ts:294:13 - error TS2304: Cannot find name 'expect'.
+[0]
+[0] 294             expect(libraryService.retrieveOverviewContent).toHaveBeenCalled();
+[0]                 ~~~~~~
+[0]
+[0]
+[0] Error: src/app/components/library/library.component.spec.ts:295:13 - error TS2304: Cannot find name 'expect'.
+[0]
+[0] 295             expect(component.overviewContent).not.toBeDefined();
+[0]                 ~~~~~~
+[0]
+[0]
+[0] Error: src/app/components/library/library.component.spec.ts:299:5 - error TS2593: Cannot find name 'it'. Do you need to install type definitions for a test runner? Try `npm i --save-dev @types/jest` or `npm i --save-dev @types/mocha` and then add 'jest' or 'mocha' to the types field in your tsconfig.
+[0]
+[0] 299     it('ngOnInit should call setAnalyticsPageName', waitForAsync(() => {
+[0]         ~~
+[0]
+[0]
+[0] Error: src/app/components/library/library.component.spec.ts:300:9 - error TS2304: Cannot find name 'jest'. 
+[0]
+[0] 300         jest.spyOn(libraryService, 'retrieveOverviewContent').mockReturnValue(of(null));
+[0]             ~~~~
+[0]
+[0]
+[0] Error: src/app/components/library/library.component.spec.ts:301:9 - error TS2304: Cannot find name 'jest'. 
+[0]
+[0] 301         jest.spyOn(component, 'setAnalyticsPageName').mockImplementationOnce(()=>{});
+[0]             ~~~~
+[0]
+[0]
+[0] Error: src/app/components/library/library.component.spec.ts:302:9 - error TS2304: Cannot find name 'jest'. 
+[0]
+[0] 302         jest.spyOn(fdWindowService, 'getWindow').mockReturnValue(mockWindow);
+[0]             ~~~~
+[0]
+[0]
+[0] Error: src/app/components/library/library.component.spec.ts:304:9 - error TS2304: Cannot find name 'expect'.
+[0]
+[0] 304         expect(component.setAnalyticsPageName).toHaveBeenCalled();
+[0]             ~~~~~~
+[0]
+[0]
+[0] Error: src/app/components/library/library.component.spec.ts:307:5 - error TS2593: Cannot find name 'it'. Do you need to install type definitions for a test runner? Try `npm i --save-dev @types/jest` or `npm i --save-dev @types/mocha` and then add 'jest' or 'mocha' to the types field in your tsconfig.
+[0]
+[0] 307     it('setAnalyticsPageName should set page name based on window analyticsPageTitleName', waitForAsync(() => {
+[0]         ~~
+[0]
+[0]
+[0] Error: src/app/components/library/library.component.spec.ts:310:9 - error TS2304: Cannot find name 'expect'.
+[0]
+[0] 310         expect(component.analyticsPageName).toBe('Analytics Page Name Example');
+[0]             ~~~~~~
+[0]
+[0]
+[0] Error: src/app/components/library/library.component.spec.ts:313:5 - error TS2593: Cannot find name 'it'. Do you need to install type definitions for a test runner? Try `npm i --save-dev @types/jest` or `npm i --save-dev @types/mocha` and then add 'jest' or 'mocha' to the types field in your tsconfig.
+[0]
+[0] 313     it('setAnalyticsPageName should set page name to PSW Library if none is found in window', waitForAsync(() => {
+[0]         ~~
+[0]
+[0]
+[0] Error: src/app/components/library/library.component.spec.ts:315:9 - error TS2304: Cannot find name 'expect'.
+[0]
+[0] 315         expect(component.analyticsPageName).toBe('PSW Library');
+[0]             ~~~~~~
+[0]
+[0]
+[0] Error: src/app/components/library/library.component.spec.ts:318:5 - error TS2593: Cannot find name 'it'. Do you need to install type definitions for a test runner? Try `npm i --save-dev @types/jest` or `npm i --save-dev @types/mocha` and then add 'jest' or 'mocha' to the types field in your tsconfig.
+[0]
+[0] 318     it('tocListToString should transform tocs to JSON string', waitForAsync(() => {
+[0]         ~~
+[0]
+[0]
+[0] Error: src/app/components/library/library.component.spec.ts:319:9 - error TS2304: Cannot find name 'jest'. 
+[0]
+[0] 319         jest.spyOn(component, 'chaptersAPI');
+[0]             ~~~~
+[0]
+[0]
+[0] Error: src/app/components/library/library.component.spec.ts:320:9 - error TS2304: Cannot find name 'jest'. 
+[0]
+[0] 320         jest.spyOn(fdWindowService, 'getWindow').mockReturnValue(mockWindow);
+[0]             ~~~~
+[0]
+[0]
+[0] Error: src/app/components/library/library.component.spec.ts:322:9 - error TS2304: Cannot find name 'expect'.
+[0]
+[0] 322         expect(component.tocListJson).toBe(tocListExampleJSON);
+[0]             ~~~~~~
+[0]
+[0]
+[0] Error: src/app/components/library/library.component.spec.ts:325:5 - error TS2593: Cannot find name 'it'. Do you need to install type definitions for a test runner? Try `npm i --save-dev @types/jest` or `npm i --save-dev @types/mocha` and then add 'jest' or 'mocha' to the types field in your tsconfig.
+[0]
+[0] 325     it('tocListToString should call chaptersAPI', waitForAsync(() => {
+[0]         ~~
+[0]
+[0]
+[0] Error: src/app/components/library/library.component.spec.ts:326:9 - error TS2304: Cannot find name 'jest'. 
+[0]
+[0] 326         jest.spyOn(component, 'chaptersAPI');
+[0]             ~~~~
+[0]
+[0]
+[0] Error: src/app/components/library/library.component.spec.ts:327:9 - error TS2304: Cannot find name 'jest'. 
+[0]
+[0] 327         jest.spyOn(fdWindowService, 'getWindow').mockReturnValue(mockWindow);
+[0]             ~~~~
+[0]
+[0]
+[0] Error: src/app/components/library/library.component.spec.ts:329:9 - error TS2304: Cannot find name 'expect'.
+[0]
+[0] 329         expect(component.chaptersAPI).toHaveBeenCalled();
+[0]             ~~~~~~
+[0]
+[0]
+[0] Error: src/app/components/library/library.component.spec.ts:332:5 - error TS2593: Cannot find name 'it'. Do you need to install type definitions for a test runner? Try `npm i --save-dev @types/jest` or `npm i --save-dev @types/mocha` and then add 'jest' or 'mocha' to the types field in your tsconfig.
+[0]
+[0] 332     it('chaptersAPI should make retrieveChaptersContent call', waitForAsync(() => {
+[0]         ~~
+[0]
+[0]
+[0] Error: src/app/components/library/library.component.spec.ts:333:9 - error TS2304: Cannot find name 'jest'. 
+[0]
+[0] 333         jest.spyOn(libraryService, 'retrieveChaptersContent').mockReturnValue(of(chapterExample));     
+[0]             ~~~~
+[0]
+[0]
+[0] Error: src/app/components/library/library.component.spec.ts:334:9 - error TS2304: Cannot find name 'jest'. 
+[0]
+[0] 334         jest.spyOn(fdWindowService, 'getWindow').mockReturnValue(mockWindow);
+[0]             ~~~~
+[0]
+[0]
+[0] Error: src/app/components/library/library.component.spec.ts:337:13 - error TS2304: Cannot find name 'expect'.
+[0]
+[0] 337             expect(libraryService.retrieveChaptersContent).toHaveBeenCalled();
+[0]                 ~~~~~~
+[0]
+[0]
+[0] Error: src/app/components/library/library.component.spec.ts:338:13 - error TS2304: Cannot find name 'expect'.
+[0]
+[0] 338             expect(component.chapterContent.title).toBe('Welcome to the SPS quick reference guide');   
+[0]                 ~~~~~~
+[0]
+[0]
+[0] Error: src/app/components/library/library.component.spec.ts:342:5 - error TS2593: Cannot find name 'it'. Do you need to install type definitions for a test runner? Try `npm i --save-dev @types/jest` or `npm i --save-dev @types/mocha` and then add 'jest' or 'mocha' to the types field in your tsconfig.
+[0]
+[0] 342     it('should test error conditionals retrieveOverviewContent', waitForAsync(() => {
+[0]         ~~
+[0]
+[0]
+[0] Error: src/app/components/library/library.component.spec.ts:343:9 - error TS2304: Cannot find name 'jest'. 
+[0]
+[0] 343         jest.spyOn(libraryService, 'retrieveOverviewContent').mockReturnValue(throwError(new HttpErrorResponse({ error: errorData })));
+[0]             ~~~~
+[0]
+[0]
+[0] Error: src/app/components/library/library.component.spec.ts:344:9 - error TS2304: Cannot find name 'jest'. 
+[0]
+[0] 344         jest.spyOn(fdWindowService, 'getWindow').mockReturnValue(mockWindow);
+[0]             ~~~~
+[0]
+[0]
+[0] Error: src/app/components/library/library.component.spec.ts:347:13 - error TS2304: Cannot find name 'expect'.
+[0]
+[0] 347             expect(libraryService.retrieveOverviewContent).toHaveBeenCalled();
+[0]                 ~~~~~~
+[0]
+[0]
+[0] Error: src/app/components/library/library.component.spec.ts:348:13 - error TS2304: Cannot find name 'expect'.
+[0]
+[0] 348             expect(component.errorResponse).toBeTruthy();
+[0]                 ~~~~~~
+[0]
+[0]
+[0] Error: src/app/components/library/library.component.spec.ts:352:5 - error TS2593: Cannot find name 'it'. Do you need to install type definitions for a test runner? Try `npm i --save-dev @types/jest` or `npm i --save-dev @types/mocha` and then add 'jest' or 'mocha' to the types field in your tsconfig.
+[0]
+[0] 352     it('should test error conditionals retrieveChaptersContent', waitForAsync(() => {
+[0]         ~~
+[0]
+[0]
+[0] Error: src/app/components/library/library.component.spec.ts:353:9 - error TS2304: Cannot find name 'jest'. 
+[0]
+[0] 353         jest.spyOn(libraryService, 'retrieveChaptersContent').mockReturnValue(throwError(new HttpErrorResponse({ error: errorData })));
+[0]             ~~~~
+[0]
+[0]
+[0] Error: src/app/components/library/library.component.spec.ts:354:9 - error TS2304: Cannot find name 'jest'. 
+[0]
+[0] 354         jest.spyOn(fdWindowService, 'getWindow').mockReturnValue(mockWindow);
+[0]             ~~~~
+[0]
+[0]
+[0] Error: src/app/components/library/library.component.spec.ts:357:13 - error TS2304: Cannot find name 'expect'.
+[0]
+[0] 357             expect(libraryService.retrieveChaptersContent).toHaveBeenCalled();
+[0]                 ~~~~~~
+[0]
+[0]
+[0] Error: src/app/components/library/library.component.spec.ts:358:13 - error TS2304: Cannot find name 'expect'.
+[0]
+[0] 358             expect(component.chapterErrorResponse).toBeTruthy();
+[0]                 ~~~~~~
+[0]
+[0]
+[0] Error: src/app/components/library/library.component.spec.ts:359:13 - error TS2304: Cannot find name 'expect'.
+[0]
+[0] 359             expect(component.errorResponse).toBeFalsy();
+[0]                 ~~~~~~
+[0]
+[0]
+[0] Error: src/app/components/library/library.component.spec.ts:363:5 - error TS2593: Cannot find name 'it'. Do you need to install type definitions for a test runner? Try `npm i --save-dev @types/jest` or `npm i --save-dev @types/mocha` and then add 'jest' or 'mocha' to the types field in your tsconfig.
+[0]
+[0] 363     it('chaptersAPI should call analytics service', waitForAsync(() => {
+[0]         ~~
+[0]
+[0]
+[0] Error: src/app/components/library/library.component.spec.ts:364:9 - error TS2304: Cannot find name 'jest'. 
+[0]
+[0] 364         jest.spyOn(libraryService, 'retrieveChaptersContent').mockReturnValue(of(chapterExample));     
+[0]             ~~~~
+[0]
+[0]
+[0] Error: src/app/components/library/library.component.spec.ts:365:9 - error TS2304: Cannot find name 'jest'. 
+[0]
+[0] 365         jest.spyOn(fdAnalyticsService, 'submitAnalytics');
+[0]             ~~~~
+[0]
+[0]
+[0] Error: src/app/components/library/library.component.spec.ts:366:9 - error TS2304: Cannot find name 'jest'. 
+[0]
+[0] 366         jest.spyOn(fdWindowService, 'getWindow').mockReturnValue(mockWindow);
+[0]             ~~~~
+[0]
+[0]
+[0] Error: src/app/components/library/library.component.spec.ts:376:13 - error TS2304: Cannot find name 'expect'.
+[0]
+[0] 376             expect(fdAnalyticsService.submitAnalytics).toHaveBeenCalledWith(expectedResult);
+[0]                 ~~~~~~
+[0]
+[0]
+[0] Error: src/app/components/library/library.component.spec.ts:380:5 - error TS2593: Cannot find name 'it'. Do you need to install type definitions for a test runner? Try `npm i --save-dev @types/jest` or `npm i --save-dev @types/mocha` and then add 'jest' or 'mocha' to the types field in your tsconfig.
+[0]
+[0] 380     it('calling chaptersAPI with no window attribute and no chapter title should return proper page_name', waitForAsync(() => {
+[0]         ~~
+[0]
+[0]
+[0] Error: src/app/components/library/library.component.spec.ts:381:9 - error TS2304: Cannot find name 'jest'. 
+[0]
+[0] 381         jest.spyOn(libraryService, 'retrieveChaptersContent').mockReturnValue(of({} as unknown as ChapterInterface));
+[0]             ~~~~
+[0]
+[0]
+[0] Error: src/app/components/library/library.component.spec.ts:382:9 - error TS2304: Cannot find name 'jest'. 
+[0]
+[0] 382         jest.spyOn(fdAnalyticsService, 'submitAnalytics');
+[0]             ~~~~
+[0]
+[0]
+[0] Error: src/app/components/library/library.component.spec.ts:383:9 - error TS2304: Cannot find name 'jest'. 
+[0]
+[0] 383         jest.spyOn(fdWindowService, 'getWindow').mockReturnValue(mockWindow);
+[0]             ~~~~
+[0]
+[0]
+[0] Error: src/app/components/library/library.component.spec.ts:393:13 - error TS2304: Cannot find name 'expect'.
+[0]
+[0] 393             expect(fdAnalyticsService.submitAnalytics).toHaveBeenCalledWith(expectedResult);
+[0]                 ~~~~~~
+[0]
+[0]
+[0] Error: src/app/components/library/library.component.spec.ts:397:5 - error TS2593: Cannot find name 'it'. Do you need to install type definitions for a test runner? Try `npm i --save-dev @types/jest` or `npm i --save-dev @types/mocha` and then add 'jest' or 'mocha' to the types field in your tsconfig.
+[0]
+[0] 397     it('should set pageContextUser if it is found.', waitForAsync(() => {
+[0]         ~~
+[0]
+[0]
+[0] Error: src/app/components/library/library.component.spec.ts:398:9 - error TS2304: Cannot find name 'jest'. 
+[0]
+[0] 398         jest.spyOn(libraryService, 'retrieveOverviewContent').mockReturnValue(of(overviewContent));    
+[0]             ~~~~
+[0]
+[0]
+[0] Error: src/app/components/library/library.component.spec.ts:399:9 - error TS2304: Cannot find name 'jest'. 
+[0]
+[0] 399         jest.spyOn(fdWindowService, 'getWindow').mockReturnValue(mockWindow);
+[0]             ~~~~
+[0]
+[0]
+[0] Error: src/app/components/library/library.component.spec.ts:400:9 - error TS2304: Cannot find name 'expect'.
+[0]
+[0] 400         expect(component).toBeDefined();
+[0]             ~~~~~~
+[0]
+[0]
+[0] Error: src/app/components/library/library.component.spec.ts:402:9 - error TS2304: Cannot find name 'expect'.
+[0]
+[0] 402         expect(component.pageContextUser).toEqual(mockWindow.config.pageContextUser);
+[0]             ~~~~~~
+[0]
+[0]
+[0] Error: src/app/components/library/library.component.spec.ts:405:5 - error TS2593: Cannot find name 'it'. Do you need to install type definitions for a test runner? Try `npm i --save-dev @types/jest` or `npm i --save-dev @types/mocha` and then add 'jest' or 'mocha' to the types field in your tsconfig.
+[0]
+[0] 405     it('should use default value of pageContextUser if not found in window.', waitForAsync(() => {     
+[0]         ~~
+[0]
+[0]
+[0] Error: src/app/components/library/library.component.spec.ts:406:9 - error TS2304: Cannot find name 'jest'. 
+[0]
+[0] 406         jest.spyOn(libraryService, 'retrieveOverviewContent').mockReturnValue(of(overviewContent));    
+[0]             ~~~~
+[0]
+[0]
+[0] Error: src/app/components/library/library.component.spec.ts:407:9 - error TS2304: Cannot find name 'jest'. 
+[0]
+[0] 407         jest.spyOn(fdWindowService, 'getWindow').mockReturnValue({
+[0]             ~~~~
+[0]
+[0]
+[0] Error: src/app/components/library/library.component.spec.ts:410:9 - error TS2304: Cannot find name 'expect'.
+[0]
+[0] 410         expect(component).toBeDefined();
+[0]             ~~~~~~
+[0]
+[0]
+[0] Error: src/app/components/library/library.component.spec.ts:412:9 - error TS2304: Cannot find name 'expect'.
+[0]
+[0] 412         expect(component.pageContextUser).toEqual('plansponsor');
+[0]             ~~~~~~
+[0]
+[0]
+[0] Error: src/app/components/library/library.component.spec.ts:415:5 - error TS2593: Cannot find name 'it'. Do you need to install type definitions for a test runner? Try `npm i --save-dev @types/jest` or `npm i --save-dev @types/mocha` and then add 'jest' or 'mocha' to the types field in your tsconfig.
+[0]
+[0] 415     it('should set spark context if pageContextUser in window is spark', waitForAsync(() => {
+[0]         ~~
+[0]
+[0]
+[0] Error: src/app/components/library/library.component.spec.ts:416:9 - error TS2304: Cannot find name 'jest'. 
+[0]
+[0] 416         jest.spyOn(libraryService, 'retrieveOverviewContent').mockReturnValue(of(overviewContent));    
+[0]             ~~~~
+[0]
+[0]
+[0] Error: src/app/components/library/library.component.spec.ts:417:9 - error TS2304: Cannot find name 'jest'. 
+[0]
+[0] 417         jest.spyOn(fdWindowService, 'getWindow').mockReturnValue({
+[0]             ~~~~
+[0]
+[0]
+[0] Error: src/app/components/library/library.component.spec.ts:420:9 - error TS2304: Cannot find name 'expect'.
+[0]
+[0] 420         expect(component).toBeDefined();
+[0]             ~~~~~~
+[0]
+[0]
+[0] Error: src/app/components/library/library.component.spec.ts:422:9 - error TS2304: Cannot find name 'expect'.
+[0]
+[0] 422         expect(component.pageContextUser).toEqual('spark');
+[0]             ~~~~~~
+[0]
+[0]
+[0] Error: src/app/components/library/library.component.spec.ts:423:9 - error TS2304: Cannot find name 'expect'.
+[0]
+[0] 423         expect(component.sparkNavbarContext).toBeDefined();
+[0]             ~~~~~~
+[0]
+[0]
+[0] Error: src/app/components/library/library.component.ts:6:35 - error TS2307: Cannot find module '@angular/common/http' or its corresponding type declarations.
+[0]
+[0] 6 import { HttpErrorResponse } from '@angular/common/http';
+[0]                                     ~~~~~~~~~~~~~~~~~~~~~~
+[0]
+[0]
+[0] Error: src/app/components/paragraph/paragraph.component.html:7:13 - error NG8001: 'pvd-expand-collapse' is not a known element:
+[0] 1. If 'pvd-expand-collapse' is an Angular component, then verify that it is part of this module.
+[0] 2. If 'pvd-expand-collapse' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress this message.
+[0]
+[0] 7             <pvd-expand-collapse [attr.pvd-size]="subArticle === 'true' ? 'medium' : 'large'" role="link">
+[0]               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[0]
+[0]   src/app/components/paragraph/paragraph.component.ts:15:18
+[0]     15     templateUrl: './paragraph.component.html',
+[0]                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[0]     Error occurs in the template of component ParagraphComponent.
+[0]
+[0]
+[0] Error: src/app/components/paragraph/paragraph.component.html:35:29 - error NG8001: 'lib-video' is not a known element:
+[0] 1. If 'lib-video' is an Angular component, then verify that it is part of this module.
+[0] 2. If 'lib-video' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress this message.
+[0]
+[0]  35                             <lib-video
+[0]                                 ~~~~~~~~~~
+[0]  36                                 [playerConfiguration]="playerConfiguration"
+[0]     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[0] ...
+[0]  38                                 [transcriptUrl]="para.videoTranscriptUrl"
+[0]     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[0]  39                                 [transcriptLabel]="transcriptLabel">
+[0]     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[0]
+[0]   src/app/components/paragraph/paragraph.component.ts:15:18
+[0]     15     templateUrl: './paragraph.component.html',
+[0]                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[0]     Error occurs in the template of component ParagraphComponent.
+[0]
+[0]
+[0] Error: src/app/components/paragraph/paragraph.component.html:36:33 - error NG8002: Can't bind to 'playerConfiguration' since it isn't a known property of 'lib-video'.
+[0] 1. If 'lib-video' is an Angular component and it has 'playerConfiguration' input, then verify that it is part of this module.
+[0] 2. If 'lib-video' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress this message.
+[0] 3. To allow any property add 'NO_ERRORS_SCHEMA' to the '@NgModule.schemas' of this component.
+[0]
+[0] 36                                 [playerConfiguration]="playerConfiguration"
+[0]                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[0]
+[0]   src/app/components/paragraph/paragraph.component.ts:15:18
+[0]     15     templateUrl: './paragraph.component.html',
+[0]                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[0]     Error occurs in the template of component ParagraphComponent.
+[0]
+[0]
+[0] Error: src/app/components/paragraph/paragraph.component.html:37:33 - error NG8002: Can't bind to 'videoId' since it isn't a known property of 'lib-video'.
+[0] 1. If 'lib-video' is an Angular component and it has 'videoId' input, then verify that it is part of this module.
+[0] 2. If 'lib-video' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress this message.
+[0] 3. To allow any property add 'NO_ERRORS_SCHEMA' to the '@NgModule.schemas' of this component.
+[0]
+[0] 37                                 [videoId]="para.videoId"
+[0]                                    ~~~~~~~~~~~~~~~~~~~~~~~~
+[0]
+[0]   src/app/components/paragraph/paragraph.component.ts:15:18
+[0]     15     templateUrl: './paragraph.component.html',
+[0]                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[0]     Error occurs in the template of component ParagraphComponent.
+[0]
+[0]
+[0] Error: src/app/components/paragraph/paragraph.component.html:38:33 - error NG8002: Can't bind to 'transcriptUrl' since it isn't a known property of 'lib-video'.
+[0] 1. If 'lib-video' is an Angular component and it has 'transcriptUrl' input, then verify that it is part of this module.
+[0] 2. If 'lib-video' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress this message.
+[0] 3. To allow any property add 'NO_ERRORS_SCHEMA' to the '@NgModule.schemas' of this component.
+[0]
+[0] 38                                 [transcriptUrl]="para.videoTranscriptUrl"
+[0]                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[0]
+[0]   src/app/components/paragraph/paragraph.component.ts:15:18
+[0]     15     templateUrl: './paragraph.component.html',
+[0]                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[0]     Error occurs in the template of component ParagraphComponent.
+[0]
+[0]
+[0] Error: src/app/components/paragraph/paragraph.component.html:39:33 - error NG8002: Can't bind to 'transcriptLabel' since it isn't a known property of 'lib-video'.
+[0] 1. If 'lib-video' is an Angular component and it has 'transcriptLabel' input, then verify that it is part of this module.
+[0] 2. If 'lib-video' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress this message.
+[0] 3. To allow any property add 'NO_ERRORS_SCHEMA' to the '@NgModule.schemas' of this component.
+[0]
+[0] 39                                 [transcriptLabel]="transcriptLabel">
+[0]                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[0]
+[0]   src/app/components/paragraph/paragraph.component.ts:15:18
+[0]     15     templateUrl: './paragraph.component.html',
+[0]                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[0]     Error occurs in the template of component ParagraphComponent.
+[0]
+[0]
+[0] Error: src/app/components/paragraph/paragraph.component.spec.ts:7:57 - error TS2307: Cannot find module '@angular/core/testing' or its corresponding type declarations.
+[0]
+[0] 7 import { TestBed, waitForAsync, ComponentFixture } from '@angular/core/testing';
+[0]                                                           ~~~~~~~~~~~~~~~~~~~~~~~
+[0]
+[0]
+[0] Error: src/app/components/paragraph/paragraph.component.spec.ts:8:37 - error TS2307: Cannot find module '@angular/router/testing' or its corresponding type declarations.
+[0]
+[0] 8 import { RouterTestingModule } from '@angular/router/testing';
+[0]                                       ~~~~~~~~~~~~~~~~~~~~~~~~~
+[0]
+[0]
+[0] Error: src/app/components/paragraph/paragraph.component.spec.ts:11:34 - error TS2307: Cannot find module '@angular/common/http' or its corresponding type declarations.
+[0]
+[0] 11 import { HttpClientModule } from '@angular/common/http';
+[0]                                     ~~~~~~~~~~~~~~~~~~~~~~
+[0]
+[0]
+[0] Error: src/app/components/paragraph/paragraph.component.spec.ts:47:1 - error TS2593: Cannot find name 'describe'. Do you need to install type definitions for a test runner? Try `npm i --save-dev @types/jest` or `npm i --save-dev @types/mocha` and then add 'jest' or 'mocha' to the types field in your tsconfig.
+[0]
+[0] 47 describe('ParagraphComponent', () => {
+[0]    ~~~~~~~~
+[0]
+[0]
+[0] Error: src/app/components/paragraph/paragraph.component.spec.ts:52:5 - error TS2593: Cannot find name 'beforeEach'. Do you need to install type definitions for a test runner? Try `npm i --save-dev @types/jest` or `npm i --save-dev @types/mocha` and then add 'jest' or 'mocha' to the types field in your tsconfig.
+[0]
+[0] 52     beforeEach(waitForAsync(() => {
+[0]        ~~~~~~~~~~
+[0]
+[0]
+[0] Error: src/app/components/paragraph/paragraph.component.spec.ts:72:5 - error TS2593: Cannot find name 'it'. Do you need to install type definitions for a test runner? Try `npm i --save-dev @types/jest` or `npm i --save-dev @types/mocha` and then add 'jest' or 'mocha' to the types field in your tsconfig.
+[0]
+[0] 72     it('should create the component', waitForAsync(() => {
+[0]        ~~
+[0]
+[0]
+[0] Error: src/app/components/paragraph/paragraph.component.spec.ts:73:9 - error TS2304: Cannot find name 'expect'.
+[0]
+[0] 73         expect(component).toBeTruthy();
+[0]            ~~~~~~
+[0]
+[0]
+[0] Error: src/app/components/paragraph/paragraph.component.spec.ts:76:5 - error TS2593: Cannot find name 'it'. Do you need to install type definitions for a test runner? Try `npm i --save-dev @types/jest` or `npm i --save-dev @types/mocha` and then add 'jest' or 'mocha' to the types field in your tsconfig.
+[0]
+[0] 76     it('ngOnChanges should set articles', waitForAsync(() => {
+[0]        ~~
+[0]
+[0]
+[0] Error: src/app/components/paragraph/paragraph.component.spec.ts:79:9 - error TS2304: Cannot find name 'expect'.
+[0]
+[0] 79         expect(component.articles).toBe(chapterExample.articles);
+[0]            ~~~~~~
+[0]
+[0]
+[0] Error: src/app/components/paragraph/paragraph.component.spec.ts:82:5 - error TS2593: Cannot find name 'it'. Do you need to install type definitions for a test runner? Try `npm i --save-dev @types/jest` or `npm i --save-dev @types/mocha` and then add 'jest' or 'mocha' to the types field in your tsconfig.
+[0]
+[0] 82     it('ngOnInit should set playerConfiguration', waitForAsync(() => {
+[0]        ~~
+[0]
+[0]
+[0] Error: src/app/components/paragraph/paragraph.component.spec.ts:83:9 - error TS2304: Cannot find name 'jest'.
+[0]
+[0] 83         jest.spyOn(fdWindowService, 'getWindow').mockReturnValue(mockWindow);
+[0]            ~~~~
+[0]
+[0]
+[0] Error: src/app/components/paragraph/paragraph.component.spec.ts:85:9 - error TS2304: Cannot find name 'expect'.
+[0]
+[0] 85         expect(component.playerConfiguration).toBeDefined();
+[0]            ~~~~~~
+[0]
+[0]
+[0] Error: src/app/components/paragraph/paragraph.component.spec.ts:88:5 - error TS2593: Cannot find name 'it'. Do you need to install type definitions for a test runner? Try `npm i --save-dev @types/jest` or `npm i --save-dev @types/mocha` and then add 'jest' or 'mocha' to the types field in your tsconfig.
+[0]
+[0] 88     it('ngOnInit should not throw error if brightcoveConfig is empty', waitForAsync(() => {
+[0]        ~~
+[0]
+[0]
+[0] Error: src/app/components/paragraph/paragraph.component.spec.ts:90:9 - error TS2304: Cannot find name 'jest'.
+[0]
+[0] 90         jest.spyOn(fdWindowService, 'getWindow').mockReturnValue(emptyWindow);
+[0]            ~~~~
+[0]
+[0]
+[0] Error: src/app/components/paragraph/paragraph.component.spec.ts:92:9 - error TS2304: Cannot find name 'expect'.
+[0]
+[0] 92         expect(component.playerConfiguration.accountId).toBeUndefined();
+[0]            ~~~~~~
+[0]
+[0]
+[0] Error: src/app/components/paragraph/paragraph.component.spec.ts:93:9 - error TS2304: Cannot find name 'expect'.
+[0]
+[0] 93         expect(component.playerConfiguration.playerId).toBeUndefined();
+[0]            ~~~~~~
+[0]
+[0]
+[0] Error: src/app/components/paragraph/paragraph.component.spec.ts:94:9 - error TS2304: Cannot find name 'expect'.
+[0]
+[0] 94         expect(component.playerConfiguration.videoScriptUrls).toBeUndefined();
+[0]            ~~~~~~
+[0]
+[0]
+[0] Error: src/app/models/spark/spark-nav-bar-context.spec.ts:3:1 - error TS2593: Cannot find name 'describe'. Do you need to install type definitions for a test runner? Try `npm i --save-dev @types/jest` or `npm i --save-dev @types/mocha` and then add 'jest' or 'mocha' to the types field in your tsconfig.
+[0]
+[0] 3 describe('SparkNavBarContext', () => {
+[0]   ~~~~~~~~
+[0]
+[0]
+[0] Error: src/app/models/spark/spark-nav-bar-context.spec.ts:4:5 - error TS2593: Cannot find name 'it'. Do you need to install type definitions for a test runner? Try `npm i --save-dev @types/jest` or `npm i --save-dev @types/mocha` and then add 'jest' or 'mocha' to the types field in your tsconfig.
+[0]
+[0] 4     it('should create an instance of SparkNavBarContext', () => {
+[0]       ~~
+[0]
+[0]
+[0] Error: src/app/models/spark/spark-nav-bar-context.spec.ts:14:9 - error TS2304: Cannot find name 'expect'.  
+[0]
+[0] 14         expect(context).toBeTruthy();
+[0]            ~~~~~~
+[0]
+[0]
+[0] Error: src/app/models/spark/spark-nav-bar-context.spec.ts:15:9 - error TS2304: Cannot find name 'expect'.  
+[0]
+[0] 15         expect(context.clientId).toBe(clientId);
+[0]            ~~~~~~
+[0]
+[0]
+[0] Error: src/app/models/spark/spark-nav-bar-context.spec.ts:16:9 - error TS2304: Cannot find name 'expect'.  
+[0]
+[0] 16         expect(context.host).toBe(host);
+[0]            ~~~~~~
+[0]
+[0]
+[0] Error: src/app/models/spark/spark-nav-bar-context.spec.ts:17:9 - error TS2304: Cannot find name 'expect'.  
+[0]
+[0] 17         expect(context.userId).toBe(userId);
+[0]            ~~~~~~
+[0]
+[0]
+[0] Error: src/app/models/spark/spark-nav-bar-context.spec.ts:20:5 - error TS2593: Cannot find name 'it'. Do you need to install type definitions for a test runner? Try `npm i --save-dev @types/jest` or `npm i --save-dev @types/mocha` and then add 'jest' or 'mocha' to the types field in your tsconfig.
+[0]
+[0] 20     it('should correctly assign properties via the constructor', () => {
+[0]        ~~
+[0]
+[0]
+[0] Error: src/app/models/spark/spark-nav-bar-context.spec.ts:30:9 - error TS2304: Cannot find name 'expect'.  
+[0]
+[0] 30         expect(context.clientId).toEqual(clientId);
+[0]            ~~~~~~
+[0]
+[0]
+[0] Error: src/app/models/spark/spark-nav-bar-context.spec.ts:31:9 - error TS2304: Cannot find name 'expect'.  
+[0]
+[0] 31         expect(context.host).toEqual(host);
+[0]            ~~~~~~
+[0]
+[0]
+[0] Error: src/app/models/spark/spark-nav-bar-context.spec.ts:32:9 - error TS2304: Cannot find name 'expect'.  
+[0]
+[0] 32         expect(context.userId).toEqual(userId);
+[0]            ~~~~~~
+[0]
+[0]
+[0] Error: src/app/services/library.service.spec.ts:7:39 - error TS2307: Cannot find module '@angular/core/testing' or its corresponding type declarations.
+[0]
+[0] 7 import { TestBed, waitForAsync } from '@angular/core/testing';
+[0]                                         ~~~~~~~~~~~~~~~~~~~~~~~
+[0]
+[0]
+[0] Error: src/app/services/library.service.spec.ts:8:41 - error TS2307: Cannot find module '@angular/common/http/testing' or its corresponding type declarations.
+[0]
+[0] 8 import { HttpClientTestingModule } from '@angular/common/http/testing';
+[0]                                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[0]
+[0]
+[0] Error: src/app/services/library.service.spec.ts:11:76 - error TS2307: Cannot find module '@angular/platform-browser-dynamic/testing' or its corresponding type declarations.
+[0]
+[0] 11 import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@angular/platform-browser-dynamic/testing';
+[0]                                                                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[0]
+[0]
+[0] Error: src/app/services/library.service.spec.ts:29:1 - error TS2593: Cannot find name 'describe'. Do you need to install type definitions for a test runner? Try `npm i --save-dev @types/jest` or `npm i --save-dev @types/mocha` and then add 'jest' or 'mocha' to the types field in your tsconfig.
+[0]
+[0] 29 describe('Library Service', () => {
+[0]    ~~~~~~~~
+[0]
+[0]
+[0] Error: src/app/services/library.service.spec.ts:31:5 - error TS2593: Cannot find name 'beforeEach'. Do you need to install type definitions for a test runner? Try `npm i --save-dev @types/jest` or `npm i --save-dev @types/mocha` and then add 'jest' or 'mocha' to the types field in your tsconfig.
+[0]
+[0] 31     beforeEach(waitForAsync(() => {
+[0]        ~~~~~~~~~~
+[0]
+[0]
+[0] Error: src/app/services/library.service.spec.ts:49:5 - error TS2593: Cannot find name 'it'. Do you need to install type definitions for a test runner? Try `npm i --save-dev @types/jest` or `npm i --save-dev @types/mocha` and then add 'jest' or 'mocha' to the types field in your tsconfig.
+[0]
+[0] 49     it('should test the happy path for retrieveOverviewContent call', waitForAsync(() => {
+[0]        ~~
+[0]
+[0]
+[0] Error: src/app/services/library.service.spec.ts:59:9 - error TS2304: Cannot find name 'jest'.
+[0]
+[0] 59         jest.spyOn(fdHttpClientService, 'getData').mockReturnValue(response as unknown as Observable<OverviewContentInterface>);
+[0]            ~~~~
+[0]
+[0]
+[0] Error: src/app/services/library.service.spec.ts:60:9 - error TS2304: Cannot find name 'jest'.
+[0]
+[0] 60         jest.spyOn(fdWindowService, 'getWindow').mockReturnValue(mockWindow);
+[0]            ~~~~
+[0]
+[0]
+[0] Error: src/app/services/library.service.spec.ts:62:9 - error TS2304: Cannot find name 'expect'.
+[0]
+[0] 62         expect(result.title).toBe('SPS Quick Reference Guide');
+[0]            ~~~~~~
+[0]
+[0]
+[0] Error: src/app/services/library.service.spec.ts:63:9 - error TS2304: Cannot find name 'expect'.
+[0]
+[0] 63         expect(result.goLabel).toBe('Go');
+[0]            ~~~~~~
+[0]
+[0]
+[0] Error: src/app/services/library.service.spec.ts:66:5 - error TS2593: Cannot find name 'it'. Do you need to install type definitions for a test runner? Try `npm i --save-dev @types/jest` or `npm i --save-dev @types/mocha` and then add 'jest' or 'mocha' to the types field in your tsconfig.
+[0]
+[0] 66     it('should not call fdHttpClientService if getBookApi is not found on window', waitForAsync(() => { 
+[0]        ~~
+[0]
+[0]
+[0] Error: src/app/services/library.service.spec.ts:67:9 - error TS2304: Cannot find name 'jest'.
+[0]
+[0] 67         jest.spyOn(fdHttpClientService, 'getData');
+[0]            ~~~~
+[0]
+[0]
+[0] Error: src/app/services/library.service.spec.ts:68:9 - error TS2304: Cannot find name 'jest'.
+[0]
+[0] 68         jest.spyOn(fdWindowService, 'getWindow').mockReturnValue({
+[0]            ~~~~
+[0]
+[0]
+[0] Error: src/app/services/library.service.spec.ts:75:9 - error TS2304: Cannot find name 'expect'.
+[0]
+[0] 75         expect(fdHttpClientService.getData).not.toHaveBeenCalled();
+[0]            ~~~~~~
+[0]
+[0]
+[0] Error: src/app/services/library.service.spec.ts:78:5 - error TS2593: Cannot find name 'it'. Do you need to install type definitions for a test runner? Try `npm i --save-dev @types/jest` or `npm i --save-dev @types/mocha` and then add 'jest' or 'mocha' to the types field in your tsconfig.
+[0]
+[0] 78     it('should test the happy path for retrieveChaptersContent when articleSubHeading is null', waitForAsync(() => {
+[0]        ~~
+[0]
+[0]
+[0] Error: src/app/services/library.service.spec.ts:100:9 - error TS2304: Cannot find name 'jest'.
+[0]
+[0] 100         jest.spyOn(fdHttpClientService, 'getData').mockReturnValue(chapterExample as unknown as Observable<ChapterInterface>);
+[0]             ~~~~
+[0]
+[0]
+[0] Error: src/app/services/library.service.spec.ts:101:9 - error TS2304: Cannot find name 'jest'.
+[0]
+[0] 101         jest.spyOn(fdWindowService, 'getWindow').mockReturnValue(mockWindow);
+[0]             ~~~~
+[0]
+[0]
+[0] Error: src/app/services/library.service.spec.ts:103:9 - error TS2304: Cannot find name 'expect'.
+[0]
+[0] 103         expect(result).toBe(chapterExample);
+[0]             ~~~~~~
+[0]
+[0]
+[0] Error: src/app/services/library.service.spec.ts:106:5 - error TS2593: Cannot find name 'it'. Do you need to install type definitions for a test runner? Try `npm i --save-dev @types/jest` or `npm i --save-dev @types/mocha` and then add 'jest' or 'mocha' to the types field in your tsconfig.
+[0]
+[0] 106     it('should test the happy path for retrieveChaptersContent when articleSubHeading is not null', waitForAsync(() => {
+[0]         ~~
+[0]
+[0]
+[0] Error: src/app/services/library.service.spec.ts:128:9 - error TS2304: Cannot find name 'jest'.
+[0]
+[0] 128         jest.spyOn(fdHttpClientService, 'getData').mockReturnValue(chapterExample as unknown as Observable<ChapterInterface>);
+[0]             ~~~~
+[0]
+[0]
+[0] Error: src/app/services/library.service.spec.ts:129:9 - error TS2304: Cannot find name 'jest'.
+[0]
+[0] 129         jest.spyOn(fdWindowService, 'getWindow').mockReturnValue(mockWindow);
+[0]             ~~~~
+[0]
+[0]
+[0] Error: src/app/services/library.service.spec.ts:131:9 - error TS2304: Cannot find name 'expect'.
+[0]
+[0] 131         expect(result).toBe(chapterExample);
+[0]             ~~~~~~
+[0]
+[0]
+[0] Error: src/environments/environment.ts:14:8 - error TS2882: Cannot find module or type declarations for side-effect import of 'zone.js/plugins/zone-error'.
+[0]
+[0] 14 import 'zone.js/plugins/zone-error';  // Included with Angular CLI.
+[0]           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[0]
+[0]
+[0]
+[0]
+[0] ** Angular Live Development Server is listening on localhost:4200, open your browser on http://localhost:4200/ **
+[0]
+[0]
+[0] Ã— Failed to compile.
+
+
+
+
+
+======================
+
+
+
+{
+  "name": "psw-library-client-app",
+  "version": "1.0.0",
+  "scripts": {
+    "ng": "ng",
+    "start": "echo '`npm start` no longer used' && exit 0",
+    "dev": "concurrently \"ng serve\" \"npm run demo-server\"",
+    "dev:internal": "concurrently \"ng serve --host=0.0.0.0\" \"npm run demo-server\"",
+    "dev:https": "ng serve --ssl",
+    "dev:prod": "concurrently \"ng serve --configuration production\" \"npm run demo-server\"",
+    "dev:prod:https": "ng serve --ssl --configuration production --host=0.0.0.0",
+    "demo-server": "node ./demo/demo-server.js",
+    "build": "npm run lint && ng build --stats-json && npm run gzip:build && npm run zip:build",
+    "zip:build": "npx dp-ng-zip dist/pswLibraryClientAppContent",
+    "gzip:build": "npx dp-ng-zip dist/pswLibraryClientAppContent",
+    "report": "webpack-bundle-analyzer dist/pswLibraryClientAppContent/stats.json -p 8888",
+    "report:source-map": "source-map-explorer dist/pswLibraryClientAppContent/*.js",
+    "test": "echo 'use `npm run test:unit` or `npm run test:e2e` or `npm run test:accessibility` instead' && exit 0",
+    "test:unit": "jest --watchAll",
+    "test:unit:CICD": "jest --runInBand --ci",
+    "test:unit:singlerun": "jest --watchAll=false",
+    "test:e2e": "playwright test --headed",
+    "test:e2e:debug": "cross-env PWDEBUG=1 playwright test --headed",
+    "test:e2e:CICD": "playwright test --project chrome",
+    "test:accessibility": "echo TODO ADD ACCESSIBILITY TESTING",
+    "lint": "npm run stylelint && ng lint --fix",
+    "stylelint": "stylelint \"src/**/*.scss\" --fix",
+    "e2e": "echo 'use `npm run test:e2e` instead' && exit 0",
+    "build:source-map": "ng build --stats-json --sourceMap=true",
+    "prereport:source-map": "npm run build:source-map",
+    "prereport": "npm run build:source-map",
+    "pretest:e2e": "node ./node_modules/protractor/bin/webdriver-manager update --verbose --standalone=false  --gecko=false --chrome --ignore_ssl --proxy=http://http.proxy.fmr.com:8000"
+  },
+  "author": "",
+  "contributors": [],
+  "private": true,
+  "dependencies": {
+    "@angular/animations": "^21.2.5",
+    "@angular/forms": "^21.2.5",
+    "@angular/platform-browser": "^21.2.5",
+    "@angular/platform-browser-dynamic": "^21.2.5",
+    "@angular/router": "^21.2.5",
+    "@fmr-ap109253/providence": "3.49.0",
+    "@fmr-ap109253/providence-angular-directives": "5.0.0",
+    "@fmr-ap123285/angular-utils": "11.0.0",
+    "@fmr-ap137030/spark-navbar": "4.0.1",
+    "@fmr-ap137030/video-component": "2.1.0",
+    "@fmr-pr101742/providence-visual-style": "4.12.14",
+    "@webcomponents/webcomponentsjs": "2.8.0",
+    "i": "^0.3.7",
+    "jest-preset-angular": "^14.6.1",
+    "npm": "^11.7.0",
+    "rxjs": "^7.8.1",
+    "ts-jest": "^29.4.4",
+    "tslib": "^2.8.1",
+    "zone.js": "^0.15.1"
+  },
+  "devDependencies": {
+    "@angular-builders/jest": "^21.0.3",
+    "@angular-devkit/build-angular": "^21.2.3",
+    "@angular/cli": "^21.2.3",
+    "@angular/common": "^21.2.5",
+    "@angular/compiler": "^21.2.5",
+    "@angular/compiler-cli": "^21.2.5",
+    "@angular/core": "^21.2.5",
+    "@fmr-ap123285/browserslist-config-dp-angular": "2.0.3",
+    "@fmr-ap123285/dp-angular-cli": "2.0.0",
+    "@fmr-ap123285/eslint-config-dp-angular": "6.0.0",
+    "@fmr-ap123285/stylelint-config-dp-angular": "4.0.0",
+    "@playwright/test": "^1.56.1",
+    "@types/events": "^3.0.2",
+    "@types/jest": "^30.0.0",
+    "@types/node": "^24.9.2",
+    "archiver": "^7.0.1",
+    "concurrently": "^9.2.1",
+    "cross-env": "^10.1.0",
+    "express": "^4.19.2",
+    "glob": "^11.0.3",
+    "husky": "^9.1.7",
+    "jest": "^30.0.0",
+    "jest-environment-jsdom":"^30.0.0",
+    "jest-preset-angular": "^16.1.1",
+    "jsdom": "^26.0.0",
+    "kleur": "^4.1.5",
+    "mkdirp": "^3.0.1",
+    "msw": "^1.3.3",
+    "postcss": "^8.5.6",
+    "source-map-explorer": "^2.5.3",
+    "ts-jest":"29.4.4",
+    "ts-node": "^10.9.2",
+    "typescript": ">5.9.0 and <6.1.0"
+  },
+  "optionalDependencies": {
+    "@rollup/rollup-linux-x64-gnu": "*"
+  },
+  "overrides": {
+    "brace-expansion": "5.0.4",
+    "electron-to-chromium": "1.5.321"
+  },
+  "seed-app-version": "9.0.0",
+  "browserslist": [
+    "extends @fmr-ap123285/browserslist-config-dp-angular"
+  ],
+  "engines": {
+    "node": "^18.16.0"
+  }
+}
