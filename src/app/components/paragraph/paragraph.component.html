@@ -1,0 +1,48 @@
+<ng-container *ngTemplateOutlet="recursiveArticleDisplay; context:{ articles: articles, subArticle:  'false'}"></ng-container>
+
+<ng-template #recursiveArticleDisplay let-articles="articles" let-subArticle="subArticle">
+    @for (article of articles; track article) {
+        @if (article.articleHeading && article.subArticles && article.subArticles.length > 0) {
+            <div class="operations-guide__expandcollapse">
+            <pvd-expand-collapse [attr.pvd-size]="subArticle === 'true' ? 'medium' : 'large'" role="link">
+                <span slot="heading" class="pvd-expand-collapse__heading">{{article.articleHeading}}</span>
+                <span slot="subheading" class="pvd-expand-collapse__subheading">{{article.articleSubHeading}}</span>
+                @if (article.subArticles && article.subArticles.length > 0) {
+                    <div class="pvd-expand-collapse__content operations-guide__expandcollapse-content">
+                    <ng-container
+                        *ngTemplateOutlet="recursiveArticleDisplay; context:{ articles: article.subArticles, subArticle: 'true' }">
+                    </ng-container>
+                </div>
+                }
+            </pvd-expand-collapse>
+        </div>
+        }
+        @else {
+            @if (article.articleHeading) {
+                <h3 class="operations-guide__expandcollapse-title"
+                [innerHtml]="article.articleHeading"></h3>
+            }
+            @if (article.paragraphs) {
+                    @for (para of article.paragraphs; track para) {
+                    @switch (para?.type) {
+                        @case ('STRING') {
+                            <div class="operations-guide__expandcollapse-desc"
+                            [innerHtml]="para.value">
+                        </div>
+                        }
+                        @case ('VIDEO') {
+                            <div class="operations-guide__expandcollapse-desc">
+                            <lib-video
+                                [playerConfiguration]="playerConfiguration"
+                                [videoId]="para.videoId"
+                                [transcriptUrl]="para.videoTranscriptUrl"
+                                [transcriptLabel]="transcriptLabel">
+                            </lib-video>
+                        </div>
+                        }
+                    }
+                    }
+            }
+        }
+    }
+</ng-template>

@@ -1,0 +1,78 @@
+@import 'node_modules/@fmr-pr101742/providence-visual-style/styles/visual-style';
+
+$page-container-max-width: 1240px;
+$page-content-container-spark-padding: 2rem 20px;
+$page-loading-indicator-padding: 3.75rem;
+
+
+.page-content-container {
+    background: $pvd-background-color-light-gray;
+    max-width: 1240px;
+    padding: 2rem 0 1rem;
+}
+
+.page-content-wrapper {
+    background: $pvd-background-color-light-gray;
+    max-width: 1280px;
+    padding: 0 20px;
+}
+
+.page-content-wrapper--spark {
+    display: block;
+    margin: 0 auto;
+    max-width: $page-container-max-width;
+}
+
+.page-footnotes-wrapper {
+    margin-left: -$pvd-space-utility-half-x;
+    max-width: 1288px;
+}
+
+.page-footnotes-wrapper--spark {
+    max-width: 1288px;
+}
+
+.page-header {
+    margin-bottom: $pvd-space-utility-two-x; //40px
+}
+
+.primary-container {
+    background: $pvd-background-color-white;
+    border: thin solid $pvd-color-palette-neutral-88;
+    border-radius: 3px;
+    display: block;
+    padding: 1rem;
+}
+
+.page-content-container--spark {
+    background: $pvd-background-color-light-gray;
+    padding: $page-content-container-spark-padding;
+    width: $page-container-max-width;
+}
+
+.operations-guide {
+    display: block;
+    padding: $pvd-space-utility-one-and-half-x;
+    @include pvd-breakpoint(at-512) {
+        padding: $pvd-space-utility-one-and-half-x;
+    }
+}
+
+.operations-guide__dropdown {
+    display: flex;
+    flex-wrap: wrap;
+    padding-bottom: $pvd-space-utility-two-x;
+}
+
+.operations-guide__error-chapter-level {
+    padding-bottom: $pvd-space-utility-one-x;
+    padding-left: $pvd-space-utility-one-and-half-x;
+}
+
+.operations-guide__error-page-level {
+    padding-bottom: $pvd-space-utility-one-and-half-x;
+}
+
+.overview-spinner-container {
+    padding-top: $page-loading-indicator-padding;
+}

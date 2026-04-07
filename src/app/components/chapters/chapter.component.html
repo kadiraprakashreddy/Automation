@@ -1,0 +1,19 @@
+<div class="operations-guide__content">
+    @if (chapterContentLoading) {
+        <pvd-spinner></pvd-spinner>
+    }
+    @if (chapterContent) {
+        <h2 class="operations-guide__title">{{chapterContent.title}}</h2>
+        <app-paragraph [chapterContent]="chapterContent" [transcriptLabel]="transcriptLabel"></app-paragraph>
+    }
+</div>
+@if (chapterContent?.footnotes) {
+    <div class="operations-guide__disclaimer">
+    <pvd-footnotes>
+        <pvd-footnote>
+            <div class="pvd-footnote__text" [innerHtml]="chapterContent.footnotes">
+            </div>
+        </pvd-footnote>
+    </pvd-footnotes>
+</div>
+}
