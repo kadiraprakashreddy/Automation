@@ -198,7 +198,11 @@ describe('LibraryComponent', () => {
     }));
 
     it('should test error conditionals retrieveOverviewContent', waitForAsync(() => {
-        jest.spyOn(libraryService, 'retrieveOverviewContent').mockReturnValue(throwError(new HttpErrorResponse({ error: errorData })));
+        jest.spyOn(libraryService, 'retrieveOverviewContent').mockReturnValue(
+            throwError(() => {
+                return new HttpErrorResponse({ error: errorData });
+            })
+        );
         component.ngOnInit();
         componentFixture.whenStable().then(() => {
             expect(libraryService.retrieveOverviewContent).toHaveBeenCalled();
@@ -210,7 +214,11 @@ describe('LibraryComponent', () => {
 
     it('should not set errorResponse data if errorResponse does not contain errors attribute while calling' +
         'retrieveOverviewContent', waitForAsync(() => {
-        jest.spyOn(libraryService, 'retrieveOverviewContent').mockReturnValue(throwError(new HttpErrorResponse({ error: null })));
+        jest.spyOn(libraryService, 'retrieveOverviewContent').mockReturnValue(
+            throwError(() => {
+                return new HttpErrorResponse({ error: null });
+            })
+        );
         component.ngOnInit();
         componentFixture.whenStable().then(() => {
             expect(libraryService.retrieveOverviewContent).toHaveBeenCalled();
@@ -221,7 +229,11 @@ describe('LibraryComponent', () => {
     }));
 
     it('should test error conditionals retrieveChaptersContent', waitForAsync(() => {
-        jest.spyOn(libraryService, 'retrieveChaptersContent').mockReturnValue(throwError(new HttpErrorResponse({ error: errorData })));
+        jest.spyOn(libraryService, 'retrieveChaptersContent').mockReturnValue(
+            throwError(() => {
+                return new HttpErrorResponse({ error: errorData });
+            })
+        );
         component.chaptersAPI();
         componentFixture.whenStable().then(() => {
             expect(libraryService.retrieveChaptersContent).toHaveBeenCalled();
@@ -344,7 +356,11 @@ describe('LibraryComponent', () => {
     }));
 
     it('should test error conditionals retrieveOverviewContent', waitForAsync(() => {
-        jest.spyOn(libraryService, 'retrieveOverviewContent').mockReturnValue(throwError(new HttpErrorResponse({ error: errorData })));
+        jest.spyOn(libraryService, 'retrieveOverviewContent').mockReturnValue(
+            throwError(() => {
+                return new HttpErrorResponse({ error: errorData });
+            })
+        );
         jest.spyOn(fdWindowService, 'getWindow').mockReturnValue(mockWindow);
         component.ngOnInit();
         componentFixture.whenStable().then(() => {
@@ -354,7 +370,11 @@ describe('LibraryComponent', () => {
     }));
 
     it('should test error conditionals retrieveChaptersContent', waitForAsync(() => {
-        jest.spyOn(libraryService, 'retrieveChaptersContent').mockReturnValue(throwError(new HttpErrorResponse({ error: errorData })));
+        jest.spyOn(libraryService, 'retrieveChaptersContent').mockReturnValue(
+            throwError(() => {
+                return new HttpErrorResponse({ error: errorData });
+            })
+        );
         jest.spyOn(fdWindowService, 'getWindow').mockReturnValue(mockWindow);
         component.chaptersAPI();
         componentFixture.whenStable().then(() => {
