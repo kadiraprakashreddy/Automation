@@ -249,12 +249,10 @@ describe('LibraryComponent', () => {
         component.analyticsPageName = 'Analytics Page Name';
         component.chaptersAPI();
         componentFixture.whenStable().then(() => {
-            /* eslint-disable */
             const expectedResult = {
-                page_name: 'Analytics Page Name' + ' | ' + chapterExample.title,
-                site_events: { spa_page_view: true }
+                'page_name': 'Analytics Page Name' + ' | ' + chapterExample.title,
+                'site_events': { 'spa_page_view': true }
             };
-            /* eslint-enable */
             expect(fdAnalyticsService.submitAnalytics).toHaveBeenCalledWith(expectedResult);
         });
     }));
@@ -265,12 +263,10 @@ describe('LibraryComponent', () => {
         component.setAnalyticsPageName();
         component.chaptersAPI();
         componentFixture.whenStable().then(() => {
-            /* eslint-disable */
             const expectedResult = {
-                page_name: 'PSW Library' + ' | ' + 'no chapter title found',
-                site_events: { spa_page_view: true }
+                'page_name': 'PSW Library' + ' | ' + 'no chapter title found',
+                'site_events': { 'spa_page_view': true }
             };
-            /* eslint-enable */
             expect(fdAnalyticsService.submitAnalytics).toHaveBeenCalledWith(expectedResult);
         });
     }));
@@ -391,12 +387,10 @@ describe('LibraryComponent', () => {
         component.analyticsPageName = 'Analytics Page Name';
         component.chaptersAPI();
         componentFixture.whenStable().then(() => {
-            /* eslint-disable */
             const expectedResult = {
-                page_name: 'Analytics Page Name' + ' | ' + chapterExample.title,
-                site_events: { spa_page_view: true }
+                'page_name': 'Analytics Page Name' + ' | ' + chapterExample.title,
+                'site_events': { 'spa_page_view': true }
             };
-            /* eslint-enable */
             expect(fdAnalyticsService.submitAnalytics).toHaveBeenCalledWith(expectedResult);
         });
     }));
@@ -408,12 +402,10 @@ describe('LibraryComponent', () => {
         component.setAnalyticsPageName();
         component.chaptersAPI();
         componentFixture.whenStable().then(() => {
-            /* eslint-disable */
             const expectedResult = {
-                page_name: 'PSW Library' + ' | ' + 'no chapter title found',
-                site_events: { spa_page_view: true }
+                'page_name': 'PSW Library' + ' | ' + 'no chapter title found',
+                'site_events': { 'spa_page_view': true }
             };
-            /* eslint-enable */
             expect(fdAnalyticsService.submitAnalytics).toHaveBeenCalledWith(expectedResult);
         });
     }));
