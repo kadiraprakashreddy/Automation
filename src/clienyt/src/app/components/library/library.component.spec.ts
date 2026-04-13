@@ -15,6 +15,7 @@ import { of, ReplaySubject, throwError } from 'rxjs';
 import { chapterExample, overviewContent, tocListExample, tocListExampleJSON, errorData } from '../../app.component.data';
 import { ChapterInterface } from '../../models/chapter.interface';
 import { ActivatedRoute, ActivatedRouteSnapshot, convertToParamMap, ParamMap, Params } from '@angular/router';
+import { FAILURE_MSG_TITLE } from '../../constants/library.constants';
 
 class ActivatedRouteStub implements Partial<ActivatedRoute> {
     public subject = new ReplaySubject<ParamMap>();
@@ -438,4 +439,83 @@ describe('LibraryComponent', () => {
         expect(component.pageContextUser).toEqual('spark');
         expect(component.sparkNavbarContext).toBeDefined();
     }));
+
+    it('should set error state when retrieveOverviewContent fails with valid error title', waitForAsync(() => {
+    const mockError = new HttpErrorResponse({
+        error: {
+            errors: [{ title: 'API failure' }]
+        }
+    });
+
+    jest.spyOn(libraryService, 'retrieveOverviewContent')
+        .mockReturnValue(throwError(() => mockError));
+
+    component.ngOnInit();
+
+    componentFixture.whenStable().then(() => {
+        expect(component.errorResponse).toBeTruthy();
+        expect(component.errorTitle).toBe(FAILURE_MSG_TITLE);
+        expect(component.errorMessage).toContain('API failure');
+        expect(component.overviewContentLoading).toBeFalsy();
+        expect(component.isInitialPageLoad).toBeFalsy();
+    });
+}));
+
+it('should NOT set error state when error title is missing', waitForAsync(() => {
+    const mockError = new HttpErrorResponse({
+        error: {
+            errors: [{}] // no title
+        }
+    });
+
+    jest.spyOn(libraryService, 'retrieveOverviewContent')
+        .mockReturnValue(throwError(() => mockError));
+
+    component.ngOnInit();
+
+    componentFixture.whenStable().then(() => {
+        expect(component.errorResponse).toBeFalsy();
+        expect(component.errorTitle).toBeUndefined();
+        expect(component.errorMessage).toBeUndefined();
+        expect(component.overviewContentLoading).toBeFalsy();
+        expect(component.isInitialPageLoad).toBeFalsy();
+    });
+}));
+
+it('should handle null error object safely', waitForAsync(() => {
+    const mockError = new HttpErrorResponse({
+        error: null
+    });
+
+    jest.spyOn(libraryService, 'retrieveOverviewContent')
+        .mockReturnValue(throwError(() => mockError));
+
+    component.ngOnInit();
+
+    componentFixture.whenStable().then(() => {
+        expect(component.errorResponse).toBeFalsy();
+        expect(component.overviewContentLoading).toBeFalsy();
+        expect(component.isInitialPageLoad).toBeFalsy();
+    });
+}));
+
+it('should always reset loading and initial flags on error', waitForAsync(() => {
+    const mockError = new HttpErrorResponse({
+        error: { errors: [{ title: 'Timeout' }] }
+    });
+
+    jest.spyOn(libraryService, 'retrieveOverviewContent')
+        .mockReturnValue(throwError(() => mockError));
+
+    component.overviewContentLoading = true;
+    component.isInitialPageLoad = true;
+
+    component.ngOnInit();
+
+    componentFixture.whenStable().then(() => {
+        expect(component.overviewContentLoading).toBeFalsy();
+        expect(component.isInitialPageLoad).toBeFalsy();
+    });
+}));
+
 });
