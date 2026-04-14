@@ -1,0 +1,92 @@
+1. Shared / Reusable Components
+
+These should go into a shared library/module.
+
+Core UI Components
+StepSummaryCardComponent
+ActionBarComponent
+ProgressBarComponent
+HelpLinkComponent
+Optional Enhancements (recommended)
+StepCardComponent (wrapper for consistent card layout across steps)
+SummaryGridComponent (if reused across multiple summary cards)
+2. Landing Page
+TerminationRulesListPageComponent
+
+👉 Optional split (for scalability):
+
+TerminationRulesTableComponent
+TerminationRulesFilterComponent
+3. Wizard Step Components
+Step 1 — Rule Level
+Step1RuleLevelPageComponent
+
+👉 Optional:
+
+RuleLevelFormComponent
+Step 2 — Vesting
+Step2VestingPageComponent
+
+👉 Optional:
+
+VestingOptionsComponent
+Step 3 — Accelerate Distribution
+Step3AccelerateDistributionPageComponent
+
+👉 Optional:
+
+AccelerateDistributionFormComponent
+Step 4 — Holding Rules
+Step4HoldingRulesPageComponent
+
+👉 Optional:
+
+HoldingRulesFormComponent
+Step 5 — Proration Rules
+Step5ProrationRulesPageComponent
+
+👉 Optional:
+
+ProrationRulesFormComponent
+ProrationSubCardComponent (for fixed vs shares sections)
+4. Review / Submit
+ReviewSubmitPageComponent
+
+👉 Optional:
+
+ReviewSummarySectionComponent
+5. Wizard Container (Important – Missing Piece)
+
+You should add a parent orchestration component:
+
+TerminationRuleWizardComponent
+
+👉 Responsibilities:
+
+Step navigation (1 → 5 → Review)
+State management (store / service)
+Progress calculation
+Route handling
+6. Suggested Folder Structure (Nx Friendly)
+termination-rules/
+ ├── pages/
+ │    ├── termination-rules-list-page/
+ │    ├── step-1-rule-level-page/
+ │    ├── step-2-vesting-page/
+ │    ├── step-3-accelerate-distribution-page/
+ │    ├── step-4-holding-rules-page/
+ │    ├── step-5-proration-rules-page/
+ │    └── review-submit-page/
+ │
+ ├── components/
+ │    ├── step-summary-card/
+ │    ├── action-bar/
+ │    ├── progress-bar/
+ │    ├── help-link/
+ │
+ ├── containers/
+ │    └── termination-rule-wizard/
+7. Key Architectural Insight
+Pages = Route-level components
+Components = Reusable UI
+Container = Orchestration (state + navigation)
