@@ -1,0 +1,9 @@
+{
+  "htmlFragments": {
+    "head": "",
+    "body": ""
+  },
+  "title": "Award Management Center",
+  "bootstrapTemplate": "psw-default",
+  "platform": "psw"
+}

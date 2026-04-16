@@ -1,0 +1,44 @@
+{
+  "name": "sps-termination-feature-management",
+  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/sps/termination/feature/management/src",
+  "prefix": "sps-termination",
+  "projectType": "library",
+  "tags": ["type:coupled-feature", "domain:sps-termination", "channel:web"],
+  "metadata": {
+    "appInfo": {
+      "domain": "sps/termination",
+      "reviewers": ["@TeamUnited"]
+    }
+  },
+  "targets": {
+    "build": {
+      "executor": "@nx/angular:ng-packagr-lite",
+      "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
+      "options": {
+        "project": "libs/sps/termination/feature/management/ng-package.json",
+        "tsConfig": "libs/sps/termination/feature/management/tsconfig.lib.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/sps/termination/feature/management/tsconfig.lib.prod.json"
+        },
+        "development": {}
+      },
+      "defaultConfiguration": "production"
+    },
+    "eslint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "stylelint": {
+      "executor": "nx-stylelint:lint"
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "{projectRoot}/jest.config.ts"
+      }
+    }
+  }
+}

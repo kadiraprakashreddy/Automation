@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" expconfig-exclude="true" />
+    <title expconfig-exclude="true">
+      sps-termination-ap184243-terminations
+    </title>
+    <base expconfig-exclude="true" href="/" />
+    <meta
+      expconfig-exclude="true"
+      name="viewport"
+      content="width=device-width, initial-scale=1"
+    />
+    <link
+      expconfig-exclude="true"
+      rel="icon"
+      type="image/x-icon"
+      href="favicon.ico"
+    />
+    <link
+      expconfig-exclude="true"
+      rel="stylesheet"
+      href="https://assets.fidelity.com/fonts/fidelity-sans/fidelity-sans.css"
+    />
+    <link
+      expconfig-exclude="true"
+      rel="stylesheet"
+      href="https://assets.fidelity.com/fonts/fidelity-slab/fidelity-slab.css"
+    />
+    <script defer src="/static/ap184243-terminations/env.js"></script>
+    <script expconfig-exclude="true" src="/env/env.local.js"></script>
+  </head>
+  <script type="text/javascript">
+    var config = {
+      pageContext: 'participantTerminations',
+      pageContextUser: 'plansponsor',
+      pageContextId: 'participant-terminations',
+    };
+    var isTocV2Available = true;
+    var apis = {
+      termModelContent:
+        '\/plansponsor\/sps-terminations\/api\/employers\/000718029\/content\/termination-models',
+      participantGrantDetails: '\/plansponsor\/gosps\/to\/participant-grants',
+      termRuleIds:
+        '\/plansponsor\/sps-terminations\/api\/employers\/000718029\/participants\/participant-id\/termination-ids',
+      content:
+        '\/plansponsor\/sps-terminations\/api\/employers\/000718029\/content\/participant-terminations',
+      participantWid:
+        '\/plansponsor\/participantsearch\/api\/relationships\/employer=000718029\/selected-participants\/current',
+      employmentdetails:
+        '\/plansponsor\/sps-terminations\/api\/employers\/000718029\/participants\/participant-id\/employment-details',
+    };
+  </script>
+  <body class="fds-fds-theme">
+    <fmr-ap184243-terminations></fmr-ap184243-terminations>
+  </body>
+</html>

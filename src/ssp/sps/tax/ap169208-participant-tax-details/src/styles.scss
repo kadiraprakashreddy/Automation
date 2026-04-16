@@ -1,0 +1,233 @@
+@use '@fmr-ap153177/fdskit-visual-style/styles/visual-style' as visual-style;
+@use 'shared-design-system-ui-core-apex-kit-tokens' as apex-kit-tokens;
+@use 'shared-design-system-ui-core-apex-tokens' as apex-tokens;
+@use 'shared-design-system-ui-core-ds-helpers' as ds-helpers;
+
+/* stylelint-disable declaration-no-important */
+/* TODO remove !important after bugfix to global navbar style that uses !important */
+
+@mixin flex-space-between {
+  display: flex;
+  justify-content: space-between;
+}
+
+fmr-ap169208-participant-tax-details {
+  /* Until relevant pvd vars become available in Apex Kit v5, fds theme using following global
+    vars with var values taken from https://codex.fmr.com/#/development/how-to/dev-adopt-fds */
+  background-color: apex-tokens.$reference-color-neutral-100;
+  display: block;
+  margin: auto;
+  max-width: apex-tokens.$reference-uom-breakpoint-300;
+}
+
+// putting donut chart overrides in here
+.donut-chart {
+  wi-ds-donut-chart > wi-donut-chart > wi-root {
+    display: flex;
+    justify-content: center;
+  }
+
+  wi-ds-donut-chart > wi-donut-chart {
+    .donut-hole {
+      width: 7rem;
+    }
+  }
+
+  // override PVD chart colors with FDS colors
+  .highcharts-root {
+    --highcharts-color-0: #{apex-tokens.$reference-color-blue-600};
+    --highcharts-color-1: #{apex-tokens.$reference-color-orange-600};
+    --highcharts-color-2: #{apex-tokens.$reference-color-purple-600};
+    --highcharts-color-3: #{apex-tokens.$reference-color-aqua-600};
+    --highcharts-color-4: #{apex-tokens.$reference-color-pink-600};
+    --highcharts-color-5: #{apex-tokens.$reference-color-cobalt-600};
+    --highcharts-color-6: #{apex-tokens.$reference-color-gold-600};
+    --highcharts-color-7: #{apex-tokens.$reference-color-neutral-700};
+    --highcharts-color-8: #{apex-tokens.$reference-color-neutral-500};
+    --highcharts-color-9: #{apex-tokens.$reference-color-green-600};
+  }
+
+  .legend-container {
+    display: none;
+  }
+
+  wi-slot[name='chart'] {
+    svg {
+      transform: scale(1.75);
+
+      @include visual-style.fds-breakpoint('at-960') {
+        transform: scale(2.25);
+      }
+    }
+
+    div {
+      overflow: visible !important;
+    }
+  }
+
+  wi-slot[name='donut-hole-content'] {
+    @include visual-style.fds-text-md;
+
+    & {
+      text-align: center;
+      width: 100%;
+    }
+
+    .total-after-taxes-percentage {
+      @include visual-style.fds-heading-4;
+
+      & {
+        text-align: center;
+      }
+    }
+  }
+}
+
+.taxes-list {
+  // Override global Expand-Collapse component styles
+  button.fds-expand-collapse__interactive-button {
+    padding: 0;
+
+    svg {
+      margin-left: 0;
+    }
+  }
+
+  .#{ds-helpers.$ds-namespace}-expand-collapse-root
+    .fds-expand-collapse__content-wrapper {
+    margin-top: apex-tokens.$reference-uom-space-75;
+  }
+  // End override global Expand-Collapse component styles
+
+  wi-ds-expand-collapse {
+    margin: apex-tokens.$reference-uom-space-75 0 0 0;
+
+    [data-tag-name='fds-scoped-icon'] {
+      align-self: center !important;
+      margin-top: 0;
+    }
+
+    .fds-expand-collapse__subheading {
+      @include visual-style.fds-text-small;
+      color: apex-kit-tokens.$pvd-text-color-secondary;
+
+      &-wrapper {
+        padding-top: 0;
+      }
+    }
+
+    .fds-expand-collapse__heading-wrapper {
+      padding: 0.5rem 0;
+      width: 100%;
+
+      div[slot='heading'] {
+        font-weight: normal;
+        @include flex-space-between;
+
+        .tax-title {
+          align-items: baseline;
+          display: flex;
+        }
+      }
+    }
+
+    ul {
+      margin: 0 0 5px apex-tokens.$reference-uom-space-100;
+      @media (max-width: 48rem) {
+        margin-right: 5px;
+      }
+    }
+  }
+
+  .fds-link__text s-fallback-wrapper,
+  .fds-link__text s-assigned-wrapper {
+    border-bottom: 1px solid currentColor;
+  }
+}
+
+.fds-expand-collapse__interactive-button {
+  [data-tag-name='fds-scoped-icon'] {
+    align-self: baseline !important;
+    margin-top: apex-tokens.$reference-uom-space-50;
+  }
+}
+// overriding styles for back link
+.back-link span .fds-link__icon {
+  color: black;
+}
+
+// overriding styles for pvd alert
+.estimate-award-value .description .fds-inline-alert__content {
+  padding-left: 0.8rem;
+}
+
+.leaving-fidelity-modal {
+  .#{ds-helpers.$ds-namespace}-modal-root {
+    .fds-modal__dialog {
+      border-radius: 0.25rem;
+      letter-spacing: normal;
+    }
+
+    .fds-modal__content {
+      padding: apex-tokens.$reference-uom-space-150
+        apex-tokens.$reference-uom-space-75;
+
+      .fds-modal__heading-wrapper {
+        padding: 0 apex-tokens.$reference-uom-space-150;
+      }
+
+      .fds-modal__heading {
+        @include visual-style.fds-heading-3;
+
+        & {
+          line-height: 1.25;
+        }
+      }
+
+      .fds-modal__body-wrapper {
+        margin: 2rem 0 0;
+        padding: 0 apex-tokens.$reference-uom-space-150;
+        @media (max-height: 18rem) {
+          margin: 0;
+        }
+
+        .buttons {
+          align-items: center;
+          display: flex;
+          flex-direction: column;
+          margin: apex-tokens.$reference-uom-space-150 0 0 0;
+
+          .continue {
+            margin-bottom: apex-tokens.$reference-uom-space-100;
+          }
+
+          .back {
+            margin-bottom: apex-tokens.$reference-uom-space-25;
+          }
+        }
+      }
+    }
+  }
+}
+
+.screen-reader-only {
+  @include visual-style.fds-screen-reader-only;
+}
+
+.tile__section {
+  h2 {
+    margin: 0;
+  }
+
+  .fds-content-block__body-wrapper {
+    margin-top: 0 !important;
+  }
+
+  .fds-link__text {
+    color: var(--fds-link-text-color);
+  }
+
+  .fds-content-block__image-wrapper {
+    align-self: center !important;
+  }
+}

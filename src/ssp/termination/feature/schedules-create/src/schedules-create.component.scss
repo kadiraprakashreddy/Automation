@@ -1,0 +1,83 @@
+.create-rule-wizard {
+  margin: 0 auto;
+  max-width: 75rem;
+  padding: 1.5rem 1.25rem 2rem;
+}
+
+.create-rule-wizard__back-link {
+  display: inline-flex;
+  margin-bottom: 1.25rem;
+}
+
+.create-rule-wizard__title-row {
+  align-items: center;
+  display: flex;
+  gap: 2rem;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+
+  wi-ds-title {
+    flex: 1 1 auto;
+  }
+
+  .pvd-title__heading {
+    margin: 0;
+  }
+}
+
+/* Progress bar */
+.create-rule-wizard__progress {
+  align-items: center;
+  display: flex;
+  flex-shrink: 0;
+  gap: 0.5rem;
+}
+
+.create-rule-wizard__progress-label {
+  font-size: 0.875rem;
+  white-space: nowrap;
+}
+
+.create-rule-wizard__progress-bar {
+  background-color: var(--fds-color-background-subtle, #e8e8e8);
+  border-radius: 0.25rem;
+  height: 0.5rem;
+  overflow: hidden;
+  width: 10rem;
+}
+
+.create-rule-wizard__progress-fill {
+  background-color: var(--fds-color-action-primary, #006ba6);
+  border-radius: 0.25rem;
+  height: 100%;
+  transition: width 0.3s ease;
+}
+
+.create-rule-wizard__progress-percent {
+  font-size: 0.875rem;
+  min-width: 2.5rem;
+  white-space: nowrap;
+}
+
+/* Spacing between wizard steps */
+sps-termination-step-summary-card,
+sps-termination-step-1-rule-level,
+sps-termination-step-2-vesting-method {
+  display: block;
+  margin-bottom: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .create-rule-wizard {
+    padding: 1rem 0.75rem 1.5rem;
+  }
+
+  .create-rule-wizard__title-row {
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .create-rule-wizard__progress-bar {
+    width: 6rem;
+  }
+}

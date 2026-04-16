@@ -1,0 +1,80 @@
+<wi-ds-modal
+  (modalChange)="closingOverlay($event)"
+  modalWidth="600"
+  id="modal-width-600"
+  [formGroup]="confirmationForm"
+  (ngSubmit)="onConfirm()"
+  [open]="true"
+>
+  <h2 slot="heading" class="fds-modal__heading" id="overlay__heading">
+    {{ content()?.overlayTitle }}
+  </h2>
+  <wi-ds-form>
+    <wi-ds-field-group class="adjust-modal__data-field">
+      <wi-ds-label
+        fds-for="overlay__xtrac-number-input"
+        fds-id="overlay__xtrac-number-label"
+      >
+        {{ content()?.xtracNumberLabel }}
+      </wi-ds-label>
+      <wi-ds-input
+        formControlName="xtracId"
+        [error]="
+          (xtracId?.invalid && (xtracId?.dirty || xtracId?.touched)) ?? false
+        "
+        [nativeId]="'overlay__xtrac-number-input'"
+        [type]="inputType.ssn"
+        class="id-input"
+      ></wi-ds-input>
+      @if (xtracId?.invalid && (xtracId?.dirty || xtracId?.touched)) {
+        <wi-ds-inline-message [dsId]="'overlay__invalid-xtrac-number'">
+          {{ messages.invalidXtracNumber }}
+        </wi-ds-inline-message>
+      }
+    </wi-ds-field-group>
+
+    <!-- Note: this section is already commented before migrations-->
+    <!-- we will enable comment section, once service is ready to process comments data -->
+    <!-- <wi-ds-field-group class="adjust-modal__data-field">
+         <wi-ds-label fds-indicator="optional" fds-for="overlay__comments-default-textarea"
+                       fds-id="overlay__comments-default-label">{{ content()?.commentsLabel }}</wi-ds-label>
+            <wi-ds-textarea fds-input-control
+                fds-id="overlay__comments-default-textarea" formControlName="xtracComments"
+            ></wi-ds-textarea>
+        </wi-ds-field-group> -->
+
+    <div class="adjust-modal__data-field">
+      <wi-ds-inline-message
+        [variant]="alertVariant.warning"
+        [dsId]="'overlay__warning-message'"
+      >
+        {{ content()?.warningMessage }}
+      </wi-ds-inline-message>
+    </div>
+    <wi-ds-form-actions>
+      <wi-ds-button
+        slot="secondary-action"
+        [variant]="buttonVariant.secondary"
+        [dsId]="'overlay__cancel-button'"
+        class="no-wrap"
+        (click)="cancel()"
+        >{{ content()?.cancelButton }}
+        <span class="screen-reader-only">{{
+          content()?.cancelButtonTextForScreenReader
+        }}</span>
+      </wi-ds-button>
+
+      <wi-ds-button
+        slot="primary-action"
+        [disabled]="confirmationForm.invalid || confirmationForm.pristine"
+        [dsId]="'overlay__submit-adjustment'"
+        [type]="buttonType.submit"
+        class="no-wrap"
+        >{{ content()?.submitButton }}
+        <span class="screen-reader-only">{{
+          content()?.submitButtonTextForScreenReader
+        }}</span>
+      </wi-ds-button>
+    </wi-ds-form-actions>
+  </wi-ds-form>
+</wi-ds-modal>

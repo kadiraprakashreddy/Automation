@@ -1,0 +1,125 @@
+{
+  "name": "sps-tax-ap169208-participant-tax-details",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "fmr-ap169208",
+  "sourceRoot": "apps/sps/tax/ap169208-participant-tax-details/src",
+  "tags": ["domain:sps-tax", "type:application", "channel:web"],
+  "metadata": {
+    "appInfo": {
+      "domain": "sps/tax",
+      "reviewers": ["@TeamCurators"],
+      "appName": "ap169208-participant-tax-details",
+      "appId": "ap169208",
+      "appType": "wiscd",
+      "appVersion": "1.0.0",
+      "deployEnvironments": "dev1,acp:passive",
+      "sonarProjectKey": "com.fmr.AP169208:ap169208-participant-tax-details"
+    }
+  },
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/sps/tax/ap169208-participant-tax-details",
+        "index": "apps/sps/tax/ap169208-participant-tax-details/src/index.html",
+        "main": "apps/sps/tax/ap169208-participant-tax-details/src/main.ts",
+        "polyfills": ["zone.js"],
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          "apps/sps/tax/ap169208-participant-tax-details/src/favicon.ico",
+          "apps/sps/tax/ap169208-participant-tax-details/src/assets",
+          {
+            "glob": "mockServiceWorker.js",
+            "input": "public",
+            "output": "/"
+          }
+        ],
+        "styles": [
+          "apps/sps/tax/ap169208-participant-tax-details/src/styles.scss"
+        ],
+        "scripts": [],
+        "tsConfig": "apps/sps/tax/ap169208-participant-tax-details/tsconfig.app.json",
+        "stylePreprocessorOptions": {
+          "includePaths": [
+            "libs/shared/design-system/ui/core/src/lib/utils",
+            "node_modules"
+          ]
+        }
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "600kb",
+              "maximumError": "6mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "125kb",
+              "maximumError": "320kb"
+            }
+          ],
+          "outputHashing": "none",
+          "fileReplacements": [
+            {
+              "replace": "./apps/sps/tax/ap169208-participant-tax-details/src/environments/environment.ts",
+              "with": "./apps/sps/tax/ap169208-participant-tax-details/src/environments/environment.prod.ts"
+            }
+          ],
+          "assets": [
+            {
+              "glob": "**/*",
+              "input": "apps/sps/tax/ap169208-participant-tax-details/src/assets",
+              "ignore": ["**/demo/**"],
+              "output": "/assets"
+            }
+          ]
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "eslint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "buildTarget": "sps-tax-ap169208-participant-tax-details:build"
+      }
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "buildTarget": "sps-tax-ap169208-participant-tax-details:build:production"
+        },
+        "development": {
+          "buildTarget": "sps-tax-ap169208-participant-tax-details:build:development"
+        }
+      },
+      "defaultConfiguration": "development",
+      "continuous": true
+    },
+    "stylelint": {
+      "executor": "nx-stylelint:lint"
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "{projectRoot}/jest.config.ts"
+      }
+    }
+  }
+}

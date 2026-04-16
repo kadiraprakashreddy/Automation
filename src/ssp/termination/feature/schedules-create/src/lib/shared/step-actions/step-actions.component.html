@@ -1,0 +1,25 @@
+<wi-ds-form-actions [disableBorder]="false" [inline]="inline.always">
+  <wi-ds-button
+    slot="primary-action"
+    pvd-id="step-save-and-continue-button"
+    (click)="saveAndContinue.emit()"
+  >
+    {{ pageContent.terminationSaveAndContinueLabel }}
+  </wi-ds-button>
+  <wi-ds-button
+    slot="secondary-action"
+    pvd-id="step-save-and-exit-button"
+    [variant]="buttonVariant.secondary"
+    (click)="saveAndExit.emit()"
+  >
+    {{ pageContent.terminationSaveAndExitLabel }}
+  </wi-ds-button>
+  <wi-ds-button
+    slot="tertiary-action"
+    pvd-id="step-cancel-button"
+    [variant]="buttonVariant.tertiary"
+    (click)="cancel.emit()"
+  >
+    {{ pageContent.terminationCancelLabel }}
+  </wi-ds-button>
+</wi-ds-form-actions>

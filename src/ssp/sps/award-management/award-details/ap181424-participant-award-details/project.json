@@ -1,0 +1,148 @@
+{
+  "name": "sps-award-management-award-details-ap181424-participant-award-details",
+  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "fmr-ap181424",
+  "sourceRoot": "apps/sps/award-management/award-details/ap181424-participant-award-details/src",
+  "tags": [
+    "domain:sps-award-management-award-details",
+    "type:application",
+    "channel:web"
+  ],
+  "metadata": {
+    "appInfo": {
+      "domain": "sps/award-management/award-details",
+      "reviewers": ["@TeamPeakyBlinders"],
+      "appName": "ap181424-participant-award-details",
+      "appId": "ap181424",
+      "appType": "wiscd",
+      "appVersion": "1.0.0",
+      "deployEnvironments": "dev1,acp",
+      "sonarProjectKey": "com.fmr.AP181424:ap181424-participant-award-details"
+    }
+  },
+  "targets": {
+    "build": {
+      "executor": "@fmr-ap167419/tools-nx-plugin:generate-experience-config",
+      "options": {
+        "outputPath": "dist/apps/sps/award-management/award-details/ap181424-participant-award-details"
+      }
+    },
+    "build-ng": {
+      "executor": "@angular/build:application",
+      "outputs": ["{options.outputPath.base}"],
+      "options": {
+        "outputPath": {
+          "base": "dist/apps/sps/award-management/award-details/ap181424-participant-award-details",
+          "browser": ""
+        },
+        "index": "apps/sps/award-management/award-details/ap181424-participant-award-details/src/index.html",
+        "polyfills": ["zone.js"],
+        "tsConfig": "apps/sps/award-management/award-details/ap181424-participant-award-details/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          {
+            "glob": "**/*",
+            "input": "apps/sps/award-management/award-details/ap181424-participant-award-details/public"
+          },
+          {
+            "glob": "mockServiceWorker.js",
+            "input": "public",
+            "output": "/"
+          },
+          {
+            "glob": "**/*",
+            "input": "apps/sps/award-management/award-details/ap181424-participant-award-details/env",
+            "output": "/env"
+          }
+        ],
+        "styles": [
+          "apps/sps/award-management/award-details/ap181424-participant-award-details/src/styles.scss",
+          "libs/shared/design-system/ui/core/src/lib/utils/ds-mat-theme.scss"
+        ],
+        "scripts": [],
+        "stylePreprocessorOptions": {
+          "includePaths": [
+            "libs/shared/design-system/ui/core/src/lib/utils",
+            "node_modules"
+          ]
+        },
+        "browser": "apps/sps/award-management/award-details/ap181424-participant-award-details/src/main.ts"
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "600kb",
+              "maximumError": "6mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "125kb",
+              "maximumError": "320kb"
+            }
+          ],
+          "outputHashing": "none",
+          "fileReplacements": [
+            {
+              "replace": "./apps/sps/award-management/award-details/ap181424-participant-award-details/src/environments/environment.ts",
+              "with": "./apps/sps/award-management/award-details/ap181424-participant-award-details/src/environments/environment.prod.ts"
+            }
+          ],
+          "assets": [
+            "apps/sps/award-management/award-details/ap181424-participant-award-details/src/assets",
+            "apps/sps/award-management/award-details/ap181424-participant-award-details/src/experience.config.json"
+          ],
+          "deployUrl": "/static/ap181424-participant-award-details/"
+        },
+        "development": {
+          "optimization": false,
+          "extractLicenses": false,
+          "sourceMap": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "eslint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "buildTarget": "sps-award-management-award-details-ap181424-participant-award-details:build"
+      }
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "buildTarget": "sps-award-management-award-details-ap181424-participant-award-details:build-ng:production"
+        },
+        "development": {
+          "buildTarget": "sps-award-management-award-details-ap181424-participant-award-details:build-ng:development"
+        }
+      },
+      "defaultConfiguration": "development",
+      "continuous": true
+    },
+    "serve-static": {
+      "executor": "@nx/web:file-server",
+      "options": {
+        "buildTarget": "participant-award-details:build",
+        "port": 4200,
+        "spa": true
+      }
+    },
+    "stylelint": {
+      "executor": "nx-stylelint:lint"
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "{projectRoot}/jest.config.ts"
+      }
+    }
+  }
+}

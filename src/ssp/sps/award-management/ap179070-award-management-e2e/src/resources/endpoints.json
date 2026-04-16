@@ -1,0 +1,16 @@
+{
+  "endpoints": [
+    {
+      "description": [
+        "This file contains all API endpoints used in the application for testing purposes",
+        "Remove this object"
+      ],
+      "serviceName": "",
+      "path": ""
+    },
+    {
+      "serviceName": "profile",
+      "path": "/mybenefits/mobilecore/api/user/profile"
+    }
+  ]
+}

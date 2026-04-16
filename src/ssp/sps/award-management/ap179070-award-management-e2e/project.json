@@ -1,0 +1,55 @@
+{
+  "name": "sps-award-management-ap179070-award-management-e2e",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/sps/award-management/ap179070-award-management-e2e/src",
+  "tags": ["type:e2e", "domain:sps-award-management", "type:e2e-poc"],
+  "implicitDependencies": ["sps-award-management-ap179070-award-management"],
+  "metadata": {
+    "appInfo": {
+      "domain": "sps/award-management",
+      "reviewers": ["@TeamCorleones"],
+      "appName": "ap179070-award-management",
+      "appId": "ap179070",
+      "appType": "wiscd",
+      "appVersion": "1.0.0",
+      "deployEnvironments": "dev1,acp:passive",
+      "sonarProjectKey": "com.fmr.AP179070:ap179070-award-management"
+    }
+  },
+  "targets": {
+    "e2e": {
+      "executor": "@fmr-ap167419/tools-nx-plugin:e2e",
+      "outputs": [
+        "{workspaceRoot}/dist/.playwright/apps/sps/award-management/ap179070-award-management-e2e"
+      ],
+      "options": {
+        "config": "apps/sps/award-management/ap179070-award-management-e2e/playwright.config.ts"
+      }
+    },
+    "e2e-ci": {
+      "executor": "@fmr-ap167419/tools-nx-plugin:e2e",
+      "outputs": [
+        "{workspaceRoot}/dist/.playwright/apps/sps/award-management/ap179070-award-management-e2e"
+      ],
+      "options": {
+        "config": "apps/sps/award-management/ap179070-award-management-e2e/playwright.config.ts",
+        "ci": true,
+        "grep": "@CI|@Visual|@Accessibility"
+      }
+    },
+    "e2e:debug": {
+      "executor": "@fmr-ap167419/tools-nx-plugin:e2e",
+      "outputs": [
+        "{workspaceRoot}/dist/.playwright/apps/sps/award-management/ap179070-award-management-e2e"
+      ],
+      "options": {
+        "config": "apps/sps/award-management/ap179070-award-management-e2e/playwright.config.ts",
+        "ui": true
+      }
+    },
+    "eslint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
+}

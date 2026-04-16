@@ -1,0 +1,15 @@
+{
+  "name": "@fmr-ap160368/sps-termination-data-access-schedules-create",
+  "version": "0.0.1",
+  "sideEffects": false,
+  "peerDependencies": {
+    "@angular/common": "20.3.18",
+    "@angular/core": "20.3.18",
+    "@fmr-ap160368/sps-termination-data-access-terminations-root": "*",
+    "@fmr-ap167419/shared-core-data-access-loading-status": "*",
+    "@fmr-ap167419/tools-mswjs": "*",
+    "@ngrx/operators": "20.1.0",
+    "@ngrx/signals": "20.1.0",
+    "rxjs": "7.8.2"
+  }
+}

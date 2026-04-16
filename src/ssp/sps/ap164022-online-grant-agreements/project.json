@@ -1,0 +1,126 @@
+{
+  "name": "sps-ap164022-online-grant-agreements",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "fmr-ap164022",
+  "sourceRoot": "apps/sps/ap164022-online-grant-agreements/src",
+  "tags": ["domain:sps", "type:application", "channel:web"],
+  "metadata": {
+    "appInfo": {
+      "domain": "sps",
+      "reviewers": ["@TeamUnited"],
+      "appName": "ap164022-online-grant-agreements",
+      "appId": "ap164022",
+      "appType": "wiscd",
+      "appVersion": "1.0.0",
+      "deployEnvironments": "dev1,acp:passive",
+      "sonarProjectKey": "com.fmr.AP164022:ap164022-online-grant-agreements"
+    }
+  },
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/sps/ap164022-online-grant-agreements",
+        "index": "apps/sps/ap164022-online-grant-agreements/src/index.html",
+        "main": "apps/sps/ap164022-online-grant-agreements/src/main.ts",
+        "polyfills": ["zone.js"],
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          {
+            "glob": "**/*",
+            "input": "apps/sps/ap164022-online-grant-agreements/public"
+          },
+          {
+            "glob": "mockServiceWorker.js",
+            "input": "public",
+            "output": "/"
+          }
+        ],
+        "styles": ["apps/sps/ap164022-online-grant-agreements/src/styles.scss"],
+        "scripts": [],
+        "tsConfig": "apps/sps/ap164022-online-grant-agreements/tsconfig.app.json",
+        "stylePreprocessorOptions": {
+          "includePaths": [
+            "libs/shared/design-system/ui/core/src/lib/utils",
+            "node_modules"
+          ]
+        }
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "600kb",
+              "maximumError": "6mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "125kb",
+              "maximumError": "320kb"
+            }
+          ],
+          "outputHashing": "none",
+          "fileReplacements": [
+            {
+              "replace": "./apps/sps/ap164022-online-grant-agreements/src/environments/environment.ts",
+              "with": "./apps/sps/ap164022-online-grant-agreements/src/environments/environment.prod.ts"
+            }
+          ],
+          "assets": ["apps/sps/ap164022-online-grant-agreements/src/assets"]
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "eslint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "buildTarget": "sps-ap164022-online-grant-agreements:build"
+      }
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "buildTarget": "sps-ap164022-online-grant-agreements:build:production"
+        },
+        "development": {
+          "buildTarget": "sps-ap164022-online-grant-agreements:build:development"
+        }
+      },
+      "defaultConfiguration": "development",
+      "continuous": true
+    },
+    "serve-static": {
+      "executor": "@nx/web:file-server",
+      "options": {
+        "buildTarget": "online-grant-agreements:build",
+        "port": 4200,
+        "spa": true
+      }
+    },
+    "stylelint": {
+      "executor": "nx-stylelint:lint"
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "{projectRoot}/jest.config.ts"
+      }
+    }
+  }
+}

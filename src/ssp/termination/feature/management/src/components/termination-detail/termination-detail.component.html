@@ -1,0 +1,427 @@
+<section
+  [ngClass]="
+    isTocV2Available
+      ? 'responsive-width term-detail-container'
+      : 'responsive-width-no-toc term-detail-container'
+  "
+>
+  <!-- Initial View -->
+  @if (showSpinner) {
+    <div fds-id="manage-termination-employee-section__page-loading-spinner">
+      <wi-ds-loading-indicator></wi-ds-loading-indicator>
+    </div>
+  }
+
+  @if (
+    !showSpinner &&
+    (state === getStateEnum().INITIAL ||
+      state === getStateEnum().ADJUSTING ||
+      state === getStateEnum().REVERSING ||
+      state === getStateEnum().ERROR)
+  ) {
+    <div class="sm-termination-details">
+      <div class="term-adjust-title">
+        <wi-ds-title>
+          <h2
+            slot="heading"
+            class="fds-title__heading"
+            id="termination-details__section-title"
+          >
+            {{ content.terminationTitle }}
+          </h2>
+        </wi-ds-title>
+        <div class="term-adjust-buttons">
+          @if (isTerminationUpdateAllowed) {
+            <wi-ds-button
+              slot="action"
+              [variant]="buttonVariant.tertiary"
+              [iconLeft]="'edit'"
+              fds-id="termination-details__adjust-edit-label"
+              (click)="initiateAdjust()"
+              >{{ content?.adjustEditLabel }}</wi-ds-button
+            >
+          }
+          @if (isTerminationUpdateAllowed) {
+            <wi-ds-button
+              slot="action"
+              [variant]="buttonVariant.tertiary"
+              [iconLeft]="'cancel'"
+              fds-id="termination-details__reverse-edit-label"
+              (click)="initiateReverse()"
+              >{{ content?.reverseEditLabel }}</wi-ds-button
+            >
+          }
+        </div>
+      </div>
+      <div class="sm-employee-details__content">
+        @if (isTerminationUpdateAllowed) {
+          <div class="sm-employee-details__data">
+            <div>
+              <p
+                class="fds-field-group__display-data"
+                id="termination-details__termination-description"
+              >
+                {{ content?.terminationDescription }}
+              </p>
+            </div>
+          </div>
+        }
+        <div class="sm-employee-details__data-alert">
+          @if (
+            state === getStateEnum().INITIAL &&
+            !isActive &&
+            realm === 'plansponsor'
+          ) {
+            <wi-ds-message
+              fds-id="termination-details__initial-info-message"
+              [variant]="alertVariant.warning"
+              [text]="content?.terminationProcessedInfoMsg"
+            >
+            </wi-ds-message>
+          } @else if (state === getStateEnum().INITIAL) {
+            <wi-ds-message
+              fds-id="termination-details__initial-info-message"
+              [variant]="alertVariant.warning"
+              [text]="content?.terminationInfoMsg"
+            >
+            </wi-ds-message>
+          }
+          @if (state === getStateEnum().ADJUSTING) {
+            <wi-ds-message
+              [variant]="alertVariant.success"
+              [title]="content?.adjustTermProcessingMsg"
+              fds-id="termination-details__adjusting-info-message"
+              [text]="content?.termProcessingInfoMsg"
+            >
+              @if (participantGrantsUrl) {
+                <wi-ds-link
+                  [href]="participantGrantsUrl"
+                  fds-id="termination-details__adjusting-info-processing-link"
+                  fds-disable-underline
+                >
+                  {{ content?.termProcessingInfoHyperLink }}
+                </wi-ds-link>
+              }
+              @if (!participantGrantsUrl) {
+                <span>{{ content?.termProcessingInfoHyperLink }}</span>
+              }
+              {{ content?.termProcessingInfoPageText }}
+            </wi-ds-message>
+          }
+
+          @if (state === getStateEnum().REVERSING) {
+            <wi-ds-message
+              [variant]="alertVariant.success"
+              [title]="content?.reverseTermProcessingMsg"
+              fds-id="termination-details__reversing-info-message"
+              [text]="content?.termProcessingInfoMsg"
+            >
+              @if (participantGrantsUrl) {
+                <wi-ds-link
+                  [href]="participantGrantsUrl"
+                  fds-id="termination-details__reversing-info-processing-message"
+                  fds-disable-underline
+                >
+                  {{ content?.termProcessingInfoHyperLink }}
+                </wi-ds-link>
+              }
+              @if (!participantGrantsUrl) {
+                <span>{{ content?.termProcessingInfoHyperLink }}</span>
+              }
+              {{ content?.termProcessingInfoPageText }}
+            </wi-ds-message>
+          }
+          @if (state === getStateEnum().ERROR) {
+            <wi-ds-message
+              [title]="errorMessages?.title"
+              fds-id="termination-details__reversing-info-message"
+              [text]="errorMessages?.detail"
+            >
+            </wi-ds-message>
+          }
+        </div>
+        <wi-ds-grid-wrapper>
+          <div [class]="`${wiDsNamespace}-grid-root`">
+            <div class="fds-grid__grid fds-grid__grid--default-column-span-4">
+              <div class="fds-grid__item">
+                <div class="sm-employee-details__data-field">
+                  <wi-ds-label fds-id="termination-details__date-label">
+                    {{ content?.dateLabel }}
+                  </wi-ds-label>
+                  <p
+                    id="termination-details__date"
+                    class="fds-field-group__display-data"
+                  >
+                    {{
+                      terminationDetails?.terminationDate | date: 'MMM-dd-yyyy'
+                    }}
+                  </p>
+                </div>
+              </div>
+              <div class="fds-grid__item">
+                <div class="sm-employee-details__data-field">
+                  <wi-ds-label fds-id="termination-details__id-label">
+                    {{ content.idLabel }}
+                  </wi-ds-label>
+                  <p
+                    id="termination-details__id"
+                    class="fds-field-group__display-data"
+                  >
+                    {{ terminationDetails?.terminationId }}
+                  </p>
+                </div>
+              </div>
+              <div class="fds-grid__item">
+                <div class="sm-employee-details__data-field">
+                  <div class="tooltip-custom-label tooltip-custom-label-static">
+                    <wi-ds-label
+                      class="reversed-Label"
+                      fds-id="termination-details__reversed-label"
+                    >
+                      {{ content?.reversedLabel }}
+                    </wi-ds-label>
+                    <wi-ds-tooltip class="tooltip-icon">
+                      <span>{{ content?.reverseToolTipMessage }}</span>
+                      <wi-ds-icon
+                        fds-aria-label="terminations details tooltip"
+                        slot="trigger"
+                        fds-trigger
+                        [name]="'help'"
+                        [size]="size.small"
+                        class="popover-icon-info"
+                      ></wi-ds-icon>
+                    </wi-ds-tooltip>
+                  </div>
+                  <p
+                    id="termination-details__reversal__indicator"
+                    class="fds-field-group__display-data"
+                  >
+                    {{ terminationDetails?.terminationReversalIndicator }}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </wi-ds-grid-wrapper>
+      </div>
+    </div>
+  }
+
+  <!-- Adjust termination section -->
+  @if (state === getStateEnum().ADJUST && !showSpinner) {
+    <wi-ds-form [formGroup]="adjustForm" (ngSubmit)="adjust()">
+      <div class="sm-termination-details">
+        <wi-ds-title>
+          <h2
+            slot="heading"
+            class="fds-title__heading"
+            id="termination-details-adjust__section-title"
+          >
+            {{ content.terminationTitle }}
+          </h2>
+        </wi-ds-title>
+
+        <div class="sm-employee-details__content">
+          <wi-ds-grid-wrapper>
+            <div [class]="`${wiDsNamespace}-grid-root`">
+              <div class="grid-display-adjust fds-grid__grid">
+                <div
+                  class="fds-grid__item fds-grid__item--column-span-8 fds-grid__item--column-span-4-at-512"
+                >
+                  <wi-ds-label fds-id="termination-details-adjust__date-label">
+                    {{ content.dateLabel }}
+                  </wi-ds-label>
+                  <div
+                    class="term-date-display"
+                    fds-aria-labelledby="termination-details-adjust__date-label"
+                    fds-inline="at-768"
+                  >
+                    <wi-ds-microcopy
+                      id="termination-date-microcopy"
+                      class="term-date-microcopy"
+                    >
+                      {{ content.adjustDateMicrocopy }}
+                    </wi-ds-microcopy>
+                    <wi-ds-datepicker
+                      class="term-datepicker"
+                      dsId="datePickComponent"
+                      fds-input-control
+                      [minDate]="minDate"
+                      [datePickerButtonA11yText]="content.adjustDateMicrocopy"
+                      formControlName="terminationDate"
+                      [error]="
+                        (terminationDate?.errors?.['invalidDate'] ||
+                          terminationDate?.errors?.['lessThanHireDate']) &&
+                        displayDateErrors
+                      "
+                    ></wi-ds-datepicker>
+                  </div>
+                  @if (
+                    terminationDate?.errors?.['invalidDate'] &&
+                    displayDateErrors
+                  ) {
+                    <wi-ds-inline-message
+                      class="term-date-inline-alert"
+                      fds-id="termination-details-adjust__invalid-termination-date-message"
+                    >
+                      {{ messages?.invalidDate }}
+                    </wi-ds-inline-message>
+                  }
+                  @if (
+                    employeeDetails?.hireDate &&
+                    terminationDate?.errors?.['lessThanHireDate'] &&
+                    displayDateErrors
+                  ) {
+                    <wi-ds-inline-message
+                      class="term-date-inline-alert"
+                      fds-id="termination-details-adjust__termination-date-before-hire-date-message"
+                    >
+                      {{ messages?.terminationDateBeforeHireDate }}
+                    </wi-ds-inline-message>
+                  }
+                </div>
+                <div class="fds-grid__item fds-grid__item--column-span-2"></div>
+                <div
+                  class="term-rule-field-group fds-grid__item fds-grid__item--column-span-12 fds-grid__item--column-span-2-at-512"
+                >
+                  <div class="id-field">
+                    <wi-ds-label
+                      fds-for="termination-details-adjust__term-id"
+                      fds-id="termination-details-adjust__term-id-label"
+                    >
+                      {{ content.idLabel }}
+                    </wi-ds-label>
+                    <wi-ds-microcopy
+                      id="termination-id-microcopy"
+                      class="term-id-microcopy"
+                    >
+                      {{ content.idMicrocopy }}
+                    </wi-ds-microcopy>
+                    <wi-ds-input
+                      formControlName="id"
+                      class="term-rule-input"
+                      fds-input-control
+                      [error]="
+                        (id?.invalid ?? false) ||
+                        (invalidTerminationId && (id?.dirty ?? false))
+                      "
+                      fds-id="termination-details-adjust__term-id"
+                      (focusout)="termIDValidation()"
+                    ></wi-ds-input>
+                    <!-- <wi-ds-input class="term-rule-input" fds-input-control [attr.fds-error]="'id?.invalid'"
+                                        formControlName="id" fds-id='termination-details-adjust__term-id'
+                                        [attr.fds-error]="'(invalidTerminationId  && id?.dirty)'"
+                                        (focusout)="'termIDValidation()'"></wi-ds-input> -->
+                    @if (userTryingToTypeMoreThan10CharForId) {
+                      <wi-ds-inline-message
+                        fds-id="termination-details-adjust__termination-id-limit-reached-message"
+                      >
+                        {{ messages?.terminationIdLimitReached }}
+                      </wi-ds-inline-message>
+                    }
+
+                    @if (id?.errors?.['pattern']) {
+                      <wi-ds-inline-message
+                        fds-id="termination-details-adjust__invalid-termination-id-message"
+                      >
+                        <span
+                          [innerHtml]="messages?.invalidTerminationId"
+                        ></span>
+                      </wi-ds-inline-message>
+                    }
+                    @if (id?.errors?.['required']) {
+                      <wi-ds-inline-message
+                        fds-id="termination-details-adjust__empty-termination-id-message"
+                      >
+                        {{ messages?.emptyTerminationId }}
+                      </wi-ds-inline-message>
+                    }
+                  </div>
+                </div>
+                <div class="fds-grid__item fds-grid__item--column-span-2"></div>
+                <div
+                  class="fds-grid__item fds-grid__item--column-span-2 fds-grid__item--column-span-2-at-512"
+                >
+                  <div class="id-field">
+                    <div class="tooltip-custom-label">
+                      <wi-ds-label
+                        class="reversed-Label"
+                        fds-id="termination-details__reversed-label"
+                      >
+                        {{ content?.reversedLabel }}
+                      </wi-ds-label>
+                      <wi-ds-tooltip
+                        class="tooltip-icon"
+                        [a11yAnnounceTrigger]="true"
+                      >
+                        {{ content?.reverseToolTipMessage }}
+                        <wi-ds-icon
+                          fds-aria-label="terminations details tooltip"
+                          slot="trigger"
+                          fds-trigger
+                          [name]="'help'"
+                          [size]="size.small"
+                          class="popover-icon-info"
+                        ></wi-ds-icon>
+                      </wi-ds-tooltip>
+                    </div>
+
+                    <p
+                      id="termination-details-adjust__reversed"
+                      class="fds-field-group__display-data"
+                    >
+                      {{ terminationDetails?.terminationReversalIndicator }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </wi-ds-grid-wrapper>
+        </div>
+      </div>
+      <div class="sm-employee-details__actions">
+        <wi-ds-form-actions
+          class="term-adjust-actions term-adjust-actions--with-padding"
+        >
+          <wi-ds-button
+            fds-id="termination-details-adjust__submit-term-adjust"
+            slot="primary-action"
+            [type]="buttonType.submit"
+          >
+            <span class="screen-reader-only">
+              {{ content?.submitButtonTextForScreenReader }}
+            </span>
+            {{ content?.submitButton }}
+          </wi-ds-button>
+          <wi-ds-button
+            slot="secondary-action"
+            fds-id="termination-details-adjust__cancel-term-adjust"
+            [variant]="buttonVariant.secondary"
+            (click)="cancel()"
+          >
+            <span class="screen-reader-only">
+              {{ content?.cancelButtonTextForScreenReader }}
+            </span>
+            {{ content?.cancelButton }}
+          </wi-ds-button>
+        </wi-ds-form-actions>
+      </div>
+    </wi-ds-form>
+  }
+</section>
+
+@if (doAdjust) {
+  <sps-termination-confirmation-modal
+    (cancelEvent)="cancelAdjustModal()"
+    (confirmEvent)="adjustConfirmation($event)"
+    [modelType]="operation"
+  ></sps-termination-confirmation-modal>
+}
+
+@if (doReverse) {
+  <sps-termination-confirmation-modal
+    (cancelEvent)="cancel()"
+    (confirmEvent)="reverseConfirmation($event)"
+    [modelType]="operation"
+  ></sps-termination-confirmation-modal>
+}

@@ -1,0 +1,10 @@
+{
+  "title": "Participant Award Details",
+  "bootstrapTemplate": "psw-default",
+  "platform": "psw",
+  "product": "SPS",
+  "htmlFragments": {
+    "head": "",
+    "body": ""
+  }
+}

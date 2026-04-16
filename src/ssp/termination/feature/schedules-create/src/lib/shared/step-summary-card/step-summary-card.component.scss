@@ -1,0 +1,53 @@
+.step-summary-card {
+  &__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  &__title-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  &__title {
+    font-size: 1rem;
+    font-weight: 700;
+    margin: 0;
+  }
+
+  &__description {
+    font-size: 0.875rem;
+    margin: 0;
+    color: var(--fds-color-text-secondary, #595959);
+  }
+
+  &__fields {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+  }
+
+  &__field {
+    display: inline-flex;
+    gap: 0.25rem;
+    font-size: 0.875rem;
+  }
+
+  &__field-label {
+    font-weight: 600;
+  }
+
+  &__field-value {
+    font-weight: 400;
+  }
+
+  &__separator {
+    color: var(--fds-color-text-secondary, #595959);
+    font-size: 0.875rem;
+  }
+}

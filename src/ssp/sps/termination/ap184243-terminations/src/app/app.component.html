@@ -1,0 +1,11 @@
+@if (isSparkContext()) {
+  <div class="spark-container">
+    <employer-platform-spark-nav-bar
+      [sparkInput]="sparkNavbarContext"
+      [isParticipantUpdateEnabled]="false"
+    ></employer-platform-spark-nav-bar>
+    <router-outlet></router-outlet>
+  </div>
+} @else {
+  <router-outlet></router-outlet>
+}

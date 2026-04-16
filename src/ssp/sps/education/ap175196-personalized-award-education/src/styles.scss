@@ -1,0 +1,318 @@
+/* stylelint-disable declaration-no-important */
+@use '@fmr-ap153177/fdskit/dist/scss/index' as fds;
+@use '@fmr-ap153177/fdskit-visual-style/styles/visual-style' as visual-style;
+@use 'shared-design-system-ui-core-apex-tokens' as apex-tokens;
+@use 'shared-design-system-ui-core-ds-helpers' as ds-helpers;
+@use 'sass:map';
+
+main {
+  font-family: visual-style.$fds-font-family-sans;
+  margin: 1.5rem auto;
+  max-width: apex-tokens.$reference-uom-breakpoint-300;
+
+  h1 {
+    @include visual-style.fds-headline-3;
+  }
+
+  h2 {
+    @include visual-style.fds-headline-4;
+  }
+
+  h3 {
+    @include visual-style.fds-headline-6;
+  }
+
+  @media (max-width: map.get(visual-style.$breakpoints, 'at-1280')) {
+    margin: 1.5rem 1rem;
+  }
+
+  @media (max-width: map.get(visual-style.$breakpoints, 'at-512')) {
+    margin: 1rem;
+  }
+
+  .disclosure__section {
+    font-size: 0.875rem;
+    font-weight: 400;
+    letter-spacing: -0.25px;
+    line-height: 1.25rem;
+    margin: 1rem 0;
+  }
+}
+
+.back-link {
+  s-assigned-wrapper {
+    align-items: center;
+    display: flex;
+  }
+
+  svg {
+    top: 0.1875rem;
+  }
+}
+
+.fds-popover__popover-content-reset {
+  padding-right: 1rem;
+}
+
+@media (max-width: map.get(visual-style.$breakpoints, 'at-512')) {
+  .fds-fds-theme
+    .#{ds-helpers.$ds-namespace}-popover-root.fds-popover--placement-bottom
+    .fds-popover__popover {
+    grid-template-columns: auto 2.75rem;
+    margin: 0 1rem;
+  }
+}
+
+// pvd title styles
+.award-summary #{ds-helpers.$ds-namespace}-title {
+  display: grid;
+  grid-template-areas: 'heading stock-quote';
+  grid-template-columns: 1fr 1fr;
+
+  h2 {
+    grid-area: heading;
+  }
+
+  div.stock-quote {
+    grid-area: stock-quote;
+    text-align: right;
+    @include visual-style.fds-paragraph-minor;
+
+    .as-of {
+      color: apex-tokens.$reference-color-neutral-600;
+    }
+  }
+}
+
+// expand collapse styles
+section {
+  &.award-journey {
+    .mt-one {
+      margin-top: 1rem;
+    }
+
+    .mb-three-eights {
+      margin-bottom: 0.375rem;
+    }
+
+    .mt-one-and-half {
+      margin-top: 1.5rem;
+    }
+
+    .fds-list-group-root {
+      margin: 0;
+      padding-left: 1.5rem;
+    }
+
+    .fds-expand-collapse__interactive-button {
+      padding-left: 0;
+    }
+
+    .fds-expand-collapse__subheading-wrapper {
+      padding-left: 0.25rem;
+    }
+
+    .fds-expand-collapse__content-wrapper {
+      margin-top: 1rem;
+      padding-left: 0.25rem; // Align with subheading
+    }
+
+    .fds-expand-collapse__content {
+      padding-left: 0;
+      position: relative;
+      width: 100%;
+    }
+  }
+}
+
+// to avoid the default hover color sticking when menu is opened on mobile devices
+@media (max-width: map.get(visual-style.$breakpoints, 'at-960')) {
+  .#{ds-helpers.$ds-namespace}-button-root.fds-button--secondary:hover {
+    background-color: var(--reference-color-lightness-0);
+  }
+}
+
+.vertical-line {
+  background-color: transparent;
+  border-left: 2px dashed apex-tokens.$reference-color-neutral-500;
+  height: 1.5rem;
+  margin: 0 4rem;
+  width: 2px;
+}
+
+.bold-text {
+  font-weight: bold;
+}
+
+.margin-reset {
+  margin-top: 0;
+}
+
+// helios override for button
+.helios-link {
+  @include visual-style.fds-text-medium;
+  background-color: transparent;
+  border: 2px solid transparent;
+  color: var(--reference-color-blue-800) !important;
+  display: inline-block;
+  padding: 0.25rem;
+
+  fds-icon {
+    margin-right: 0.5rem;
+  }
+
+  span {
+    font-size: 16px;
+  }
+
+  &:hover {
+    color: var(--reference-color-blue-900) !important;
+    cursor: pointer;
+  }
+
+  &:focus-within,
+  &:focus-visible,
+  &:focus {
+    border-radius: 0.25rem;
+    color: var(--reference-color-blue-900) !important;
+    outline: 2px #000000 solid;
+  }
+
+  &-underline {
+    text-decoration: underline;
+  }
+
+  @media (max-width: map.get(visual-style.$breakpoints, 'at-960')) {
+    border: 0;
+    padding: 0;
+  }
+}
+
+.leaving-fidelity-modal {
+  .#{ds-helpers.$ds-namespace}-modal-root {
+    .fds-modal__dialog {
+      border-radius: 0.25rem;
+      letter-spacing: normal;
+    }
+
+    .fds-modal__content {
+      padding: apex-tokens.$reference-uom-space-150
+        apex-tokens.$reference-uom-space-75;
+
+      .fds-modal__heading-wrapper {
+        padding: 0 apex-tokens.$reference-uom-space-150;
+      }
+
+      .fds-modal__heading {
+        @include visual-style.fds-headline-4;
+
+        & {
+          line-height: 1.25;
+        }
+      }
+
+      .fds-modal__body-wrapper {
+        margin: 2rem 0 0;
+        padding: 0 apex-tokens.$reference-uom-space-150;
+
+        @media (max-height: 18rem) {
+          margin: 0;
+        }
+
+        .buttons {
+          align-items: center;
+          display: flex;
+          flex-direction: column;
+          margin: apex-tokens.$reference-uom-space-150 0 0 0;
+
+          .continue {
+            margin-bottom: apex-tokens.$reference-uom-space-100;
+          }
+
+          .back {
+            margin-bottom: apex-tokens.$reference-uom-space-25;
+          }
+        }
+      }
+    }
+  }
+}
+
+.external-link {
+  .fds-link__text s-fallback-wrapper,
+  .fds-link__text s-assigned-wrapper {
+    border-bottom: 1px solid currentColor;
+  }
+}
+
+.account-no-access-popover {
+  margin-left: 0 !important;
+}
+
+.warning_icon {
+  margin-right: 6px;
+  position: relative;
+  top: 3px;
+}
+
+.screen-reader-only {
+  @include visual-style.fds-screen-reader-only;
+}
+
+.print-only {
+  display: none;
+}
+
+@media print {
+  .no-print {
+    display: none;
+  }
+
+  .print-only {
+    display: block;
+  }
+
+  nav {
+    display: none !important;
+  }
+
+  main {
+    margin: 0 auto !important;
+    padding-bottom: 0 !important;
+    padding-top: 0 !important;
+  }
+
+  #main-nav-content {
+    display: none !important;
+  }
+
+  .tertiary-container {
+    display: none !important;
+  }
+
+  wi-ds-expand-collapse {
+    svg.fds-expand-collapse__icon {
+      transform: rotate(90deg) !important;
+    }
+
+    .fds-expand-collapse__content-wrapper {
+      display: block !important;
+      height: auto !important;
+    }
+  }
+
+  sps-education-award-journey {
+    wi-ds-tile-base-content-block {
+      .#{ds-helpers.$ds-namespace}-card-root {
+        height: revert !important;
+      }
+    }
+  }
+}
+
+.tile-padding {
+  .fds-card__card {
+    padding-bottom: 16px !important;
+    padding-top: 16px !important;
+  }
+}

@@ -1,0 +1,137 @@
+{
+  "name": "sps-private-market-ap185619-private-long-shares",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "fmr-ap185619",
+  "sourceRoot": "apps/sps/private-market/ap185619-private-long-shares/src",
+  "tags": ["domain:sps-private-market", "type:application", "channel:web"],
+  "metadata": {
+    "appInfo": {
+      "domain": "sps/private-market",
+      "reviewers": ["@TeamHeelys"],
+      "appName": "ap185619-private-long-shares",
+      "appId": "ap185619",
+      "appType": "wiscd",
+      "appVersion": "1.0.0",
+      "deployEnvironments": "dev1,acp:passive",
+      "sonarProjectKey": "com.fmr.AP185619:ap185619-private-long-shares"
+    }
+  },
+  "targets": {
+    "build": {
+      "executor": "@fmr-ap167419/tools-nx-plugin:generate-experience-config",
+      "options": {
+        "deployUrl": "/static/ap185619-private-long-shares/",
+        "outputPath": "dist/apps/sps/private-market/ap185619-private-long-shares"
+      }
+    },
+    "build-ng": {
+      "executor": "@angular/build:application",
+      "outputs": ["{options.outputPath.base}"],
+      "options": {
+        "outputPath": {
+          "base": "dist/apps/sps/private-market/ap185619-private-long-shares",
+          "browser": ""
+        },
+        "browser": "apps/sps/private-market/ap185619-private-long-shares/src/main.ts",
+        "polyfills": [],
+        "tsConfig": "apps/sps/private-market/ap185619-private-long-shares/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          {
+            "glob": "**/*",
+            "input": "apps/sps/private-market/ap185619-private-long-shares/public"
+          },
+          {
+            "glob": "mockServiceWorker.js",
+            "input": "public",
+            "output": "/"
+          },
+          {
+            "glob": "**/*",
+            "input": "apps/sps/private-market/ap185619-private-long-shares/env",
+            "output": "/env"
+          }
+        ],
+        "styles": [
+          "apps/sps/private-market/ap185619-private-long-shares/src/styles.scss"
+        ],
+        "stylePreprocessorOptions": {
+          "includePaths": ["node_modules"]
+        }
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "2mb",
+              "maximumError": "6mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "250kb",
+              "maximumError": "320kb"
+            }
+          ],
+          "outputHashing": "all",
+          "fileReplacements": [
+            {
+              "replace": "./apps/sps/private-market/ap185619-private-long-shares/src/environments/environment.ts",
+              "with": "./apps/sps/private-market/ap185619-private-long-shares/src/environments/environment.prod.ts"
+            }
+          ],
+          "assets": [
+            "apps/sps/private-market/ap185619-private-long-shares/src/assets",
+            {
+              "glob": "**/*",
+              "input": "apps/sps/private-market/ap185619-private-long-shares/env",
+              "output": "/env"
+            },
+            "apps/sps/private-market/ap185619-private-long-shares/src/experience.config.json"
+          ]
+        },
+        "development": {
+          "optimization": false,
+          "extractLicenses": false,
+          "sourceMap": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "eslint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "extract-i18n": {
+      "executor": "@angular/build:extract-i18n",
+      "options": {
+        "buildTarget": "sps-private-market-ap185619-private-long-shares:build"
+      }
+    },
+    "serve": {
+      "continuous": true,
+      "executor": "@angular/build:dev-server",
+      "configurations": {
+        "production": {
+          "buildTarget": "sps-private-market-ap185619-private-long-shares:build-ng:production"
+        },
+        "development": {
+          "buildTarget": "sps-private-market-ap185619-private-long-shares:build-ng:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "serve-static": {
+      "executor": "@nx/web:file-server",
+      "options": {
+        "buildTarget": "sps-private-market-ap185619-private-long-shares:build",
+        "port": 4200,
+        "staticFilePath": "dist/apps/sps/private-market/ap185619-private-long-shares/",
+        "spa": true
+      }
+    },
+    "stylelint": {
+      "executor": "nx-stylelint:lint"
+    }
+  }
+}

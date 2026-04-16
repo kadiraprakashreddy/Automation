@@ -1,0 +1,202 @@
+<section class="tm-details">
+  <wi-ds-form class="sm" [formGroup]="termModelForm">
+    <div class="sm-termination-details">
+      <div class="sm-employee-details__content">
+        <div class="term-model-block">
+          <!-- term date input -->
+          <div class="term-date-field-group">
+            <div
+              [attr.aria-labelledby]="'termination-date'"
+              fds-inline="at-768"
+            >
+              <div class="term-date-label">
+                <wi-ds-label fds-id="termination-date">
+                  {{ termContent.dateLabel }}
+                </wi-ds-label>
+              </div>
+              <div class="term-datepicker-group">
+                <wi-ds-microcopy
+                  id="termination-date-microcopy"
+                  class="term-date-microcopy"
+                >
+                  {{ termContent.termDateMicrocopy }}
+                </wi-ds-microcopy>
+                <wi-ds-datepicker
+                  class="term-datepicker"
+                  dsId="datePickComponent"
+                  fds-input-control
+                  [datePickerButtonA11yText]="termContent.termDateMicrocopy"
+                  formControlName="terminationDate"
+                  [minDate]="currentDate"
+                  [error]="
+                    (terminationDate?.errors?.['invalidDate'] ||
+                      terminationDate?.errors?.['lessThanHireDate']) &&
+                    displayDateErrors
+                  "
+                ></wi-ds-datepicker>
+              </div>
+              @if (
+                terminationDate?.errors?.['invalidDate'] && displayDateErrors
+              ) {
+                <wi-ds-inline-message
+                  class="term-date-inline-alert"
+                  role="alert"
+                  aria-live="assertive"
+                  [dsId]="'termination-model__invalid-termination-date-message'"
+                >
+                  {{ messages.invalidDate }}
+                </wi-ds-inline-message>
+              }
+              @if (
+                terminationDate?.errors?.['lessThanHireDate'] &&
+                !terminationDate?.errors?.['invalidDate'] &&
+                displayDateErrors
+              ) {
+                <wi-ds-inline-message
+                  class="term-date-inline-alert"
+                  role="alert"
+                  aria-live="assertive"
+                  [dsId]="'termination-model__date-before-current-date-message'"
+                >
+                  {{ messages.terminationDateBeforeTodaysDate }}
+                </wi-ds-inline-message>
+              }
+            </div>
+          </div>
+          <!-- term rule ID input -->
+          <div class="term-rule-field-group">
+            <div>
+              <wi-ds-label
+                class="term-id-label"
+                fds-for="term-id-microcopy"
+                fds-id="termination-model__term-id-label"
+              >
+                {{ termContent.idLabel }}
+              </wi-ds-label>
+              <span class="term-id-microcopy-hide"
+                ><wi-ds-microcopy id="term-id-microcopy"
+                  ><wi-ds-link fds-new-window fds-href="#"
+                    >View rules</wi-ds-link
+                  ></wi-ds-microcopy
+                ></span
+              >
+              <!-- display autocomplete if GRK -->
+              @if (isGrkClient) {
+                <div class="term-rule-id-autocomplete">
+                  <wi-ds-autocomplete
+                    (input)="resetTermIdError()"
+                    (dispatch-search-key)="onAutocompleteDispatch($event)"
+                    (value-changed)="onAutocompleteChange($event)"
+                    fds-id="term-rule-id-input"
+                    [label]="
+                      termContent.autocompleteLabel === 'NA'
+                        ? ''
+                        : termContent.autocompleteLabel
+                    "
+                    fds-input-control
+                    fds-supplemental-text=""
+                    [allowCustom]="true"
+                    [nested]="true"
+                    [startAutoSuggest]="autocompleteMinLength"
+                    [validationRules]="autocompleteRules"
+                    [validationText]="autocompleteRulesText"
+                    [listOfItems]="autocompleteOptions"
+                    formControlName="ruleId"
+                  ></wi-ds-autocomplete>
+                </div>
+              } @else {
+                <!-- display normal input if GRK -->
+                <div class="term-rule-id-input">
+                  <wi-ds-microcopy
+                    id="termination-id-microcopy"
+                    class="term-id-microcopy"
+                  >
+                    {{ termContent.idMicrocopy }}
+                  </wi-ds-microcopy>
+                  <wi-ds-input
+                    (input)="resetTermIdError()"
+                    [nativeId]="'term-rule-id-input'"
+                    [ariaDescribedby]="'term-rule-id-input'"
+                    fds-input-control
+                    formControlName="ruleId"
+                    [(ngModel)]="termId"
+                    [error]="
+                      displayTermIdError &&
+                      ((invalidTerminationId && ruleId?.dirty) ||
+                        invalidPatternTerminationId)
+                    "
+                    (focusout)="termIDValidation()"
+                  >
+                  </wi-ds-input>
+                </div>
+              }
+
+              @if (userTryingToTypeMoreThan10CharForId && displayTermIdError) {
+                <wi-ds-inline-message
+                  role="status"
+                  aria-live="polite"
+                  [variant]="alertVariant.warning"
+                  [dsId]="'termination-model__id-limit-reached-message'"
+                >
+                  {{ messages.terminationIdLimitReached }}
+                </wi-ds-inline-message>
+              }
+
+              @if (invalidPatternTerminationId && displayTermIdError) {
+                <wi-ds-inline-message
+                  role="alert"
+                  aria-live="assertive"
+                  [dsId]="'termination-model__invalid-termination-id-message'"
+                >
+                  <span [innerHtml]="messages.invalidTerminationId"></span>
+                </wi-ds-inline-message>
+              }
+
+              @if (
+                invalidTerminationId && ruleId?.dirty && displayTermIdError
+              ) {
+                <wi-ds-inline-message
+                  role="alert"
+                  aria-live="assertive"
+                  [dsId]="'termination-model__empty-termination-id-message'"
+                >
+                  {{ messages.emptyTerminationId }}
+                </wi-ds-inline-message>
+              }
+            </div>
+          </div>
+          <div class="term-model-form-actions">
+            <wi-ds-button
+              [variant]="buttonVariant.secondary"
+              [nativeButtonAttributes]="{
+                'aria-label': 'Reset Termination Modelling criteria',
+              }"
+              id="reset-termModelForm"
+              class="no-wrap"
+              (click)="cancel()"
+            >
+              <span class="screen-reader-only">{{
+                searchContent?.resetButtonTextForScreenReader
+              }}</span>
+              {{ searchContent?.resetButton }}
+            </wi-ds-button>
+            <wi-ds-button
+              fds-type="submit"
+              (click)="fetch()"
+              [nativeButtonAttributes]="{
+                'aria-label': 'Calculate the termination modelling',
+              }"
+              id="reverse-adjustment"
+              class="no-wrap"
+            >
+              <span class="screen-reader-only">{{
+                searchContent?.calculateButtonTextForScreenReader
+              }}</span>
+              {{ searchContent?.calculateButton }}
+            </wi-ds-button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </wi-ds-form>
+</section>

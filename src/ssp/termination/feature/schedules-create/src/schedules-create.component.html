@@ -1,0 +1,62 @@
+<section class="create-rule-wizard">
+
+  <!-- Back link -->
+  <wi-ds-link
+    class="create-rule-wizard__back-link"
+    pvd-id="create-rule-wizard-back-link"
+    [iconLeft]="'arrow-left'"
+    href="#"
+  >
+    Return to termination summary
+  </wi-ds-link>
+
+  <!-- Page title row + progress bar -->
+  <div class="create-rule-wizard__title-row">
+    <wi-ds-title>
+      <h1 slot="heading" class="pvd-title__heading pvd-title__heading--level-1">
+        Create a termination rule
+      </h1>
+    </wi-ds-title>
+
+    @if (showProgressBar()) {
+      <div class="create-rule-wizard__progress">
+        <span class="create-rule-wizard__progress-label">Progress</span>
+        <div class="create-rule-wizard__progress-bar" role="progressbar"
+          [attr.aria-valuenow]="progressPercent()"
+          aria-valuemin="0"
+          aria-valuemax="100"
+        >
+          <div
+            class="create-rule-wizard__progress-fill"
+            [style.width.%]="progressPercent()"
+          ></div>
+        </div>
+        <span class="create-rule-wizard__progress-percent">
+          {{ progressPercent() }}%
+        </span>
+      </div>
+    }
+  </div>
+
+  <!-- Step 1: collapsed summary (when past step 1) or active form -->
+  @if (currentStep() > 1) {
+    <sps-termination-step-summary-card
+      [stepTitle]="'Step 1: Termination rule level'"
+      [stepDescription]="'Choose how broadly the term rules should be applied.'"
+      [fields]="step1SummaryFields()"
+      (editClicked)="goToStep(1)"
+    />
+  } @else {
+    <sps-termination-step-1-rule-level
+      (saveAndContinue)="goToStep(2)"
+    />
+  }
+
+  <!-- Step 2: active form (only shown when on step 2 or beyond) -->
+  @if (currentStep() === 2) {
+    <sps-termination-step-2-vesting-method
+      (saveAndContinue)="goToStep(3)"
+    />
+  }
+
+</section>

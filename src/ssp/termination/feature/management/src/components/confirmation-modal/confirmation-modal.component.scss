@@ -1,0 +1,10 @@
+@use '../../management.component.scss';
+@use 'shared-design-system-ui-core-apex-tokens' as apex-tokens;
+
+.adjust-modal__data-field {
+  margin-bottom: apex-tokens.$reference-uom-space-150;
+}
+
+.adjust-modal__data-field:not(:first-of-type) {
+  margin-top: apex-tokens.$reference-uom-space-150;
+}

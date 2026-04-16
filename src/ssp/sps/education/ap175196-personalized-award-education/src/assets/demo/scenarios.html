@@ -1,0 +1,420 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" expconfig-exclude="true" />
+    <title expconfig-exclude="true">
+      sps-education-ap175196-personalized-award-education scenarios
+    </title>
+    <meta
+      expconfig-exclude="true"
+      name="viewport"
+      content="width=device-width, initial-scale=1"
+    />
+    <link
+      expconfig-exclude="true"
+      rel="stylesheet"
+      href="https://assets.fidelity.com/vendor/providence/fonts.css"
+    />
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+  </head>
+
+  <body>
+    <div class="scenarios-container">
+      <h1>Award Education Page Scenarios</h1>
+      <div style="display: flex">
+        <div style="width: 10%; text-align: left">
+          <strong>Success:</strong><br />
+          <ol>
+            <li>
+              <a href="/?grantSummary=awardEducationPageGrantSummaryDefault"
+                >Domestic</a
+              >
+            </li>
+            <li>
+              <a href="/?grantSummary=awardEducationPageGrantSummaryOus">
+                OUS</a
+              >
+            </li>
+            <li>
+              <a
+                href="/?plansServiceWithCashPlan=true&grantSummary=awardEducationPageGrantSummaryDefault"
+                >Cash Plan</a
+              >
+            </li>
+            <li>
+              <a
+                href="/?grantSummary=awardEducationPageGrantSummaryDefault&planType=RSA&planId=ORIGINALPLANID&grantId=MjAyMS0wMi0wMX5SU0F-MTA3fkZJVFJBflI1MDMwMTAxMH5SU0E"
+                >query param awards</a
+              >
+            </li>
+          </ol>
+        </div>
+        <div style="width: 30%; text-align: left">
+          <strong>Animation:</strong><br />
+          <ol>
+            <li>
+              <a href="/?plansServiceCashToBrokerage=true"
+                >Domestic Cash to Brokerage</a
+              >
+            </li>
+            <li>
+              <a
+                href="/?plansServiceCashToBrokerage=true&grantSummary=awardEducationPageGrantSummaryOus"
+                >OUS Cash to Brokerage</a
+              >
+            </li>
+            <li>
+              <a href="/?plansServiceSharesToBrokerageThroughNetShares=true"
+                >Domestic Shares to Brokerage</a
+              >
+            </li>
+            <li>
+              <a
+                href="/?plansServiceSharesToBrokerageThroughNetShares=true&grantSummary=awardEducationPageGrantSummaryOus"
+                >Ous Shares to Brokerage</a
+              >
+            </li>
+            <li>
+              <a href="/?plansServiceWithCashToPayroll=true"
+                >Cash Proceeds to Payroll</a
+              >
+            </li>
+            <li><a href="/?plansServiceWithCashSweep=true">Cash Sweep</a></li>
+            <li>
+              <a href="/?plansServiceWithThirdPartyTransferShareProceeds=true"
+                >Third Party Transfer with Share Proceeds</a
+              >
+            </li>
+            <li>
+              <a href="/?plansServiceWithThirdPartyTransferCashProceeds=true"
+                >Third Party Transfer with Cash Proceeds</a
+              >
+            </li>
+            <li>
+              <a href="/?plansServiceDistributedThroughAdminOnly=true=true"
+                >Admin Only</a
+              >
+            </li>
+            <li>
+              <a href="/?plansServiceWithPerPlanRules=true">Per Plan Rules</a>
+            </li>
+          </ol>
+        </div>
+        <div style="width: 30%; text-align: left">
+          <strong>Edge cases:</strong><br />
+          <ol>
+            <li>
+              <a href="/?plansServiceAllPastGrants=true">All past grants</a>
+            </li>
+            <li>
+              <a
+                href="/?grantSummary=awardEducationPageGrantSummaryAccountNotActivated"
+                >Redirect Scenario - Account Not Activated</a
+              >
+            </li>
+            <li>
+              <a
+                href="/?grantSummary=awardEducationPageGrantSummaryNoTaxDetails"
+                >No Tax Details</a
+              >
+            </li>
+          </ol>
+        </div>
+        <div style="width: 30%; text-align: left">
+          <strong>Error:</strong><br />
+          <ol>
+            <li><a href="/?contentError=true">Content Service Failure</a></li>
+            <li>
+              <a href="/?grantSummaryError=true"
+                >Grant Summary Service Failure</a
+              >
+            </li>
+            <li>
+              <a href="/?plansServiceError=true">Plans Service Failure</a>
+            </li>
+            <li>
+              <a href="/?plansServiceWithNoPlans=true">Empty Plans Array</a>
+            </li>
+          </ol>
+        </div>
+      </div>
+      <div style="display: flex">
+        <div style="width: 16%; text-align: left">
+          Tile 1 - Get to know
+          <div>
+            <ol>
+              <li>
+                <a href="/?plansServiceWithUnacceptedAward=true"
+                  >Unaccepted Award
+                </a>
+              </li>
+              <li>
+                <a href="/?plansServiceWithAcceptedAward=true"
+                  >Accepted Award
+                </a>
+              </li>
+              <li>
+                <a href="/?plansServiceWithCancelledAward=true"
+                  >Cancelled Award
+                </a>
+              </li>
+            </ol>
+          </div>
+        </div>
+        <div style="width: 16%; text-align: left">
+          Tile 2 - Accept your Award
+          <div>
+            <ol>
+              <li>
+                <a href="/?plansServiceWithUnacceptedAward=true"
+                  >Accept your Award
+                </a>
+              </li>
+            </ol>
+          </div>
+        </div>
+        <div style="width: 16%; text-align: left">
+          Tile 3 - Vesting Period
+          <div>
+            <ol>
+              <li>
+                <a href="/?grantSummary=awardEducationPageGrantSummaryDefault"
+                  >Domestic Vesting Period
+                </a>
+              </li>
+              <li>
+                <a href="/?grantSummary=awardEducationPageGrantSummaryOus"
+                  >OUS Vesting Period
+                </a>
+              </li>
+            </ol>
+          </div>
+        </div>
+        <div style="width: 16%; text-align: left">
+          Tile 4 - Tax Withholding<br /><br />
+          <div>
+            No Election Allowed:
+            <ol>
+              <li>
+                <a
+                  href="/?plansServiceWithNetSharesNoElectionAllowedAndShareProceeds=true"
+                  >Net Shares And Share Proceeds To Brokerage</a
+                >
+              </li>
+              <li>
+                <a
+                  href="/?plansServiceWithNetSharesNoElectionAllowedAndShareProceedsToSweep=true"
+                  >Net Shares And Share Proceeds To Sweep</a
+                >
+              </li>
+              <li>
+                <a
+                  href="/?plansServiceWithNetSharesNoElectionAllowedAndCashProceeds=true"
+                  >Net Shares And Cash Proceeds To Brokerage</a
+                >
+              </li>
+              <li>
+                <a
+                  href="/?plansServiceWithNetSharesNoElectionAllowedAndCashProceedsToPayroll=true"
+                  >Net Shares And Cash Proceeds To Payroll</a
+                >
+              </li>
+              <li>
+                <a
+                  href="/?plansServiceWithNetSharesNoElectionAllowedAndCashProceedsToSweep=true"
+                  >Net Shares And Cash Proceeds To Sweep</a
+                >
+              </li>
+              <li>
+                <a
+                  href="/?plansServiceCashGrantWithNetSharesNoElectionAllowedAndCashProceedsToBrokerage=true"
+                  >Net Cash To Brokerage</a
+                >
+              </li>
+              <li>
+                <a
+                  href="/?plansServiceCashGrantWithNetSharesNoElectionAllowedAndCashProceedsToPayroll=true"
+                  >Net Cash To Payroll</a
+                >
+              </li>
+              <li>
+                <a
+                  href="/?plansServiceCashGrantWithNetSharesNoElectionAllowedAndCashProceedsToSweep=true"
+                  >Net Cash To Sweep</a
+                >
+              </li>
+              <li>
+                <a
+                  href="/?plansServiceWithSellToCoverNoElectionAllowedAndShareProceeds=true"
+                  >Sell To Cover To Brokerage</a
+                >
+              </li>
+              <li>
+                <a href="/?plansServiceWithPayCashNoElectionAllowed=true"
+                  >Pay Cash To Brokerage</a
+                >
+              </li>
+              <li>
+                <a href="/?plansServiceWithPayCashNoElectionAllowedToSweep=true"
+                  >Pay Cash To Sweep</a
+                >
+              </li>
+              <li>
+                <a
+                  href="/?awardEducationPagePlansWithSellAllNoElectionAllowed=true"
+                  >Sell All To Brokerage</a
+                >
+              </li>
+              <li>
+                <a
+                  href="/?grantSummary=awardEducationPageGrantSummaryWithNoTaxesCodeDomestic&plansServiceWithNetSharesNoElectionAllowedAndCashProceeds=true"
+                  >No Tax On File for Domestic</a
+                >
+              </li>
+              <li>
+                <a
+                  href="/?grantSummary=awardEducationPageGrantSummaryWithNoTaxesCodeOUS&plansServiceWithNetSharesNoElectionAllowedAndCashProceeds=true"
+                  >No Tax On File for Ous</a
+                >
+              </li>
+              <li>
+                <a href="/?plansServiceWithEligibleToUpdateFedTaxRate=true"
+                  >Eligible To Update Federal Tax Rate Increase</a
+                >
+              </li>
+            </ol>
+          </div>
+          <div>
+            Election Allowed:
+            <ol>
+              <li>
+                <a
+                  href="/?plansServiceWithTWMElectionAllowedWithNetSharesAndShareProceeds=true"
+                  >Net Shares And Share Proceeds To Brokerage</a
+                >
+              </li>
+              <li>
+                <a
+                  href="/?plansServiceWithTWMElectionAllowedWithNetSharesAndCashProceeds=true"
+                  >Net Shares And Cash Proceeds To Brokerage</a
+                >
+              </li>
+              <li>
+                <a
+                  href="/?plansServiceWithTWMElectionAllowedCashGrantWithNetShares=true"
+                  >Net Shares And Cash Grant To Brokerage</a
+                >
+              </li>
+              <li>
+                <a
+                  href="/?plansServiceWithTWMElectionAllowedWithNetSharesAndShareProceeds=true&grantSummary=awardEducationPageGrantSummaryWithNoTaxesCodeDomestic"
+                  >No tax on file</a
+                >
+              </li>
+              <li>
+                <a
+                  href="/?plansServiceWithTWMElectionAllowedWithEligibleToUpdateFedTaxRate=true"
+                  >Eligible To Update Federal Tax Rate</a
+                >
+              </li>
+            </ol>
+          </div>
+        </div>
+        <div style="width: 16%; text-align: left">
+          Tile 5 - Pay Day
+          <div>
+            <ol>
+              <li>
+                <a
+                  href="/?plansServiceWithNetSharesNoElectionAllowedAndShareProceeds=true&grantSummary=awardEducationPageGrantSummaryDefault"
+                  >Domestic Share Proceeds to Brokerage</a
+                >
+              </li>
+              <li>
+                <a
+                  href="/?plansServiceWithNetSharesNoElectionAllowedAndCashProceeds=true&grantSummary=awardEducationPageGrantSummaryDefault"
+                  >Domestic Cash Proceeds to Brokerage</a
+                >
+              </li>
+              <li>
+                <a
+                  href="/?plansServiceWithNetSharesNoElectionAllowedAndShareProceeds=true&grantSummary=awardEducationPageGrantSummaryOus"
+                  >OUS Share Proceeds to Stock Plan Account</a
+                >
+              </li>
+              <li>
+                <a
+                  href="/?plansServiceWithNetSharesNoElectionAllowedAndCashProceeds=true&grantSummary=awardEducationPageGrantSummaryOus"
+                  >OUS Cash Proceeds to Stock Plan Account</a
+                >
+              </li>
+              <li>
+                <a
+                  href="/?plansServiceWithCashToPayroll=true&grantSummary=awardEducationPageGrantSummaryDefault"
+                  >Domestic Cash Proceeds to Payroll</a
+                >
+              </li>
+              <li>
+                <a
+                  href="/?plansServiceWithCashToPayroll=true&grantSummary=awardEducationPageGrantSummaryOus"
+                  >OUS Cash Proceeds to Payroll</a
+                >
+              </li>
+              <li>
+                <a
+                  href="/?plansServiceDistributedThroughAdminOnly=true&grantSummary=awardEducationPageGrantSummaryDefault"
+                  >Admin Only or Per Plan Rules</a
+                >
+              </li>
+              <li>
+                <a
+                  href="/?plansServiceWithThirdPartyTransfer=true=true&grantSummary=awardEducationPageGrantSummaryOus"
+                  >Shares to Sweep</a
+                >
+              </li>
+              <li>
+                <a
+                  href="/?plansServiceWithCashSweep=true&grantSummary=awardEducationPageGrantSummaryOus"
+                  >Cash to Sweep</a
+                >
+              </li>
+            </ol>
+          </div>
+        </div>
+        <div style="width: 16%; text-align: left">
+          Tile 6 - Filing Taxes
+          <div>
+            <ol>
+              <li>
+                <a href="/?plansServiceSharesToBrokerageThroughNetShares=true"
+                  >Domestic Share Proceeds (default)</a
+                >
+              </li>
+              <li>
+                <a href="/?plansServiceWithShareToBrokerThroughSellToCover=true"
+                  >Domestic Share Proceeds to Brokerage STC Only</a
+                >
+              </li>
+              <li>
+                <a href="/?plansServiceCashToBrokerage=true"
+                  >Domestic Cash to all Distributions</a
+                >
+              </li>
+              <li>
+                <a href="/?grantSummary=awardEducationPageGrantSummaryOus"
+                  >OUS Share Proceeds</a
+                >
+              </li>
+              <li>
+                <a
+                  href="/?plansServiceCashToBrokerage=true&grantSummary=awardEducationPageGrantSummaryOus"
+                  >OUS Cash Proceeds</a
+                >
+              </li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

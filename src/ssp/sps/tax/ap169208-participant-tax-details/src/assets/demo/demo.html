@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" expconfig-exclude="true" />
+    <title expconfig-exclude="true">
+      sps-tax-ap169208-participant-tax-details scenarios
+    </title>
+    <meta
+      expconfig-exclude="true"
+      name="viewport"
+      content="width=device-width, initial-scale=1"
+    />
+    <link
+      expconfig-exclude="true"
+      rel="stylesheet"
+      href="https://assets.fidelity.com/vendor/providence/fonts.css"
+    />
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+  </head>
+
+  <body>
+    <div class="scenarios-container">
+      <h1>Participant Tax Page Scenarios</h1>
+      <!-- ----------------- ADD SCENARIOS HERE ----------------- -->
+      <a href="/?grantSummary=participantTaxPageGrantSummaryDomesticTaxesOnFile"
+        >Success Scenario - Domestic, Taxes On File</a
+      ><br />
+      <a href="/?grantSummary=participantTaxPageGrantSummaryOUSTaxesOnFile"
+        >Success Scenario - OUS, Taxes On File</a
+      ><br />
+      <a href="/?grantSummary=participantTaxPageGrantSummaryNoTaxesCodeDomestic"
+        >Success Scenario - Domestic, Taxes not on file - General Education</a
+      ><br />
+      <a href="/?grantSummary=participantTaxPageGrantSummaryNoTaxesCodeOUS"
+        >Success Scenario - OUS, Taxes not on file - General Education</a
+      ><br />
+      <br />
+      <a href="/?contentError=true">Error Scenario - Content Service Error</a
+      ><br />
+      <a href="/?grantSummaryError=true"
+        >Error Scenario - Grant Summary Service Error</a
+      ><br />
+      <br />
+      <a href="/?grantSummary=participantTaxPageGrantSummaryNotEntitledCode"
+        >Redirect Scenario - User not entitled</a
+      ><br />
+      <a href="/?grantSummary=participantTaxPageGrantSummaryNoAcceptedGrants"
+        >Redirect Scenario - User has no accepted grants</a
+      ><br />
+      <a href="/?grantSummary=participantTaxPageGrantSummaryAccountNotOpen"
+        >Redirect Scenario - Account Not Open</a
+      ><br />
+      <a href="/?grantSummary=participantTaxPageGrantSummaryAccountNotActive"
+        >Redirect Scenario - Account Not Active</a
+      ><br />
+    </div>
+  </body>
+</html>

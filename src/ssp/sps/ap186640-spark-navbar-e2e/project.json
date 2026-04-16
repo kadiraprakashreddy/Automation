@@ -1,0 +1,41 @@
+{
+  "name": "sps-ap186640-spark-navbar-e2e",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/sps/ap186640-spark-navbar-e2e/src",
+  "projectType": "application",
+  "tags": ["type:e2e", "domain:sps"],
+  "implicitDependencies": ["sps-ap186640-spark-navbar"],
+  "metadata": {
+    "appInfo": {
+      "domain": "sps",
+      "reviewers": ["@TeamFuego"],
+      "appName": "ap186640-spark-navbar",
+      "appId": "ap186640"
+    }
+  },
+  "targets": {
+    "e2e": {
+      "executor": "@fmr-ap167419/tools-nx-plugin:e2e",
+      "outputs": [
+        "{workspaceRoot}/dist/.playwright/apps/sps/ap186640-spark-navbar-e2e"
+      ],
+      "options": {
+        "config": "apps/sps/ap186640-spark-navbar-e2e/playwright.config.ts"
+      }
+    },
+    "e2e-ci": {
+      "executor": "@fmr-ap167419/tools-nx-plugin:e2e",
+      "outputs": [
+        "{workspaceRoot}/dist/.playwright/apps/sps/ap186640-spark-navbar-e2e"
+      ],
+      "options": {
+        "config": "apps/sps/ap186640-spark-navbar-e2e/playwright.config.ts",
+        "ci": true,
+        "grep": "@CI|@Visual|@Accessibility"
+      }
+    },
+    "eslint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
+}

@@ -1,0 +1,41 @@
+@use '../../management.component.scss';
+
+// PAGE HEADER
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1.5rem; //40px
+  @media (max-width: 70em) {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+.page-header__nav-link {
+  display: inline-block;
+  font-size: 0.75em; //12px
+  margin-bottom: 0.25rem; //4px
+}
+
+.video-link {
+  margin-top: 1rem;
+  white-space: nowrap;
+  @media (max-width: 70em) {
+    white-space: normal;
+  }
+}
+
+.alert-banner {
+  margin-bottom: 1rem;
+}
+
+// Override pvd link to align icon with text
+.ap144008-link-root .fds-link__link,
+.ap144008-link-root .fds-link__link:link {
+  display: flex;
+}
+
+.ap144008-link-root * {
+  margin-left: 0.1rem;
+  margin-top: 0.1rem;
+}

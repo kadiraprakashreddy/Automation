@@ -1,0 +1,2590 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" expconfig-exclude="true" />
+    <title expconfig-exclude="true">sps-ap164022-online-grant-agreements</title>
+    <base expconfig-exclude="true" href="/" />
+    <meta
+      expconfig-exclude="true"
+      name="viewport"
+      content="width=device-width, initial-scale=1"
+    />
+    <link
+      expconfig-exclude="true"
+      rel="icon"
+      type="image/x-icon"
+      href="favicon.ico"
+    />
+    <link
+      expconfig-exclude="true"
+      rel="stylesheet"
+      href="https://assets.fidelity.com/fonts/fidelity-sans/fidelity-sans.css"
+    />
+    <link
+      expconfig-exclude="true"
+      rel="stylesheet"
+      href="https://assets.fidelity.com/fonts/fidelity-slab/fidelity-slab.css"
+    />
+    <script
+      type="text/javascript"
+      src="https://pssint.fmr.com/static/psw/cacheable/content/js/realms/dist/plansponsortop.min.js"
+    ></script>
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://pssint.fmr.com/static/psw/cacheable/psw3_0/common/js/dojo/current/dijit/themes/claro/claro.css"
+    />
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://pssint.fmr.com/bin-public/06_PSW_Website/css/site.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://pssint.fmr.com/bin-public/06_PSW_Website/css/landing.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://pssint.fmr.com/bin-public/06_PSW_Website/css/intgParticipant.css"
+    />
+
+    <link
+      href="https://pssint.fmr.com/bin-public/06_PSW_Website/css/print.css"
+      type="text/css"
+      rel="stylesheet"
+      media="print"
+    />
+
+    <!-- FONTS HERE would come from static/cacheable -->
+    <link rel="stylesheet" />
+    <script>
+      window.STATIC_CONTENT_LOCATION = 'http://localhost:4200/';
+    </script>
+    <link
+      href="https://pssint.fmr.com/bin-public/06_PSW_Website/css/print.css"
+      type="text/css"
+      rel="stylesheet"
+      media="print"
+    />
+    <!-- Unfortunately in the PSW space this site.css kinda duplicates as the realm css.  This includes the nav bar CSS for now until that is updated to the realm css. -->
+    <link
+      href="https://pssint.fmr.com/bin-public/06_PSW_Website/css/site.css"
+      type="text/css"
+      rel="stylesheet"
+      media="all"
+    />
+
+    <link
+      href="https://pssint.fmr.com/bin-public/06_PSW_Website/css/pswcontent.css"
+      type="text/css"
+      rel="stylesheet"
+      media="all"
+    />
+    <script
+      src="https://pssint.fmr.com/static/psw/cacheable/content/js/realms/dist/plansponsortop.min.js"
+      type="text/javascript"
+    ></script>
+    <!-- <script src="http://localhost:4200/scripts.js" defer></script>  -->
+    <script>
+      window.STATIC_CONTENT_LOCATION = 'http://localhost:4200/';
+    </script>
+    <!--INJECT_ALL_SCRIPTS-->
+    <!-- JS NEEDED FOR NAV -->
+    <script
+      src="https://pssint.fmr.com/static/psw/cacheable/psw3_0/common/js/dojo/current/dojo/dojo.js"
+      data-dojo-config="parseOnLoad: true"
+    ></script>
+    <script
+      src="https://pssint.fmr.com/static/psw/cacheable/psw3_0/common/js/commonPageHeader.js"
+      type="text/javascript"
+    ></script>
+
+    <script type="text/javascript">
+      dojo.require('dojox.layout.ContentPane');
+      dojo.require('dijit.layout.StackContainer');
+      dojo.require('dijit.Tooltip');
+    </script>
+    <!-- END: JS NEEDED FOR NAV -->
+
+    <script type="text/javascript">
+      var config = {
+        pageContext: 'spsGrantDocument',
+        pageContextUser: 'plansponsor',
+        updateClient: '\/spark\/gosps\/api\/update-client',
+        sparkHostName: 'https:\/\/facspk.fmr.com',
+        spsClientId: 'A',
+        pageContextId: 'oga',
+        wiClientId: '000718029',
+        userId: 'a711082',
+        pageContextAPI: '\/spark\/spsplanadmin\/api',
+      };
+      var parameters = {};
+      var txntoken = 'r0XhDkUQRBnyYrpOz7B7yRAU6hgtPZ31A8u09vIyU78';
+      var analyticsPageTitleName = 'OGA Grant Documents';
+      var isPartCardAvailable = false;
+      var isTocV2Available = false;
+      var brightcoveConfig = {};
+      var sparkNavbarMenu = [
+        {
+          name: 'Contacts',
+          url: '',
+          enable: false,
+          children: [
+            {
+              name: 'Client Contacts',
+              url: '',
+              enable: false,
+              children: [
+                {
+                  name: 'Contact Lookup',
+                  url: 'contact_lookup',
+                  enable: false,
+                  children: [],
+                },
+                {
+                  name: 'Contact History',
+                  url: 'contact_history',
+                  enable: false,
+                  children: [],
+                },
+                {
+                  name: 'Contact Setup Actions',
+                  url: '',
+                  enable: false,
+                  children: [
+                    {
+                      name: 'Authorization Summary',
+                      url: 'authorization_summary',
+                      enable: false,
+                      children: [],
+                    },
+                    {
+                      name: 'Internal Contact Summary',
+                      url: 'internal_contact_summary',
+                      enable: false,
+                      children: [],
+                    },
+                    {
+                      name: 'Transfer Agent Summary',
+                      url: 'transfer_agent_summary',
+                      enable: false,
+                      children: [],
+                    },
+                    {
+                      name: 'Add Authorized Contact',
+                      url: 'add_authorized_contact',
+                      enable: false,
+                      children: [],
+                    },
+                    {
+                      name: 'Assign Internal Contact',
+                      url: 'assign_internal_contact',
+                      enable: false,
+                      children: [],
+                    },
+                    {
+                      name: 'Add Transfer Agent Contact',
+                      url: 'add_transfer_agent_contact',
+                      enable: false,
+                      children: [],
+                    },
+                    {
+                      name: 'Add Other Contact',
+                      url: 'add_other_contact',
+                      enable: false,
+                      children: [],
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+        {
+          name: 'Clients',
+          url: '',
+          enable: false,
+          children: [
+            {
+              name: 'Clients',
+              url: '',
+              enable: false,
+              children: [
+                {
+                  name: 'Clients',
+                  url: 'client',
+                  enable: false,
+                  children: [],
+                },
+                {
+                  name: 'PAM\/ePAM',
+                  url: 'pam_epam',
+                  enable: false,
+                  pswSharedScreen: false,
+                  clientIdRequired: true,
+                  children: [],
+                },
+                {
+                  name: 'Mobility Tracking',
+                  url: 'mobility_tracking',
+                  enable: false,
+                  pswSharedScreen: false,
+                  clientIdRequired: true,
+                  children: [],
+                },
+                {
+                  name: 'Inbound File Details for Clients',
+                  url: 'inbound_file_details_for_clients',
+                  enable: false,
+                  children: [],
+                },
+                {
+                  name: 'MPT\/3rd Party Transfer',
+                  url: 'mpt_3rd_party_transfer',
+                  enable: false,
+                  pswSharedScreen: false,
+                  clientIdRequired: true,
+                  children: [],
+                },
+                {
+                  name: 'Currency Rate',
+                  url: 'currency_rate',
+                  enable: false,
+                  pswSharedScreen: false,
+                  clientIdRequired: true,
+                  children: [],
+                },
+                {
+                  name: 'Currency',
+                  url: 'currency',
+                  enable: false,
+                  pswSharedScreen: false,
+                  clientIdRequired: true,
+                  children: [],
+                },
+                {
+                  name: 'Grant Load Management',
+                  url: 'grand_load_management',
+                  enable: false,
+                  children: [],
+                },
+                {
+                  name: 'Account Request',
+                  url: 'account_request',
+                  enable: false,
+                  children: [],
+                },
+                {
+                  name: 'Search Account Request',
+                  url: 'search_account_request',
+                  enable: false,
+                  children: [],
+                },
+              ],
+            },
+            {
+              name: 'Alerts',
+              url: '',
+              enable: false,
+              children: [
+                {
+                  name: 'Alert Selection',
+                  url: 'alert_selection',
+                  enable: false,
+                  children: [],
+                },
+                {
+                  name: 'Alert Configuration',
+                  url: 'alert_configuration',
+                  enable: false,
+                  children: [],
+                },
+                {
+                  name: 'Web Content Management',
+                  url: 'web_content_management',
+                  enable: false,
+                  children: [],
+                },
+              ],
+            },
+            {
+              name: 'Tax Codes',
+              url: '',
+              enable: false,
+              children: [
+                {
+                  name: 'GTMS Tax Codes',
+                  url: 'gtms_tax_codes',
+                  enable: false,
+                  children: [],
+                },
+                {
+                  name: 'Domestic Tax Codes',
+                  url: 'domestic_tax_codes',
+                  enable: false,
+                  pswSharedScreen: false,
+                  clientIdRequired: true,
+                  children: [],
+                },
+                {
+                  name: 'International Tax Codes',
+                  url: 'international_tax_codes',
+                  enable: false,
+                  pswSharedScreen: false,
+                  clientIdRequired: true,
+                  children: [],
+                },
+              ],
+            },
+            {
+              name: 'Web Experience(Legacy)',
+              url: '',
+              enable: false,
+              children: [
+                {
+                  name: 'Message Summary',
+                  url: 'message_summary',
+                  enable: false,
+                  children: [],
+                },
+                {
+                  name: 'Alert Distribution',
+                  url: 'alert_distribution',
+                  enable: false,
+                  children: [],
+                },
+              ],
+            },
+            {
+              name: 'Share \u0026 Money Movement',
+              url: '',
+              enable: false,
+              children: [
+                {
+                  name: 'Trust Cash Sweep Establishment',
+                  url: 'trust_cash_sweep_establishment',
+                  enable: false,
+                  pswSharedScreen: false,
+                  clientIdRequired: true,
+                  children: [],
+                },
+              ],
+            },
+            {
+              name: 'Reporting',
+              url: '',
+              enable: false,
+              children: [
+                {
+                  name: 'Client Reporting Implementation',
+                  url: 'client_reporting_implementation',
+                  enable: false,
+                  children: [],
+                },
+              ],
+            },
+          ],
+        },
+        {
+          name: 'Plans \u0026 Products',
+          url: '',
+          enable: false,
+          children: [
+            {
+              name: 'Plans',
+              url: '',
+              enable: false,
+              children: [
+                {
+                  name: 'Plans',
+                  url: 'plans',
+                  enable: false,
+                  children: [],
+                },
+                {
+                  name: 'Performance Plan Dynamic Names',
+                  url: 'performance_plan_dynamic_names',
+                  enable: false,
+                  children: [],
+                },
+                {
+                  name: 'Create Custody Account',
+                  url: 'create_custody_account',
+                  enable: false,
+                  children: [],
+                },
+              ],
+            },
+            {
+              name: 'Products',
+              url: '',
+              enable: false,
+              children: [
+                {
+                  name: 'Products',
+                  url: 'products',
+                  enable: false,
+                  children: [],
+                },
+                {
+                  name: 'Product Mapping',
+                  url: 'product_mapping',
+                  enable: false,
+                  children: [],
+                },
+                {
+                  name: 'Plan Documents',
+                  url: 'plan_documents',
+                  enable: false,
+                  pswSharedScreen: false,
+                  clientIdRequired: true,
+                  children: [],
+                },
+                {
+                  name: 'Document Preview',
+                  url: 'document_preview',
+                  enable: false,
+                  children: [],
+                },
+                {
+                  name: 'Grant Documents',
+                  url: 'docuemnt_library',
+                  enable: false,
+                  children: [],
+                },
+                {
+                  name: 'PSW Grant Documents',
+                  url: 'psw grant_documents',
+                  enable: false,
+                  pswSharedScreen: true,
+                  clientIdRequired: false,
+                  pswPage: {
+                    isParticipant: false,
+                    url: '\/spark\/gosps\/to\/oga?',
+                    entitlement: 'GrantDocument',
+                  },
+                  children: [],
+                },
+                {
+                  name: 'Plan Information and Documents',
+                  url: 'plan_documents3',
+                  enable: false,
+                  children: [],
+                },
+              ],
+            },
+            {
+              name: 'Schedules',
+              url: '',
+              enable: false,
+              children: [
+                {
+                  name: 'Distribution Schedules',
+                  url: 'distribution_schedules',
+                  enable: false,
+                  pswSharedScreen: false,
+                  clientIdRequired: true,
+                  children: [],
+                },
+                {
+                  name: 'Performance',
+                  url: '',
+                  enable: false,
+                  children: [
+                    {
+                      name: 'Performance Schedules',
+                      url: 'performance_schedules',
+                      enable: false,
+                      pswSharedScreen: false,
+                      clientIdRequired: true,
+                      children: [],
+                    },
+                    {
+                      name: 'Performance Parameters',
+                      url: 'performance_parameters',
+                      enable: false,
+                      pswSharedScreen: false,
+                      clientIdRequired: true,
+                      children: [],
+                    },
+                  ],
+                },
+                {
+                  name: 'Terminations',
+                  url: '',
+                  enable: false,
+                  children: [
+                    {
+                      name: 'Global Termination Schedules',
+                      url: 'psw global_termination_schedules',
+                      pswPage: {
+                        isParticipant: false,
+                        url: '\/spark\/gosps\/to\/termination-rules?',
+                        entitlement: 'GrkTermSchedules',
+                      },
+                      enable: false,
+                      pswSharedScreen: true,
+                      clientIdRequired: false,
+                      children: [],
+                    },
+                    {
+                      name: 'Termination Schedules',
+                      url: 'termination_schedules',
+                      enable: false,
+                      children: [],
+                    },
+                    {
+                      name: 'CSR Schedules',
+                      url: 'csr_schedules',
+                      enable: false,
+                      pswSharedScreen: false,
+                      clientIdRequired: true,
+                      children: [],
+                    },
+                    {
+                      name: 'Custom Separation Rules',
+                      url: 'custom_seperation_rules',
+                      enable: false,
+                      pswSharedScreen: false,
+                      clientIdRequired: true,
+                      children: [],
+                    },
+                    {
+                      name: 'Prorated Terminations',
+                      url: 'prorated_terminations',
+                      enable: false,
+                      children: [],
+                    },
+                  ],
+                },
+                {
+                  name: 'Vesting Schedules',
+                  url: 'vesting_schedules',
+                  enable: false,
+                  pswSharedScreen: false,
+                  clientIdRequired: true,
+                  children: [],
+                },
+              ],
+            },
+            {
+              name: 'Common Acceptance Modules(CAMS)',
+              url: '',
+              enable: false,
+              children: [
+                {
+                  name: 'AGMT\/INSTR Maintenance',
+                  url: 'agmt_instr_maintenance',
+                  enable: false,
+                  children: [],
+                },
+                {
+                  name: 'AGMT\/INSTR Configuration',
+                  url: 'agmt_instt_configuration',
+                  enable: false,
+                  pswSharedScreen: false,
+                  clientIdRequired: true,
+                  children: [],
+                },
+                {
+                  name: 'Participant AGMT\/INSTR Status',
+                  url: 'participant_agmt_instr_status',
+                  enable: false,
+                  pswSharedScreen: false,
+                  clientIdRequired: true,
+                  children: [],
+                },
+              ],
+            },
+          ],
+        },
+        {
+          name: 'Participants \u0026 Awards',
+          url: '',
+          enable: false,
+          children: [
+            {
+              name: 'Participant Information',
+              url: 'participant_information',
+              enable: false,
+              children: [],
+            },
+            {
+              name: 'MBT Recent Activity',
+              url: 'mbt_recent_activity',
+              enable: false,
+              children: [],
+            },
+            {
+              name: 'Mailing',
+              url: 'mailing',
+              enable: false,
+              children: [],
+            },
+            {
+              name: 'Blackouts\/Blackins',
+              url: 'blackouts_blackins',
+              enable: false,
+              children: [],
+            },
+            {
+              name: 'Grant Summary',
+              url: 'grant_summary',
+              enable: false,
+              children: [],
+            },
+            {
+              name: 'Grant Maintenance',
+              url: 'grant_maintenance',
+              enable: false,
+              pswSharedScreen: false,
+              clientIdRequired: true,
+              children: [],
+            },
+            {
+              name: 'CSR Activity',
+              url: 'csr_activity',
+              enable: false,
+              children: [],
+            },
+            {
+              name: 'Termination Adjustment',
+              url: 'termination_adjustment',
+              enable: false,
+              children: [],
+            },
+            {
+              name: 'Tax\/Trade Adjustment',
+              url: 'tax_trade_adjustment',
+              enable: true,
+              children: [],
+            },
+            {
+              name: 'Taxation',
+              url: '',
+              enable: false,
+              children: [
+                {
+                  name: 'GTMS Tax Detail',
+                  url: 'gtms_tax_detail',
+                  enable: false,
+                  children: [],
+                },
+                {
+                  name: 'Legacy Tax Detail',
+                  url: 'legacy_tax_detail',
+                  enable: false,
+                  children: [],
+                },
+                {
+                  name: 'Legacy Tax Rates',
+                  url: 'legacy_tax_rates',
+                  enable: false,
+                  children: [],
+                },
+                {
+                  name: 'PSW Tax Information',
+                  url: 'psw tax_info',
+                  pswPage: {
+                    isParticipant: true,
+                    url: '\/spark\/gosps\/to\/participant-tax?',
+                    entitlement: 'ParticipantTax',
+                  },
+                  enable: false,
+                  pswSharedScreen: true,
+                  clientIdRequired: false,
+                  children: [],
+                },
+              ],
+            },
+          ],
+        },
+        {
+          name: 'ESPP',
+          url: '',
+          enable: false,
+          children: [
+            {
+              name: 'Participant ESPP Summary',
+              url: 'participant_espp_summary',
+              enable: false,
+              children: [],
+            },
+            {
+              name: 'Client Offerings',
+              url: 'client_offerings',
+              enable: false,
+              pswSharedScreen: false,
+              clientIdRequired: true,
+              children: [],
+            },
+          ],
+        },
+        {
+          name: 'Plan Events',
+          url: '',
+          enable: false,
+          children: [
+            {
+              name: 'Dividend Setup',
+              url: 'divident_setup',
+              enable: false,
+              children: [],
+            },
+            {
+              name: 'Dividend\/ DE Records',
+              url: 'divident_de_records',
+              enable: false,
+              children: [],
+            },
+            {
+              name: 'Restricted Stock Approvals',
+              url: 'restricted_stock_spprovals',
+              enable: false,
+              children: [],
+            },
+            {
+              name: 'Performance Adjustments',
+              url: 'perfomance_adjustments',
+              enable: false,
+              children: [],
+            },
+            {
+              name: 'Global Distribution Management',
+              url: 'global_distribution_management',
+              enable: false,
+              children: [
+                {
+                  name: 'Manage Transactions',
+                  url: 'psw manage_distributions',
+                  pswPage: {
+                    isParticipant: false,
+                    url: '\/spark\/gosps\/to\/distributions?',
+                    entitlement: 'GlobalTransactionManagement',
+                  },
+                  pswSharedScreen: true,
+                  clientIdRequired: true,
+                  enable: false,
+                  children: [],
+                },
+              ],
+            },
+            {
+              name: 'Trade Management',
+              url: 'trade_management',
+              enable: false,
+              children: [],
+            },
+            {
+              name: 'Global Dividend Management',
+              url: 'psw global_dividend_management',
+              pswPage: {
+                isParticipant: false,
+                url: '\/spark\/gosps\/to\/dividends?',
+              },
+              enable: false,
+              pswSharedScreen: true,
+              clientIdRequired: true,
+              children: [],
+            },
+            {
+              name: 'Global Performance Management',
+              url: 'psw global_performance_management',
+              pswPage: {
+                isParticipant: false,
+                url: '\/spark\/gosps\/to\/performance-adjustments?',
+                entitlement: 'CorporateAction',
+              },
+              enable: false,
+              pswSharedScreen: true,
+              clientIdRequired: false,
+              children: [],
+            },
+          ],
+        },
+        {
+          name: 'Financial Reporting',
+          url: '',
+          enable: false,
+          children: [
+            {
+              name: 'Client Control',
+              url: 'client_control',
+              enable: false,
+              children: [],
+            },
+            {
+              name: 'Grant Update',
+              url: 'grant_update',
+              enable: false,
+              children: [],
+            },
+            {
+              name: 'Load File',
+              url: 'load_file',
+              enable: false,
+              children: [],
+            },
+            {
+              name: 'Process Data',
+              url: 'process_data',
+              enable: false,
+              children: [],
+            },
+            {
+              name: 'Process Monitor',
+              url: 'process_monitor',
+              enable: false,
+              children: [],
+            },
+            {
+              name: 'Acquisition Update',
+              url: 'acquistion_update',
+              enable: false,
+              children: [],
+            },
+            {
+              name: 'SFTP Request Management',
+              url: 'sftp_request_management',
+              enable: false,
+              children: [],
+            },
+          ],
+        },
+        {
+          name: 'Compliance',
+          url: '',
+          enable: false,
+          children: [
+            {
+              name: 'Form 144',
+              url: 'sps-regulatory',
+              enable: false,
+              pswPage: {
+                isParticipant: false,
+                url: '\/spark\/gosps\/to\/sps-regulatory?',
+                entitlement: 'GlobalDistributionManagement',
+              },
+              pswSharedScreen: true,
+              clientIdRequired: false,
+              children: [],
+            },
+          ],
+        },
+        {
+          name: 'PSW Manage Data',
+          url: '',
+          enable: false,
+          children: [
+            {
+              name: 'File Management',
+              url: 'psw file_management',
+              pswPage: {
+                isParticipant: false,
+                url: '\/spark\/gosps\/to\/file-management?',
+              },
+              enable: false,
+              pswSharedScreen: true,
+              clientIdRequired: true,
+              children: [],
+            },
+            {
+              name: 'File Upload',
+              url: 'psw file_upload',
+              pswPage: {
+                isParticipant: false,
+                url: '\/spark\/gosps\/to\/file-upload?fileType=SPSGLBLGRNT\u0026',
+              },
+              enable: false,
+              pswSharedScreen: true,
+              clientIdRequired: true,
+              children: [],
+            },
+            {
+              name: 'Files sent from Fidelity',
+              url: 'psw outbound_files',
+              pswPage: {
+                isParticipant: false,
+                url: '\/spark\/gosps\/to\/outbound-file-management?',
+                entitlement: 'FileUpload',
+              },
+              enable: false,
+              pswSharedScreen: true,
+              clientIdRequired: true,
+              children: [],
+            },
+          ],
+        },
+        {
+          name: 'Help',
+          url: '',
+          enable: false,
+          children: [
+            {
+              name: 'SPS Quick Reference Guide',
+              url: 'psw sps_quick_reference_guide',
+              pswPage: {
+                isParticipant: false,
+                url: '\/spark\/gosps\/to\/sps-help?',
+                entitlement: 'GrkQuickReferenceGuide',
+              },
+              enable: false,
+              pswSharedScreen: true,
+              clientIdRequired: false,
+              children: [],
+            },
+            {
+              name: 'SPS Participant Communications',
+              url: 'psw sps_participant_communications_guide',
+              pswPage: {
+                isParticipant: false,
+                url: '\/spark\/gosps\/to\/sps-part-comm?',
+                entitlement: 'GrkQuickReferenceGuide',
+              },
+              enable: false,
+              pswSharedScreen: true,
+              clientIdRequired: false,
+              children: [],
+            },
+            {
+              name: 'Spark General',
+              url: 'spark_general',
+              enable: true,
+              children: [],
+            },
+            {
+              name: 'CSR Schedule',
+              url: 'csr_schedule',
+              enable: true,
+              children: [],
+            },
+            {
+              name: 'Distribution Schedule',
+              url: 'distribution_schedule',
+              enable: true,
+              children: [],
+            },
+            {
+              name: 'Multiple Payroll',
+              url: 'multiple_payroll',
+              enable: true,
+              children: [],
+            },
+            {
+              name: 'Participant Tax',
+              url: 'participant_tax',
+              enable: true,
+              children: [],
+            },
+            {
+              name: 'Participant Tax for GTMS',
+              url: 'participant_tax_for_gtms',
+              enable: true,
+              children: [],
+            },
+            {
+              name: 'RS Approval',
+              url: 'rsapproval',
+              enable: true,
+              children: [],
+            },
+            {
+              name: 'Terminations',
+              url: 'terminations',
+              enable: true,
+              children: [],
+            },
+            {
+              name: 'Vesting Schedule Help',
+              url: 'vesting_schedule_help',
+              enable: true,
+              children: [],
+            },
+            {
+              name: 'Performance Plans',
+              url: 'performance_plans',
+              enable: true,
+              children: [],
+            },
+            {
+              name: 'Grant Load Managemnt Help',
+              url: 'grant_load_management_help',
+              enable: true,
+              children: [],
+            },
+          ],
+        },
+      ];
+    </script>
+
+    <!-- FDS2 CSS -->
+    <!-- <link inline rel="stylesheet" href="../node_modules/@fmr-ap109253/fds2/build/providence/main.css"> -->
+
+    <!-- FDS2 PSW SHIM CSS -->
+    <!-- <link inline rel="stylesheet" href="../demo/css/fds2-psw-shim.css"> -->
+  </head>
+
+  <body class="claro">
+    <div id="layout-region-1" class="horizontal-center-page">
+      <nav id="navbar">
+        <div class="nb postLogin" id="navbar_nb">
+          <div class="psHeader">
+            <div class="headBanner-container">
+              <div class="content-container headerBg">
+                <div class="logo" role="banner">
+                  <div>
+                    <a
+                      href="#skipToContent"
+                      tabindex="1"
+                      class="skipNavHidden"
+                      id="navbar_skipNav"
+                      onfocus="this.className='skipNav';"
+                      onblur="this.className='skipNavHidden';"
+                    >
+                      Skip to Main Content.
+                    </a>
+                  </div>
+                  <div class="nav-header-right-links topRow-Item">
+                    <ul>
+                      <li>Welcome,</li>
+                      <li>
+                        <span class="identifier">test</span>
+                      </li>
+                    </ul>
+                    <ul>
+                      <li>
+                        <a
+                          href="https://pssint.fmr.com/plansponsor/pswmain/ClientSelector.psw"
+                          ><span class="identifier">test company</span></a
+                        >
+                      </li>
+                    </ul>
+                    <ul>
+                      <li>
+                        <a
+                          href="#"
+                          title="Training & Support"
+                          onClick="javascript:(window.location ='https://pssint.fmr.com/plansponsor/pswmain/trainingsupport/trainingsupportlanding.psw');"
+                        >
+                          <img
+                            width="12"
+                            height="17"
+                            alt="Training & Support"
+                            src="https://pssint.fmr.com/bin-public/06_PSW_Website/images/question.png"
+                          />
+                        </a>
+                      </li>
+
+                      <li>
+                        <a
+                          href="#"
+                          title="Settings"
+                          onClick="javascript:(window.location ='https://pssint.fmr.com/plansponsor/sponsor/setPersonalNotifications.do');"
+                        >
+                          <img
+                            width="17"
+                            height="17"
+                            alt="Settings"
+                            src="https://pssint.fmr.com/bin-public/06_PSW_Website/images/user-gear.png"
+                          />
+                        </a>
+                      </li>
+
+                      <li>
+                        <a
+                          href="#"
+                          title="User Maintenance"
+                          onClick="javascript:(window.location ='https://pssint.fmr.com/plansponsor/pswmain/usermaintenancelanding.psw');"
+                        >
+                          <img
+                            width="16"
+                            height="15"
+                            src="https://pssint.fmr.com/bin-public/06_PSW_Website/images/wrench.png"
+                            alt="User Maintenance"
+                          />
+                        </a>
+                      </li>
+
+                      <li>
+                        <a
+                          href="#"
+                          class="logout-button"
+                          title="Log Out"
+                          onClick="javascript:(logoutPsw('https://pssint.fmr.com/plansponsor/pswmain/Logout.psw'));"
+                          id="LogoutLink"
+                        >
+                          Log Out
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                  <a
+                    href="#"
+                    onClick="javascript:(window.location ='https://pssint.fmr.com/plansponsor/pswmain/homepage.psw');"
+                    id="navbar_logoLink"
+                    tabindex="2"
+                    title="Fidelity PSW Home"
+                  >
+                    <img
+                      src="https://pssint.fmr.com/bin-public/06_PSW_Website/images/PSW_logoMkt.png"
+                      width="309"
+                      height="55"
+                      alt="Fidelity PSW Home"
+                      border="0"
+                    />
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <input type="hidden" id="highLightNavBar" value="NONE" />
+
+          <form id="MasterParticipantSearchForm" action="" method="POST">
+            <input type="hidden" name="searchField" value="" />
+            <input type="hidden" name="temporarySearchField" value="" />
+            <input type="hidden" name="searchValue" value="" />
+            <input type="hidden" name="dcPlanNumber" value="" />
+            <input type="hidden" name="dcPlanDivision" value="" />
+            <input type="hidden" name="actualSsn" value="" />
+            <input type="hidden" name="whatToView" value="" />
+          </form>
+
+          <div class="nav-container">
+            <div class="content-container navBar-width">
+              <div dojoType="dijit.MenuBar" id="navMenu" role="navigation">
+                <div
+                  dojoType="dijit.MenuBarItem"
+                  id="homeBarItem"
+                  onMouseLeave="javascript:deselectTab('homeBarItem');"
+                  class="hiddenUntilLoaded"
+                >
+                  <span>
+                    <div class="tab-title-holder">Home</div>
+                  </span>
+                </div>
+
+                <div
+                  dojoType="dijit.PopupMenuBarItem"
+                  id="participantBarItem"
+                  class="hiddenUntilLoaded"
+                >
+                  <span>
+                    <div class="tab-title-holder">
+                      View Participants
+                      <span class="off-screen menuStatus">menu closed</span>
+                    </div>
+                  </span>
+                  <div
+                    dojoType="dijit.Menu"
+                    id="participantMenu"
+                    onMouseEnter="javascript:selectTab('participantBarItem');"
+                    onMouseLeave="javascript:closeTabPopup('participantMenu', 'participantBarItem');"
+                    class="nb"
+                  >
+                    <div dojoType="dijit.MenuItem" id="viewParticipantMenuItem">
+                      <div class="tab-extender"></div>
+                      <div id="hovViewParticipantsContentPortion">
+                        <div style="width: 450px; height: 214px">
+                          <img
+                            style="padding-top: 60px; padding-left: 200px"
+                            src="https://pssint.fmr.com/bin-public/06_PSW_Website/images/loading_spinner_big.gif"
+                            alt="Loading..."
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div
+                  dojoType="dijit.PopupMenuBarItem"
+                  id="adminPlansBarItem"
+                  onMouseLeave="javascript:selectTab('adminPlansBarItem');"
+                  class="hiddenUntilLoaded"
+                >
+                  <span>
+                    <div class="tab-title-holder">
+                      Administer Plans
+                      <span class="off-screen menuStatus">menu closed</span>
+                    </div>
+                  </span>
+                  <div
+                    dojoType="dijit.Menu"
+                    id="adminBenefitsMenu"
+                    onMouseEnter="javascript:selectTab('adminPlansBarItem');"
+                    onMouseLeave="javascript:closeTabPopup('adminBenefitsMenu', 'adminPlansBarItem');"
+                    class="nb"
+                  >
+                    <div dojoType="dijit.MenuItem" id="adminPlansMenuItem">
+                      <div class="tab-extender"></div>
+                      <div id="hoverOverAdministerPlansContentPortion">
+                        <div
+                          id="hoverOverSectionDefinedContribution"
+                          class="hoverOverSection borderedSection"
+                        >
+                          <div class="adminPlan-sections">
+                            <div class="hoverOverSectionHeading">
+                              Defined Contribution
+                            </div>
+
+                            <div class="hoverOverLink">
+                              <a
+                                href="#"
+                                onClick="javascript:(window.location ='https://pssint.fmr.com/plansponsor/sponsor/setupOverview.do');"
+                              >
+                                Set Plan Options
+                              </a>
+                            </div>
+
+                            <div class="hoverOverLink">
+                              <a
+                                href="#"
+                                onClick="javascript:(window.location ='https://pssint.fmr.com/plansponsor/pswdccore/plan/planReportCategorySelect.do?planReportCategory=all');"
+                              >
+                                Plan History &amp; Balances</a
+                              >
+                            </div>
+
+                            <div class="hoverOverLink">
+                              <a href="#"> Plan Investments</a>
+                            </div>
+
+                            <div class="hoverOverLink">
+                              <a
+                                href="#"
+                                onClick="javascript:(window.location ='https://pssint.fmr.com/plansponsor/sponsor/lwDisplayApprovals.do');"
+                              >
+                                Approve Loans &amp; Withdrawals</a
+                              >
+                            </div>
+
+                            <div class="hoverOverLink">
+                              <a
+                                href="#"
+                                onClick="javascript:(window.location ='https://pssint.fmr.com/plansponsor/pswdccore/adu/LoadInterestRate.do');"
+                              >
+                                View &amp; Submit Loan Interest Rates</a
+                              >
+                            </div>
+
+                            <div class="hoverOverLink">
+                              <a
+                                href="#"
+                                onClick="javascript:(window.location ='https://pssint.fmr.com/plansponsor/sponsor/EAActionHome.do');"
+                              >
+                                Company Contribution Calculator</a
+                              >
+                            </div>
+
+                            <div class="hoverOverLink">
+                              <a
+                                href="#"
+                                onClick="javascript:(window.location ='https://pssint.fmr.com/plansponsor/planadmin/showAllocateRevenueCredits.psw');"
+                              >
+                                Allocate Revenue Credits</a
+                              >
+                            </div>
+                          </div>
+                        </div>
+
+                        <!--  SPS & HSA section -->
+
+                        <!--  SPS & HSA section end -->
+
+                        <div
+                          id="administerPlansHoverOverComplianceSection"
+                          class="hoverOverSection borderedSection"
+                        >
+                          <div class="complaince-other-sections">
+                            <div class="hoverOverSectionHeading">
+                              Compliance
+                            </div>
+
+                            <div class="hoverOverLink">
+                              <a
+                                href="#"
+                                onClick="javascript:(window.location ='https://pssint.fmr.com/plansponsor/planadmin/NDTSummaryActive.psw');"
+                              >
+                                Nondiscrimination Testing (NDT)</a
+                              >
+                            </div>
+
+                            <div class="hoverOverLink">
+                              <a
+                                href="#"
+                                onClick="javascript:(window.location ='https://pssint.fmr.com/plansponsor/planadmin/showPyesDocumentList.psw');"
+                              >
+                                Plan Year End Summary Reports</a
+                              >
+                            </div>
+
+                            <div class="hoverOverLink">
+                              <a
+                                href="#"
+                                onClick="javascript:(window.location ='https://pssint.fmr.com/plansponsor/planadmin/showGovernmentForms.psw');"
+                              >
+                                Form 5500 and Form 8955-SSA</a
+                              >
+                            </div>
+
+                            <div class="hoverOverLink">
+                              <a
+                                href="#"
+                                onClick="javascript:(window.location ='https://pssint.fmr.com/plansponsor/planadmin/planAdminTool.psw');"
+                              >
+                                My Plan Navigator</a
+                              >
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div
+                  dojoType="dijit.PopupMenuBarItem"
+                  id="adminDataBarItem"
+                  onMouseLeave="javascript:selectTab('adminDataBarItem');"
+                  class="hiddenUntilLoaded"
+                >
+                  <span>
+                    <div class="tab-title-holder">
+                      Manage Data
+                      <span class="off-screen menuStatus">menu closed</span>
+                    </div>
+                  </span>
+                  <div
+                    dojoType="dijit.Menu"
+                    id="adminDataMenu"
+                    onMouseEnter="javascript:selectTab('adminDataBarItem');"
+                    onMouseLeave="javascript:closeTabPopup('adminDataMenu', 'adminDataBarItem');"
+                    class="nb"
+                  >
+                    <div dojoType="dijit.MenuItem" id="adminDataMenuItem">
+                      <div class="tab-extender"></div>
+                      <div id="hovManageDataContentPortion">
+                        <div
+                          id="hovManageDataFileManagementSection"
+                          class="hoverOverSection borderedSection"
+                        >
+                          <div class="hoverOverSectionHeading">
+                            File Management
+                          </div>
+
+                          <div class="hoverOverLink">
+                            <a
+                              href="#"
+                              onClick="javascript:(window.location ='https://pssint.fmr.com/plansponsor/datamgmt/ShowAdminFiles');"
+                            >
+                              View All Files
+                            </a>
+                          </div>
+
+                          <div class="hoverOverLink">
+                            <a
+                              href="#"
+                              onClick="javascript:(window.location ='https://pssint.fmr.com/plansponsor/datamgmt/SelectFileTypeLanding');"
+                            >
+                              Create or Send a File
+                            </a>
+                          </div>
+
+                          <div class="hoverOverLink">
+                            <a
+                              href="#"
+                              title="Apply Funding"
+                              onClick="javascript:(window.location ='https://pssint.fmr.com/plansponsor/sponsor/fundMultipleBatches.do');"
+                            >
+                              Apply Funding
+                            </a>
+                          </div>
+
+                          <div class="hoverOverLink">
+                            <a
+                              href="#"
+                              onClick="javascript:(window.location ='https://pssint.fmr.com/plansponsor/interchange/ReceiveFeedbackFilesSelector.do');"
+                            >
+                              Receive Files
+                            </a>
+                          </div>
+
+                          <div class="hoverOverLink">
+                            <a
+                              href="#"
+                              onClick="javascript:(window.location ='https://pssint.fmr.com/plansponsor/sponsor/existingLayoutSummary.do?context=new');"
+                            >
+                              View & Modify File Layouts
+                            </a>
+                          </div>
+                        </div>
+
+                        <div
+                          id="hovManageDataAdditionalParticipantDataSection"
+                          class="hoverOverSection borderedSection"
+                        >
+                          <div class="hoverOverSectionHeading">
+                            Participant Data Management
+                          </div>
+
+                          <div class="hoverOverLink">
+                            <a
+                              href="#"
+                              onClick="javascript:(window.location ='https://pssint.fmr.com/plansponsor/datamgmt/ShowNewParticipant');"
+                            >
+                              Enroll a New Participant
+                            </a>
+                          </div>
+
+                          <div class="hoverOverLink">
+                            <a
+                              href="#"
+                              onClick="javascript:(window.location ='https://pssint.fmr.com/plansponsor/sponsor/searchModify.do?newSearch=true');"
+                            >
+                              View & Modify Participant Data
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="hoverOverHelpLink">
+                        <div
+                          id="hovHelpPortion"
+                          class="hoverOverPostContentPortion top-border learn-link"
+                        >
+                          <img
+                            src="https://pssint.fmr.com/bin-public/06_PSW_Website/images/9_9_BULLET_B.gif"
+                            alt=""
+                          />
+                          <a
+                            href="javascript:openPopupWindow('https://pssint.fmr.com/plansponsor/pswmain/trainingsupport/trainingdetail/managingdata.psw','LearnMoreAbout', '711x639');"
+                          >
+                            Learn more about Managing Data
+                            <img
+                              class="popupIcon"
+                              src="https://pssint.fmr.com/bin-public/06_PSW_Website/images/popup.gif"
+                              alt="Opens in new window."
+                          /></a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div
+                  dojoType="dijit.PopupMenuBarItem"
+                  id="workwithfidelityBarItem"
+                  onMouseLeave="javascript:selectTab('workwithfidelityBarItem');"
+                  class="hiddenUntilLoaded"
+                >
+                  <span>
+                    <div class="tab-title-holder">
+                      Work With Fidelity
+                      <span class="off-screen menuStatus">menu closed</span>
+                    </div>
+                  </span>
+                  <div
+                    dojoType="dijit.Menu"
+                    id="workwithfidelityMenu"
+                    onMouseEnter="javascript:selectTab('workwithfidelityBarItem');"
+                    onMouseLeave="javascript:closeTabPopup('workwithfidelityMenu', 'workwithfidelityBarItem');"
+                    class="nb"
+                  >
+                    <div
+                      dojoType="dijit.MenuItem"
+                      id="workWithFidelityMenuItem"
+                    >
+                      <div class="tab-extender"></div>
+                      <div
+                        id="hovWorkWithFidelityContentPortion"
+                        class="hovWorkWithFidelityContent"
+                      >
+                        <div
+                          id="hovWorkWithFidelityServiceRequestsSection"
+                          class="hoverOverSection borderedSection"
+                        >
+                          <div class="hoverOverSectionHeading">
+                            Service Requests
+                          </div>
+
+                          <div class="hoverOverLink">
+                            <a
+                              href="#"
+                              onClick="javascript:(window.location ='https://pssint.fmr.com/plansponsor/customerservice/servicerequest/displayMyActiveWorkItems.do?filterBy=myActive');"
+                              >View All Service Requests</a
+                            >
+                          </div>
+
+                          <div class="hoverOverLink">
+                            <a
+                              href="javascript:(openPopupWindow('https://pssint.fmr.com/plansponsor/customerservice/servicerequest/DCServiceRequest.do','ServiceRequests', '510x560'));"
+                            >
+                              Open a New Service Request
+                              <img
+                                class="popupIcon"
+                                src="https://pssint.fmr.com/bin-public/06_PSW_Website/images/popup.gif"
+                                alt="Opens in new window."
+                              />
+                            </a>
+                          </div>
+                        </div>
+
+                        <div
+                          id="hovWorkWithFidelityTeamWorkspaceSection"
+                          class="hoverOverSection borderedSection"
+                        >
+                          <div class="hoverOverSectionHeading">
+                            Team Workspace
+                          </div>
+
+                          <div class="hoverOverLink">
+                            <a
+                              href="#"
+                              onClick="javascript:(window.location ='https://pssint.fmr.com/plansponsor/collaboration/ShowProjectsPage.do');"
+                              >Your Team Workspace Projects</a
+                            >
+                          </div>
+
+                          <div class="hoverOverSubsectionHeading">Tasks</div>
+
+                          <div class="hoverOverLink">
+                            <a
+                              href="#"
+                              onClick="javascript:(window.location ='https://pssint.fmr.com/plansponsor/collaboration/ShowWorkflowAssigned.do?workflowStatus=ACTIVE');"
+                              >Tasks You Assigned</a
+                            >
+                          </div>
+
+                          <div class="hoverOverLink">
+                            <a
+                              href="#"
+                              onClick="javascript:(window.location ='https://pssint.fmr.com/plansponsor/collaboration/ShowTasksAssigned.do?taskStatus=ACTIVE&retreiveReqd=true');"
+                              >Tasks Assigned to You</a
+                            >
+                          </div>
+                        </div>
+                      </div>
+                      <div class="breaker"></div>
+
+                      <div
+                        id="hovWorkWithFidelityHelpPortion"
+                        class="hovWorkWithFidelityContent"
+                      >
+                        <div
+                          class="hoverOverSection hoverOverHelpSection borderedSection"
+                          id="hovWorkWithFidelityServiceRequestsHelpSection"
+                        >
+                          <div
+                            class="hoverOverPostContentPortion top-border learn-link"
+                          >
+                            <img
+                              src="https://pssint.fmr.com/bin-public/06_PSW_Website/images/9_9_BULLET_B.gif"
+                              alt=""
+                            />
+                            <a
+                              href="javascript:openPopupWindow('https://pssint.fmr.com/plansponsor/pswmain/trainingsupport/trainingdetail/workingwithfidelity.psw','LearnMoreAbout', '711x639');"
+                            >
+                              Learn more about Service Requests
+                              <img
+                                class="popupIcon"
+                                src="https://pssint.fmr.com/bin-public/06_PSW_Website/images/popup.gif"
+                                alt="Opens in new window."
+                            /></a>
+                          </div>
+                        </div>
+
+                        <div
+                          class="hoverOverSection hoverOverHelpSection borderedSection"
+                          id="hovWorkWithFidelityTeamWorkspaceHelpSection"
+                        >
+                          <div
+                            class="hoverOverPostContentPortion top-border learn-link"
+                          >
+                            <img
+                              src="https://pssint.fmr.com/bin-public/06_PSW_Website/images/9_9_BULLET_B.gif"
+                              alt=""
+                            />
+                            <a
+                              href="javascript:openPopupWindow('https://pssint.fmr.com/plansponsor/pswmain/trainingsupport/trainingdetail/workingwithfidelity.psw','LearnMoreAbout', '711x639');"
+                            >
+                              Learn more about Team Workspace
+                              <img
+                                class="popupIcon"
+                                src="https://pssint.fmr.com/bin-public/06_PSW_Website/images/popup.gif"
+                                alt="Opens in new window."
+                            /></a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <script type="text/javascript">
+                  function goToRunReports(product) {
+                    document.runReportsForm.elements['product'].value = product;
+                    document.runReportsForm.submit();
+                  }
+
+                  function closeAllFlyouts() {
+                    var listOfFlyouts = dojo.query('.ie-position-fix');
+                    listOfFlyouts.style('visibility', 'hidden');
+                  }
+
+                  function focusFlyout(menuItemId) {
+                    closeAllFlyouts();
+                    var menuItemNode = dojo.query('#' + menuItemId);
+                    menuItemNode.style('visibility', 'visible');
+                  }
+                </script>
+                <div
+                  dojoType="dijit.PopupMenuBarItem"
+                  id="reportingBarItem"
+                  onmouseleave="javascript:selectTab('reportingBarItem')"
+                  class="hiddenUntilLoaded"
+                >
+                  <span>
+                    <div class="tab-title-holder">
+                      Reporting
+                      <span class="off-screen menuStatus">menu closed</span>
+                    </div>
+                  </span>
+                  <div
+                    dojoType="dijit.Menu"
+                    id="reportingMenu"
+                    onmouseenter="javascript:selectTab('reportingBarItem');"
+                    onmouseleave="javascript:closeTabPopup('reportingMenu', 'reportingBarItem');"
+                    class="nb"
+                  >
+                    <div dojoType="dijit.MenuItem" id="reportingMenuItem">
+                      <div class="tab-extender"></div>
+
+                      <div
+                        id="hoverover-enhncd-rpt-layout-2-col"
+                        class="next-gen"
+                        onmouseleave="closeAllFlyouts()"
+                      >
+                        <div
+                          class="hoverover-strategic-analytics"
+                          onmouseover="closeAllFlyouts()"
+                        >
+                          <div class="hoverover-section">
+                            <div class="hoverover-heading">
+                              Strategic Analytics
+                            </div>
+                            <div class="hoverOverLink">
+                              <a
+                                href="javascript:openExecutiveInsightsWindow('https://pssint.fmr.com/plansponsor/pswmain/pageheader/executiveInsights.psw')"
+                              >
+                                Executive Insights
+                                <img
+                                  class="popupIcon"
+                                  src="https://pssint.fmr.com/bin-public/06_PSW_Website/images/popup.gif"
+                                  alt="Opens in new window."
+                                />
+                              </a>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div
+                          class="hoverover-standard-reporting"
+                          onmouseleave="closeAllFlyouts()"
+                        >
+                          <div
+                            class="hoverOverSection hoverOverSectionReporting"
+                          >
+                            <div class="hoverover-heading">
+                              Operational Reports
+                            </div>
+                            <ul id="enhanced_reporting_nav">
+                              <li class="">
+                                <a
+                                  href="https://pssint.fmr.com/plansponsor/intreporting/showReportsDashboard.psw"
+                                  onmouseover="focusFlyout('dashboardFlyout')"
+                                  onfocus="focusFlyout('dashboardFlyout')"
+                                  >Dashboard</a
+                                >
+                              </li>
+
+                              <li class="arrow">
+                                <a
+                                  href="javascript:goToRunReports('all')"
+                                  onmouseover="focusFlyout('runReports')"
+                                  onfocus="focusFlyout('runReports')"
+                                  >Run Reports</a
+                                >
+
+                                <ul id="runReports">
+                                  <li>
+                                    <a
+                                      href="javascript:goToRunReports('Defined Contribution');"
+                                      >Defined Contribution</a
+                                    >
+                                  </li>
+
+                                  <li>
+                                    <a
+                                      href="javascript:goToRunReports('Multiproduct');"
+                                      >Multiproduct</a
+                                    >
+                                  </li>
+                                </ul>
+
+                                <form
+                                  id="runReportsForm"
+                                  name="runReportsForm"
+                                  method="POST"
+                                  action="https://pssint.fmr.com/plansponsor/intreporting/showRunReports.psw"
+                                >
+                                  <input
+                                    type="hidden"
+                                    name="product"
+                                    value="all"
+                                  />
+                                  <input
+                                    type="hidden"
+                                    name="category"
+                                    value="all"
+                                  />
+                                  <input
+                                    type="hidden"
+                                    name="manager"
+                                    value="all"
+                                  />
+                                  <input
+                                    type="hidden"
+                                    name="keyword"
+                                    value=""
+                                  />
+                                </form>
+                              </li>
+
+                              <li class="arrow">
+                                <a
+                                  href="https://pssint.fmr.com/plansponsor/intreporting/createTemplates.psw"
+                                  onmouseover="focusFlyout('createReport')"
+                                  onfocus="focusFlyout('createReportFlyout')"
+                                  >Create Report</a
+                                >
+
+                                <ul id="createReport">
+                                  <li>
+                                    <a
+                                      href="https://pssint.fmr.com/plansponsor/intreporting/createTemplatesOBIWrapper.psw?link=advanced&product=dc"
+                                      >Defined Contribution</a
+                                    >
+                                  </li>
+
+                                  <li>
+                                    <a
+                                      href="https://pssint.fmr.com/plansponsor/intreporting/createTemplatesOBIWrapper.psw?link=advanced&product=multi"
+                                      >Multiproduct</a
+                                    >
+                                  </li>
+                                </ul>
+                              </li>
+
+                              <li class="">
+                                <a
+                                  href="https://pssint.fmr.com/plansponsor/intreporting/showOrderedReports.psw"
+                                  onmouseover="focusFlyout('classicReport')"
+                                  onfocus="focusFlyout('classicReport')"
+                                  >View Classic Reports</a
+                                >
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+
+                        <div class="clearfix"></div>
+
+                        <div
+                          class="hoverover-strategic-analytics"
+                          onmouseover="closeAllFlyouts()"
+                        >
+                          <div class="hoverOverHelpLink">
+                            <div
+                              class="hoverOverPostContentPortion top-border learn-link"
+                            >
+                              <img
+                                src="https://pssint.fmr.com/bin-public/06_PSW_Website/images/9_9_BULLET_B.gif"
+                                alt=""
+                              />
+                              <a
+                                href="javascript:openPopupWindow('https://pssint.fmr.com/plansponsor/pswmain/trainingsupport/trainingdetail/executiveinsights.psw','LearnMoreAbout', '711x639');"
+                              >
+                                Learn more about Analytics
+                                <img
+                                  class="popupIcon"
+                                  src="https://pssint.fmr.com/bin-public/06_PSW_Website/images/popup.gif"
+                                  alt="Opens in new window."
+                                />
+                              </a>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div
+                          class="hoverover-standard-reporting"
+                          onmouseover="closeAllFlyouts()"
+                        >
+                          <div class="hoverOverHelpLink">
+                            <div
+                              class="hoverOverPostContentPortion top-border learn-link"
+                            >
+                              <img
+                                src="https://pssint.fmr.com/bin-public/06_PSW_Website/images/9_9_BULLET_B.gif"
+                                alt=""
+                              />
+                              <a
+                                href="javascript:openPopupWindow('https://pssint.fmr.com/plansponsor/pswmain/trainingsupport/trainingdetail/enhancedreportinglargeformat.psw','LearnMoreAbout', '711x639');"
+                              >
+                                Learn more about Reporting
+                                <img
+                                  class="popupIcon"
+                                  src="https://pssint.fmr.com/bin-public/06_PSW_Website/images/popup.gif"
+                                  alt="Opens in new window."
+                                />
+                              </a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div
+                  dojoType="dijit.PopupMenuBarItem"
+                  id="newsandinsightsBarItem"
+                  onMouseLeave="javascript:selectTab('newsandinsightsBarItem');"
+                  class="hiddenUntilLoaded"
+                >
+                  <span>
+                    <div class="tab-title-holder">
+                      Library
+                      <span class="off-screen menuStatus">menu closed</span>
+                    </div>
+                  </span>
+                  <div
+                    dojoType="dijit.Menu"
+                    id="newsandinsightsMenu"
+                    onMouseEnter="javascript:selectTab('newsandinsightsBarItem');"
+                    onMouseLeave="javascript:closeTabPopup('newsandinsightsMenu', 'newsandinsightsBarItem');"
+                    class="nb"
+                  >
+                    <div dojoType="dijit.MenuItem" id="newsAndInsightsMenuItem">
+                      <div class="tab-extender"></div>
+                      <div id="hovNewsAndInsightsContentPortion">
+                        <div
+                          id="newsAndInsightsHoverOverNewsSection"
+                          class="hoverOverSection borderedSection"
+                        >
+                          <div class="hoverOverSectionHeading">Library</div>
+                          <div class="hoverOverLink">
+                            <dt>
+                              <a
+                                href="https://pssint.fmr.com/plansponsor/pswmain/psw/public/library/manageplans/managingPlans.html"
+                                id="Link_1444351942618"
+                                title="Managing Plans"
+                                name="Link_1444351942618"
+                                >Managing Plans</a
+                              >
+                            </dt>
+                          </div>
+
+                          <div class="hoverOverLink">
+                            <dt>
+                              <a
+                                href="https://pssint.fmr.com/plansponsor/pswmain/psw/public/library/engageemployees/engagingEmployees.html"
+                                id="Link_1444333673386"
+                                title="Engaging Employees"
+                                name="Link_1444333673386"
+                                >Engaging Employees</a
+                              >
+                            </dt>
+                          </div>
+
+                          <div class="hoverOverLink">
+                            <dt>
+                              <a
+                                href="https://pssint.fmr.com/plansponsor/pswmain/psw/public/library/designbenefits/designingBenefits.html"
+                                id="Link_1453976521250"
+                                title="Designing Benefits"
+                                name="Link_1453976521250"
+                                >Designing Benefits</a
+                              >
+                            </dt>
+                          </div>
+
+                          <div class="hoverOverLink">
+                            <dt>
+                              <a
+                                href="https://pssint.fmr.com/plansponsor/pswmain/psw/public/library/innovations/exploringInnovations.html"
+                                id="Link_1444334421269"
+                                title="Exploring Innovations"
+                                name="Link_1444334421269"
+                                >Exploring Innovations</a
+                              >
+                            </dt>
+                          </div>
+
+                          <div class="hoverOverLink">
+                            <dt>
+                              <a
+                                href="https://pssint.fmr.com/plansponsor/pswmain/psw/public/library/newsinsights/newsInsights.html"
+                                id="Link_1444334698444"
+                                title="News &amp;amp; Insights"
+                                name="Link_1444334698444"
+                                >News &amp; Insights</a
+                              >
+                            </dt>
+                          </div>
+
+                          <div class="hoverOverLink">
+                            <dt>
+                              <a
+                                href="managedpage:tcm:2680-196407-64?urltype=https://"
+                                id="Link_1453976521250"
+                                title="Designing%20Benefits"
+                                name="Link_1453976521250"
+                              ></a
+                              ><a
+                                href="https://pssint.fmr.com/plansponsor/pswmain/psw/protected/library/engageemployees/communicationEducation.html"
+                                id="Link_1459340936973"
+                                title="Communication &amp;amp; Education"
+                                name="Link_1459340936973"
+                                >Communication &amp; Education</a
+                              >
+                            </dt>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div
+                  dojoType="dijit.MenuBarItem"
+                  id="notificationsBarItem"
+                  onMouseLeave="javascript:deselectTab('notificationsBarItem');"
+                  class="hiddenUntilLoaded"
+                >
+                  <span>
+                    <div class="tab-title-holder">
+                      <img
+                        src="https://pssint.fmr.com/bin-public/06_PSW_Website/images/icon-unread.gif"
+                        id="hovNotificationIcon"
+                        border="0"
+                        alt=""
+                        align="left"
+                      />
+                      Your Notifications
+                    </div>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <style>
+          #tocover {
+            display: none;
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            width: 110%;
+            height: 200em;
+            background: #9e9e93;
+            filter: alpha(opacity=30);
+            opacity: 0.3;
+            -moz-opacity: 0.3;
+            /* -khtml-opacity:0.30; */
+          }
+
+          #extsessdlg {
+            position: absolute;
+            left: 190px;
+            top: 90px;
+            width: 375px;
+            background-color: #fff;
+            border: 1px solid #000;
+            padding: 17px 20px 20px 20px;
+            z-index: 1000;
+            display: none;
+          }
+        </style>
+
+        <div id="tocover"></div>
+        <div
+          id="extsessdlg"
+          role="alertdialog"
+          aria-describedby="warningcontent"
+        ></div>
+
+        <!-- TIMEOUT SCRIPTS -->
+        <!-- <script type="text/javascript">
+                var tid = -1;
+                var mins;
+                var secs;
+                function startCounter() {
+                    mins = 1 * incrMins("0");
+                    secs = 0 + incrSecs("0:60");
+                    incrCntr(mins, secs);
+                }
+                function incrMins(obj) {
+                    for (var i = 0; i < obj.length; i++) {
+                        if (obj.substring(i, i + 1) == ":")
+                            break;
+                    }
+                    return (obj.substring(0, i));
+                }
+                function incrSecs(obj) {
+                    for (var i = 0; i < obj.length; i++) {
+                        if (obj.substring(i, i + 1) == ":")
+                            break;
+                    }
+                    return (obj.substring(i + 1, obj.length));
+                }
+                function getCntrVal(mins, secs) {
+                    var disp;
+                    if (mins <= 9) {
+                        disp = " ";
+                    } else {
+                        disp = " ";
+                    }
+                    disp += mins + ":";
+                    if (secs <= 9) {
+                        disp += "0" + secs;
+                    } else {
+                        disp += secs;
+                    }
+                    return (disp);
+                }
+                function incrCntr() {
+                    secs--;
+                    if (secs == -1) {
+                        secs = 60;
+                        mins--;
+                    }
+                    if (document.getElementById("cntrTxt")) {
+                        document.getElementById("cntrTxt").value = getCntrVal(mins, secs);
+                    }
+                    if ((mins == 0) && (secs == 0)) {
+                        private_logout();
+                    } else {
+                        tid = setTimeout("incrCntr()", 1000);
+                    }
+                }
+                function resetCntr() {
+                    if (tid != -1) {
+                        clearTimeout(tid);
+                        tid = -1;
+                    }
+                }
+            </script> -->
+        <!-- <script type="text/javascript">
+                var cstimeout = 1740;
+
+                var pingIntrvl = cstimeout - 60;
+                var snoozeIntrvl = cstimeout / 2;
+                var snoozeCount = 0;
+                var nbtmrId = -1;
+                var pngIntrvlId = -1;
+                var cnt = "";
+                var toDisabled = false;
+                var pngCnt = 0;
+                var pngs = 0;
+                var xmlhttp = false;
+
+                function private_startTimer() {
+
+                    if (nbtmrId != -1) {
+                        clearTimeout(nbtmrId);
+                        nbtmrId = -1;
+                    }
+                    nbtmrId = setTimeout(private_logout, (cstimeout * 1000));
+                    toDisabled = false;
+
+
+                    private_startPing(pingIntrvl);
+                }
+
+                function private_startTimerSnooze() {
+
+                    if (nbtmrId != -1) {
+                        clearTimeout(nbtmrId);
+                        nbtmrId = -1;
+                    }
+
+                    nbtmrId = setTimeout(private_logout, (cstimeout * 1000));
+                    toDisabled = false;
+
+
+                    private_startPing(snoozeIntrvl);
+                }
+
+
+                function private_logout() {
+                    try {
+                        resetCntr();
+                        private_hideDlg();
+                        logoutPsw('https://pssint.fmr.com/plansponsor/pswmain/Logout.psw');
+                    }
+                    catch (e) { }
+                }
+
+
+                function private_extendTimeout() {
+                    private_postAjaxReq();
+                    private_startTimer();
+                    resetCntr();
+                    private_hideDlg();
+                    window.focus();
+                    snoozeCount = 0;
+                }
+
+
+                function private_snoozeTimeout() {
+                    snoozeCount++;
+                    private_startTimerSnooze();
+                    resetCntr();
+                }
+
+
+                function private_postAjaxReq() {
+                    var url = "https://pssint.fmr.com/plansponsor/pswmain/ExtendSessionTimeout.psw";
+                    if (window.XMLHttpRequest) {
+                        xmlhttp = new XMLHttpRequest();
+                    }
+                    else if (window.ActiveXObject) {
+                        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+                    }
+                    if (xmlhttp) {
+                        xmlhttp.onreadystatechange = xmlhttpChange;
+                        xmlhttp.open("POST", url, true);
+                        xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                        xmlhttp.setRequestHeader("Content-Length", cnt.length);
+                        xmlhttp.send(cnt);
+                    }
+                }
+
+                function xmlhttpChange() {
+                    if (xmlhttp && xmlhttp.readyState == 4) {
+                        if (xmlhttp.status == 200) {
+                            pngCnt++;
+                        }
+                    }
+                }
+
+
+                function private_ping() {
+                    var sessionInactive = private_checkSessionInactivity();
+                    if (sessionInactive || snoozeCount > 5) {
+                        private_showDlg();
+
+                        startCounter();
+                        window.focus();
+                    }
+                    else {
+                        private_snoozeTimeout();
+                    }
+                }
+
+
+                function private_checkSessionInactivity() {
+                    var sessionInactive = false;
+
+                    dojo.xhrGet({
+                        url: "https://pssint.fmr.com/plansponsor/pswmain/checkSessionActivity.psw",
+                        handleAs: "json",
+                        sync: true,
+                        load: function (result) {
+                            var inactivityDuration = parseInt(result.inactivityDurationMinutes);
+                            var inactivityThreshold = (cstimeout / 60) - 4;
+                            if (inactivityDuration > inactivityThreshold) {
+                                sessionInactive = true; // session is inactive
+                            }
+                        },
+                        error: function () {
+                            sessionInactive = false; // session is active
+                        }
+                    });
+
+                    return sessionInactive;
+                }
+
+
+                function private_startPing(argSecs) {
+                    if (pngIntrvlId != -1) {
+                        clearInterval(pngIntrvlId);
+                    }
+                    if (arguments.length == 0 || isParamNull(argSecs)) {
+                        argSecs = pingIntrvl;
+                    }
+                    pngIntrvlId = setInterval(private_ping, (argSecs * 1000));
+                }
+
+                function private_showDlg() {
+                    showTimeoutDlg(document, 'extsessdlg');
+                }
+                function private_hideDlg() {
+                    closeTimeoutDlg(document, 'extsessdlg');
+                }
+
+                function private_getPopupContent() {
+                    var popup_cnt = "<div style='margin-bottom:0 !important; padding-bottom:0 !important'>" +
+                        "<h2 style='font-family:arial;font-size:17px;font-weight:bold;color:#408800;margin-bottom:11px'>Are you still there?</h2>" +
+                        "<p id='warningcontent' style='font-family:arial;font-size:12px;font-weight:normal;color:#000; margin-bottom:11px; margin-top:11px; padding-top:0;'>We noticed that you've been inactive. To protect your information, you will be logged out of your online PSW session in<input name='tocntr' type='text' id='cntrTxt' value='0:60' size='1' readonly='true' title='seconds remaining' style='width:32px; border:none; font-family: Arial; font-size: 12px; font-weight:bold; color:#FF0000; text-align:center;' tabindex='-1' />seconds.</p>" +
+                        "<p style='font-family:arial;font-size:12px;font-weight:normal;color:#000; margin-top:0; padding-top:0'>Do you want to continue your session?</p>" +
+                        "<p style='text-align:center;margin-top:15px'><input type='button' value='Continue' style='width: 75px;' accesskey='5' style='font-family:arial;font-size:12px;font-weight:normal;color:#000;' onclick='javascript:private_extendTimeout();' /> <input type='button' value='Log Out' style='width: 65px;' accesskey='4' style='margin-left:10px;font-family:arial;font-size:12px;font-weight:normal;color:#000;' onclick='javascript:private_logout();' /> </p></div>";
+                    return popup_cnt;
+                }
+
+                function getViewportWidth(doc) {
+                    var width = 0;
+                    if (doc.documentElement && doc.documentElement.clientWidth) {
+                        width = doc.documentElement.clientWidth;
+                    }
+                    else if (doc.body && doc.body.clientWidth) {
+                        width = doc.body.clientWidth;
+                    }
+                    else if (window.innerWidth) {
+                        width = window.innerWidth - 18;
+                    }
+                    return width;
+                }
+
+                function getViewportHeight(doc) {
+                    var height = 0;
+                    if (doc.documentElement && doc.documentElement.clientHeight) {
+                        height = doc.documentElement.clientHeight;
+                    }
+                    else if (doc.body && doc.body.clientHeight) {
+                        height = doc.body.clientHeight;
+                    }
+                    else if (window.innerHeight) {
+                        height = window.innerHeight - 18;
+                    }
+                    return height;
+                }
+
+                function getViewportScrollX(doc) {
+                    var scrollX = 0;
+                    if (doc.documentElement && doc.documentElement.scrollLeft) {
+                        scrollX = doc.documentElement.scrollLeft;
+                    }
+                    else if (doc.body && doc.body.scrollLeft) {
+                        scrollX = doc.body.scrollLeft;
+                    }
+                    else if (window.pageXOffset) {
+                        scrollX = window.pageXOffset;
+                    }
+                    else if (window.scrollX) {
+                        scrollX = window.scrollX;
+                    }
+                    return scrollX;
+                }
+
+                function getViewportScrollY(doc) {
+                    var scrollY = 0;
+                    if (doc.documentElement && doc.documentElement.scrollTop) {
+                        scrollY = doc.documentElement.scrollTop;
+                    }
+                    else if (doc.body && doc.body.scrollTop) {
+                        scrollY = doc.body.scrollTop;
+                    }
+                    else if (window.pageYOffset) {
+                        scrollY = window.pageYOffset;
+                    }
+                    else if (window.scrollY) {
+                        scrollY = window.scrollY;
+                    }
+                    return scrollY;
+                }
+
+                function showTimeoutDlg(doc, el) {
+                    // cover for all frames
+                    coverAllFrames(this);
+                    findAndDisableDropDown(doc);
+
+                    var dlg = doc.getElementById(el);
+                    if (!isParamNull(dlg)) {
+                        var hPos = Math.round(getViewportScrollX(doc) + ((getViewportWidth(doc) - 375) / 2));
+                        var vPos = Math.round(getViewportScrollY(doc) + ((getViewportHeight(doc) - 190) / 2));
+                        hPos = (hPos < 0) ? 0 : hPos;
+                        vPos = (vPos < 0) ? 0 : vPos;
+                        dlg.style.top = vPos + "px";
+                        dlg.style.left = hPos + "px";
+                        dlg.innerHTML = private_getPopupContent();
+                        dlg.style.display = "block";
+                    }
+                }
+
+                function closeTimeoutDlg(doc, el) {
+                    var dlg = doc.getElementById(el);
+                    if (!isParamNull(dlg)) {
+                        dlg.style.display = "none";
+                    }
+                    //uncover for all frames
+                    uncoverAllFrames(this);
+                    findAndEnableDropDown(doc);
+                }
+
+                function isParamNull(param) {
+                    if ((typeof param == "boolean") || (typeof param == "number")) {
+                        return false;
+                    }
+
+                    if ((typeof param == "undefined") || param == null) {
+                        return true;
+                    }
+                    if ((typeof param == "string") && (param == "null" || param == "" || param == "undefined")) {
+                        return true;
+                    }
+                    else {
+                        return false;
+                    }
+                }
+
+                function uncoverAllFrames(frm) {
+                    try {
+                        var l = frm.location.href;
+                        var cvrFrm = frm.document.getElementById("tocover");
+                        if (!isParamNull(cvrFrm)) {
+                            cvrFrm.style.display = "none";
+                            cvrFrm.style.zIndex = 0;
+                        }
+                        if (frm.frames) {
+                            var iFramesLength = frm.frames.length;
+                            if (iFramesLength != 0) {
+                                for (var i = 0; i < iFramesLength; i++) {
+                                    uncoverAllFrames(frm.frames[i]);
+                                }
+                            }
+                        }
+                    }
+                    catch (e) {
+                        if (frm.frames) {
+                            var iFramesLength = frm.frames.length;
+                            if (iFramesLength != 0) {
+                                for (var i = 0; i < iFramesLength; i++) {
+                                    uncoverAllFrames(frm.frames[i]);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                function coverAllFrames(frm) {
+                    try {
+                        var l = frm.location.href;
+                        var cvrFrm = frm.document.getElementById("tocover");
+                        if (!isParamNull(cvrFrm)) {
+                            cvrFrm.style.display = "block";
+                            cvrFrm.style.zIndex = 999;
+                            cvrFrm.style.height = getPageHeight(frm.document);
+                            cvrFrm.style.width = getViewportWidth(frm.document);
+                        }
+                        if (frm.frames) {
+                            var iFramesLength = frm.frames.length;
+                            if (iFramesLength != 0) {
+                                for (var i = 0; i < iFramesLength; i++) {
+                                    coverAllFrames(frm.frames[i]);
+                                }
+                            }
+                        }
+                    }
+                    catch (e) {
+                        if (frm.frames) {
+                            var iFramesLength = frm.frames.length;
+                            if (iFramesLength != 0) {
+                                for (var i = 0; i < iFramesLength; i++) {
+                                    coverAllFrames(frm.frames[i]);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                function findAndDisableDropDown(doc) {
+                    var selectBoxes = doc.getElementsByTagName("SELECT");
+                    if (selectBoxes) {
+                        var selLen = selectBoxes.length;
+                        for (var i = 0; i < selLen; i++) {
+                            var selBox = selectBoxes[i];
+                            selBox.style.visibility = "hidden";
+                        }
+                    }
+                }
+
+                function findAndEnableDropDown(doc) {
+                    var selectBoxes = doc.getElementsByTagName("SELECT");
+                    if (selectBoxes) {
+                        var selLen = selectBoxes.length;
+                        for (var i = 0; i < selLen; i++) {
+                            var selBox = selectBoxes[i];
+                            selBox.style.visibility = "visible";
+                        }
+                    }
+                }
+
+
+
+                private_startTimer();
+
+
+                uncoverAllFrames(this);
+
+            </script> -->
+
+        <a name="skipToContent" id="navSkipToContent" href="#skipToContent"></a>
+      </nav>
+    </div>
+
+    <span class="off-screen" id="participantIdOffscreenContent">
+      Name: <span id="offscreenParticipantName"></span>, SSN:
+      <span id="offscreenParticipantId"></span>
+    </span>
+
+    <div class="participantSearchTooltip" style="display: none">
+      <div
+        data-dojo-type="dijit.Tooltip"
+        data-dojo-props="connectId:'emailDesignationHelpIcon1'"
+        role="tooltip"
+      >
+        <div style="width: 250px">
+          No Legally Required Communications will be sent to this email.
+        </div>
+      </div>
+    </div>
+    <div class="participantSearchTooltip" style="display: none">
+      <div
+        data-dojo-type="dijit.Tooltip"
+        data-dojo-props="connectId:'emailDesignationHelpIcon2'"
+        role="tooltip"
+      >
+        <div style="width: 250px">
+          Legally Required Communications will be sent to this email.
+        </div>
+      </div>
+    </div>
+
+    <div id="layout-region-2"></div>
+
+    <div role="main">
+      <!-- NOTE: this is where the OGA container is loaded -->
+      <fmr-ap164022-online-grant-agreements></fmr-ap164022-online-grant-agreements>
+    </div>
+
+    <div id="componentLoadFailureTemplate" class="hidden">
+      <div class="table-header table-divider">
+        <h2 id="componentLoadFailureTitle" class="nTableMainHeader">
+          Place Title Here.
+        </h2>
+      </div>
+      <div class="no-data">
+        <p>This content is temporarily unavailable. Please try again later.</p>
+      </div>
+    </div>
+
+    <div id="dbComponentLoadFailureTemplate" class="hidden">
+      <div class="table-header table-divider">
+        <h2 id="componentLoadFailureTitle" class="nTableMainHeader">
+          Place Title Here.
+        </h2>
+      </div>
+      <div class="no-data">
+        <p>
+          The participant and benefit information is currently not available.
+        </p>
+      </div>
+    </div>
+
+    <div id="hsaComponentLoadFailureTemplate" class="hidden">
+      <div class="table-header table-divider">
+        <h2 id="componentLoadFailureTitle" class="nTableMainHeader">
+          Place Title Here.
+        </h2>
+      </div>
+      <div class="no-data">
+        <p>Data is currently not available.</p>
+      </div>
+    </div>
+
+    <div id="layout-region-7" class="horizontal-center-page">
+      <footer>
+        <!--Footer Check Begin-->
+        <div class="pswfooter" role="contentinfo">
+          <div class="left">
+            <img
+              src="https://pssint.fmr.com/bin-public/06_PSW_Website/images/psw_footer_logo.gif"
+              alt="PSW&reg; provided by Fidelity Investments&reg;"
+              width="121"
+              height="40"
+            />
+          </div>
+          <div class="right">
+            <p class="copyright">&copy; 1996-2019 FMR LLC.</p>
+
+            <p>All rights reserved.</p>
+
+            <ul>
+              <li>
+                <a
+                  href="https://pcsint.fmr.com/public/content/Shared/PreLogMisc/PSWTermsOfUse"
+                  id="Link_1326408074421"
+                  title="Terms of Use"
+                  name="Link_1326408074421"
+                  target="popup"
+                  onClick="advancedlink('https://pcsint.fmr.com/public/content/Shared/PreLogMisc/PSWTermsOfUse','','560x428', 'Link_1326408074421')"
+                  >Terms of Use</a
+                >
+              </li>
+            </ul>
+
+            <div>
+              <br />
+            </div>
+
+            <div>
+              <a
+                id="psw"
+                href="https://pssint.fmr.com/static/psw/cacheable/footerhelper/footer.html"
+                style="display: none"
+                name="psw"
+                >Test</a
+              >
+
+              <br />
+            </div>
+          </div>
+          <div class="clear-both"></div>
+        </div>
+        <!--Footer Check End-->
+      </footer>
+    </div>
+    <!-- THIS IS WHAT YOUR JSP COULD LOAD ON PAGELOAD, TYPICALLY URLS TO INIT API, etc... -->
+    <!-- FOR EXAMPLE: <script src="/api/success/pageLoadData/pageLoadData.js"></script> -->
+
+    <!-- LOAD ALL SCRIPTS/STYLES FROM :4200 -->
+    <script type="text/javascript">
+      /**
+       * Please note that this URL is a dummy URL just to differentiate between different JSON data for different
+       * scenarios. The actual URL format is - /planadmin/api/getDocumentList
+       */
+      var navigationLinksAPI = '/navigation-links';
+      var contentAPI = '/content';
+      var txntoken = 'GBQE-LXBG-CMLY-MQC2-31BR-8VP0-5YKW-K8D3';
+      var pageContext = 'spsGrantDocument';
+      var pageContextUser = 'plansponsor';
+    </script>
+  </body>
+</html>

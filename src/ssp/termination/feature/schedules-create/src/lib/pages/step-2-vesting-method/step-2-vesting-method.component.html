@@ -1,0 +1,77 @@
+<section class="vesting-method">
+
+  <!-- Step 2: Vesting Method Card -->
+  <div class="fds-card-root">
+    <div class="fds-card__card">
+      <div class="fds-card__content">
+
+        <!-- Card Header: title + help link -->
+        <div class="vesting-method__card-header">
+          <wi-ds-title>
+            <h2 slot="heading" class="pvd-title__heading pvd-title__heading--level-3">
+              {{ pageContent.step2CardTitle }}
+            </h2>
+          </wi-ds-title>
+          <wi-ds-link
+            class="vesting-method__help-link"
+            pvd-id="step2-help-link"
+            [iconLeft]="'help'"
+            [href]="pageContent.step2HelpLinkHref"
+          >
+            {{ pageContent.step2HelpLinkLabel }}
+          </wi-ds-link>
+        </div>
+
+        <!-- Step description -->
+        <p class="vesting-method__description">
+          {{ pageContent.step2CardDescription }}
+        </p>
+
+        <!-- Vesting method radio options -->
+        <wi-ds-radio-group
+          class="vesting-method__options"
+          ariaLabel="vesting method"
+        >
+          @for (option of vestingMethodOptions; track option.value) {
+            <wi-ds-radio
+              [name]="'vestingMethod'"
+              [radioValue]="option.value"
+              [checked]="selectedVestingMethod() === option.value"
+              [attr.disabled]="isOptionDisabled(option.value) ? '' : null"
+              [attr.pvd-id]="'vesting-method-' + option.value"
+              (change)="onVestingMethodChange(option.value)"
+            >
+              <span class="vesting-method__option-copy">
+                <span class="vesting-method__option-title">
+                  {{ option.title }}
+                </span>
+                <span class="vesting-method__option-description">
+                  {{ option.description }}
+                </span>
+                @if (option.value === 'forfeit' && isProrationAssigned()) {
+                  <span class="vesting-method__option-note">
+                    {{ pageContent.step2NotEligibleProrationMsg }}
+                  </span>
+                }
+                @if (option.value === 'defer' && isRSA()) {
+                  <span class="vesting-method__option-note">
+                    {{ pageContent.step2NotEligibleRSAMsg }}
+                  </span>
+                }
+              </span>
+            </wi-ds-radio>
+          }
+        </wi-ds-radio-group>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Action Bar -->
+  <sps-termination-step-actions
+    (saveAndContinue)="onSaveAndContinue()"
+    (saveAndExit)="onSaveAndExit()"
+    (cancel)="onCancel()"
+  />
+
+</section>

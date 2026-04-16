@@ -1,0 +1,50 @@
+@forward '@fmr-ap153177/apex-kit-visual-style/styles/visual-style.scss';
+@use '@fmr-ap153177/fdskit-visual-style/styles/visual-style' as visual-style;
+@use '../management.component.scss';
+@use 'shared-design-system-ui-core-apex-tokens' as apex-tokens;
+
+.sm-employee-details__content {
+  margin-bottom: apex-tokens.$reference-uom-space-50;
+  margin-top: apex-tokens.$reference-uom-space-100;
+}
+
+.sm-employee-details__data {
+  display: block;
+  @include visual-style.fds-breakpoint('at-512') {
+    display: flex;
+  }
+}
+
+.sm-employee-details__data-alert {
+  display: block;
+  margin-bottom: apex-tokens.$reference-uom-space-150;
+  margin-top: apex-tokens.$reference-uom-space-150;
+  @include visual-style.fds-breakpoint('at-512') {
+    display: flex;
+    flex-direction: column;
+    margin-top: apex-tokens.$reference-uom-space-150;
+  }
+}
+
+.sm-employee-details__data:not(:first-of-type) {
+  margin-top: apex-tokens.$reference-uom-space-150;
+}
+
+.sm-employee-details__data--exp-coll {
+  display: block;
+  @include visual-style.fds-breakpoint('at-512') {
+    display: flex;
+  }
+}
+
+.sm-employee-details__data-field:not(:first-of-type) {
+  margin-top: apex-tokens.$reference-uom-space-150;
+}
+
+.sm-employee-details__actions {
+  margin-top: apex-tokens.$reference-uom-space-400;
+}
+
+.field-empty {
+  margin-bottom: 3.1rem;
+}

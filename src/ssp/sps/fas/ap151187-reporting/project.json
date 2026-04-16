@@ -1,0 +1,129 @@
+{
+  "name": "sps-fas-ap151187-reporting",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "fmr-ap151187",
+  "sourceRoot": "apps/sps/fas/ap151187-reporting/src",
+  "tags": ["domain:sps-fas", "type:application", "channel:web"],
+  "metadata": {
+    "appInfo": {
+      "domain": "sps/fas",
+      "reviewers": ["@TeamAstronuts"],
+      "appName": "ap151187-reporting",
+      "appId": "ap151187",
+      "appType": "wiscd",
+      "appVersion": "1.0.0",
+      "deployEnvironments": "dev1,acp:passive",
+      "sonarProjectKey": "com.fmr.AP151187:ap151187-reporting"
+    }
+  },
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/sps/fas/ap151187-reporting",
+        "index": "apps/sps/fas/ap151187-reporting/src/index.html",
+        "main": "apps/sps/fas/ap151187-reporting/src/main.ts",
+        "polyfills": ["zone.js"],
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          {
+            "glob": "**/*",
+            "input": "apps/sps/fas/ap151187-reporting/public"
+          },
+          {
+            "glob": "mockServiceWorker.js",
+            "input": "public",
+            "output": "/"
+          }
+        ],
+        "styles": [
+          "apps/sps/fas/ap151187-reporting/src/styles.scss",
+          "libs/shared/design-system/ui/core/src/lib/utils/ds-mat-theme.scss"
+        ],
+        "scripts": [],
+        "tsConfig": "apps/sps/fas/ap151187-reporting/tsconfig.app.json",
+        "stylePreprocessorOptions": {
+          "includePaths": [
+            "libs/shared/design-system/ui/core/src/lib/utils",
+            "node_modules"
+          ]
+        }
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "600kb",
+              "maximumError": "6mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "125kb",
+              "maximumError": "320kb"
+            }
+          ],
+          "outputHashing": "none",
+          "fileReplacements": [
+            {
+              "replace": "./apps/sps/fas/ap151187-reporting/src/environments/environment.ts",
+              "with": "./apps/sps/fas/ap151187-reporting/src/environments/environment.prod.ts"
+            }
+          ],
+          "assets": ["apps/sps/fas/ap151187-reporting/src/assets"]
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "eslint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "buildTarget": "sps-fas-ap151187-reporting:build"
+      }
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "buildTarget": "sps-fas-ap151187-reporting:build:production"
+        },
+        "development": {
+          "buildTarget": "sps-fas-ap151187-reporting:build:development"
+        }
+      },
+      "defaultConfiguration": "development",
+      "continuous": true
+    },
+    "serve-static": {
+      "executor": "@nx/web:file-server",
+      "options": {
+        "buildTarget": "reporting:build",
+        "port": 4200,
+        "spa": true
+      }
+    },
+    "stylelint": {
+      "executor": "nx-stylelint:lint"
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "{projectRoot}/jest.config.ts"
+      }
+    }
+  }
+}

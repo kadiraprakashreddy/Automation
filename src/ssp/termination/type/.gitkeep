@@ -1,0 +1,8 @@
+TODO: remove this file
+
+Type libraries go here, for ex:
+- sps/termination
+  - types
+    - my-type-lib
+      - src
+        - my-model.ts

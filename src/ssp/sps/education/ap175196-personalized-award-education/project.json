@@ -1,0 +1,136 @@
+{
+  "name": "sps-education-ap175196-personalized-award-education",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "fmr-ap175196",
+  "sourceRoot": "apps/sps/education/ap175196-personalized-award-education/src",
+  "tags": ["domain:sps-education", "type:application", "channel:web"],
+  "metadata": {
+    "appInfo": {
+      "domain": "sps/education",
+      "reviewers": ["@TeamCurators"],
+      "appName": "ap175196-personalized-award-education",
+      "appId": "ap175196",
+      "appType": "wiscd",
+      "appVersion": "1.0.0",
+      "deployEnvironments": "dev1,acp:passive",
+      "sonarProjectKey": "com.fmr.AP175196:ap175196-personalized-award-education"
+    }
+  },
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/sps/education/ap175196-personalized-award-education",
+        "index": "apps/sps/education/ap175196-personalized-award-education/src/index.html",
+        "main": "apps/sps/education/ap175196-personalized-award-education/src/main.ts",
+        "polyfills": ["zone.js"],
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          "apps/sps/education/ap175196-personalized-award-education/src/assets",
+          {
+            "glob": "**/*",
+            "input": "apps/sps/education/ap175196-personalized-award-education/public"
+          },
+          {
+            "glob": "mockServiceWorker.js",
+            "input": "public",
+            "output": "/"
+          }
+        ],
+        "styles": [
+          "apps/sps/education/ap175196-personalized-award-education/src/styles.scss"
+        ],
+        "scripts": [],
+        "tsConfig": "apps/sps/education/ap175196-personalized-award-education/tsconfig.app.json",
+        "stylePreprocessorOptions": {
+          "includePaths": [
+            "libs/shared/design-system/ui/core/src/lib/utils",
+            "node_modules"
+          ]
+        }
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "600kb",
+              "maximumError": "6mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "125kb",
+              "maximumError": "320kb"
+            }
+          ],
+          "outputHashing": "none",
+          "fileReplacements": [
+            {
+              "replace": "./apps/sps/education/ap175196-personalized-award-education/src/environments/environment.ts",
+              "with": "./apps/sps/education/ap175196-personalized-award-education/src/environments/environment.prod.ts"
+            }
+          ],
+          "assets": [
+            {
+              "glob": "**/*",
+              "input": "apps/sps/education/ap175196-personalized-award-education/src/assets",
+              "ignore": ["**/demo/**"],
+              "output": "/assets"
+            }
+          ]
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "eslint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "buildTarget": "sps-education-ap175196-personalized-award-education:build"
+      }
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "buildTarget": "sps-education-ap175196-personalized-award-education:build:production"
+        },
+        "development": {
+          "buildTarget": "sps-education-ap175196-personalized-award-education:build:development"
+        }
+      },
+      "defaultConfiguration": "development",
+      "continuous": true
+    },
+    "serve-static": {
+      "executor": "@nx/web:file-server",
+      "options": {
+        "buildTarget": "personalized-award-education:build",
+        "port": 4200,
+        "spa": true
+      }
+    },
+    "stylelint": {
+      "executor": "nx-stylelint:lint"
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "{projectRoot}/jest.config.ts"
+      }
+    }
+  }
+}

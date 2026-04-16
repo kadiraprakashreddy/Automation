@@ -1,0 +1,14 @@
+@use '@fmr-ap153177/fdskit/dist/scss/index' as fds;
+@use '@fmr-ap153177/fdskit-visual-style/styles/visual-style' as visual-style;
+@use 'shared-design-system-ui-core-apex-tokens' as apex-tokens;
+
+body {
+  background: apex-tokens.$reference-color-neutral-50;
+  font-family: visual-style.$fds-font-family-sans;
+  margin: 0;
+}
+
+.wider-nav-post-login-wrapper {
+  /* stylelint-disable-next-line declaration-no-important */
+  max-width: 100% !important;
+}

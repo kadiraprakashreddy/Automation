@@ -1,0 +1,102 @@
+<div class="page-content-wrapper">
+  @if (showSpinner) {
+    <div
+      fds-id="manage-termination-employee-section__page-loading-spinner"
+      fds-aria-label="manage-termination__page-loading-spinner"
+    >
+      <wi-ds-loading-indicator></wi-ds-loading-indicator>
+    </div>
+  }
+
+  @if (
+    tridionDataErrorMessage !== undefined && tridionDataErrorMessage !== null
+  ) {
+    <div
+      [class]="
+        isTocV2Available ? 'responsive-width' : 'responsive-width-no-toc'
+      "
+    >
+      <wi-ds-message
+        fds-id="manage-termination__tridion-service-failure"
+        [title]="tridionDataErrorMessage.title"
+        [text]="tridionDataErrorMessage.detail"
+      >
+      </wi-ds-message>
+    </div>
+  }
+
+  @if (
+    (tridionDataErrorMessage === undefined ||
+      tridionDataErrorMessage === null) &&
+    content !== null &&
+    content !== undefined
+  ) {
+    <div class="page-content-container">
+      <div class="page-wrapper page-wrapper-padding-bottom">
+        <div class="page-container">
+          <!-- <employer-platform-participant-header></employer-platform-participant-header> -->
+          <!--TODO: revisit again but for now it is not needed-->
+          <!-- @if (!isParticipantCardAvailable && participantHeaderURI !== null && participantHeaderURI !== undefined) {
+            <psw-participant-header [featureAPI]="participantHeaderURI" showBackToSearchResults="false" (updateParticipantHeaderStatus)="updateParticipantHeaderStatus($event)">
+                    </psw-participant-header>
+            @if (participantError !== undefined && participantError !== null) {
+              <div
+                [class]="
+                  isTocV2Available
+                    ? 'responsive-width'
+                    : 'responsive-width-no-toc'
+                "
+              >
+                <wi-ds-message fds-id="old-participant__app-down"
+                  [title]="participantError.title" [text]="participantError.detail">
+                </wi-ds-message>
+              </div>
+            }
+          } -->
+          <div class="toc-and-application-wrapper">
+            @if (isTocV2Available) {
+              <div>
+                <employer-platform-participant-toc></employer-platform-participant-toc>
+              </div>
+            }
+            <!--TODO: revisit again but for now it is not needed-->
+            <!-- @if (!isTocV2Available) {
+              <div>
+                 <participant-page-navigation></participant-page-navigation>
+              </div>
+            } -->
+            <main>
+              <div class="toc-and-application-wrapper--application-container">
+                <sps-termination-page-header
+                  [content]="headerContent"
+                ></sps-termination-page-header>
+                @if (pageError) {
+                  <wi-ds-message
+                    [class]="
+                      isTocV2Available
+                        ? 'responsive-width'
+                        : 'responsive-width-no-toc'
+                    "
+                    fds-id="manage-termination__employee-detail-service-failure"
+                    [title]="pageError.title"
+                    [text]="pageError.detail"
+                  >
+                  </wi-ds-message>
+                }
+                <sps-termination-employee></sps-termination-employee>
+              </div>
+            </main>
+          </div>
+        </div>
+      </div>
+
+      <wi-ds-footnotes id="ereview">
+        <wi-ds-footnote>
+          <p class="fds-footnote__text">
+            {{ content.resourceBundles.eReview.eReviewNo }}
+          </p>
+        </wi-ds-footnote>
+      </wi-ds-footnotes>
+    </div>
+  }
+</div>

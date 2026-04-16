@@ -1,0 +1,8 @@
+/* You can add global styles to this file, and also import other style files */
+@use '@fmr-ap153177/fdskit-visual-style/styles/visual-style' as visual-style;
+@use '@fmr-ap146566/prism-ui-library/style.css';
+
+// Use this class for screen-reader only text
+.screen-reader-only {
+  @include visual-style.fds-screen-reader-only;
+}

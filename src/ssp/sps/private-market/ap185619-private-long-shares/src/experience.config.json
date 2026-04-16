@@ -1,0 +1,9 @@
+{
+  "title": "Private Long Shares",
+  "bootstrapTemplate": "nb-default",
+  "platform": "nb",
+  "htmlFragments": {
+    "head": "",
+    "body": ""
+  }
+}

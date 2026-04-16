@@ -1,0 +1,36 @@
+<div class="fds-card-root">
+  <div class="fds-card__card">
+    <div class="fds-card__content">
+
+      <!-- Header row: step title + edit button -->
+      <div class="step-summary-card__header">
+        <div class="step-summary-card__title-group">
+          <h3 class="step-summary-card__title">{{ stepTitle() }}</h3>
+          <p class="step-summary-card__description">{{ stepDescription() }}</p>
+        </div>
+        <wi-ds-button
+          [variant]="buttonVariant.tertiary"
+          [iconLeft]="'edit'"
+          pvd-id="step-summary-card-edit-button"
+          (click)="onEdit()"
+        >
+          Edit
+        </wi-ds-button>
+      </div>
+
+      <!-- Summary fields row -->
+      <div class="step-summary-card__fields">
+        @for (field of fields(); track field.label; let last = $last) {
+          <span class="step-summary-card__field">
+            <span class="step-summary-card__field-label">{{ field.label }}:</span>
+            <span class="step-summary-card__field-value">{{ field.value }}</span>
+          </span>
+          @if (!last) {
+            <span class="step-summary-card__separator" aria-hidden="true">|</span>
+          }
+        }
+      </div>
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,56 @@
+.responsive-width {
+  width: 100%;
+  @media (min-width: 90em) and (max-width: 100em) {
+    width: 70rem;
+  }
+  @media (min-width: 80em) and (max-width: 90em) {
+    width: 60rem;
+  }
+  @media (min-width: 75em) and (max-width: 80em) {
+    width: 50rem;
+  }
+  @media (min-width: 65em) and (max-width: 75em) {
+    width: 40rem;
+  }
+  @media (min-width: 55em) and (max-width: 65em) {
+    width: 30rem;
+  }
+  @media (min-width: 45em) and (max-width: 55em) {
+    width: 20rem;
+  }
+  @media (max-width: 45em) {
+    width: 15rem;
+  }
+}
+
+.responsive-width-no-toc {
+  width: 100%;
+  @media (min-width: 60em) and (max-width: 70em) {
+    width: 60rem;
+  }
+  @media (min-width: 50em) and (max-width: 60em) {
+    width: 50rem;
+  }
+  @media (min-width: 40em) and (max-width: 50em) {
+    width: 40rem;
+  }
+  @media (min-width: 30em) and (max-width: 40em) {
+    width: 30rem;
+  }
+  @media (min-width: 20em) and (max-width: 30em) {
+    width: 20rem;
+  }
+  @media (min-width: 10em) and (max-width: 20em) {
+    width: 10rem;
+  }
+}
+
+.screen-reader-only {
+  border: 0;
+  clip: rect(1px, 1px, 1px, 1px);
+  height: 1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}

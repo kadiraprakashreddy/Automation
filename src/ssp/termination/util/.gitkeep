@@ -1,0 +1,10 @@
+TODO: remove this file
+
+Utility libraries go here, for ex:
+- sps/termination
+  - util
+    - my-utility-lib
+      - src
+        - my-utility
+
+Read more on utility libraries here: https://nx.dev/concepts/more-concepts/library-types#utility-libraries

@@ -1,0 +1,55 @@
+<div
+  [class]="isTocV2Available ? 'responsive-width' : 'responsive-width-no-toc'"
+>
+  <!-- alert banner for autocomplete results -->
+  @if (displayAutocompleteWarning()) {
+    <div class="alert-banner">
+      <wi-ds-message
+        [variant]="alertVariant.warning"
+        [text]="content()?.autocompleteWarningMessage"
+      >
+      </wi-ds-message>
+    </div>
+  }
+  <div class="page-header">
+    <!-- page title -->
+    <wi-ds-title>
+      <h1
+        slot="heading"
+        class="fds-title__heading fds-title__heading--level-2"
+        id="page-header__page-title"
+      >
+        @if (
+          !participantUI.shouldDisplayTermModels && realm === 'plansponsor'
+        ) {
+          {{ content()?.termModelPageTitle }}
+        } @else {
+          {{ content()?.pageTitle }}
+        }
+      </h1>
+      <div slot="subheading" id="page-header__page-description">
+        @if (
+          !participantUI.shouldDisplayTermModels && realm === 'plansponsor'
+        ) {
+          {{ content()?.termModelPageDescription }}
+        } @else {
+          {{ content()?.pageDescription }}
+        }
+      </div>
+    </wi-ds-title>
+    <!-- video link -->
+    @if (videoLinkURL) {
+      <div class="video-link">
+        <wi-ds-link
+          newWindow
+          [iconLeft]="'video'"
+          [href]="videoLinkURL"
+          (click)="tagVideoLink()"
+        >
+          {{ content()?.termModelVideoLabel }}
+          {{ content()?.termModelVideoLength }}
+        </wi-ds-link>
+      </div>
+    }
+  </div>
+</div>

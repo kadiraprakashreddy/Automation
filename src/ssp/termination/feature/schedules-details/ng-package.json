@@ -1,0 +1,11 @@
+{
+  "$schema": "../../../../../node_modules/ng-packagr/ng-package.schema.json",
+  "dest": "../../../../../dist/libs/sps/termination/feature/schedules-details",
+  "lib": {
+    "entryFile": "src/index.ts",
+    "styleIncludePaths": [
+      "../../../../shared/design-system/ui/core/src/lib/utils",
+      "../../../../../node_modules"
+    ]
+  }
+}

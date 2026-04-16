@@ -1,0 +1,239 @@
+@if (isBannerMessage) {
+  <div
+    [class]="
+      isTocV2Available
+        ? 'responsive-width banner-message-display'
+        : 'responsive-width-no-toc banner-message-display'
+    "
+  >
+    @if (isBannerVisible) {
+      <wi-ds-message
+        fds-id="termination-details__initial-info-message"
+        [variant]="alertVariant.info"
+        [title]="getBannerMessages.bannerMessageHeader"
+        [text]="getBannerMessages.bannerMessageBody"
+      >
+      </wi-ds-message>
+      <!-- <wi-ds-button
+          class="fds-alert__dismiss-button"
+          (click)="dismissBanner()"
+        >
+          <span class="fds-alert__dismiss-button-a11y-text">{{
+            getBannerMessages.bannerMessageDismissButton
+          }}</span>
+          <svg
+            aria-hidden="true"
+            class="wi-ds-icon-root fds-icon--extra-small"
+            focusable="false"
+          >
+            <use
+              href="#fds-action__close"
+              xlink:href="#fds-action__close"
+            ></use>
+          </svg>
+        </wi-ds-button> -->
+    }
+  </div>
+}
+
+<section class="psw-container">
+  <div class="sm">
+    <div class="sm-employee-details">
+      <wi-ds-expand-collapse
+        fds-size="large"
+        (fds-expand-collapse-expanded)="onExpand()"
+        (fds-expand-collapse-collapsed)="onCollapse()"
+        fds-id="employee-details__section-expand-collapse"
+      >
+        <span
+          slot="heading"
+          class="fds-expand-collapse__heading"
+          id="employee-details__section-title"
+        >
+          {{ employeeDetailContent.employeeDetailsTitle }}
+        </span>
+        <div class="employee-details-flex sm-employee-details__content">
+          <div
+            [class]="
+              isTocV2Available
+                ? 'responsive-width employeedetails_display'
+                : 'responsive-width-no-toc employeedetails_display'
+            "
+          >
+            <wi-ds-grid-wrapper>
+              <div
+                [class]="`${wiDsNamespace}-grid-root fds-grid--disable-padding`"
+              >
+                <div
+                  class="fds-grid__grid fds-grid__grid--default-column-span-3"
+                >
+                  <div class="fds-grid__item">
+                    <wi-ds-field-group class="sm-employee-details__data-field">
+                      <wi-ds-label
+                        fds-id="employee-details__date-of-hire-label"
+                      >
+                        {{ employeeDetailContent.dateOfHireLabel }}
+                      </wi-ds-label>
+                      <p
+                        id="employee-details__date-of-hire"
+                        [class]="
+                          employeeDetails()?.hireDate
+                            ? 'fds-field-group__display-data'
+                            : 'field-empty'
+                        "
+                      >
+                        {{ employeeDetails()?.hireDate | date: 'MMM-dd-yyyy' }}
+                      </p>
+                    </wi-ds-field-group>
+                  </div>
+                  <div class="fds-grid__item">
+                    <wi-ds-field-group class="sm-employee-details__data-field">
+                      <wi-ds-label
+                        fds-id="employee-details__adjusted-date-of-hire-label"
+                      >
+                        {{ employeeDetailContent.adjustedDateOfHireLabel }}
+                      </wi-ds-label>
+                      <p
+                        id="employee-details__adjusted-date-of-hire"
+                        [class]="
+                          employeeDetails()?.adjustedHireDate
+                            ? 'fds-field-group__display-data'
+                            : 'field-empty'
+                        "
+                      >
+                        {{
+                          employeeDetails()?.adjustedHireDate
+                            | date: 'MMM-dd-yyyy'
+                        }}
+                      </p>
+                    </wi-ds-field-group>
+                  </div>
+                  <div class="fds-grid__item">
+                    <wi-ds-field-group class="sm-employee-details__data-field">
+                      <wi-ds-label fds-id="employee-details__rehire-date-label">
+                        {{ employeeDetailContent.rehireDateLabel }}
+                      </wi-ds-label>
+                      <p
+                        id="employee-details__rehire-date"
+                        [class]="
+                          employeeDetails()?.rehireDate
+                            ? 'fds-field-group__display-data'
+                            : 'field-empty'
+                        "
+                      >
+                        {{
+                          employeeDetails()?.rehireDate | date: 'MMM-dd-yyyy'
+                        }}
+                      </p>
+                    </wi-ds-field-group>
+                  </div>
+                  <div class="fds-grid__item">
+                    <wi-ds-field-group class="sm-employee-details__data-field">
+                      <wi-ds-label
+                        fds-id="employee-details__years-of-service-label"
+                      >
+                        {{ employeeDetailContent.yearsOfServiceLabel }}
+                      </wi-ds-label>
+                      <p
+                        id="employee-details__years-of-service"
+                        [class]="
+                          employeeDetails()?.yearsOfService
+                            ? 'fds-field-group__display-data'
+                            : 'field-empty'
+                        "
+                      >
+                        {{ employeeDetails()?.yearsOfService }}
+                      </p>
+                    </wi-ds-field-group>
+                  </div>
+                </div>
+              </div>
+            </wi-ds-grid-wrapper>
+          </div>
+          <div
+            [class]="
+              isTocV2Available
+                ? 'responsive-width employeedetails_bottom_display'
+                : 'responsive-width-no-toc employeedetails_bottom_display'
+            "
+          >
+            <wi-ds-grid-wrapper>
+              <div
+                [class]="`${wiDsNamespace}-grid-root fds-grid--disable-padding`"
+              >
+                <div
+                  class="fds-grid__grid fds-grid__grid--default-column-span-3"
+                >
+                  <div class="fds-grid__item">
+                    <wi-ds-field-group class="sm-employee-details__data-field">
+                      <wi-ds-label fds-id="employee-details__group-band-label">
+                        {{ employeeDetailContent.groupBandLabel }}
+                      </wi-ds-label>
+                      <p
+                        id="employee-details__group-band"
+                        [class]="
+                          employeeDetails()?.groupBand
+                            ? 'fds-field-group__display-data'
+                            : 'field-empty'
+                        "
+                      >
+                        {{ employeeDetails()?.groupBand }}
+                      </p>
+                    </wi-ds-field-group>
+                  </div>
+                  <div class="fds-grid__item">
+                    <wi-ds-field-group class="sm-employee-details__data-field">
+                      <wi-ds-label fds-id="employee-details__salary-band-label">
+                        {{ employeeDetailContent.salaryBandLabel }}
+                      </wi-ds-label>
+                      <p
+                        id="employee-details__salary-band"
+                        [class]="
+                          employeeDetails()?.salaryBand
+                            ? 'fds-field-group__display-data'
+                            : 'field-empty'
+                        "
+                      >
+                        {{ employeeDetails()?.salaryBand }}
+                      </p>
+                    </wi-ds-field-group>
+                  </div>
+                  <div class="fds-grid__item">
+                    <wi-ds-field-group class="sm-employee-details__data-field">
+                      <wi-ds-label fds-id="employee-details__title-code-label">
+                        {{ employeeDetailContent.titleCodeLabel }}
+                      </wi-ds-label>
+                      <p
+                        id="employee-details__title-code"
+                        [class]="
+                          employeeDetails()?.titleCode
+                            ? 'fds-field-group__display-data'
+                            : 'field-empty'
+                        "
+                      >
+                        {{ employeeDetails()?.titleCode }}
+                      </p>
+                    </wi-ds-field-group>
+                  </div>
+                  <div class="fds-grid__item">
+                    <wi-ds-field-group class="sm-employee-details__data-field">
+                      <wi-ds-label fds-id="employee-details__active-label">
+                        {{ employeeDetailContent?.activeLabel }}
+                      </wi-ds-label>
+                      <p
+                        id="employee-details__active"
+                        class="fds-field-group__display-data"
+                      >
+                        {{ isActiveEmployee ?? '' }}
+                      </p>
+                    </wi-ds-field-group>
+                  </div>
+                </div>
+              </div>
+            </wi-ds-grid-wrapper>
+          </div>
+        </div>
+      </wi-ds-expand-collapse>
+    </div>
+  </div>
+</section>

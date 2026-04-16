@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" expconfig-exclude="true" />
+    <title expconfig-exclude="true">
+      sps-ous-money-out-ap176357-cash-transfer
+    </title>
+    <base expconfig-exclude="true" href="/" />
+    <meta
+      expconfig-exclude="true"
+      name="viewport"
+      content="width=device-width, initial-scale=1"
+    />
+    <link
+      expconfig-exclude="true"
+      rel="icon"
+      type="image/x-icon"
+      href="favicon.ico"
+    />
+    <link
+      expconfig-exclude="true"
+      rel="stylesheet"
+      href="https://assets.fidelity.com/fonts/fidelity-sans/fidelity-sans.css"
+    />
+    <link
+      expconfig-exclude="true"
+      rel="stylesheet"
+      href="https://assets.fidelity.com/fonts/fidelity-slab/fidelity-slab.css"
+    />
+  </head>
+  <body>
+    <fmr-ap176357-cash-transfer-ae></fmr-ap176357-cash-transfer-ae>
+    <button class="cash-transfer-btn">open app</button>
+    <button class="pending-withdrawals-btn">Pending modal</button>
+    <script>
+      document
+        .querySelector('.cash-transfer-btn')
+        ?.addEventListener('click', () => {
+          const event = new CustomEvent('cash-transfer', {
+            detail: 'cash-transfer',
+          });
+          document.dispatchEvent(event);
+        });
+
+      document
+        .querySelector('.pending-withdrawals-btn')
+        ?.addEventListener('click', () => {
+          const event = new CustomEvent('cash-transfer', {
+            detail: 'pending-withdrawals',
+          });
+          document.dispatchEvent(event);
+        });
+    </script>
+  </body>
+</html>

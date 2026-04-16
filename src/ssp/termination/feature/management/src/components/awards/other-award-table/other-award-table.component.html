@@ -1,0 +1,447 @@
+<!-- eslint-disable @angular-eslint/template/no-inline-styles -->
+@if (plan()) {
+  <div class="tm-table">
+    <wi-ds-title>
+      <div
+        slot="heading"
+        class="fds-title__heading fds-title__heading--level-5"
+      >
+        {{ plan().planId }}
+        <div
+          class="vertical-line"
+          style="color: #bbbbbb; font-weight: 300"
+        ></div>
+        {{ plan().grants.length }}
+        @if (plan().grants.length === 1) {
+          {{ modelTable().grantCountLabel }}
+        } @else {
+          {{ modelTable().grantsCountLabel }}
+        }
+      </div>
+    </wi-ds-title>
+    <wi-ds-footnote class="awards-table-preterm-unvested-label">
+      {{ modelTable().preTerminationUnvestedLabel }}
+      @if (performanceIndicator()) {
+        &nbsp;{{ perfAwardFootNote() }}
+      }
+    </wi-ds-footnote>
+    <wi-ds-table-wrapper>
+      <div class="table-div table-print">
+        <div
+          [class]="`${wiDsNamespace}-table-root fds-table--disable-body-text-wrap fds-table--small tm-table__print`"
+        >
+          <div class="fds-table__container">
+            <table class="fds-table__table tm-table__label">
+              <thead class="fds-table__head">
+                <tr class="fds-table__row">
+                  <th class="fds-table__column-header-cell" colspan="2">
+                    <span class="screen-reader-only">{{
+                      messages().emptyCellScreenReaderTxt
+                    }}</span>
+                  </th>
+                  <th
+                    class="fds-table__column-header-cell fds-table__column-header-cell--center"
+                    [attr.id]="'tm-table__pre-termination -' + plan().planId"
+                    colspan="2"
+                  >
+                    {{ modelTable().preTerminationsectionLabel }}
+                  </th>
+                  <th
+                    class="fds-table__column-header-cell fds-table__column-header-cell--center"
+                    [attr.id]="'tm-table__post-termination -' + plan().planId"
+                    colspan="4"
+                  >
+                    {{ modelTable().postTerminationsectionLabel }}
+                    <span class="notbold">{{
+                      modelTable().postTermEstimateLabel
+                    }}</span>
+                  </th>
+                </tr>
+                <tr class="fds-table__row tm-table__header-row">
+                  <th
+                    class="fds-table__column-header-cell"
+                    [attr.id]="'tm-table__grant-detail-' + plan().planId"
+                    colspan="2"
+                  >
+                    {{ modelTable().grantDetailsColumnLabel }}
+                  </th>
+                  <th
+                    class="fds-table__column-header-cell"
+                    [attr.id]="
+                      'tm-table__pre-termination-' +
+                      plan().planId +
+                      '-vesting-date'
+                    "
+                  >
+                    {{ modelTable().vestingDateColumnLabel }}
+                  </th>
+                  <th
+                    class="fds-table__column-header-cell"
+                    [attr.id]="
+                      'tm-table__pre-termination-' +
+                      plan().planId +
+                      '-outstanding-value'
+                    "
+                  >
+                    {{ tableHeaders().outstandingColumnLabel }}
+                  </th>
+                  <th
+                    class="fds-table__column-header-cell"
+                    [attr.id]="
+                      'tm-table__post-termination-' +
+                      plan().planId +
+                      '-termination-outcome'
+                    "
+                  >
+                    {{ modelTable().terminationOutcomeLabel }}
+                  </th>
+                  <th
+                    class="fds-table__column-header-cell"
+                    [attr.id]="
+                      'tm-table__post-termination-' +
+                      plan().planId +
+                      '-vesting-date'
+                    "
+                  >
+                    {{ modelTable().vestingDateColumnLabel }}
+                  </th>
+                  <th
+                    class="fds-table__column-header-cell"
+                    [attr.id]="
+                      'tm-table__post-termination-' +
+                      plan().planId +
+                      '-retained-value'
+                    "
+                  >
+                    {{ tableHeaders().forfeitedColumnLabel }}
+                  </th>
+                  <th
+                    class="fds-table__column-header-cell"
+                    [attr.id]="
+                      'tm-table__post-termination-' +
+                      plan().planId +
+                      '-forfeited-value'
+                    "
+                  >
+                    {{ tableHeaders().retainedColumnLabel }}
+                  </th>
+                </tr>
+              </thead>
+              @for (
+                grantEntry of plan().grants;
+                track grantEntry;
+                let j = $index
+              ) {
+                <tbody class="fds-table__body">
+                  @for (
+                    termRow of grantEntry.vestings;
+                    track termRow;
+                    let i = $index
+                  ) {
+                    <tr class="fds-table__row">
+                      @if (i === 0) {
+                        <td
+                          class="fds-table__data-cell grant-details-column"
+                          [attr.id]="
+                            'tm-table__grant-detail--award-' + plan().planId + j
+                          "
+                          [attr.rowspan]="grantEntry.vestings.length"
+                          colspan="2"
+                        >
+                          <strong>
+                            {{ modelTable().grantDetailsProductIdLabel }}:&nbsp;
+                          </strong>
+                          {{ grantEntry.productId }}<br />
+
+                          <strong>
+                            {{ modelTable().grantDetailsGrantIdLabel }}:&nbsp;
+                          </strong>
+                          {{ grantEntry.grantId }}<br />
+
+                          <div>
+                            <strong>
+                              {{
+                                modelTable().grantDetailsGrantedValueLabel
+                              }}:&nbsp;
+                            </strong>
+                            {{
+                              getFormattedQuantityOrValueByPlanType(
+                                grantEntry.quantity,
+                                plan().planType,
+                                plan().currencyCode
+                              )
+                            }}<br />
+                          </div>
+
+                          <strong>
+                            {{ modelTable().grantDetailsGrantDateLabel }}:&nbsp;
+                          </strong>
+                          {{ grantEntry.issuedDate | date: 'MMM-d-y' }}<br />
+
+                          @if (grantEntry.ruleIndicator) {
+                            <wi-ds-label>
+                              <wi-ds-tooltip
+                                [dsId]="'term-rule-' + plan().planId + j"
+                                [a11yAnnounceTrigger]="true"
+                                [triggerButtonA11yText]="
+                                  'term-rule-' + plan().planId + j
+                                "
+                                class="term-rule__indicator-tooltip"
+                                [text]="
+                                  getTermRuleContent(
+                                    grantEntry.ruleIndicator +
+                                      messages().msgContent
+                                  )
+                                "
+                              >
+                                <wi-ds-icon
+                                  [class]="
+                                    termRuleAlertType(grantEntry.ruleIndicator)
+                                      ? 'popover-icon-critical'
+                                      : 'popover-icon-info'
+                                  "
+                                  slot="trigger"
+                                  [name]="
+                                    termRuleAlertType(grantEntry.ruleIndicator)
+                                      ? 'critical-bold'
+                                      : 'info-bold'
+                                  "
+                                  [size]="size.extraSmall"
+                                  fds-aria-label="Term Rule Indicator"
+                                >
+                                </wi-ds-icon>
+                              </wi-ds-tooltip>
+                              <span
+                                class="grant-details-tooltip"
+                                [class]="{
+                                  'popover-icon-critical': termRuleAlertType(
+                                    grantEntry.ruleIndicator
+                                  ),
+                                }"
+                              >
+                                {{
+                                  getTermRuleContent(
+                                    grantEntry.ruleIndicator +
+                                      messages().labelContent
+                                  )
+                                }}</span
+                              >
+                            </wi-ds-label>
+                          }
+                          @if (grantEntry.csrIndicator) {
+                            <wi-ds-label>
+                              <wi-ds-tooltip
+                                class="term-rule__indicator-tooltip"
+                                [a11yAnnounceTrigger]="true"
+                                [dsId]="'custom-rule-' + plan().planId + j"
+                                [triggerButtonA11yText]="
+                                  'custom-rule-' + plan().planId + j
+                                "
+                              >
+                                <span>{{
+                                  messages().customSeparationRuleInfoMsg
+                                }}</span>
+                                <wi-ds-icon
+                                  [attr.fds-id]="
+                                    'customSeparationRule' + plan().planId + j
+                                  "
+                                  slot="trigger"
+                                  [name]="'info-bold'"
+                                  class="popover-icon-info"
+                                  [size]="size.extraSmall"
+                                  fds-aria-label="Term Rule Indicator"
+                                ></wi-ds-icon> </wi-ds-tooltip
+                              ><span class="grant-details-tooltip"
+                                >{{ messages().customSeperationRulelbl }}<br
+                              /></span>
+                            </wi-ds-label>
+                          }
+                        </td>
+                      }
+
+                      <td
+                        class="fds-table__data-cell tm-table__date-width awards-table-date-column"
+                        [attr.id]="
+                          'tm-table__pre-termination-vesting-date--award-' +
+                          plan().planId +
+                          j +
+                          '_grant-' +
+                          i
+                        "
+                      >
+                        @if (
+                          termRow.preTerminationVesting.vestingDate ===
+                          vestingDetailsNotAvailable.notAvailable
+                        ) {
+                          {{ vestingDetailsNotAvailable.notAvailable }}
+                        } @else {
+                          {{
+                            termRow.preTerminationVesting.vestingDate
+                              | date: 'MMM-d-y'
+                          }}
+                        }
+                      </td>
+
+                      <td
+                        class="fds-table__data-cell fds-table__data-cell--right white-space-break"
+                        [attr.id]="
+                          'tm-table__pre-termination-outstanding-value--award-' +
+                          plan().planId +
+                          j +
+                          '_grant-' +
+                          i
+                        "
+                      >
+                        {{
+                          getFormattedQuantityOrValueByPlanType(
+                            termRow.preTerminationVesting.outstandingQuantity,
+                            plan().planType,
+                            plan().currencyCode
+                          )
+                        }}
+                      </td>
+
+                      <td
+                        class="fds-table__data-cell white-space-break"
+                        [attr.id]="
+                          'tm-table__post-termination-status--award-' +
+                          plan().planId +
+                          j +
+                          '_grant-' +
+                          i
+                        "
+                      >
+                        {{ termRow.postTerminationVesting.status }}
+                      </td>
+
+                      <td
+                        class="fds-table__data-cell tm-table__date-width awards-table-date-column"
+                        [attr.id]="
+                          'tm-table__post-termination-vesting-date--award-' +
+                          plan().planId +
+                          j +
+                          '_grant-' +
+                          i
+                        "
+                      >
+                        @if (
+                          termRow.postTerminationVesting.vestingDate ===
+                          vestingDetailsNotAvailable.notAvailable
+                        ) {
+                          {{ vestingDetailsNotAvailable.notAvailable }}
+                        } @else {
+                          {{
+                            termRow.postTerminationVesting.vestingDate
+                              | date: 'MMM-d-y'
+                          }}
+                        }
+                      </td>
+
+                      <td
+                        class="fds-table__data-cell fds-table__data-cell--right white-space-break"
+                        [attr.id]="
+                          'tm-table__post-termination-retained-value--award-' +
+                          plan().planId +
+                          j +
+                          '_grant-' +
+                          i
+                        "
+                      >
+                        {{
+                          getFormattedQuantityOrValueByPlanType(
+                            termRow.postTerminationVesting.forfeitedQuantity,
+                            plan().planType,
+                            plan().currencyCode
+                          )
+                        }}
+                      </td>
+
+                      <td
+                        class="fds-table__data-cell fds-table__data-cell--right white-space-break"
+                        [attr.id]="
+                          'tm-table__post-termination-forfeited-value--award-' +
+                          plan().planId +
+                          j +
+                          '_grant-' +
+                          i
+                        "
+                      >
+                        {{
+                          getFormattedQuantityOrValueByPlanType(
+                            termRow.postTerminationVesting.retainedQuantity,
+                            plan().planType,
+                            plan().currencyCode
+                          )
+                        }}
+                      </td>
+                    </tr>
+                  }
+                </tbody>
+              }
+              @if (getVestings(plan())) {
+                <tfoot class="fds-table__foot">
+                  @if (plan().totalQuantity !== null) {
+                    <tr class="fds-table__row">
+                      <th class="fds-table__row-header-cell" scope="row">
+                        {{ modelTable().totalLabel }}
+                      </th>
+                      <td class="fds-table__data-cell" colspan="2"></td>
+                      <td
+                        class="fds-table__data-cell fds-table__data-cell&#45;&#45;right white-space-break"
+                        [attr.id]="
+                          'tm-table__pre-termination-' + plan().planId + '-cash'
+                        "
+                      >
+                        {{
+                          getFormattedQuantityOrValueByPlanType(
+                            plan().totalQuantity.outstandingQuantity,
+                            plan().planType,
+                            plan().currencyCode
+                          )
+                        }}
+                      </td>
+                      <td class="fds-table__data-cell" colspan="1"></td>
+                      <td class="fds-table__data-cell" colspan="1"></td>
+                      <td
+                        class="fds-table__data-cell fds-table__data-cell&#45;&#45;right white-space-break"
+                        [attr.id]="
+                          'tm-table__post-termination-retained-value-' +
+                          plan().planId +
+                          '-cash'
+                        "
+                      >
+                        {{
+                          getFormattedQuantityOrValueByPlanType(
+                            plan().totalQuantity.forfeitedQuantity,
+                            plan().planType,
+                            plan().currencyCode
+                          )
+                        }}
+                      </td>
+                      <td
+                        class="fds-table__data-cell fds-table__data-cell&#45;&#45;right white-space-break"
+                        [attr.id]="
+                          'tm-table__post-termination-forfeited-value-' +
+                          plan().planId +
+                          '-cash'
+                        "
+                      >
+                        {{
+                          getFormattedQuantityOrValueByPlanType(
+                            plan().totalQuantity.retainedQuantity,
+                            plan().planType,
+                            plan().currencyCode
+                          )
+                        }}
+                      </td>
+                    </tr>
+                  }
+                </tfoot>
+              }
+            </table>
+          </div>
+        </div>
+      </div>
+    </wi-ds-table-wrapper>
+  </div>
+}
