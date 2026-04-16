@@ -1,7 +1,8 @@
-import { ChangeDetectionStrategy, Component, output, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, output, signal } from '@angular/core';
 
 import {
   SCHEDULES_CREATE_PAGE_CONTENT,
+  SchedulesCreateStore,
   VESTING_METHOD_OPTIONS,
   VestingMethod,
 } from '@fmr-ap160368/sps-termination-data-access-schedules-create';
@@ -27,6 +28,8 @@ import { StepActionsComponent } from '../../shared';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Step2VestingMethodComponent {
+  private readonly store = inject(SchedulesCreateStore);
+
   readonly pageContent = SCHEDULES_CREATE_PAGE_CONTENT;
   readonly vestingMethodOptions = VESTING_METHOD_OPTIONS;
 
@@ -36,17 +39,11 @@ export class Step2VestingMethodComponent {
   /** Tracks the currently selected vesting method. */
   protected readonly selectedVestingMethod = signal<VestingMethod | null>(null);
 
-  /**
-   * RSA award type — disables Defer option.
-   * TODO: wire to store when data-access is ready.
-   */
-  protected readonly isRSA = signal<boolean>(false);
+  /** RSA award type — disables Defer option. Derived from Step 1 equity type selection. */
+  protected readonly isRSA = this.store.isRSA;
 
-  /**
-   * Proration assigned flag — disables Forfeit option.
-   * TODO: wire to store when data-access is ready.
-   */
-  protected readonly isProrationAssigned = signal<boolean>(false);
+  /** Proration assigned flag — disables Forfeit option. TODO: derive from API. */
+  protected readonly isProrationAssigned = this.store.isProrationAssigned;
 
   /**
    * Returns true when a given option should be disabled.

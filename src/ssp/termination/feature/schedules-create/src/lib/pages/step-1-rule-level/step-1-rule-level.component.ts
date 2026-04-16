@@ -72,6 +72,10 @@ export class Step1RuleLevelComponent {
     this.store.onLevelChange(level);
   }
 
+  onTerminationEquityTypeChange(value: string): void {
+    this.store.updateFormField('terminationEquityType', value);
+  }
+
   onSaveAndExit(): void {
     this.saveAndExit.emit();
   }

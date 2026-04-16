@@ -82,6 +82,8 @@
                 name="terminationEquityType"
                 [fullWidth]="true"
                 [options]="getEquityAwardSelectOptions()"
+                [selectedValue]="store.formState().terminationEquityType"
+                (selected)="onTerminationEquityTypeChange($event)"
                 ariaLabel="{{ pageContent.equityAwardLabel }}"
               >
               </wi-ds-select>
