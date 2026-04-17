@@ -52,7 +52,17 @@
     />
   }
 
-  <!-- Step 2: active form (only shown when on step 2 or beyond) -->
+  <!-- Step 2: collapsed summary after Save & continue (when step 3+ exists or placeholder step) -->
+  @if (currentStep() > 2) {
+    <sps-termination-step-summary-card
+      [stepTitle]="'Step 2: Vesting method'"
+      [stepDescription]="'Choose how the awards should vest upon termination.'"
+      [fields]="step2SummaryFields()"
+      (editClicked)="goToStep(2)"
+    />
+  }
+
+  <!-- Step 2: active form only while on step 2 -->
   @if (currentStep() === 2) {
     <sps-termination-step-2-vesting-method
       (saveAndContinue)="goToStep(3)"

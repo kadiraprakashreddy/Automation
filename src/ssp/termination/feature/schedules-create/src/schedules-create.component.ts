@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@a
 
 import {
   SchedulesCreateStore,
+  VESTING_METHOD_OPTIONS,
 } from '@fmr-ap160368/sps-termination-data-access-schedules-create';
 import {
   LinkComponent,
@@ -68,6 +69,21 @@ export class SchedulesCreateComponent {
       fields.push({ label: 'Term rule name', value: form.terminationRuleName });
     }
     return fields;
+  });
+
+  /** Collapsed Step 2 summary when past vesting (same pattern as Step 1). */
+  protected readonly step2SummaryFields = computed<StepSummaryField[]>(() => {
+    const vm = this.store.vestingMethod();
+    if (!vm) {
+      return [{ label: 'Vesting method', value: '—' }];
+    }
+    const option = VESTING_METHOD_OPTIONS.find((o) => o.value === vm);
+    return [
+      {
+        label: 'Vesting method',
+        value: option?.title ?? vm,
+      },
+    ];
   });
 
   /** Navigate to a specific step */

@@ -23,17 +23,22 @@ import { SchedulesCreateService } from './schedules-create.service';
 import {
   SchedulesCreate,
   SchedulesCreateFormModel,
+  VestingMethod,
 } from './schedules-create.model';
 import { DEFAULT_SCHEDULE_CREATE_FORM } from './schedules-create.constants';
 
 type SchedulesCreateState = {
   data: SchedulesCreate[];
   formState: SchedulesCreateFormModel;
+  vestingMethod: VestingMethod | null;
+  isProrationAssigned: boolean;
 };
 
 const initialState: SchedulesCreateState = {
   data: [],
   formState: { ...DEFAULT_SCHEDULE_CREATE_FORM },
+  vestingMethod: null,
+  isProrationAssigned: false,
 };
 
 export const SchedulesCreateStore = signalStore(
@@ -41,7 +46,10 @@ export const SchedulesCreateStore = signalStore(
   withState<SchedulesCreateState>(initialState),
   withLoadingStatus(),
   withComputed(
-    ({ data, formState }, rootStore = inject(TerminationsRootStore)) => ({
+    (
+      { data, formState, isProrationAssigned },
+      rootStore = inject(TerminationsRootStore),
+    ) => ({
       hasData: computed(() => data().length !== 0),
       // Derived form state
       currentLevel: computed(() => formState().level),
@@ -49,6 +57,18 @@ export const SchedulesCreateStore = signalStore(
         () => formState().level === 'plan' || formState().level === 'product',
       ),
       showsProductField: computed(() => formState().level === 'product'),
+      /** True when the selected equity type is RSA — disables Defer vesting option */
+      isRSA: computed(() =>
+        formState().terminationEquityType.includes('RSA'),
+      ),
+      /** Pre-computed disabled state per vesting option (consumed directly by Step 2). */
+      disabledVestingOptions: computed(() => ({
+        forfeit: isProrationAssigned(),
+        defer: formState().terminationEquityType.includes('RSA'),
+        vestSome: false,
+        vestPerPlanRules: false,
+        vestAccelerateAll: false,
+      })),
       // Example of reflecting data from Root Feature
       rootData: rootStore.data,
     }),
@@ -63,9 +83,34 @@ export const SchedulesCreateStore = signalStore(
         value: string,
       ) => {
         const currentForm = store.formState();
-        patchState(store, {
-          formState: { ...currentForm, [field]: value },
-        });
+        const nextForm = { ...currentForm, [field]: value };
+        const patch: Partial<SchedulesCreateState> = {
+          formState: nextForm,
+        };
+
+        if (
+          field === 'terminationEquityType' &&
+          value.includes('RSA') &&
+          store.vestingMethod() === 'defer'
+        ) {
+          patch.vestingMethod = null;
+        }
+
+        patchState(store, patch);
+      },
+
+      setVestingMethod: (value: VestingMethod | null) => {
+        patchState(store, { vestingMethod: value });
+      },
+
+      setProrationAssigned: (value: boolean) => {
+        const patch: Partial<SchedulesCreateState> = {
+          isProrationAssigned: value,
+        };
+        if (value && store.vestingMethod() === 'forfeit') {
+          patch.vestingMethod = null;
+        }
+        patchState(store, patch);
       },
 
       /**
@@ -110,6 +155,8 @@ export const SchedulesCreateStore = signalStore(
       resetForm: () => {
         patchState(store, {
           formState: { ...DEFAULT_SCHEDULE_CREATE_FORM },
+          vestingMethod: null,
+          isProrationAssigned: false,
         });
       },
 

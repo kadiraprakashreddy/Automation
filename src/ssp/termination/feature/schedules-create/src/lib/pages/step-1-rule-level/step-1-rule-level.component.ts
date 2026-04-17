@@ -24,7 +24,7 @@ import {
   TitleComponent,
   TooltipComponent,
 } from '@fmr-ap167419/shared-design-system-ui-core';
-import { StepActionsComponent } from '../../shared';
+import { StepActionsComponent } from '../../shared/step-actions/step-actions.component';
 
 @Component({
   selector: 'sps-termination-step-1-rule-level',

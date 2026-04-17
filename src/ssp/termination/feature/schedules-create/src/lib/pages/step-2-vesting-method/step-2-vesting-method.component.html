@@ -33,33 +33,50 @@
           ariaLabel="vesting method"
         >
           @for (option of vestingMethodOptions; track option.value) {
-            <wi-ds-radio
-              [name]="'vestingMethod'"
-              [radioValue]="option.value"
-              [checked]="selectedVestingMethod() === option.value"
-              [attr.disabled]="isOptionDisabled(option.value) ? '' : null"
-              [attr.pvd-id]="'vesting-method-' + option.value"
-              (change)="onVestingMethodChange(option.value)"
+            <div
+              class="vesting-method__radio-row"
+              [class.vesting-method__radio-row--disabled]="
+                store.disabledVestingOptions()[option.value]
+              "
+              [attr.aria-disabled]="
+                store.disabledVestingOptions()[option.value] ? 'true' : null
+              "
             >
-              <span class="vesting-method__option-copy">
-                <span class="vesting-method__option-title">
-                  {{ option.title }}
-                </span>
-                <span class="vesting-method__option-description">
-                  {{ option.description }}
-                </span>
-                @if (option.value === 'forfeit' && isProrationAssigned()) {
-                  <span class="vesting-method__option-note">
-                    {{ pageContent.step2NotEligibleProrationMsg }}
+              <wi-ds-radio
+                [name]="'vestingMethod'"
+                [radioValue]="option.value"
+                [checked]="store.vestingMethod() === option.value"
+                [nativeInputAttributes]="
+                  store.disabledVestingOptions()[option.value]
+                    ? { disabled: true }
+                    : undefined
+                "
+                [attr.pvd-id]="'vesting-method-' + option.value"
+                (change)="onVestingMethodChange(option.value)"
+              >
+                <span class="vesting-method__option-copy">
+                  <span class="vesting-method__option-title">
+                    {{ option.title }}
                   </span>
-                }
-                @if (option.value === 'defer' && isRSA()) {
-                  <span class="vesting-method__option-note">
-                    {{ pageContent.step2NotEligibleRSAMsg }}
+                  <span class="vesting-method__option-description">
+                    {{ option.description }}
                   </span>
-                }
-              </span>
-            </wi-ds-radio>
+                  @if (
+                    option.value === 'forfeit' &&
+                    store.isProrationAssigned()
+                  ) {
+                    <span class="vesting-method__option-note">
+                      {{ pageContent.step2NotEligibleProrationMsg }}
+                    </span>
+                  }
+                  @if (option.value === 'defer' && store.isRSA()) {
+                    <span class="vesting-method__option-note">
+                      {{ pageContent.step2NotEligibleRSAMsg }}
+                    </span>
+                  }
+                </span>
+              </wi-ds-radio>
+            </div>
           }
         </wi-ds-radio-group>
 
