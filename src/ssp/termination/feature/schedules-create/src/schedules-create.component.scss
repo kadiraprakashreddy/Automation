@@ -50,7 +50,16 @@
   background-color: var(--fds-color-action-primary, #006ba6);
   border-radius: 0.25rem;
   height: 100%;
+  width: 0;
   transition: width 0.3s ease;
+}
+
+.create-rule-wizard__progress-fill--step-1 {
+  width: 5%;
+}
+
+.create-rule-wizard__progress-fill--step-2 {
+  width: 20%;
 }
 
 .create-rule-wizard__progress-percent {

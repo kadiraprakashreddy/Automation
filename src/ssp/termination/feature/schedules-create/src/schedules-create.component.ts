@@ -40,7 +40,7 @@ const LEVEL_DISPLAY: Record<string, string> = {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SchedulesCreateComponent {
-  private readonly store = inject(SchedulesCreateStore);
+  protected readonly store = inject(SchedulesCreateStore);
 
   /** Tracks the active wizard step (1-based). Local until store is wired. */
   protected readonly currentStep = signal<number>(1);

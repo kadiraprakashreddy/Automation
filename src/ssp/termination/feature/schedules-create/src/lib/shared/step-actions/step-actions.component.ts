@@ -22,7 +22,7 @@ export class StepActionsComponent {
 
   readonly saveAndContinue = output<void>();
   readonly saveAndExit = output<void>();
-  readonly cancel = output<void>();
+  readonly cancelClicked = output<void>();
 
   protected readonly buttonVariant = ButtonVariant;
   protected readonly inline = Inline;

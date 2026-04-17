@@ -28,7 +28,8 @@
         >
           <div
             class="create-rule-wizard__progress-fill"
-            [style.width.%]="progressPercent()"
+            [class.create-rule-wizard__progress-fill--step-1]="currentStep() === 1"
+            [class.create-rule-wizard__progress-fill--step-2]="currentStep() === 2"
           ></div>
         </div>
         <span class="create-rule-wizard__progress-percent">

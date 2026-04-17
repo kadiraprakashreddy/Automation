@@ -9,10 +9,8 @@ import {
 } from '@fmr-ap160368/sps-termination-data-access-schedules-create';
 import {
   AutocompleteComponent,
-  ButtonVariant,
   FormComponent,
   IconModule,
-  Inline,
   InputComponent,
   LabelComponent,
   LayerPosition,

@@ -1,21 +1,16 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Spectator, createComponentFactory } from '@ngneat/spectator/jest';
 import { Step2VestingMethodComponent } from './step-2-vesting-method.component';
 
 describe('Step2VestingMethodComponent', () => {
-  let component: Step2VestingMethodComponent;
-  let fixture: ComponentFixture<Step2VestingMethodComponent>;
+  let spectator: Spectator<Step2VestingMethodComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [Step2VestingMethodComponent],
-    }).compileComponents();
-
-    fixture = TestBed.createComponent(Step2VestingMethodComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+  const createComponent = createComponentFactory({
+    component: Step2VestingMethodComponent,
+    shallow: true,
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+    spectator = createComponent();
+    expect(spectator.component).toBeTruthy();
   });
 });

@@ -1,21 +1,16 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Spectator, createComponentFactory } from '@ngneat/spectator/jest';
 import { Step1RuleLevelComponent } from './step-1-rule-level.component';
 
 describe('Step1RuleLevelComponent', () => {
-  let component: Step1RuleLevelComponent;
-  let fixture: ComponentFixture<Step1RuleLevelComponent>;
+  let spectator: Spectator<Step1RuleLevelComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [Step1RuleLevelComponent],
-    }).compileComponents();
-
-    fixture = TestBed.createComponent(Step1RuleLevelComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+  const createComponent = createComponentFactory({
+    component: Step1RuleLevelComponent,
+    shallow: true,
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+    spectator = createComponent();
+    expect(spectator.component).toBeTruthy();
   });
 });

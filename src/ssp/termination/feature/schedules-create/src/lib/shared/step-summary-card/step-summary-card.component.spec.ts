@@ -1,20 +1,22 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Spectator, createComponentFactory } from '@ngneat/spectator/jest';
 import { StepSummaryCardComponent } from './step-summary-card.component';
 
 describe('StepSummaryCardComponent', () => {
-  let component: StepSummaryCardComponent;
-  let fixture: ComponentFixture<StepSummaryCardComponent>;
+  let spectator: Spectator<StepSummaryCardComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [StepSummaryCardComponent],
-    }).compileComponents();
-
-    fixture = TestBed.createComponent(StepSummaryCardComponent);
-    component = fixture.componentInstance;
+  const createComponent = createComponentFactory({
+    component: StepSummaryCardComponent,
+    shallow: true,
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+    spectator = createComponent({
+      props: {
+        stepTitle: 'Step 1',
+        stepDescription: 'Description',
+        fields: [{ label: 'Key', value: 'Value' }],
+      },
+    });
+    expect(spectator.component).toBeTruthy();
   });
 });
