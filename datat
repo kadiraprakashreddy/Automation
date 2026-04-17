@@ -1,7 +1,55 @@
-I believe our current process is not working effectively, particularly with the SonarQube quality gate.
+We need to disable specific radio options in Step 2 of termination schedules-create (example: disable defer when equity type is RSA, disable forfeit when proration is assigned).
 
-On feature branches, the Sonar gate consistently passes during builds. However, once the code is merged into the Develop branch, we start seeing coverage issues. By that time, the code has already been deployed to the environment and QA testing has been completed.
+In our DS wrappers:
 
-If QA approves the changes and we then merge into Develop, only at that point do we discover the actual Sonar issues. This results in rework—fixing the issues and requesting QA to retest—which leads to duplicated effort and inefficiency.
+wi-ds-radio-group (radio-group.component.ts/html) has no per-option disabled API.
+wi-ds-radio (radio.component.ts/html) maps fds-disabled from internal CVA disabled state, but there is no straightforward per-item input we can bind declaratively for non-form-control cases.
+Current feature workaround is in:
 
-It would be better to identify and enforce Sonar coverage requirements earlier in the process (e.g., at the feature branch or PR level) so that issues are caught before QA testing and deployment.
+libs/sps/termination/feature/schedules-create/src/lib/pages/step-2-vesting-method/step-2-vesting-method.component.html using disabled styling + guard + native input attributes.
+Can DS provide an official per-option disabled API on wi-ds-radio (e.g. disabled / forceDisabled) that sets fds-disabled directly and works with projected radios inside wi-ds-radio-group?
+
+Expected behavior:
+
+Disabled option is visually and semantically disabled.
+Mouse + keyboard cannot select it.
+Works with and without Reactive Forms CVA usage.
+Backward compatible for existing consumers.
+
+
+Need DS guidance for per-option disable in radio groups.
+
+Context:
+
+wi-ds-radio-group has no per-item disable API:
+libs/shared/design-system/ui/core/src/lib/radio-group/radio-group.component.ts
+libs/shared/design-system/ui/core/src/lib/radio-group/radio-group.component.html
+wi-ds-radio currently maps fds-disabled via CVA/internal disabled path, but no simple per-item input for our case:
+libs/shared/design-system/ui/core/src/lib/radio/radio.component.ts
+libs/shared/design-system/ui/core/src/lib/radio/radio.component.html
+
+
+Option 1 — Direct and Technical (Recommended)
+
+Hi Team,
+
+I noticed that wi-ds-radio currently supports the disabled state only through the CVA path (setDisabledState()), and does not expose a declarative [disabled] input.
+
+Because of this, we are unable to disable individual radio options inside wi-ds-radio-group declaratively.
+
+I’m proposing a small enhancement to introduce an input-based disabled API while keeping CVA behavior intact (backward compatible).
+
+Question:
+Would we be open to adding a declarative [disabled] input to wi-ds-radio (synced with the existing class field), so that both CVA and non-CVA usage are supported?
+
+Option 2 — Discussion-Oriented
+
+Hi Team,
+
+I’m working on a scenario where we need to disable specific options within a wi-ds-radio-group.
+
+Currently, wi-ds-radio only supports disabled state via setDisabledState() (CVA), and there’s no [disabled] input for declarative usage. This makes per-option disabling difficult without workarounds.
+
+I’m considering adding a [disabled] input that syncs with the existing disabled field while preserving CVA behavior.
+
+Wanted to check — does this align with our design system direction, or is there an alternative pattern we should follow?
