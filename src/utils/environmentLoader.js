@@ -90,6 +90,20 @@ class EnvironmentLoader {
       HEADLESS: process.env.HEADLESS === 'true',
       VIEWPORT_WIDTH: parseInt(process.env.VIEWPORT_WIDTH) || 1920,
       VIEWPORT_HEIGHT: parseInt(process.env.VIEWPORT_HEIGHT) || 1080,
+      /**
+       * Use the real browser window as the page size (viewport: null).
+       * Default: on when headed (avoids huge side gutters + cramped layout vs a fixed 1920×1080 canvas in a maximized window).
+       * Set USE_WINDOW_VIEWPORT=false to force a fixed VIEWPORT_* canvas (e.g. reproducible screenshots).
+       */
+      USE_WINDOW_VIEWPORT: (() => {
+        if (process.env.USE_WINDOW_VIEWPORT === 'true') return true;
+        if (process.env.USE_WINDOW_VIEWPORT === 'false') return false;
+        return process.env.HEADLESS !== 'true';
+      })(),
+      /**
+       * Passes --force-device-scale-factor=1 to Chrome. Try true on Windows if layout/zoom looks wrong at 125–200% display scaling.
+       */
+      CHROME_FORCE_DEVICE_SCALE_ONE: process.env.CHROME_FORCE_DEVICE_SCALE_ONE === 'true',
       
       // Rule Engine Timeouts
       DEFAULT_TIMEOUT: parseInt(process.env.DEFAULT_TIMEOUT) || 30000,
@@ -116,7 +130,7 @@ class EnvironmentLoader {
       
       // Performance Settings
       MAX_CONCURRENT_STEPS: parseInt(process.env.MAX_CONCURRENT_STEPS) || 1,
-      STEP_DELAY: parseInt(process.env.STEP_DELAY) || 1000,
+      STEP_DELAY: parseInt(process.env.STEP_DELAY) || 3000,
       RETRY_ATTEMPTS: parseInt(process.env.RETRY_ATTEMPTS) || 3,
       RETRY_DELAY: parseInt(process.env.RETRY_DELAY) || 2000,
       

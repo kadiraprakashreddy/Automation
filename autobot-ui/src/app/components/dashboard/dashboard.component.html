@@ -1,166 +1,266 @@
-<div class="spec-explorer-layout">
-  <!-- Dark Sidebar -->
-  <div class="sidebar">
+<div class="app-shell" [class.sidebar-collapsed]="!sidebarOpen">
+  <div
+    class="sidebar-backdrop"
+    *ngIf="sidebarOpen && isNarrowLayout"
+    (click)="toggleSidebar()"
+    aria-hidden="true"></div>
+
+  <!-- Left sidebar -->
+  <aside class="sidebar panel" role="navigation" aria-label="Main">
     <div class="sidebar-header">
       <div class="logo">
-        <i class="fas fa-robot"></i>
+        <i class="fas fa-robot" aria-hidden="true"></i>
         <span class="project-name">AutoBot</span>
       </div>
     </div>
-    
     <nav class="sidebar-nav">
-      <a routerLink="/dashboard" routerLinkActive="active" class="nav-item">
-        <i class="fas fa-list"></i>
+      <a routerLink="/dashboard" routerLinkActive="active" class="nav-item" [routerLinkActiveOptions]="{ exact: false }">
+        <i class="fas fa-chart-pie" aria-hidden="true"></i>
         <span>Dashboard</span>
       </a>
       <a routerLink="/builder" routerLinkActive="active" class="nav-item">
-        <i class="fas fa-code"></i>
+        <i class="fas fa-sliders" aria-hidden="true"></i>
         <span>Rule Builder</span>
       </a>
-      <a href="#" class="nav-item">
-        <i class="fas fa-cog"></i>
+      <span class="nav-item nav-item-disabled" title="Coming soon">
+        <i class="fas fa-cog" aria-hidden="true"></i>
         <span>Settings</span>
-      </a>
+      </span>
     </nav>
-  </div>
+  </aside>
 
-  <!-- Main Content Area -->
-  <div class="main-content">
-    <!-- Header -->
-    <div class="main-header">
-      <div class="header-left">
-        <h1>Automation Dashboard</h1>
-        <p class="subtitle">Monitor and manage your automation rules</p>
-      </div>
-      <div class="header-right">
-        <div class="version-info">
-          <span class="version">v1.0.0</span>
-          <span class="browser">Chrome 102</span>
+  <div class="main-column">
+    <!-- Top header -->
+    <header class="top-header panel">
+      <div class="header-main">
+        <button
+          type="button"
+          class="sidebar-toggle icon-btn"
+          (click)="toggleSidebar()"
+          aria-label="Toggle navigation menu">
+          <i class="fas fa-bars" aria-hidden="true"></i>
+        </button>
+        <div class="header-titles">
+          <h1 class="title">Automation Dashboard</h1>
+          <p class="subtitle">Monitor runs, passes, and failures — no scripts required</p>
         </div>
-        <div class="header-actions">
-          <a href="#" class="docs-link">Docs</a>
-          <div class="user-avatar">
-            <i class="fas fa-user"></i>
+      </div>
+      <div class="header-meta">
+        <a
+          class="docs-link"
+          href="https://playwright.dev/docs/intro"
+          target="_blank"
+          rel="noopener noreferrer">Docs</a>
+        <button type="button" class="profile-btn icon-btn" aria-label="Profile" title="Profile">
+          <i class="fas fa-user" aria-hidden="true"></i>
+        </button>
+      </div>
+    </header>
+
+    <div class="dashboard-scroll">
+      <!-- Summary card -->
+      <section class="panel summary-panel" aria-labelledby="summary-heading">
+        <div class="header summary-header">
+          <div>
+            <h2 id="summary-heading" class="section-title">Overview</h2>
+            <p class="subtitle tight">Session metrics and rule library</p>
+          </div>
+          <div class="toolbar-actions">
+            <div class="search-wrap">
+              <i class="fas fa-magnifying-glass search-icon" aria-hidden="true"></i>
+              <input
+                type="search"
+                class="search-input"
+                [(ngModel)]="searchTerm"
+                placeholder="Search rules or project…"
+                aria-label="Search rules" />
+            </div>
+            <button type="button" class="btn-primary-cta" (click)="createNewRule()">
+              <i class="fas fa-plus" aria-hidden="true"></i>
+              New rule
+            </button>
+            <button type="button" class="btn-ghost" (click)="refreshRules()" [disabled]="loadingRules" title="Refresh">
+              <i class="fas" [class.fa-spin]="loadingRules" [class.fa-spinner]="loadingRules" [class.fa-rotate-right]="!loadingRules" aria-hidden="true"></i>
+            </button>
           </div>
         </div>
-      </div>
-    </div>
 
-    <!-- Search and Actions -->
-    <div class="search-section">
-      <div class="search-container">
-        <input type="text" class="search-input" placeholder="Search Rules..." [(ngModel)]="searchTerm">
-        <i class="fas fa-search search-icon"></i>
-      </div>
-      <button class="btn-new-spec" (click)="createNewRule()">
-        <i class="fas fa-plus"></i>
-        New Rule
-      </button>
-    </div>
-
-    <!-- Dashboard Content -->
-    <div class="dashboard-content">
-      <div class="card dashboard-card">
-        <div class="section-header">
-          <h3>Quick Actions</h3>
-        </div>
-        <div class="actions">
-          <button class="btn btn-outline-primary" (click)="refreshRules()">
-            <i class="fas fa-sync-alt"></i>
-            Refresh Rules
-          </button>
-          <button class="btn btn-outline-primary" (click)="loadRunningAutomations()">
-            <i class="fas fa-play-circle"></i>
-            Refresh Status
-          </button>
-        </div>
-      </div>
-
-      <div class="card dashboard-card">
-        <div class="section-header">
-          <h3><i class="fas fa-list"></i> Existing Rules</h3>
-        </div>
-        <div *ngIf="rules.length === 0" class="no-rules">
-          <i class="fas fa-inbox fa-3x mb-3"></i>
-          <p>No rules found. Create your first automation rule!</p>
-        </div>
-
-        <div *ngIf="rules.length > 0" class="rule-table">
-          <div class="rule-table-header">
-            <span>Rule Name</span>
-            <span>Actions</span>
-          </div>
-
-          <div *ngFor="let rule of rules" class="rule-row">
-            <div class="rule-info">
-              <h4>{{ rule.name }}</h4>
-              <div *ngIf="isRuleRunning(rule.fileName)" class="running-indicator">
-                <span class="status-running">
-                  <i class="fas fa-circle-notch fa-spin"></i>
-                  Running
-                </span>
+        <div class="summary">
+          <div class="ring-card">
+            <div class="ring-wrap" aria-hidden="true">
+              <div class="ring" [style.background]="ringBackground">
+                <span class="ring-hole"></span>
+                <span class="ring-center">{{ totalRuns ? progressPercent + '%' : '—' }}</span>
               </div>
             </div>
-            <div class="rule-actions">
-              <button class="btn btn-run" 
-                      (click)="runRule(rule)" 
-                      [disabled]="isRuleRunning(rule.fileName)">
-                <i class="fas fa-play"></i>
-                {{ isRuleRunning(rule.fileName) ? 'Running' : 'Run' }}
+            <p class="ring-caption">{{ totalRuns ? 'Run success rate' : 'No completed runs yet' }}</p>
+          </div>
+
+          <div class="metric blue">
+            <div class="metric-label">Progress</div>
+            <div class="metric-value">{{ progressPercent }}<span class="metric-suffix" *ngIf="totalRuns">%</span></div>
+            <div class="metric-sub">{{ totalRuns }} completed run{{ totalRuns === 1 ? '' : 's' }} this session</div>
+          </div>
+          <div class="metric blue">
+            <div class="metric-label">Passes</div>
+            <div class="metric-value">{{ stats.pass }}</div>
+            <div class="metric-sub">Exit code 0</div>
+          </div>
+          <div class="metric red">
+            <div class="metric-label">Failures</div>
+            <div class="metric-value">{{ stats.fail }}</div>
+            <div class="metric-sub">Non-zero exit</div>
+          </div>
+          <div class="metric gray">
+            <div class="metric-label">Ignored</div>
+            <div class="metric-value">{{ ignoredStepsCount }}</div>
+            <div class="metric-sub">Disabled steps in rules</div>
+          </div>
+          <div class="metric purple">
+            <div class="metric-label">Flakiness</div>
+            <div class="metric-value">{{ stats.flaky }}</div>
+            <div class="metric-sub">Reserved for reruns</div>
+          </div>
+        </div>
+
+        <div class="total-rules-row">
+          <span class="total-rules-label">Total rules</span>
+          <strong class="total-rules-value">{{ rules.length }}</strong>
+        </div>
+      </section>
+
+      <!-- Rules table -->
+      <section class="panel table-panel" aria-labelledby="rules-heading">
+        <h2 id="rules-heading" class="section-title table-title">Existing rules</h2>
+
+        <div *ngIf="loadingRules" class="state-block" role="status">
+          <i class="fas fa-spinner fa-spin fa-2x" aria-hidden="true"></i>
+          <p>Loading rules…</p>
+        </div>
+
+        <div *ngIf="!loadingRules && rulesLoadError" class="state-block state-error">
+          <i class="fas fa-circle-exclamation fa-2x" aria-hidden="true"></i>
+          <p>{{ rulesLoadError }}</p>
+          <button type="button" class="btn-retry" (click)="refreshRules()">Try again</button>
+        </div>
+
+        <div *ngIf="!loadingRules && !rulesLoadError && rules.length === 0" class="state-block state-empty">
+          <i class="fas fa-folder-open fa-3x" aria-hidden="true"></i>
+          <p>No rules yet. Create one to get started.</p>
+          <button type="button" class="btn-primary-cta" (click)="createNewRule()">Create rule</button>
+        </div>
+
+        <div *ngIf="!loadingRules && !rulesLoadError && rules.length > 0 && filteredRules.length === 0" class="state-block state-empty">
+          <i class="fas fa-filter fa-2x" aria-hidden="true"></i>
+          <p>No rules match your search.</p>
+        </div>
+
+        <div class="table-wrap" *ngIf="!loadingRules && !rulesLoadError && filteredRules.length > 0">
+          <div class="table-head" role="row">
+            <span>Rule / group</span>
+            <span>Project</span>
+            <span>Progress</span>
+            <span>Steps</span>
+            <span>State</span>
+            <span>Browser</span>
+            <span class="col-actions">Actions</span>
+          </div>
+          <div
+            *ngFor="let rule of filteredRules"
+            class="table-row"
+            role="row"
+            [class.row-running]="isRuleRunning(rule.fileName)">
+            <div class="group-name">
+              <span class="folder-icon" aria-hidden="true"></span>
+              <span>{{ rule.name }}</span>
+            </div>
+            <div class="cell-muted">{{ rule.project || rule.version || '—' }}</div>
+            <div class="cell-progress">
+              <div class="progress-bar" *ngIf="isRuleRunning(rule.fileName)" [title]="getRuleProgress(rule.fileName).currentStep + ' / ' + getRuleProgress(rule.fileName).totalSteps">
+                <span class="progress-pass" [style.width.%]="getRuleProgress(rule.fileName).percent"></span>
+              </div>
+              <div class="progress-bar" *ngIf="!isRuleRunning(rule.fileName)">
+                <span class="progress-idle"></span>
+              </div>
+              <small class="progress-text" *ngIf="isRuleRunning(rule.fileName)">
+                {{ getRuleProgress(rule.fileName).currentStep }}/{{ getRuleProgress(rule.fileName).totalSteps }}
+                ({{ getRuleProgress(rule.fileName).percent }}%)
+              </small>
+            </div>
+            <div>{{ stepCount(rule) }}</div>
+            <div>
+              <span class="badge badge-state" [class.running]="isRuleRunning(rule.fileName)">
+                {{ isRuleRunning(rule.fileName) ? 'Running' : 'Ready' }}
+              </span>
+            </div>
+            <div>
+              <span class="badge badge-soft">{{ rule.browser || browserBadge }}</span>
+            </div>
+            <div class="col-actions row-actions">
+              <button
+                type="button"
+                class="icon-btn green"
+                (click)="runRule(rule)"
+                [disabled]="isRuleRunning(rule.fileName)"
+                title="Run"
+                [attr.aria-label]="'Run ' + rule.name">
+                <i class="fas fa-play" *ngIf="!isRuleRunning(rule.fileName)" aria-hidden="true"></i>
+                <i class="fas fa-spinner fa-spin" *ngIf="isRuleRunning(rule.fileName)" aria-hidden="true"></i>
               </button>
-              <button class="btn btn-stop" 
-                      (click)="stopRule(rule)" 
-                      *ngIf="isRuleRunning(rule.fileName)">
-                <i class="fas fa-stop"></i>
-                Stop
+              <button
+                type="button"
+                class="icon-btn red"
+                (click)="stopRule(rule)"
+                *ngIf="isRuleRunning(rule.fileName)"
+                title="Stop"
+                [attr.aria-label]="'Stop ' + rule.name">
+                <i class="fas fa-stop" aria-hidden="true"></i>
               </button>
-              <button class="btn btn-edit" (click)="editRule(rule)">
-                <i class="fas fa-edit"></i>
-                Edit
+              <button type="button" class="icon-btn blue" (click)="editRule(rule)" title="Edit" [attr.aria-label]="'Edit ' + rule.name">
+                <i class="fas fa-pen" aria-hidden="true"></i>
               </button>
-              <button class="btn btn-delete" (click)="deleteRule(rule)">
-                <i class="fas fa-trash"></i>
-                Delete
+              <button type="button" class="icon-btn red" (click)="deleteRule(rule)" title="Delete" [attr.aria-label]="'Delete ' + rule.name">
+                <i class="fas fa-trash" aria-hidden="true"></i>
               </button>
             </div>
           </div>
         </div>
-      </div>
+      </section>
 
-      <div class="card dashboard-card" *ngIf="runningAutomations.length > 0 || logs.length > 0">
-        <div class="section-header">
-          <h3>
-            <i class="fas fa-play-circle" *ngIf="runningAutomations.length > 0"></i>
-            <i class="fas fa-list" *ngIf="runningAutomations.length === 0"></i>
-            {{ runningAutomations.length > 0 ? 'Running Automations' : 'Automation Logs' }}
-          </h3>
-        </div>
-        
-        <div *ngIf="runningAutomations.length > 0" class="running-summary">
-          <p><strong>{{ runningAutomations.length }}</strong> automation(s) currently running</p>
-          <button class="btn btn-stop" (click)="stopAllRules()">
-            <i class="fas fa-stop"></i>
-            Stop All
+      <!-- Logs -->
+      <section class="panel logs-panel" *ngIf="runningAutomations.length > 0 || logs.length > 0">
+        <div class="header">
+          <div>
+            <h2 class="section-title">
+              {{ runningAutomations.length > 0 ? 'Running automations' : 'Automation logs' }}
+            </h2>
+            <p class="subtitle tight" *ngIf="runningAutomations.length > 0">{{ runningAutomations.length }} active</p>
+          </div>
+          <button
+            type="button"
+            class="btn-ghost"
+            *ngIf="runningAutomations.length > 0"
+            (click)="stopAllRules()">
+            <i class="fas fa-stop" aria-hidden="true"></i>
+            Stop all
           </button>
         </div>
-        
-        <div class="log-container">
-          <div *ngFor="let log of logs" [class]="'log-' + log.type">
+        <div class="log-container card-inner" #logContainer>
+          <div *ngFor="let log of logs" [class]="'log-line log-' + log.type">
             <span *ngIf="log.fileName" class="log-source">[{{ log.fileName }}]</span>
-            {{ log.timestamp }} - {{ log.message }}
+            {{ log.timestamp }} — {{ log.message }}
           </div>
         </div>
         <div class="log-actions">
-          <button class="btn btn-primary" (click)="downloadLogs()" [disabled]="logs.length === 0">
-            <i class="fas fa-download"></i>
-            Download Logs
+          <button type="button" class="btn-primary-cta outline" (click)="downloadLogs()" [disabled]="logs.length === 0">
+            <i class="fas fa-download" aria-hidden="true"></i>
+            Download logs
           </button>
-          <button class="btn btn-secondary" (click)="clearLogs()" *ngIf="logs.length > 0">
-            <i class="fas fa-trash"></i>
-            Clear Logs
+          <button type="button" class="btn-ghost" (click)="clearLogs()" *ngIf="logs.length > 0">
+            Clear
           </button>
         </div>
-      </div>
+      </section>
     </div>
   </div>
 </div>

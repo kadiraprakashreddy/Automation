@@ -86,15 +86,30 @@ class RuleEngine {
           browserType = chromium;
       }
 
+      const launchArgs = ['--start-maximized'];
+      if (
+        config.browser.type.toLowerCase() === 'chromium' &&
+        config.browser.chromeForceDeviceScaleOne
+      ) {
+        launchArgs.push('--force-device-scale-factor=1');
+      }
+
       this.browser = await browserType.launch({
         headless: config.browser.headless,
-        channel: 'chrome',  // Use installed Google Chrome
-        args: ['--start-maximized']
+        channel: 'chrome', // Use installed Google Chrome
+        args: launchArgs
       });
 
-      this.context = await this.browser.newContext({
-        viewport: config.browser.viewport
-      });
+      const contextOptions = config.browser.useWindowViewport
+        ? { viewport: null }
+        : { viewport: config.browser.viewport };
+      this.context = await this.browser.newContext(contextOptions);
+
+      logger.info(
+        config.browser.useWindowViewport
+          ? 'Browser context: viewport matches window (USE_WINDOW_VIEWPORT / headed default).'
+          : `Browser context: fixed viewport ${config.browser.viewport.width}x${config.browser.viewport.height}.`
+      );
 
       this.page = await this.context.newPage();
       
@@ -137,6 +152,9 @@ class RuleEngine {
       results: []
     };
 
+    const totalEnabledSteps = rules.steps.filter((s) => s.enabled !== false).length;
+    let completedEnabledSteps = 0;
+
     for (const step of rules.steps) {
       // Default enabled to true if not specified
       const enabled = step.enabled !== undefined ? step.enabled : true;
@@ -177,9 +195,24 @@ class RuleEngine {
         }
       }
 
-      // Optional delay between steps
-      if (step.delayAfter) {
-        await this.page.waitForTimeout(step.delayAfter);
+      completedEnabledSteps++;
+      logger.info(
+        `[AUTOMATION_PROGRESS] ${JSON.stringify({
+          completed: completedEnabledSteps,
+          total: totalEnabledSteps,
+          stepId: step.stepId
+        })}`
+      );
+
+      // Delay between steps:
+      // - Step-level delayAfter overrides default
+      // - Else use configured global STEP_DELAY (default 3000 ms)
+      const delayMs =
+        step.delayAfter !== undefined && step.delayAfter !== null && step.delayAfter !== ''
+          ? Number(step.delayAfter)
+          : Number(config.performance.stepDelay || 3000);
+      if (Number.isFinite(delayMs) && delayMs > 0) {
+        await this.page.waitForTimeout(delayMs);
       }
     }
 

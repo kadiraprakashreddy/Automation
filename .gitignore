@@ -6,24 +6,3 @@ test-results/
 *.log
 .DS_Store
 
-# User profile directories (shouldn't be in repo)
-AppData/
-Contacts/
-Documents/
-Downloads/
-Favorites/
-Links/
-Music/
-OneDrive/
-Saved Games/
-Searches/
-Videos/
-*.DAT
-*.regtrans-ms
-*.blf
-*.ini
-ntuser.*
-__azurite_db_*
-__blobstorage__/
-AzuriteConfig
-
