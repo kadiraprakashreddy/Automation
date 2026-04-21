@@ -1,0 +1,11 @@
+TODO: remove this file
+
+UI libraries go here, for ex:
+- sps/termination
+  - ui
+    - my-ui-lib
+      - src
+        - lib
+          - my-ui-component
+
+Read more on UI libraries here: https://nx.dev/concepts/more-concepts/library-types#ui-libraries

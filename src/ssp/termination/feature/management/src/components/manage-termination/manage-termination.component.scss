@@ -1,0 +1,26 @@
+@use '../../management.component.scss';
+
+.manage-termination__page-loading-spinner {
+  position: relative;
+  z-index: 1000;
+}
+
+.page-wrapper-padding-bottom {
+  padding-bottom: 1.5rem;
+}
+
+.toc-and-application-wrapper {
+  display: flex;
+  padding-bottom: 1.25rem;
+  padding-top: 1.25rem;
+  width: 78rem;
+}
+
+.toc-and-application-wrapper--application-container {
+  width: 78rem;
+}
+
+.ereview-number {
+  margin-top: 10rem;
+  width: 100%;
+}

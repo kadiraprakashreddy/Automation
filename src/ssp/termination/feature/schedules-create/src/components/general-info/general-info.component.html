@@ -1,0 +1,250 @@
+<div class="fds-card-root">
+  <div class="fds-card__card">
+    <div class="fds-card__content">
+      <wi-ds-form class="termination-card">
+    <div class="termination-card__header">
+      <wi-ds-title class="termination-card__step-title">
+        <h2
+          slot="heading"
+          class="pvd-title__heading pvd-title__heading--level-3"
+        >
+          {{ pageContent.terminationCardTitle }}
+        </h2>
+      </wi-ds-title>
+    </div>
+
+    <p class="termination-card__description">
+      {{ pageContent.terminationCardDescription }}
+    </p>
+
+    <!-- Rule Level Selection -->
+    <wi-ds-radio-group
+      class="termination-card__levels"
+      ariaLabel="termination rule level"
+    >
+      @for (option of levelOptions; track option.value) {
+        <div class="termination-card__level-option">
+          <wi-ds-radio
+            [name]="'ruleLevel'"
+            [radioValue]="option.value"
+            [checked]="store.currentLevel() === option.value"
+            [ariaDescribedby]="'rule-level-description-' + option.value"
+            (change)="onLevelChange(option.value)"
+            class="termination-card__level-radio"
+          >
+            <span class="termination-card__level-title">{{
+              option.title
+            }}</span>
+          </wi-ds-radio>
+          <span
+            class="termination-card__level-description"
+            [id]="'rule-level-description-' + option.value"
+          >
+            {{ option.description }}
+          </span>
+        </div>
+      }
+    </wi-ds-radio-group>
+
+    <!-- Input Fields Panel -->
+    <div class="termination-card__inputs-panel">
+      <p class="termination-card__required-copy">
+        {{ pageContent.terminationCardRequiredFieldsMessage }}
+      </p>
+
+      <div
+        class="termination-card__inputs-grid"
+        [class.termination-card__inputs-grid--product-level]="isProductLevel()"
+        [class.termination-card__inputs-grid--plan-level]="isPlanLevel()"
+      >
+        <!-- Equity Award Field (always shown) -->
+        <div class="termination-card__field">
+          <div class="termination-card__field-label-row">
+            <wi-ds-label
+              [text]="pageContent.equityAwardLabel"
+              pvd-id="terminationEquityType-label"
+            >
+            </wi-ds-label>
+            <wi-ds-tooltip
+              class="termination-card__field-tooltip"
+              [text]="pageContent.equityAwardTooltipText"
+              dsId="termination-equity-award-help-tooltip"
+              [placement]="layerPosition.top"
+              [a11yAnnounceTrigger]="true"
+            >
+              <wi-ds-icon
+                slot="trigger"
+                pvd-trigger
+                [name]="'help'"
+                [size]="iconSize.medium"
+                pvd-aria-label="Equity award help"
+                class="termination-card__help-icon"
+              ></wi-ds-icon>
+            </wi-ds-tooltip>
+          </div>
+          <div class="termination-card__field-control">
+            <wi-ds-select
+              class="termination-card__equity-select"
+              id="terminationEquityType"
+              name="terminationEquityType"
+              [fullWidth]="true"
+              [options]="getEquityAwardSelectOptions()"
+              [selectedValue]="store.formState().terminationEquityType"
+              (selected)="onTerminationEquityTypeChange($event)"
+              ariaLabel="{{ pageContent.equityAwardLabel }}"
+            >
+            </wi-ds-select>
+          </div>
+        </div>
+
+        <!-- Plan ID Field (shown for plan and product levels) -->
+        @if (store.showsPlanField()) {
+          <div class="termination-card__field">
+            <div class="termination-card__field-label-row">
+              <wi-ds-label
+                [text]="pageContent.planIdLabel"
+                pvd-id="terminationPlanId-label"
+              >
+              </wi-ds-label>
+              <wi-ds-tooltip
+                class="termination-card__field-tooltip"
+                [text]="pageContent.planIdTooltipText"
+                dsId="termination-plan-id-help-tooltip"
+                [placement]="layerPosition.top"
+                [a11yAnnounceTrigger]="true"
+              >
+                <wi-ds-icon
+                  slot="trigger"
+                  pvd-trigger
+                  [name]="'help'"
+                  [size]="iconSize.medium"
+                  pvd-aria-label="Plan ID help"
+                  class="termination-card__help-icon"
+                ></wi-ds-icon>
+              </wi-ds-tooltip>
+            </div>
+            <div
+              class="termination-card__field-control termination-card__autocomplete-wrap"
+            >
+              <wi-ds-autocomplete
+                class="termination-card__aligned-autocomplete"
+                id="terminationPlanId"
+                pvd-input-control
+                pvd-full-width="true"
+                [label]="''"
+                [allowCustom]="true"
+                [nested]="true"
+                [startAutoSuggest]="autocompleteMinLength"
+                [listOfItems]="planIdAutocompleteOptions"
+              ></wi-ds-autocomplete>
+            </div>
+          </div>
+        }
+
+        <!-- Product ID Field (shown for product level only) -->
+        @if (store.showsProductField()) {
+          <div class="termination-card__field">
+            <div class="termination-card__field-label-row">
+              <wi-ds-label
+                [text]="pageContent.productIdLabel"
+                pvd-id="terminationProductId-label"
+              >
+              </wi-ds-label>
+              <wi-ds-tooltip
+                class="termination-card__field-tooltip"
+                [text]="pageContent.productIdTooltipText"
+                dsId="termination-product-id-help-tooltip"
+                [placement]="layerPosition.top"
+                [a11yAnnounceTrigger]="true"
+              >
+                <wi-ds-icon
+                  slot="trigger"
+                  pvd-trigger
+                  [name]="'help'"
+                  [size]="iconSize.medium"
+                  pvd-aria-label="Product ID help"
+                  class="termination-card__help-icon"
+                ></wi-ds-icon>
+              </wi-ds-tooltip>
+            </div>
+            <div
+              class="termination-card__field-control termination-card__autocomplete-wrap"
+            >
+              <wi-ds-autocomplete
+                class="termination-card__aligned-autocomplete"
+                id="terminationProductId"
+                pvd-input-control
+                pvd-full-width="true"
+                [label]="''"
+                [allowCustom]="true"
+                [nested]="true"
+                [startAutoSuggest]="autocompleteMinLength"
+                [listOfItems]="productIdAutocompleteOptions"
+              ></wi-ds-autocomplete>
+            </div>
+          </div>
+        }
+
+        <!-- Termination Rule ID and Name Fields (side by side for alignment) -->
+        <div class="termination-card__field termination-card__field--rule-id">
+          <div class="termination-card__field-label-row">
+            <wi-ds-label
+              [text]="pageContent.terminationRuleIdLabel"
+              [for]="'terminationRuleId'"
+              pvd-id="terminationRuleId-label"
+            >
+            </wi-ds-label>
+            <wi-ds-tooltip
+              class="termination-card__field-tooltip"
+              [text]="pageContent.terminationRuleIdTooltipText"
+              dsId="termination-rule-id-help-tooltip"
+              [placement]="layerPosition.top"
+              [a11yAnnounceTrigger]="true"
+            >
+              <wi-ds-icon
+                slot="trigger"
+                pvd-trigger
+                [name]="'help'"
+                [size]="iconSize.medium"
+                pvd-aria-label="Termination rule ID help"
+                class="termination-card__help-icon"
+              ></wi-ds-icon>
+            </wi-ds-tooltip>
+          </div>
+          <div class="termination-card__field-control">
+            <wi-ds-input
+              [nativeId]="'terminationRuleId'"
+              name="terminationRuleId"
+              [fullWidth]="true"
+              pvd-input-control
+              placeholder="e.g., VOL, INT, REV, DIS"
+            >
+            </wi-ds-input>
+          </div>
+        </div>
+        <div class="termination-card__field">
+          <div class="termination-card__field-label-row">
+            <wi-ds-label
+              [text]="pageContent.terminationRuleNameLabel"
+              [for]="'terminationRuleName'"
+              pvd-id="terminationRuleName-label"
+            >
+            </wi-ds-label>
+          </div>
+          <div class="termination-card__field-control">
+            <wi-ds-input
+              [nativeId]="'terminationRuleName'"
+              name="terminationRuleName"
+              [fullWidth]="true"
+              pvd-input-control
+              placeholder="e.g., Voluntary"
+            >
+            </wi-ds-input>
+          </div>
+        </div>
+      </div>
+    </div>
+      </wi-ds-form>
+    </div>
+  </div>
+</div>

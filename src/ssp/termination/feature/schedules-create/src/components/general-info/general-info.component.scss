@@ -1,0 +1,80 @@
+.termination-card__autocomplete-wrap {
+  margin-top: -1.8rem;
+}
+
+.termination-card__header {
+  align-items: center;
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+
+  .pvd-title__heading {
+    margin: 0;
+  }
+}
+
+.termination-card__description {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  margin: 0 0 1.5rem;
+}
+
+.termination-card__level-title {
+  display: inline;
+  margin-left: 0.5rem;
+}
+
+.termination-card__level-description {
+  color: #020300;
+  display: block;
+  font-size: 0.9rem;
+  line-height: 1.5rem;
+  margin-left: 2rem;
+}
+
+.termination-card__inputs-panel {
+  border-top: 1px solid #d8d8d8;
+  margin-top: 1rem;
+  padding-top: 1rem;
+}
+
+.termination-card__required-copy {
+  font-weight: 500;
+  margin: 0 0 1rem;
+}
+
+.termination-card__inputs-grid {
+  align-items: start;
+  column-gap: 2rem;
+  display: grid;
+  grid-template-columns: 340px 340px 340px;
+  row-gap: 1rem;
+}
+
+.termination-card__field-label-row {
+  align-items: center;
+  display: flex;
+  gap: 0.25rem;
+  margin-bottom: 0.375rem;
+  min-height: 1.5rem;
+  wi-ds-tooltip {
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+    line-height: 1;
+    height: 1.5rem;
+  }
+}
+
+.termination-card__inputs-grid--product-level {
+  grid-template-rows: 14rem auto;
+}
+
+.termination-card__inputs-grid--plan-level {
+  grid-template-rows: 10rem auto;
+
+  .termination-card__field--rule-id .termination-card__field-control {
+    margin-top: 0.7rem;
+  }
+}

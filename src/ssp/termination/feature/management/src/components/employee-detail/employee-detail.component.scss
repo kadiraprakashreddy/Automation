@@ -1,0 +1,50 @@
+@use '../../scss/terminations.scss';
+
+.sm-employee-details__content {
+  margin-bottom: 0.5rem;
+  margin-top: 1rem;
+  overflow: hidden;
+}
+
+.employeedetails_display {
+  margin-bottom: 1.5rem;
+  margin-right: 2rem;
+}
+
+.employeedetails_bottom_display {
+  margin-bottom: 0;
+}
+
+.banner-message-display {
+  margin-bottom: 2rem;
+  margin-top: 2rem;
+}
+
+.fds-alert-root.fds-alert--info .fds-alert__icon {
+  background-color: transparent;
+  padding-left: 16px;
+}
+
+.fds-icon-root.fds-icon--extra-small {
+  height: 12px;
+  width: 12px;
+}
+
+.employee-details-flex {
+  display: flex;
+  flex-direction: column;
+  @media (max-width: 80em) {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+.grid-display-employee {
+  display: flex;
+  gap: 20rem;
+  white-space: nowrap;
+  @media (max-width: 70em) {
+    flex-direction: column;
+    gap: 2rem;
+  }
+}

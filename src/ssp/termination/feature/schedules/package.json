@@ -1,0 +1,10 @@
+{
+  "name": "@fmr-ap160368/sps-termination-feature-schedules",
+  "version": "0.0.1",
+  "sideEffects": false,
+  "peerDependencies": {
+    "@angular/core": "20.3.18",
+    "@angular/router": "20.3.18",
+    "@fmr-ap160368/sps-termination-data-access-schedules": "*"
+  }
+}

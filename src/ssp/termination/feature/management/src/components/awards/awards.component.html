@@ -1,0 +1,119 @@
+<section
+  [class]="
+    isTocV2Available
+      ? 'responsive-width tm-results'
+      : 'responsive-width-no-toc tm-results'
+  "
+>
+  @if (csvErrorMessage && !errorMessage) {
+    <div class="tm-csv-error">
+      <wi-ds-message
+        [variant]="alertVariant.critical"
+        [title]="csvErrorMessage.title"
+        [text]="csvErrorMessage.detail"
+      >
+      </wi-ds-message>
+    </div>
+  }
+  <wi-ds-title>
+    <h2 slot="heading" class="fds-title__heading">
+      {{ modelResult?.sectionHeader }}
+    </h2>
+    @if (!this.divisionalRestricted && !errorMessage && !noGrants) {
+      <wi-ds-button
+        [size]="standardSize.small"
+        slot="action"
+        [variant]="buttonVariant.tertiary"
+        [iconLeft]="'download'"
+        (click)="downloadTermModelExcel()"
+      >
+        {{ modelResult?.exportExcel }}
+      </wi-ds-button>
+    }
+  </wi-ds-title>
+  @if (awards) {
+    <wi-ds-microcopy class="as-of-date-microcopy"
+      >{{ modelResult?.asOfDate }}
+      {{ awards.modeledDate.replace('Z', '') | date: 'MMM-d-y h:mm a' }} UTC
+    </wi-ds-microcopy>
+  }
+  @if (exportExcelSpinner) {
+    <div class="term-model_export-spinner">
+      <wi-ds-loading-indicator
+        [size]="standardSize.large"
+        [secondaryText]="resourceBundle.messages.spinnerMessageTxt"
+      ></wi-ds-loading-indicator>
+    </div>
+  }
+  @if (
+    plans?.length === 0 && errorMessage && !divisionalRestricted && !noGrants
+  ) {
+    <div class="tm-no-results">
+      <wi-ds-message
+        [variant]="alertVariant.critical"
+        [title]="errorMessage.title"
+        [text]="errorMessage.detail"
+      >
+      </wi-ds-message>
+    </div>
+  }
+  @if (noGrants) {
+    <div class="tm-no-results">
+      <wi-ds-inline-message [variant]="alertVariant.info">
+        {{ resourceBundle.messages.noResultsFound }}
+      </wi-ds-inline-message>
+    </div>
+  }
+  @if (divisionalRestricted && !noGrants) {
+    <div class="tm-no-results">
+      <wi-ds-inline-message [variant]="alertVariant.info">
+        {{ resourceBundle.messages.planDivSecurityInfo }}
+      </wi-ds-inline-message>
+    </div>
+  }
+  @if (
+    plans.length > 0 && !errorMessage && !divisionalRestricted && !noGrants
+  ) {
+    @if (modelResultsInfo) {
+      <div class="plan-info-details">
+        <wi-ds-inline-message
+          class="model-results-info"
+          [variant]="alertVariant.info"
+        >
+          <div [innerHtml]="modelResultsInfo | boldText: termDate"></div>
+        </wi-ds-inline-message>
+      </div>
+    }
+    @if (partialDivisionalRestricted) {
+      <div class="tm-no-results">
+        <wi-ds-inline-message [variant]="alertVariant.warning">
+          {{ resourceBundle.messages.partialPlanDivSecurityInfo }}
+        </wi-ds-inline-message>
+      </div>
+    }
+    @for (plan of plans; track plan) {
+      @if (plan && plan.planType !== 'SOP' && plan.planType !== 'SAR') {
+        <sps-termination-other-award-table
+          [plan]="plan"
+          [modelTable]="resourceBundle.modelResultsTable"
+          [tableHeaders]="getTableHeaders(plan)"
+          [performanceIndicator]="getPerformanceIndicator(plan)"
+          [perfAwardFootNote]="resourceBundle.perfFootnotes.footNotesContent"
+          [messages]="resourceBundle.messages"
+        >
+        </sps-termination-other-award-table>
+      }
+      @if (plan && (plan.planType === 'SOP' || plan.planType === 'SAR')) {
+        <sps-termination-sop-sar-award-table
+          [plan]="plan"
+          [modelTable]="resourceBundle.modelResultsTable"
+          [tableHeaders]="getTableHeaders(plan)"
+          [performanceIndicator]="getPerformanceIndicator(plan)"
+          [perfAwardFootNote]="resourceBundle.perfFootnotes.footNotesContent"
+          [messages]="resourceBundle.messages"
+        >
+        </sps-termination-sop-sar-award-table>
+      }
+    }
+  }
+</section>

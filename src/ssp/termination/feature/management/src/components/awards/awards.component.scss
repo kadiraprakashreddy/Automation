@@ -1,0 +1,170 @@
+@use 'shared-design-system-ui-core-apex-kit-tokens' as apex-kit-tokens;
+@use 'shared-design-system-ui-core-ds-helpers' as ds-helpers;
+@use '../../management.component.scss';
+@use 'shared-design-system-ui-core-apex-tokens' as apex-tokens;
+
+.tm-table {
+  margin-bottom: 3rem;
+  margin-top: 2rem;
+}
+
+.tm-table__print {
+  @media print {
+    break-before: avoid;
+    color-adjust: exact;
+  }
+}
+
+.tm-table__no-top-border {
+  border-top: none;
+}
+
+.tm-table__header-row {
+  background-color: apex-kit-tokens.$pvd-color-palette-neutral-95;
+}
+
+.tm-table__date-width {
+  width: 7rem;
+}
+
+.tm-table__label {
+  margin-bottom: 1rem;
+}
+
+.table-print {
+  @media print {
+    break-before: avoid;
+    break-inside: avoid;
+    color-adjust: exact;
+
+    table {
+      page-break-after: auto;
+    }
+
+    tr {
+      page-break-after: auto;
+      page-break-inside: avoid;
+    }
+
+    td {
+      page-break-after: auto;
+      page-break-inside: avoid;
+    }
+
+    thead {
+      display: table-header-group;
+    }
+
+    tfoot {
+      display: table-footer-group;
+    }
+  }
+}
+
+.tm-results {
+  border-top: 1px solid #cccccc;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+}
+
+.tm-no-results {
+  margin-top: 25px;
+}
+
+.warning-symbol {
+  background-color: #ffcc00;
+}
+
+.tm-csv-error {
+  margin-bottom: 1.5rem;
+}
+
+.plan-info-details {
+  color: #000000;
+  font-family: 'Fidelity Sans';
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+  padding-top: 24px;
+}
+
+div.term-model_export-spinner {
+  margin-top: 2rem;
+}
+
+.as-of-date-microcopy {
+  font-size: 0.875rem;
+}
+
+.red {
+  color: red;
+}
+
+.popover-icon-critical {
+  color: #dc1616;
+}
+
+.popover-icon-info {
+  color: #113da1;
+}
+
+.notbold {
+  font-weight: normal;
+}
+
+.term-rule__indicator-tooltip {
+  margin-right: apex-tokens.$reference-uom-space-50;
+  vertical-align: middle;
+  white-space: break-spaces;
+}
+
+.vertical-line {
+  border-left: 0.1rem solid;
+  color: #bbbbbb;
+  display: inline;
+  font-weight: 300;
+  margin: 0.5rem;
+  position: inherit;
+}
+
+.grant-details-column {
+  border-bottom: 0.0625rem #b2b2b2 solid;
+  min-width: 10rem;
+  width: 18%;
+}
+
+.grant-details-tooltip {
+  font-size: 0.75rem;
+}
+
+.awards-table-date-column {
+  text-align: right;
+}
+
+.awards-table-preterm-unvested-label {
+  font-size: 0.875rem;
+}
+
+// Helps tooltips to work well at 400% zoom
+.#{ds-helpers.$ds-namespace}-tooltip-root .fds-tooltip__tooltip {
+  max-width: 15.625rem;
+  white-space: normal;
+}
+
+.#{ds-helpers.$ds-namespace}-table-root
+  .fds-table__column-header-cell:last-child {
+  border-right: 0.0625rem #b2b2b2 solid;
+}
+
+.#{ds-helpers.$ds-namespace}-table-root
+  .fds-table__table:has(tfoot)
+  .fds-table__foot
+  .fds-table__row
+  .fds-table__row-header-cell {
+  border-bottom-left-radius: 0.8rem;
+}
+
+.white-space-break {
+  white-space: normal;
+}

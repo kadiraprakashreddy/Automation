@@ -1,0 +1,37 @@
+<section class="create-rule-page">
+  <header class="create-rule-page__top-bar">
+    <wi-ds-title>
+      <h1 slot="heading" class="pvd-title__heading pvd-title__heading--level-1">
+        {{ pageTitle }}
+      </h1>
+    </wi-ds-title>
+  </header>
+
+  <div class="create-rule-page__content">
+    <sps-termination-general-info></sps-termination-general-info>
+    <sps-termination-term-type></sps-termination-term-type>
+
+    <wi-ds-form-actions
+      class="termination-card__actions"
+      [disableBorder]="false"
+      [inline]="inline.always"
+    >
+      <wi-ds-button
+        slot="primary-action"
+        class="fds-button-root fds-button--primary"
+        id="submit-button"
+        (click)="onSubmit()"
+      >
+        {{ actionLabels.submit }}
+      </wi-ds-button>
+      <wi-ds-button
+        slot="tertiary-action"
+        pvd-id="cancel-button"
+        [variant]="buttonVariant.tertiary"
+        (click)="onCancel()"
+      >
+        {{ actionLabels.cancel }}
+      </wi-ds-button>
+    </wi-ds-form-actions>
+  </div>
+</section>

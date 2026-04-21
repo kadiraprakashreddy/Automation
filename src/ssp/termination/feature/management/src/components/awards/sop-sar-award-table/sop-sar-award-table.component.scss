@@ -1,0 +1,26 @@
+@use '../awards.component.scss';
+
+.isoMessage_display {
+  font-family: 'Fidelity Sans';
+  font-size: 0.875rem;
+}
+
+.isoLabel {
+  margin-top: 1.5rem;
+}
+
+.isoList {
+  margin-bottom: 0;
+  margin-top: 0;
+}
+
+.isoListItem {
+  background-size: 0.23rem 0.23rem;
+  margin-bottom: -0.2rem;
+  margin-top: -0.2rem;
+  padding-left: 1.3rem;
+}
+
+.expiration-date-postterm-column {
+  white-space: nowrap;
+}

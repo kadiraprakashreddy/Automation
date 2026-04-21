@@ -1,0 +1,19 @@
+{
+  "name": "@fmr-ap160368/sps-termination-feature-management",
+  "version": "0.0.1",
+  "sideEffects": false,
+  "peerDependencies": {
+    "@angular/common": "20.3.18",
+    "@angular/core": "20.3.18",
+    "@angular/forms": "20.3.18",
+    "@angular/router": "20.3.18",
+    "@fmr-ap123285/angular-utils": "13.0.1",
+    "@fmr-ap153177/fdskit": "6.8.0",
+    "@fmr-ap160368/employer-platform-feature-participant-header": "*",
+    "@fmr-ap160368/employer-platform-feature-participant-toc": "*",
+    "@fmr-ap160368/sps-termination-data-access-management": "*",
+    "@fmr-ap167419/shared-core-data-access-loading-status": "*",
+    "@fmr-ap167419/shared-design-system-ui-core": "*",
+    "rxjs": "7.8.2"
+  }
+}

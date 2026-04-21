@@ -1,0 +1,26 @@
+.term-type-card__header {
+  margin-bottom: 0.5rem;
+
+  .pvd-title__heading {
+    margin: 0;
+  }
+}
+
+.term-type-card__prompt {
+  display: block;
+  margin: 0;
+}
+
+.term-type-card__options {
+  margin-top: 0.75rem;
+}
+
+.term-type-card__option-row--disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+  pointer-events: none;
+
+  & * {
+    pointer-events: none;
+  }
+}

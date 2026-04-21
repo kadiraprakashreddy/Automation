@@ -1,0 +1,49 @@
+@if (
+  !pageError &&
+  termRuleIdsLoaded &&
+  employmentDetailsModel &&
+  terminationDetailsModel
+) {
+  <sps-termination-employee-detail></sps-termination-employee-detail>
+  @if (!participantUIService.shouldDisplayTermModels) {
+    <sps-termination-termination-detail></sps-termination-termination-detail>
+  } @else {
+    <sps-termination-fetch-termination-models></sps-termination-fetch-termination-models>
+    <!-- TODO: revisit if terminationDetailsModel is needed in if condition -->
+    @if (showTermModel && terminationDetailsModel && !fetchTermModelError) {
+      <sps-termination-awards
+        [terminationDetails]="terminationDetailsModel!"
+        [esppAvailable]="employmentDetailsModel.esppIndicator"
+      >
+      </sps-termination-awards>
+    } @else if (fetchTermModelError) {
+      <wi-ds-message
+        [ngClass]="
+          isTocV2Available ? 'responsive-width' : 'responsive-width-no-toc'
+        "
+        fds-id="manage-termination__employee-detail-fetch-term-model-failure"
+        [title]="fetchTermModelError.title"
+        [text]="fetchTermModelError.detail"
+      >
+      </wi-ds-message>
+    }
+  }
+}
+
+@if (store.isTermModelsLoading() || !termRuleIdsLoaded) {
+  <div fds-id="manage-termination-employee-section__page-loading-spinner">
+    <wi-ds-loading-indicator></wi-ds-loading-indicator>
+  </div>
+}
+
+@if (pageError) {
+  <wi-ds-message
+    [ngClass]="
+      isTocV2Available ? 'responsive-width' : 'responsive-width-no-toc'
+    "
+    fds-id="manage-termination__employee-detail-service-failure"
+    [title]="pageError.title"
+    [text]="pageError.detail"
+  >
+  </wi-ds-message>
+}

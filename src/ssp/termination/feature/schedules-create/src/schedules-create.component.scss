@@ -1,0 +1,19 @@
+.create-rule-page {
+  margin: 0 auto;
+  max-width: 75rem;
+  padding: 1.5rem 1.25rem 0;
+}
+
+.create-rule-page__top-bar {
+  margin-bottom: 1.5rem;
+
+  .pvd-title__heading {
+    margin: 0;
+  }
+}
+
+.create-rule-page__content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
