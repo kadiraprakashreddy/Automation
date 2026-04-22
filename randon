@@ -1,28 +1,571 @@
-.term-type-card__header {
-  margin-bottom: 0.5rem;
+import {
+  GeneralInfoCreatePageContent,
+  GeneralInfoFormModel,
+  RuleLevelOption,
+} from '../models/general-info.model';
 
-  // Reset pvd-title default margin for compact card layout
-  ::ng-deep .pvd-title__heading {
+export const GENERAL_INFO_PAGE_CONTENT: GeneralInfoCreatePageContent = {
+  terminationCardTitle: 'Termination rule level',
+  terminationCardDescription:
+    'Choose how broadly the term rules should be applied.',
+  terminationCardRequiredFieldsMessage: 'All fields are required.',
+  equityAwardLabel: 'Equity award',
+  equityAwardTooltipText:
+    'Rules at this level apply broadly to an equity type; for example, to all restricted stock award (RSA) plans and products.',
+  equityAwardSelectOneLabel: 'Choose an award',
+  planIdLabel: 'Plan ID',
+  planIdTooltipText: 'Rules apply more narrowly to a specific plan or plans.',
+  productIdLabel: 'Product ID',
+  productIdTooltipText:
+    'The most granular level. Rules apply to specific products.',
+  terminationRuleIdLabel: 'Termination rule ID',
+  terminationRuleIdTooltipText:
+    'A termination ID is a brief code of up to 10 letters or numbers that defines the underlying termination rule. Examples: VOL, INV, RET, DIS.',
+  terminationRuleIdHelperText: 'Enter an existing plan ID',
+  terminationRuleNameLabel: 'Termination rule name',
+  terminationRuleNameTooltipText:
+    'A termination rule name is a descriptive label (up to 80 characters) used to identify this rule in the UI.',
+  terminationRuleNameHelperText: 'Maximum 80 characters',
+};
+
+export const GENERAL_INFO_AUTOCOMPLETE_ITEMS = [
+  { value: 'Test 1', label: 'Test 1' },
+];
+
+export const RULE_LEVEL_OPTIONS: RuleLevelOption[] = [
+  {
+    value: 'equity',
+    title: 'Equity award level',
+    description:
+      'This applies the rule to all plans and products of your selected award. Choose this to save time and avoid creating rules for each product individually.',
+  },
+  {
+    value: 'plan',
+    title: 'Plan level',
+    description:
+      'This applies the rule to all products within a selected plan and award. Choose this to simplify rule creation for an entire plan.',
+  },
+  {
+    value: 'product',
+    title: 'Product level',
+    description:
+      'This applies the rule to specific products within a selected plan and award. Choose this to customize rules for products with different requirements.',
+  },
+];
+
+export const EQUITY_AWARD_OPTIONS = [
+  'Cash(CSH)',
+  'Restricted Stock Awards(RSA)',
+  'Restricted Stock Units(RSU)',
+];
+
+export const DEFAULT_GENERAL_INFO_FORM: GeneralInfoFormModel = {
+  terminationEquityType: '',
+  level: 'equity',
+  terminationPlanId: '',
+  terminationProductId: '',
+  terminationRuleId: '',
+  terminationRuleName: '',
+};
+
+
+=============================
+
+
+export type RuleLevel = 'equity' | 'plan' | 'product';
+
+export interface RuleLevelOption {
+  value: RuleLevel;
+  title: string;
+  description: string;
+}
+
+export interface GeneralInfoCreatePageContent {
+  terminationCardTitle: string;
+  terminationCardDescription: string;
+  terminationCardRequiredFieldsMessage: string;
+  equityAwardLabel: string;
+  equityAwardTooltipText: string;
+  equityAwardSelectOneLabel: string;
+  planIdLabel: string;
+  planIdTooltipText: string;
+  productIdLabel: string;
+  productIdTooltipText: string;
+  terminationRuleIdLabel: string;
+  terminationRuleIdTooltipText: string;
+  terminationRuleIdHelperText: string;
+  terminationRuleNameLabel: string;
+  terminationRuleNameTooltipText: string;
+  terminationRuleNameHelperText: string;
+}
+
+export interface GeneralInfoFormModel {
+  terminationEquityType: string;
+  level: RuleLevel;
+  terminationPlanId: string;
+  terminationProductId: string;
+  terminationRuleId: string;
+  terminationRuleName: string;
+}
+
+
+
+==========
+<div class="fds-card-root">
+  <div class="fds-card__card">
+    <div class="fds-card__content">
+      <wi-ds-form class="termination-card">
+    <div class="termination-card__header">
+      <wi-ds-title class="termination-card__step-title">
+        <h2
+          slot="heading"
+          class="pvd-title__heading pvd-title__heading--level-3"
+        >
+          {{ pageContent.terminationCardTitle }}
+        </h2>
+      </wi-ds-title>
+    </div>
+
+    <p class="termination-card__description">
+      {{ pageContent.terminationCardDescription }}
+    </p>
+
+    <!-- Rule Level Selection -->
+    <wi-ds-radio-group
+      class="termination-card__levels"
+      ariaLabel="termination rule level"
+    >
+      @for (option of levelOptions; track option.value) {
+        <div class="termination-card__level-option">
+          <wi-ds-radio
+            [name]="'ruleLevel'"
+            [radioValue]="option.value"
+            [checked]="store.currentLevel() === option.value"
+            [ariaDescribedby]="'rule-level-description-' + option.value"
+            (change)="onLevelChange(option.value)"
+            class="termination-card__level-radio"
+          >
+            <span class="termination-card__level-title">{{
+              option.title
+            }}</span>
+          </wi-ds-radio>
+          <span
+            class="termination-card__level-description"
+            [id]="'rule-level-description-' + option.value"
+          >
+            {{ option.description }}
+          </span>
+        </div>
+      }
+    </wi-ds-radio-group>
+
+    <!-- Input Fields Panel -->
+    <div class="termination-card__inputs-panel">
+      <p class="termination-card__required-copy">
+        {{ pageContent.terminationCardRequiredFieldsMessage }}
+      </p>
+
+      <div
+        class="termination-card__inputs-grid"
+        [class.termination-card__inputs-grid--product-level]="isProductLevel()"
+        [class.termination-card__inputs-grid--plan-level]="isPlanLevel()"
+      >
+        <!-- Equity Award Field (always shown) -->
+        <div class="termination-card__field">
+          <div class="termination-card__field-label-row">
+            <wi-ds-label
+              [text]="pageContent.equityAwardLabel"
+              pvd-id="terminationEquityType-label"
+            >
+            </wi-ds-label>
+          </div>
+          <div class="termination-card__field-control">
+            <wi-ds-select
+              class="termination-card__equity-select"
+              id="terminationEquityType"
+              name="terminationEquityType"
+              [fullWidth]="true"
+              [options]="getEquityAwardSelectOptions()"
+              [selectedValue]="store.formState().terminationEquityType"
+              (selected)="onTerminationEquityTypeChange($event)"
+              ariaLabel="{{ pageContent.equityAwardLabel }}"
+            >
+            </wi-ds-select>
+          </div>
+        </div>
+
+        <!-- Plan ID Field (shown for plan and product levels) -->
+        @if (store.showsPlanField()) {
+          <div class="termination-card__field">
+            <div class="termination-card__field-label-row">
+              <wi-ds-label
+                [text]="pageContent.planIdLabel"
+                pvd-id="terminationPlanId-label"
+              >
+              </wi-ds-label>
+              <wi-ds-tooltip
+                class="termination-card__field-tooltip"
+                [text]="pageContent.planIdTooltipText"
+                dsId="termination-plan-id-help-tooltip"
+                [placement]="layerPosition.top"
+                [a11yAnnounceTrigger]="true"
+              >
+                <wi-ds-icon
+                  slot="trigger"
+                  pvd-trigger
+                  [name]="'help'"
+                  [size]="iconSize.medium"
+                  pvd-aria-label="Plan ID help"
+                  class="termination-card__help-icon"
+                ></wi-ds-icon>
+              </wi-ds-tooltip>
+            </div>
+            <div
+              class="termination-card__field-control termination-card__autocomplete-wrap"
+            >
+              <wi-ds-autocomplete
+                class="termination-card__aligned-autocomplete"
+                id="terminationPlanId"
+                pvd-input-control
+                pvd-full-width="true"
+                [label]="''"
+                [allowCustom]="true"
+                [nested]="true"
+                [startAutoSuggest]="autocompleteMinLength"
+                [listOfItems]="planIdAutocompleteOptions"
+              ></wi-ds-autocomplete>
+            </div>
+          </div>
+        }
+
+        <!-- Product ID Field (shown for product level only) -->
+        @if (store.showsProductField()) {
+          <div class="termination-card__field">
+            <div class="termination-card__field-label-row">
+              <wi-ds-label
+                [text]="pageContent.productIdLabel"
+                pvd-id="terminationProductId-label"
+              >
+              </wi-ds-label>
+              <wi-ds-tooltip
+                class="termination-card__field-tooltip"
+                [text]="pageContent.productIdTooltipText"
+                dsId="termination-product-id-help-tooltip"
+                [placement]="layerPosition.top"
+                [a11yAnnounceTrigger]="true"
+              >
+                <wi-ds-icon
+                  slot="trigger"
+                  pvd-trigger
+                  [name]="'help'"
+                  [size]="iconSize.medium"
+                  pvd-aria-label="Product ID help"
+                  class="termination-card__help-icon"
+                ></wi-ds-icon>
+              </wi-ds-tooltip>
+            </div>
+            <div
+              class="termination-card__field-control termination-card__autocomplete-wrap"
+            >
+              <wi-ds-autocomplete
+                class="termination-card__aligned-autocomplete"
+                id="terminationProductId"
+                pvd-input-control
+                pvd-full-width="true"
+                [label]="''"
+                [allowCustom]="true"
+                [nested]="true"
+                [startAutoSuggest]="autocompleteMinLength"
+                [listOfItems]="productIdAutocompleteOptions"
+              ></wi-ds-autocomplete>
+            </div>
+          </div>
+        }
+
+        <!-- Termination Rule ID and Name Fields (side by side for alignment) -->
+        <div class="termination-card__field termination-card__field--rule-id">
+          <div class="termination-card__field-label-row">
+            <wi-ds-label
+              [text]="pageContent.terminationRuleIdLabel"
+              [for]="'terminationRuleId'"
+              pvd-id="terminationRuleId-label"
+            >
+            </wi-ds-label>
+            <wi-ds-tooltip
+              class="termination-card__field-tooltip"
+              [text]="pageContent.terminationRuleIdTooltipText"
+              dsId="termination-rule-id-help-tooltip"
+              [placement]="layerPosition.top"
+              [a11yAnnounceTrigger]="true"
+            >
+              <wi-ds-icon
+                slot="trigger"
+                pvd-trigger
+                [name]="'help'"
+                [size]="iconSize.medium"
+                pvd-aria-label="Termination rule ID help"
+                class="termination-card__help-icon"
+              ></wi-ds-icon>
+            </wi-ds-tooltip>
+          </div>
+          <div class="termination-card__field-control">
+            <wi-ds-input
+              [nativeId]="'terminationRuleId'"
+              name="terminationRuleId"
+              [fullWidth]="true"
+              pvd-input-control
+              placeholder="e.g., VOL, INT, REV, DIS"
+            >
+            </wi-ds-input>
+            <p class="termination-card__field-helper-text">
+              {{ pageContent.terminationRuleIdHelperText }}
+            </p>
+          </div>
+        </div>
+        <div class="termination-card__field">
+          <div class="termination-card__field-label-row">
+            <wi-ds-label
+              [text]="pageContent.terminationRuleNameLabel"
+              [for]="'terminationRuleName'"
+              pvd-id="terminationRuleName-label"
+            >
+            </wi-ds-label>
+            <wi-ds-tooltip
+              class="termination-card__field-tooltip"
+              [text]="pageContent.terminationRuleNameTooltipText"
+              dsId="termination-rule-name-help-tooltip"
+              [placement]="layerPosition.top"
+              [a11yAnnounceTrigger]="true"
+            >
+              <wi-ds-icon
+                slot="trigger"
+                pvd-trigger
+                [name]="'help'"
+                [size]="iconSize.medium"
+                pvd-aria-label="Termination rule name help"
+                class="termination-card__help-icon"
+              ></wi-ds-icon>
+            </wi-ds-tooltip>
+          </div>
+          <div class="fds-textarea-root fds-textarea--medium">
+            <textarea
+              class="fds-textarea-root fds-textarea__textarea"
+              id="textarea-392695544750"
+              name="terminationRuleName" 
+              placeholder="e.g., Voluntary"
+            >
+            </textarea>
+            <p class="termination-card__field-helper-text">
+              {{ pageContent.terminationRuleNameHelperText }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+      </wi-ds-form>
+    </div>
+  </div>
+</div>
+
+
+
+=======
+
+.termination-card__autocomplete-wrap {
+  margin-top: -1.8rem;
+}
+
+.termination-card__header {
+  align-items: center;
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+
+  .pvd-title__heading {
     margin: 0;
   }
 }
 
-.term-type-card__prompt {
+.termination-card__description {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  margin: 0 0 1.5rem;
+}
+
+.termination-card__level-title {
+  display: inline;
+  margin-left: 0.5rem;
+}
+
+.termination-card__level-description {
+  color: #020300;
   display: block;
-  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.5rem;
+  margin-left: 2rem;
 }
 
-.term-type-card__options {
-  margin-top: 0.75rem;
+.termination-card__inputs-panel {
+  border-top: 1px solid #d8d8d8;
+  margin-top: 1rem;
+  padding-top: 1rem;
 }
 
-// cursor: not-allowed on parent, pointer-events: none on children
-// so disabled cursor is visible but clicks are blocked
-.term-type-card__option-row--disabled {
-  cursor: not-allowed;
-  opacity: 0.6;
+.termination-card__required-copy {
+  font-weight: 500;
+  margin: 0 0 1rem;
+}
 
-  & * {
-    pointer-events: none;
+.termination-card__inputs-grid {
+  align-items: start;
+  column-gap: 2rem;
+  display: grid;
+  grid-template-columns: 340px 340px 340px;
+  row-gap: 1rem;
+}
+
+.termination-card__field-label-row {
+  align-items: center;
+  display: flex;
+  gap: 0.25rem;
+  margin-bottom: 0.375rem;
+  min-height: 1.5rem;
+  wi-ds-tooltip {
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+    line-height: 1;
+    height: 1.5rem;
   }
 }
+
+.termination-card__field-helper-text {
+  color: #4a4a4a;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  margin: 0.375rem 0 0;
+}
+
+.termination-card__inputs-grid--product-level {
+  grid-template-rows: 14rem auto;
+}
+
+.termination-card__inputs-grid--plan-level {
+  grid-template-rows: 10rem auto;
+
+  .termination-card__field--rule-id .termination-card__field-control {
+    margin-top: 0.7rem;
+  }
+}
+
+
+
+=====
+
+
+import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+
+import {
+  EQUITY_AWARD_OPTIONS,
+  GENERAL_INFO_AUTOCOMPLETE_ITEMS,
+  GENERAL_INFO_PAGE_CONTENT,
+  GeneralInfoStore,
+  RULE_LEVEL_OPTIONS,
+} from '@fmr-ap160368/sps-termination-data-access-schedules-create';
+import {
+  AutocompleteComponent,
+  FormComponent,
+  IconModule,
+  InputComponent,
+  LabelComponent,
+  LayerPosition,
+  RadioComponent,
+  RadioGroupComponent,
+  SelectComponent,
+  SelectOption,
+  Size,
+  TextareaComponent,
+  TitleComponent,
+  TooltipComponent,
+} from '@fmr-ap167419/shared-design-system-ui-core';
+
+@Component({
+  selector: 'sps-termination-general-info',
+  templateUrl: './general-info.component.html',
+  styleUrls: ['./general-info.component.scss'],
+  imports: [
+    CommonModule,
+    FormComponent,
+    AutocompleteComponent,
+    LabelComponent,
+    InputComponent,
+    SelectComponent,
+    TextareaComponent,
+    TooltipComponent,
+    TitleComponent,
+    IconModule,
+    RadioGroupComponent,
+    RadioComponent,
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class GeneralInfoComponent {
+  readonly store = inject(GeneralInfoStore);
+  readonly pageContent = GENERAL_INFO_PAGE_CONTENT;
+  readonly levelOptions = RULE_LEVEL_OPTIONS;
+  readonly planIdAutocompleteOptions = GENERAL_INFO_AUTOCOMPLETE_ITEMS;
+  readonly productIdAutocompleteOptions = GENERAL_INFO_AUTOCOMPLETE_ITEMS;
+  readonly equityAwardOptions = EQUITY_AWARD_OPTIONS;
+  protected readonly iconSize = Size;
+  protected readonly layerPosition = LayerPosition;
+  protected readonly autocompleteMinLength = 1;
+
+  /**
+   * Check if product level is currently selected
+   * @returns true if current level is product
+   */
+  isProductLevel(): boolean {
+    return this.store.currentLevel() === 'product';
+  }
+
+  /**
+   * Check if plan level is currently selected
+   * @returns true if current level is plan
+   */
+  isPlanLevel(): boolean {
+    return this.store.currentLevel() === 'plan';
+  }
+
+  /**
+   * Handle rule level change event
+   * @param level - The selected rule level
+   */
+  onLevelChange(level: 'equity' | 'plan' | 'product'): void {
+    this.store.onLevelChange(level);
+  }
+
+  onTerminationEquityTypeChange(value: string): void {
+    this.store.updateFormField('terminationEquityType', value);
+  }
+
+  /**
+   * Handle Equity award options
+   */
+  getEquityAwardSelectOptions(): SelectOption[] {
+    const options = this.equityAwardOptions.map((award) => ({
+      value: award,
+      text: award,
+    }));
+    return [
+      {
+        value: '',
+        text: this.pageContent.equityAwardSelectOneLabel,
+      },
+      ...options,
+    ];
+  }
+}
+
+
