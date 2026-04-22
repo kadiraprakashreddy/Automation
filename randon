@@ -1,116 +1,3 @@
-import {
-  GeneralInfoCreatePageContent,
-  GeneralInfoFormModel,
-  RuleLevelOption,
-} from '../models/general-info.model';
-
-export const GENERAL_INFO_PAGE_CONTENT: GeneralInfoCreatePageContent = {
-  terminationCardTitle: 'Termination rule level',
-  terminationCardDescription:
-    'Choose how broadly the term rules should be applied.',
-  terminationCardRequiredFieldsMessage: 'All fields are required.',
-  equityAwardLabel: 'Equity award',
-  equityAwardTooltipText:
-    'Rules at this level apply broadly to an equity type; for example, to all restricted stock award (RSA) plans and products.',
-  equityAwardSelectOneLabel: 'Choose an award',
-  planIdLabel: 'Plan ID',
-  planIdTooltipText: 'Rules apply more narrowly to a specific plan or plans.',
-  productIdLabel: 'Product ID',
-  productIdTooltipText:
-    'The most granular level. Rules apply to specific products.',
-  terminationRuleIdLabel: 'Termination rule ID',
-  terminationRuleIdTooltipText:
-    'A termination ID is a brief code of up to 10 letters or numbers that defines the underlying termination rule. Examples: VOL, INV, RET, DIS.',
-  terminationRuleIdHelperText: 'Enter an existing plan ID',
-  terminationRuleNameLabel: 'Termination rule name',
-  terminationRuleNameTooltipText:
-    'A termination rule name is a descriptive label (up to 80 characters) used to identify this rule in the UI.',
-  terminationRuleNameHelperText: 'Maximum 80 characters',
-};
-
-export const GENERAL_INFO_AUTOCOMPLETE_ITEMS = [
-  { value: 'Test 1', label: 'Test 1' },
-];
-
-export const RULE_LEVEL_OPTIONS: RuleLevelOption[] = [
-  {
-    value: 'equity',
-    title: 'Equity award level',
-    description:
-      'This applies the rule to all plans and products of your selected award. Choose this to save time and avoid creating rules for each product individually.',
-  },
-  {
-    value: 'plan',
-    title: 'Plan level',
-    description:
-      'This applies the rule to all products within a selected plan and award. Choose this to simplify rule creation for an entire plan.',
-  },
-  {
-    value: 'product',
-    title: 'Product level',
-    description:
-      'This applies the rule to specific products within a selected plan and award. Choose this to customize rules for products with different requirements.',
-  },
-];
-
-export const EQUITY_AWARD_OPTIONS = [
-  'Cash(CSH)',
-  'Restricted Stock Awards(RSA)',
-  'Restricted Stock Units(RSU)',
-];
-
-export const DEFAULT_GENERAL_INFO_FORM: GeneralInfoFormModel = {
-  terminationEquityType: '',
-  level: 'equity',
-  terminationPlanId: '',
-  terminationProductId: '',
-  terminationRuleId: '',
-  terminationRuleName: '',
-};
-
-
-=============================
-
-
-export type RuleLevel = 'equity' | 'plan' | 'product';
-
-export interface RuleLevelOption {
-  value: RuleLevel;
-  title: string;
-  description: string;
-}
-
-export interface GeneralInfoCreatePageContent {
-  terminationCardTitle: string;
-  terminationCardDescription: string;
-  terminationCardRequiredFieldsMessage: string;
-  equityAwardLabel: string;
-  equityAwardTooltipText: string;
-  equityAwardSelectOneLabel: string;
-  planIdLabel: string;
-  planIdTooltipText: string;
-  productIdLabel: string;
-  productIdTooltipText: string;
-  terminationRuleIdLabel: string;
-  terminationRuleIdTooltipText: string;
-  terminationRuleIdHelperText: string;
-  terminationRuleNameLabel: string;
-  terminationRuleNameTooltipText: string;
-  terminationRuleNameHelperText: string;
-}
-
-export interface GeneralInfoFormModel {
-  terminationEquityType: string;
-  level: RuleLevel;
-  terminationPlanId: string;
-  terminationProductId: string;
-  terminationRuleId: string;
-  terminationRuleName: string;
-}
-
-
-
-==========
 <div class="fds-card-root">
   <div class="fds-card__card">
     <div class="fds-card__content">
@@ -167,8 +54,9 @@ export interface GeneralInfoFormModel {
 
       <div
         class="termination-card__inputs-grid"
-        [class.termination-card__inputs-grid--product-level]="isProductLevel()"
-        [class.termination-card__inputs-grid--plan-level]="isPlanLevel()"
+        [class.termination-card__inputs-grid--product-level]="
+          isProductLevel() || isPlanLevel()
+        "
       >
         <!-- Equity Award Field (always shown) -->
         <div class="termination-card__field">
@@ -283,7 +171,10 @@ export interface GeneralInfoFormModel {
         }
 
         <!-- Termination Rule ID and Name Fields (side by side for alignment) -->
-        <div class="termination-card__field termination-card__field--rule-id">
+        <div
+          class="termination-card__field termination-card__field--rule-id"
+          [class.termination-card__field--rule-id-plan-level]="isPlanLevel()"
+        >
           <div class="termination-card__field-label-row">
             <wi-ds-label
               [text]="pageContent.terminationRuleIdLabel"
@@ -368,8 +259,9 @@ export interface GeneralInfoFormModel {
 </div>
 
 
+======
 
-=======
+
 
 .termination-card__autocomplete-wrap {
   margin-top: -1.8rem;
@@ -448,124 +340,9 @@ export interface GeneralInfoFormModel {
 }
 
 .termination-card__inputs-grid--product-level {
-  grid-template-rows: 14rem auto;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
-.termination-card__inputs-grid--plan-level {
-  grid-template-rows: 10rem auto;
-
-  .termination-card__field--rule-id .termination-card__field-control {
-    margin-top: 0.7rem;
-  }
+.termination-card__field--rule-id-plan-level .termination-card__field-control {
+  margin-top: 0.7rem;
 }
-
-
-
-=====
-
-
-import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-
-import {
-  EQUITY_AWARD_OPTIONS,
-  GENERAL_INFO_AUTOCOMPLETE_ITEMS,
-  GENERAL_INFO_PAGE_CONTENT,
-  GeneralInfoStore,
-  RULE_LEVEL_OPTIONS,
-} from '@fmr-ap160368/sps-termination-data-access-schedules-create';
-import {
-  AutocompleteComponent,
-  FormComponent,
-  IconModule,
-  InputComponent,
-  LabelComponent,
-  LayerPosition,
-  RadioComponent,
-  RadioGroupComponent,
-  SelectComponent,
-  SelectOption,
-  Size,
-  TextareaComponent,
-  TitleComponent,
-  TooltipComponent,
-} from '@fmr-ap167419/shared-design-system-ui-core';
-
-@Component({
-  selector: 'sps-termination-general-info',
-  templateUrl: './general-info.component.html',
-  styleUrls: ['./general-info.component.scss'],
-  imports: [
-    CommonModule,
-    FormComponent,
-    AutocompleteComponent,
-    LabelComponent,
-    InputComponent,
-    SelectComponent,
-    TextareaComponent,
-    TooltipComponent,
-    TitleComponent,
-    IconModule,
-    RadioGroupComponent,
-    RadioComponent,
-  ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-})
-export class GeneralInfoComponent {
-  readonly store = inject(GeneralInfoStore);
-  readonly pageContent = GENERAL_INFO_PAGE_CONTENT;
-  readonly levelOptions = RULE_LEVEL_OPTIONS;
-  readonly planIdAutocompleteOptions = GENERAL_INFO_AUTOCOMPLETE_ITEMS;
-  readonly productIdAutocompleteOptions = GENERAL_INFO_AUTOCOMPLETE_ITEMS;
-  readonly equityAwardOptions = EQUITY_AWARD_OPTIONS;
-  protected readonly iconSize = Size;
-  protected readonly layerPosition = LayerPosition;
-  protected readonly autocompleteMinLength = 1;
-
-  /**
-   * Check if product level is currently selected
-   * @returns true if current level is product
-   */
-  isProductLevel(): boolean {
-    return this.store.currentLevel() === 'product';
-  }
-
-  /**
-   * Check if plan level is currently selected
-   * @returns true if current level is plan
-   */
-  isPlanLevel(): boolean {
-    return this.store.currentLevel() === 'plan';
-  }
-
-  /**
-   * Handle rule level change event
-   * @param level - The selected rule level
-   */
-  onLevelChange(level: 'equity' | 'plan' | 'product'): void {
-    this.store.onLevelChange(level);
-  }
-
-  onTerminationEquityTypeChange(value: string): void {
-    this.store.updateFormField('terminationEquityType', value);
-  }
-
-  /**
-   * Handle Equity award options
-   */
-  getEquityAwardSelectOptions(): SelectOption[] {
-    const options = this.equityAwardOptions.map((award) => ({
-      value: award,
-      text: award,
-    }));
-    return [
-      {
-        value: '',
-        text: this.pageContent.equityAwardSelectOneLabel,
-      },
-      ...options,
-    ];
-  }
-}
-
-
