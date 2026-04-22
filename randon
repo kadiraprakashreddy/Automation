@@ -1,35 +1,28 @@
-import { Router, RouterOutlet } from '@angular/router';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  OnInit,
-  inject,
-} from '@angular/core';
-import { DOCUMENT } from '@angular/common';
-import { EntryContextService } from './utils/entry-context.service';
-@Component({
-  selector: 'sps-termination-terminations-root',
-  templateUrl: './root.component.html',
-  styleUrl: './root.component.scss',
-  imports: [RouterOutlet],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-})
-export class RootComponent implements OnInit {
-  private readonly router = inject(Router);
-  private readonly entryContextService = inject(EntryContextService);
+.term-type-card__header {
+  margin-bottom: 0.5rem;
 
-  ngOnInit(): void {
-    const isRootEntry = !this.router.url
-      || this.router.url === '/'
-      || this.router.url === '/terminations';
+  // Reset pvd-title default margin for compact card layout
+  ::ng-deep .pvd-title__heading {
+    margin: 0;
+  }
+}
 
-    if (!isRootEntry) {
-      return; // preserve deep links
-    }
+.term-type-card__prompt {
+  display: block;
+  margin: 0;
+}
 
-    this.router.navigateByUrl(
-      this.entryContextService.defaultRoute,
-      { replaceUrl: true }
-    );
+.term-type-card__options {
+  margin-top: 0.75rem;
+}
+
+// cursor: not-allowed on parent, pointer-events: none on children
+// so disabled cursor is visible but clicks are blocked
+.term-type-card__option-row--disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+
+  & * {
+    pointer-events: none;
   }
 }
